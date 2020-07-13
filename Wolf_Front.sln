@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolf_Front", "Wolf_Front\Wolf_Front.csproj", "{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B95FE5B-5FBA-47C8-B5CB-39D811ABA262}
+	EndGlobalSection
+EndGlobal
