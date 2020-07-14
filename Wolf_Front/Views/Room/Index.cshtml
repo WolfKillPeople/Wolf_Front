@@ -1,81 +1,149 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
 }
 
 <partial name="~/Views/Shared/_RoomPartialTopJS.cshtml">
     <partial name="~/Views/Shared/_RoomPartialTopCss.cshtml">
-        
-        <div class="perspective" onclick="openDoor(this)">           
-            <div class="thumb">
-                <img src="//i.imgur.com/582RIlF.png" alt="Alternate Text" class="open_card" />
-                <p>001</p>
-                <p>人數: 5/10</p>
+        <div class="sky_all">
+            <div class="sky">
+                <canvas id="sky"></canvas>
+            </div>
+            <div style="position: relative;">
+                <form id="content">
+                    <input type="text" name="input" class="input" id="search-input">
+                    <button type="reset" class="search" id="search-btn"></button>
+                </form>
+
+                <div class="door_all">
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">001</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 3/10</p>
+                        </div>
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">002</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 10/10</p>
+                        </div>
+                    </div>
+
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">003</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 2/10</p>
+                        </div>
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">004</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 10/10</p>
+                        </div>
+
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">005</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 7/10</p>
+                        </div>
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">006</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 9/10</p>
+                        </div>
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">007</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 7/10</p>
+                        </div>
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">008</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 10/10</p>
+                        </div>
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">009</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 2/10</p>
+                        </div>
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">010</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 10/10</p>
+                        </div>
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">011</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 10/10</p>
+                        </div>
+                    </div>
+                    <div class="perspective" onclick="openDoor(this)">
+                        <div class="thumb">
+                            <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
+                        </div>
+                        <div class="number">
+                            <p class="door_number">012</p>
+                            <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                            <p>人數: 5/10</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="perspective" onclick="openDoor(this)">
-            <div class="thumb">
-                <img src="https://i.imgur.com/TGuCa7L.png" alt="Alternate Text" class="open_card" />
-                <p>002</p>
-                <p>人數: 10/10</p>
-            </div>
-        </div>
-        <div class="perspective" onclick="openDoor(this)">
-            <div class="thumb">
-                <img src="//i.imgur.com/582RIlF.png" alt="Alternate Text" class="open_card" />
-                <p>003</p>
-                <p>人數: 5/10</p>
-            </div>
-        </div>
-        <div class="perspective" onclick="openDoor(this)">
-            <div class="thumb">
-                <img src="https://i.imgur.com/TGuCa7L.png" alt="Alternate Text" class="open_card" />
-                <p>004</p>
-                <p>人數: 10/10</p>
-            </div>
-        </div>
-        <div class="perspective" onclick="openDoor(this)">
-            <div class="thumb">
-                <img src="//i.imgur.com/582RIlF.png" alt="Alternate Text" class="open_card" />
-                <p>005</p>
-                <p>人數: 5/10</p>
-            </div>
-        </div>
-        <div class="perspective" onclick="openDoor(this)">
-            <div class="thumb">
-                <img src="//i.imgur.com/582RIlF.png" alt="Alternate Text" class="open_card" />
-                <p>006</p>
-                <p>人數: 5/10</p>
-            </div>
-        </div>
-        <div class="perspective" onclick="openDoor(this)">
-            <div class="thumb">
-                <img src="//i.imgur.com/582RIlF.png" alt="Alternate Text" class="open_card" />
-                <p>007</p>
-                <p>人數: 5/10</p>
-            </div>
-        </div>
-        <div class="perspective" onclick="openDoor(this)">
-            <div class="thumb">
-                <img src="https://i.imgur.com/TGuCa7L.png" alt="Alternate Text" class="open_card" />
-                <p>008</p>
-                <p>人數: 10/10</p>
-            </div>
-        </div>
-        <div class="perspective" onclick="openDoor(this)">
-            <div class="thumb">
-                <img src="//i.imgur.com/582RIlF.png" alt="Alternate Text" class="open_card" />
-                <p>009</p>
-                <p>人數: 5/10</p>
-            </div>
-        </div>
-        <div class="perspective" onclick="openDoor(this)">
-            <div class="thumb">
-                <img src="https://i.imgur.com/TGuCa7L.png" alt="Alternate Text" class="open_card" />
-                <p>010</p>
-                <p>人數: 10/10</p>
-            </div>
-        </div>
+
+
 
 
         <partial name="~/Views/Shared/_RoomPartialEndJS.cshtml">
