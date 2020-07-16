@@ -38,8 +38,11 @@ function toggleScheme() {
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')
 }
-
-$('#describe').tooltip('show')
+//滑鼠移到職業圖片顯示該職業描述
+$('#describe').hover(tool);
+function tool() {
+    $('#describe').tooltip('show')
+}
 //  對話框滾輪
 $("#div1").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
     if (event.type == "mouseenter") {

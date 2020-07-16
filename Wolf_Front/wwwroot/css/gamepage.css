@@ -2,6 +2,7 @@
 body {
     margin: 0;
     /* overflow: hidden; */
+    cursor: url('/Images/paw.png') 45 45, auto;
 }
 
 .image {
@@ -319,7 +320,7 @@ polygon {
 }
 
 .glow-on-hover {
-    width: 220px;
+    width: 120px;
     height: 50px;
     border: none;
     outline: none;
@@ -385,4 +386,17 @@ polygon {
     100% {
         background-position: 0 0;
     }
+}
+#sendBtn {
+    height: 50px;
+    width: auto;
+}
+
+.text_decord {
+    width: 320px;
+    margin-left: 43px;
+}
+
+#wolf {
+    cursor: default;
 }
