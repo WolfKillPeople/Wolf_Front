@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Wolf_Front.Hubs
 {
-    //HK4G4
 
     public class ChatHub : Hub
     {
