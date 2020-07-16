@@ -76,19 +76,20 @@ svg {
     transition: stop-color 3s ease-in-out;
 }
 
+
 .image-light {
-    --rear_highlight: #ff8080;
-    --rear_shadow: #c26d80;
-    --mid_highlight: #ff6666;
-    --mid_shadow: #824b6c;
-    --fore_highlight: #ff4d4d;
-    --fore_shadow: #623851;
-    --trees: #412536;
-    --sky-bottom: #FFAD66;
-    --sky-mid: #ff8080;
-    --sky-top: #412536;
+    --rear_highlight: #2fe417;
+    --rear_shadow: #7bc26d;
+    --mid_highlight: #78ff66;
+    --mid_shadow: #54a174;
+    --fore_highlight: #3cf388;
+    --fore_shadow: #5fd490;
+    --trees: #47995b;
+    --sky-bottom: #16b5e6ad;
+    --sky-mid: #3676d6;
+    --sky-top: #70a0fa;
     --fog: #ffff66;
-    --sun: #ff4f23;
+    --sun: #23f134;
 }
 
 .image-dark {
