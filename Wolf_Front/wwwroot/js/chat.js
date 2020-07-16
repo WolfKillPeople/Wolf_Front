@@ -6,9 +6,22 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 document.getElementById("sendButton").disabled = true;
 document.getElementById("sendButton2").disabled = true;
 
+function ChangeDay () {
+    var Day = document.getElementById("Day").value;
+    if (Day == "白天") {
+        document.getElementById('background').style.backgroundColor = "white";
+
+    }
+    else if (Day == "黑夜") {
+        document.getElementById('background').style.backgroundColor = "gray";
+
+
+    }
+}
 
 connection.on("ReceiveMessage", function (user, message) {
-    if (user == "人類") {
+    var Day = document.getElementById("Day").value;
+    if (user == "人類" && Day == "白天") {
         document.getElementById("messagesList").hidden = false;
         document.getElementById("messagesList1").hidden = true;
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -17,7 +30,7 @@ connection.on("ReceiveMessage", function (user, message) {
         li.textContent = encodedMsg;
         document.getElementById("messagesList").appendChild(li);
     }
-    else if (user == "狼人") {
+    else if (user == "狼人" && Day=="黑夜") {
         document.getElementById("messagesList1").hidden = false;
         document.getElementById("messagesList").hidden = false;
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -36,6 +49,8 @@ connection.start().then(function () {
 }).catch(function (err) {
     return console.error(err.toString());
 });
+
+
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
     var user = document.getElementById("userInput").value;
