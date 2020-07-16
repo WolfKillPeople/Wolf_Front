@@ -1,41 +1,46 @@
 
 //door
-    function openDoor(field) {
-        var y = $(field).find(".thumb");
+function openDoor(field) {
+    var y = $(field).find(".thumb");
     var x = y.attr("class");
-        if (y.hasClass("thumbOpened")) {
+    if (y.hasClass("thumbOpened")) {
         y.removeClass("thumbOpened");
-}
-        else {
+    }
+    else {
         $(".thumb").removeClass("thumbOpened");
-    y.addClass("thumbOpened");
+        y.addClass("thumbOpened");
+    }
 }
-}
+//$('#add_btn').click(addRoom());
+//function addRoom() {
+
+//}
+
 
 
 //sky
-    function drawing() {
-        var c = document.getElementById('sky');
+function drawing() {
+    var c = document.getElementById('sky');
     var ctx = c.getContext('2d');
     var xMax = c.width = window.screen.availWidth;
     var yMax = c.height = window.screen.availHeight;
 
     var hmTimes = Math.round(xMax + yMax);
 
-        for (var i = 0; i <= hmTimes; i++) {
-            var randomX = Math.floor((Math.random() * xMax) + 1);
-    var randomY = Math.floor((Math.random() * yMax) + 1);
-    var randomSize = Math.floor((Math.random() * 2) + 1);
-    var randomOpacityOne = Math.floor((Math.random() * 9) + 1);
-    var randomOpacityTwo = Math.floor((Math.random() * 9) + 1);
-    var randomHue = Math.floor((Math.random() * 360) + 1);
-            if (randomSize > 1) {
-        ctx.shadowBlur = Math.floor((Math.random() * 15) + 5);
-    ctx.shadowColor = "white";
-}
-ctx.fillStyle = "hsla(" + randomHue + ", 30%, 80%, ." + randomOpacityOne + randomOpacityTwo + ")";
-ctx.fillRect(randomX, randomY, randomSize, randomSize);
-}
+    for (var i = 0; i <= hmTimes; i++) {
+        var randomX = Math.floor((Math.random() * xMax) + 1);
+        var randomY = Math.floor((Math.random() * yMax) + 1);
+        var randomSize = Math.floor((Math.random() * 2) + 1);
+        var randomOpacityOne = Math.floor((Math.random() * 9) + 1);
+        var randomOpacityTwo = Math.floor((Math.random() * 9) + 1);
+        var randomHue = Math.floor((Math.random() * 360) + 1);
+        if (randomSize > 1) {
+            ctx.shadowBlur = Math.floor((Math.random() * 15) + 5);
+            ctx.shadowColor = "white";
+        }
+        ctx.fillStyle = "hsla(" + randomHue + ", 30%, 80%, ." + randomOpacityOne + randomOpacityTwo + ")";
+        ctx.fillRect(randomX, randomY, randomSize, randomSize);
+    }
 
 }
 drawing();
@@ -45,10 +50,10 @@ drawing();
 const input = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 
-    const expand = () => {
-        searchBtn.classList.toggle("close");
+const expand = () => {
+    searchBtn.classList.toggle("close");
     input.classList.toggle("square");
-  };
+};
 
 searchBtn.addEventListener("click", expand);
 
