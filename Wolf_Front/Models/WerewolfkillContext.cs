@@ -22,6 +22,7 @@ namespace Wolf_Front.Models
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Occupation> Occupation { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -130,6 +131,24 @@ namespace Wolf_Front.Models
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
                 entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<Occupation>(entity =>
+            {
+                entity.Property(e => e.OccupationId)
+                    .HasColumnName("Occupation_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.OccupationGb)
+                    .HasColumnName("Occupation_GB")
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.Property(e => e.OccupationName)
+                    .IsRequired()
+                    .HasColumnName("Occupation_Name")
+                    .HasMaxLength(20)
+                    .IsFixedLength();
             });
 
             OnModelCreatingPartial(modelBuilder);
