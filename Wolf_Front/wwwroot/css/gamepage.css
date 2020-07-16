@@ -2,7 +2,7 @@
 body {
     margin: 0;
     /* overflow: hidden; */
-    cursor: url('/Images/paw.png') 45 45, auto;
+    cursor: url('/Images/paw.jpg') 45 45, auto;
 }
 
 .image {
@@ -315,7 +315,7 @@ polygon {
 
 #div1 {
     overflow-y: scroll;
-    width: 400px;
+    width: 89%;
     height: 300px;
 }
 
@@ -393,7 +393,7 @@ polygon {
 }
 
 .text_decord {
-    width: 320px;
+    width: 69%;
     margin-left: 43px;
 }
 
