@@ -77,18 +77,18 @@ svg {
 }
 
 .image-light {
-    --rear_highlight: #ff8080;
-    --rear_shadow: #c26d80;
-    --mid_highlight: #ff6666;
-    --mid_shadow: #824b6c;
-    --fore_highlight: #ff4d4d;
-    --fore_shadow: #623851;
-    --trees: #412536;
-    --sky-bottom: #FFAD66;
-    --sky-mid: #ff8080;
-    --sky-top: #412536;
+    --rear_highlight: #2fe417;
+    --rear_shadow: #7bc26d;
+    --mid_highlight: #78ff66;
+    --mid_shadow: #54a174;
+    --fore_highlight: #3cf388;
+    --fore_shadow: #5fd490;
+    --trees: #47995b;
+    --sky-bottom: #16b5e6ad;
+    --sky-mid: #3676d6;
+    --sky-top: #70a0fa;
     --fog: #ffff66;
-    --sun: #ff4f23;
+    --sun: #23f134;
 }
 
 .image-dark {
@@ -123,6 +123,10 @@ svg {
     opacity: .22;
 }
 
+#sun {
+    color: black;
+}
+
 .moon {
     isolation: isolate;
     opacity: 0.22;
@@ -148,7 +152,7 @@ svg {
 
 path,
 polygon {
-    transition: fill 3s ease-in-out;
+    transition: fill 2s ease-in-out;
 }
 
 .image {
@@ -299,7 +303,6 @@ polygon {
 
 .dialogue_card {
     background-color: rgba(104, 157, 186, 0.6);
-    ;
 }
 
     .dialogue_card p {
@@ -313,4 +316,73 @@ polygon {
     overflow-y: scroll;
     width: 400px;
     height: 300px;
+}
+
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #000000;
+    background: #ffffff;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+    .glow-on-hover:before {
+        content: '';
+        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+        border-radius: 10px;
+    }
+
+    .glow-on-hover:active {
+        color: #000;
+    }
+
+        .glow-on-hover:active:after {
+            background: transparent;
+        }
+
+    .glow-on-hover:hover:before {
+        opacity: 1;
+    }
+
+    .glow-on-hover:after {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #0000;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
 }
