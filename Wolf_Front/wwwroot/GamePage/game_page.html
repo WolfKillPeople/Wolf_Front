@@ -12,6 +12,15 @@
 
     <link rel="stylesheet" href="../css/gamepage.css">
     <link rel="stylesheet" href="../css/clock.css">
+    <style>
+        html{
+            background-color:#253641;
+        }
+        li{
+            color:#000000;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -246,7 +255,7 @@
                 <div class="col-md-4 col-sm-12 rightcontent">
                     <div class="role d-flex" style="margin-top: 10%; margin-bottom:30px ; ">
                         <!-- <img src="/a6.jpg" alt="狼人" width="200" height="180" style="margin-top: 10%;">
-                        -->
+        -->
                         <button type="button" id="describe" data-toggle="tooltip" data-placement="right"
                                 title="職業:狼人,夜間可以溝通，共同決定將殺害哪名玩家並商討戰術">
                             <img src="https://picsum.photos/300/300?random=10" alt="狼人" width="150" height="130">
@@ -261,62 +270,117 @@
 
 
 
-                    <div class="dialogue">
-                        <div class="right_dialogue">
-                            <div class="dialogue_card">
-                                <div class="dialogue_txt" id="div1">
-                                    <p>
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos
-                                        debitis
-                                        illum nisi doloribus,adipisci, recusandae molestiae repellat consectetur iste!
-                                        Exercitationem nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum
-                                        dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum
-                                        nisi
-                                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
-                                        nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum dolor sit amet
-                                        consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum nisi
-                                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
-                                        nesciunt vitae aliquam, minus quiaasperiores repellendus?
-                                    </p>
-                                    <p>
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos
-                                        debitis
-                                        illum nisi doloribus,adipisci, recusandae molestiae repellat consectetur iste!
-                                        Exercitationem nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum
-                                        dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum
-                                        nisi
-                                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
-                                        nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum dolor sit amet
-                                        consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum nisi
-                                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
-                                        nesciunt vitae aliquam, minus quiaasperiores repellendus?
-                                    </p>
+                    <div class="dialogue" style="background-color: transparent;">
+                        <!--<div class="right_dialogue">
+            <div class="dialogue_card">
+                <div class="dialogue_txt" id="div1">
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos
+                        debitis
+                        illum nisi doloribus,adipisci, recusandae molestiae repellat consectetur iste!
+                        Exercitationem nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum
+                        dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum
+                        nisi
+                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
+                        nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum dolor sit amet
+                        consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum nisi
+                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
+                        nesciunt vitae aliquam, minus quiaasperiores repellendus?
+                    </p>
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos
+                        debitis
+                        illum nisi doloribus,adipisci, recusandae molestiae repellat consectetur iste!
+                        Exercitationem nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum
+                        dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum
+                        nisi
+                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
+                        nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum dolor sit amet
+                        consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum nisi
+                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
+                        nesciunt vitae aliquam, minus quiaasperiores repellendus?
+                    </p>
+
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" id="sendBtn">傳送</button>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+                        <input type="text" value="白天或者黑夜" id="Day" style="background-color: transparent;">
+                        <input type="button" onclick="ChangeDay()" value="換天"  style="background-color: transparent;"/>
+
+                        <div class="row" id="background" style="background-color: transparent;">
+                            <div class="col-6">
+                                <div class="container">
+                                    <div class="row">&nbsp;</div>
+                                    <div class="row">
+                                        <div class="col-4"><input type="text" id="userInput" value="人類" readonly="readonly" style="border-style: none;background-color: transparent;" /></div>
+                                    </div>
+
 
                                 </div>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" id="sendBtn">傳送</button>
+                                <div class="row">
+                                    <div class="col-12" style="height:150px;overflow:auto;overflow-x:hidden;">
+                                        <ul id="messagesList"></ul>
                                     </div>
                                 </div>
+                                <div class="row" style="padding:0 15px">
+                                    <!--<div class="col-2">Message</div>-->
+                                    <div class="col-4"><input type="text" id="messageInput" style="background-color: transparent;" /></div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="container">
+                                    <div class="row">&nbsp;</div>
+                                    <div class="row">
+                                        <div class="col-4"><input type="text" id="userInput2" value="狼人" readonly="readonly" style="border-style:none;background-color: transparent;" /></div>
+                                    </div>
+                                    <!--<div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-6">
+                <input type="button" id="sendButton2" value="Send Message" />
+            </div>
+        </div>-->
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" style="height:150px;overflow:auto;overflow-x:hidden;">
+                                        <ul id="messagesList1"></ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!--<div class="col-2">Message</div>-->
+                                    <div class="col-4"><input type="text" id="messageInput2" style="background-color: transparent;" /></div>
+                                </div>
+                            </div>
+                                <div class="row" style="width:100%">
+                                    <div class="col-10"></div>
+                                    <div class="col-2">
+                                        <input type="button" id="sendButton" value="發言" />
+                                    </div>
+                                </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <hr />
                             </div>
                         </div>
 
-
-
-                        <div class="leave">
-                            <button class="glow-on-hover" type="button" style="margin-left:60%;margin-top: 10%;">離開</button>
-                        </div>
-
-
                         <!-- 身體尾 -->
+                    </div>
+                    <div class="leave">
+                        <button class="glow-on-hover" type="button" style="margin-left:60%;margin-top: 10%;">離開</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
+    <script src="../js/signalr/dist/browser/signalr.js"></script>
+    <script src="../js/chat.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
@@ -328,7 +392,7 @@
             crossorigin="anonymous"></script>
 
     <script src="../js/game_page.js"></script>
- 
+
 
 </body>
 </html>

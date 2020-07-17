@@ -5,7 +5,7 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 //Disable send button until connection is established
 document.getElementById("sendButton").disabled = true;
-document.getElementById("sendButton2").disabled = true;
+//document.getElementById("sendButton2").disabled = true;
 
 function ChangeDay () {
     var Day = document.getElementById("Day").value;
@@ -18,14 +18,14 @@ function ChangeDay () {
     }
 }
 
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("ReceiveMessage", function (user, message, message2) {
     var Day = document.getElementById("Day").value;
     if (user == "人類" && Day == "白天") {
         document.getElementById("messagesList").hidden = false;
         document.getElementById("messagesList1").hidden = true;
-        var UserName = document.getElementById("Name").textContent;
+        //var UserName = document.getElementById("Name").textContent;
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        var encodedMsg = UserName + " says " + msg;
+        var encodedMsg = user + " says " + msg;
         var li = document.createElement("li");
         li.textContent = encodedMsg;
         document.getElementById("messagesList").appendChild(li);
@@ -33,9 +33,9 @@ connection.on("ReceiveMessage", function (user, message) {
     else if (user == "狼人" && Day=="黑夜") {
         document.getElementById("messagesList1").hidden = false;
         document.getElementById("messagesList").hidden = false;
-        var UserName = document.getElementById("Name").textContent;
+        //var UserName = document.getElementById("Name").textContent;
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        var encodedMsg = UserName + " says " + msg;
+        var encodedMsg = user + " says " + msg;
         var li = document.createElement("li");
         li.textContent = encodedMsg;
         document.getElementById("messagesList1").appendChild(li);
@@ -46,7 +46,7 @@ connection.on("ReceiveMessage", function (user, message) {
 
 connection.start().then(function () {
     document.getElementById("sendButton").disabled = false;
-    document.getElementById("sendButton2").disabled = false;
+    //document.getElementById("sendButton2").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
@@ -54,18 +54,33 @@ connection.start().then(function () {
 
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById('userInput').value;
+    //var user = document.getElementById('userInput').value;
     var message = document.getElementById('messageInput').value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
-        return console.error(err.toString());
-    });
-});
-document.getElementById("sendButton2").addEventListener("click", function (event) {
-    //var user = document.getElementById("userInput2").value;
-    var user = $('#userInput2').val()
+    var message2 = document.getElementById("messageInput2").value;
+    var user;
+    if (message != "") {
+        user = "人類";
+        connection.invoke("SendMessage", user, message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        document.getElementById('messageInput').value = "";
+    }
+    else if (message2 != "") {
+        user = "狼人";
+        connection.invoke("SendMessage", user, message2).catch(function (err) {
+            return console.error(err.toString());
+        });
+        document.getElementById('messageInput2').value = "";
 
-    var message = document.getElementById("messageInput2").value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
-        return console.error(err.toString());
-    });
+    }
+
 });
+//document.getElementById("sendButton2").addEventListener("click", function (event) {
+//    //var user = document.getElementById("userInput2").value;
+//    var user = $('#userInput2').val()
+
+//    var message = document.getElementById("messageInput2").value;
+//    connection.invoke("SendMessage", user, message).catch(function (err) {
+//        return console.error(err.toString());
+//    });
+//});
