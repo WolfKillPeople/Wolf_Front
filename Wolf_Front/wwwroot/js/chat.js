@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-//123
+
 //Disable send button until connection is established
 document.getElementById("sendButton").disabled = true;
 document.getElementById("sendButton2").disabled = true;
