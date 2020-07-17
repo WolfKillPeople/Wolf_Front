@@ -1,0 +1,388 @@
+﻿
+body {
+    margin: 0;
+    /* overflow: hidden; */
+}
+
+.image {
+    transition: fill 3s ease-in-out;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 80vh 1fr;
+    grid-template-rows: 72vh 1fr;
+    background-color: var(--trees);
+}
+
+[class*="section_"] {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    height: 100%;
+    width: 100%;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+.section_sky {
+    grid-column: 1 / -1;
+    grid-row: 1;
+}
+
+.section_rl,
+.section_ml,
+.section_fl {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.section_rm,
+.section_mm,
+.section_fm {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.section_rr,
+.section_mr,
+.section_fr {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+[class*="section_f"],
+.section_trees {
+    isolation: isolate;
+}
+
+.section_mfog {
+    height: 30%;
+    margin-top: 30vh;
+}
+
+.section_ffog {
+    height: 30%;
+    margin-top: auto;
+}
+
+.section_sun {
+    height: 16vh;
+    width: 16vh;
+    margin: 4vh auto 0;
+}
+
+.gradient stop {
+    transition: stop-color 3s ease-in-out;
+}
+
+.image-light {
+    --rear_highlight: #2fe417;
+    --rear_shadow: #7bc26d;
+    --mid_highlight: #78ff66;
+    --mid_shadow: #54a174;
+    --fore_highlight: #3cf388;
+    --fore_shadow: #5fd490;
+    --trees: #47995b;
+    --sky-bottom: #16b5e6ad;
+    --sky-mid: #3676d6;
+    --sky-top: #70a0fa;
+    --fog: #ffff66;
+    --sun: #23f134;
+}
+
+.image-dark {
+    --rear_highlight: #a5cfe6;
+    --rear_shadow: #7095af;
+    --mid_highlight: #88d1fb;
+    --mid_shadow: #4B6C82;
+    --fore_highlight: #87d5f7;
+    --fore_shadow: #385162;
+    --trees: #253641;
+    --sky-bottom: #a1cde4;
+    --sky-mid: #7eb9d8;
+    --sky-top: #051f33;
+    --fog: #c9dfff;
+    --sun: #6daac2;
+}
+
+.image-light .moon {
+    opacity: 0;
+}
+
+.image-dark .moon {
+    opacity: .22;
+}
+
+.screen {
+    mix-blend-mode: screen;
+}
+
+.fog {
+    fill: url(#gradient-fog);
+    opacity: .22;
+}
+
+#sun {
+    color: black;
+}
+
+.moon {
+    isolation: isolate;
+    opacity: 0.22;
+    mix-blend-mode: multiply;
+    transition: opacity 3s ease-in-out;
+}
+
+.moon-grey1 {
+    fill: #757575;
+}
+
+.moon-grey2 {
+    fill: #595959;
+}
+
+.moon-grey3 {
+    fill: #b2b2b2;
+}
+
+.moon-grey4 {
+    fill: #ddd;
+}
+
+path,
+polygon {
+    transition: fill 2s ease-in-out;
+}
+
+.image {
+    transition: background-color 0.5s ease-in-out;
+}
+
+.switch {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+    .switch span {
+        filter: saturate(0);
+        background-color: transparent;
+        opacity: .5;
+        padding: .25rem;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        transition: border-bottom-color 3s ease-in-out, filter 3s ease-in-out, opacity 3s ease-in-out;
+    }
+
+        .switch span:first-child {
+            margin-right: 1rem;
+        }
+
+[aria-checked="false"] span:first-child {
+    filter: none;
+    opacity: 1;
+    border-color: white;
+}
+
+[aria-checked="true"] span:last-child {
+    filter: none;
+    opacity: 1;
+    border-color: white;
+}
+
+.top-playerimg {
+    display: flex;
+    margin-top: 8%;
+    margin-left: 4%;
+}
+
+.playerimg {
+    position: relative;
+}
+
+.footer-playerimg {
+    display: flex;
+    margin-top: 2%;
+    margin-left: 4%;
+}
+
+.top-playerimg img {
+    width: 50%;
+    margin-left: 5%;
+    border-radius: 50px;
+}
+
+.footer-playerimg img {
+    width: 50%;
+    margin-left: 5%;
+    border-radius: 50px;
+}
+
+.gamerecord {
+    display: flex;
+    height: 320px;
+}
+
+    .gamerecord p {
+        margin: 5Px 10px 0 10px;
+        background-color: #253641;
+        color: #ffffff;
+        padding: 2px 15px;
+    }
+
+.leftgamerecord {
+    width: 55%;
+    background-color: rgba(104, 157, 186, 0.6);
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.rightgamerecord {
+    width: 25%;
+    background-color: rgba(104, 157, 186, 0.6);
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.number {
+    background-color: #ffa396;
+    padding: 6px 11px;
+    font-size: 12px;
+    font-family: "Work Sans";
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    color: #ffffff;
+}
+
+.image-dark {
+    position: relative;
+}
+
+.gamebaby {
+    width: 95%;
+    position: absolute;
+}
+
+/* #wolf_003-01-01 {
+        position: absolute;
+        top: 100%;
+        animation-name: oxxo;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+        animation-timing-function: linear;
+
+    }
+
+    @keyframes oxxo {
+        from {
+            left: 100%;
+        }
+
+        to {
+            left: -6%;
+        }
+    } */
+
+.bb {
+    position: absolute;
+    color: aliceblue;
+    top: 100px;
+}
+
+.right_dialogue p {
+    color: #ffffff;
+}
+
+.dialogue_card {
+    background-color: rgba(104, 157, 186, 0.6);
+}
+
+    .dialogue_card p {
+        margin: 5px 10px 0 10px;
+        background-color: #253641;
+        color: #ffffff;
+        padding: 2px 15px;
+    }
+
+#div1 {
+    overflow-y: scroll;
+    width: 400px;
+    height: 300px;
+}
+
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #000000;
+    background: #ffffff;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+    .glow-on-hover:before {
+        content: '';
+        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+        border-radius: 10px;
+    }
+
+    .glow-on-hover:active {
+        color: #000;
+    }
+
+        .glow-on-hover:active:after {
+            background: transparent;
+        }
+
+    .glow-on-hover:hover:before {
+        opacity: 1;
+    }
+
+    .glow-on-hover:after {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #0000;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}

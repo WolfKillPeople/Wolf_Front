@@ -53,7 +53,11 @@ namespace Wolf_Front
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            app.UseDefaultFiles();
             app.UseStaticFiles();
+
+
 
             app.UseRouting();
 

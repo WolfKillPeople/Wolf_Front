@@ -1,36 +1,62 @@
-﻿
-<div class="container">
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-2">職業</div>
-        <div class="col-4"><input type="text" id="userInput" /></div>
-    </div>
-    <div class="row">
-        <div class="col-2">Message</div>
-        <div class="col-4"><input type="text" id="messageInput" /></div>
-    </div>
-    @*<div class="row">
-            <div class="col-2">職業</div>
-            <div class="col-4"><input type="text" id="Occupation" /></div>
-        </div>*@
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">
-            <input type="button" id="sendButton" value="Send Message" />
+﻿<input type="text" value="白天或者黑夜" id="Day">
+<input type="button" onclick="ChangeDay()" value="換天"/>
+
+<div class="row" id="background" style="background: white;">
+    <div class="col-6">
+        <div class="container">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-4"><input type="text" id="userInput" value="人類" readonly="readonly" style="border-style: none" /></div>
+            </div>
+            <div class="row">
+                <div class="col-2">Message</div>
+                <div class="col-4"><input type="text" id="messageInput" /></div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-6">
+                    <input type="button" id="sendButton" value="Send Message" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <ul id="messagesList"></ul>
+            </div>
         </div>
     </div>
+    <div class="col-6">
+        <div class="container">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-4"><input type="text" id="userInput2" value="狼人" readonly="readonly" style="border-style:none" /></div>
+            </div>
+            <div class="row">
+                <div class="col-2">Message</div>
+                <div class="col-4"><input type="text" id="messageInput2" /></div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-6">
+                    <input type="button" id="sendButton2" value="Send Message" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <ul id="messagesList1"></ul>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 <div class="row">
     <div class="col-12">
         <hr />
     </div>
 </div>
-<div class="row">
-    <div class="col-6">
-        <ul id="messagesList"></ul>
-        <ul id="messagesList1"></ul>
-        @*<input type="tel" id="messagesList" />*@
-    </div>
-</div>
+
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/chat.js"></script>
