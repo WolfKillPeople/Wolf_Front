@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .html{
+    height: 100%;
+  }
+  .body{
+    background-size:cover;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: 'Ubuntu', sans-serif;
+  }
+.BG_img {
+/*    background-color: black;*/
+    background-image: url(https://i.imgur.com/mF8XJ9t.png);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+  .wrap{
+      margin-top: 100px;
+  }
+  .wolf_yell{
+    width: 80%;
+  }
+  .title{
+      color: #FF5511;  
+      h1{
+          font-size: 60px;
+      }
+  }
+  .Start_Game_Btn{
+      color: #fff;
+      background: -webkit-linear-gradient(left, #5d8fab, #000);
+      background: -o-linear-gradient(right, #5d8fab, #000);
+      background: -moz-linear-gradient(right, #5d8fab, #000);
+      background: linear-gradient(#5d8fab, #000);
+      width: 40%;
+      height: 10%;
+      font-size: 25px;
+      z-index: 1;
+      &:hover{
+          color: #fff;
+          background: -webkit-linear-gradient(left, #FF5511, #000);
+          background: -o-linear-gradient(right, #FF5511, #000);
+          background: -moz-linear-gradient(right, #FF5511, #000);
+          background: linear-gradient(to top, #FF5511, #000);
+      }
+  }
+  .modal-content{  
+    background-color: rgba(15, 5, 2, 0.623);  
+  }
+  .avatat{
+    border-radius: 50%;
+    width: 30%;
+  }
+  .user_img_btn{
+    border-radius: 50%;    
+    outline: none;
+    &:active{
+      outline: none;
+    }
+    &:focus{
+      box-shadow: none;
+      outline:none;
+    }
+  }
+  .forgetPSW{
+    a{text-decoration:none;
+    color: #fff;}
+  }
+  .bgc_account{
+    background-color: rgba(15, 5, 2, 1);
+  }
+  .modal-body{
+    label{color: #fff;}
+  }
+  .user_img{
+    background-color: transparent;
+  } 
+  .user_Choiceimg{
+    background-color: rgba($color: #d4feff, $alpha: 1.0);
+  }
+  .users_pic{
+    width: 30%;
+    height: auto;
+  }
+  .upLoadImg{    
+    height: 6rem;
+    width: 6rem;
+    border: 2px #000 dashed ;
+    font-size: 50px;
+    margin-top: 60px;
+    margin-left: 40px;
+  }
+  .plus{
+    display: none;
+  }

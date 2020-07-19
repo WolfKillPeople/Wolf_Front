@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/login.css">
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <title>Wolf People Kill</title>
+</head>
+<body class="BG_img">
+    <div class="wrap col-md-12 col-12">
+        <div class="container d-flex justify-content-center">
+            <div class="title text-center">
+                <h1>BS 狼人殺</h1>
+                <button class="btn Start_Game_Btn mt-5 col-md-12 col-12 " id="Start_Game_Btn">遊戲開始</button>
+                <img class="wolf_yell col-md-12 col-12 col-sm-12" src="https://i.imgur.com/8Hxgf7R.png" alt="wolf">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- login Modal -->
+    <div class="modal fade ShowSign_in" id="login" tabindex="-1" role="dialog" aria-labelledby="loginModal"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bgc">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="loginModal" style="color: #fff;">帳號登入</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: #fff;">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <from>
+                        <div class="form-group">
+                            <label for="Email_ID">帳號</label>
+                            <input type="email" class="form-control" id="Email_ID" placeholder="Enter email">
+                        </div>
+
+                        <div class="from-group">
+                            <label for="USer_password">密碼</label>
+                            <input type="password" class="form-control" id="USer_password" placeholder="Enter password">
+                        </div>
+
+                        <div class="from-check">
+                            <input type="checkbox" class="form-check-input ml-1 mt-2" id="Check_box">
+                            <label class="form-check-label ml-4" for="Check_box">記住密碼</label>
+                        </div>
+
+                        <button type="button" class="btn btn-primary form-control mt-3 Sign_in">登入</button>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-danger registered" id="registered">註冊</button>
+                            <span class="forgetPSW"><a href=".">忘記密碼?</a> </span>
+                        </div>
+                    </from>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- registered Modal -->
+    <div class="modal fade registered_modal" id="registered_modal" tabindex="-1" role="dialog"
+         aria-labelledby="registered_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bgc_account">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="registered_modal" style="color: #fff;">註冊帳號</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: #fff;">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <from>
+                        <div class="imgcontainer mx-auto d-flex justify-content-center">
+                            <button class="btn user_img_btn" data-toggle="tooltip" data-placement="right" id="user_img"
+                                    title="選擇更換頭像">
+                                <!-- <i class="fas fa-user-plus avatat fa-5x justify-content-center" id="avatat"></i> -->
+                                <img id="avatat" class="avatat" src="https://i.imgur.com/FMfI2fM.png" alt="user">
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label for="Email_ID">名字</label>
+                            <input type="text" class="form-control" id="Name_ID" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label for="Email_ID">帳號</label>
+                            <input type="email" class="form-control" id="Email_ID" placeholder="Enter email">
+                        </div>
+                        <div class="from-group">
+                            <label for="USer_password">密碼</label>
+                            <input type="password" class="form-control" id="USer_password" placeholder="Enter password">
+                        </div>
+                        <div class="from-group mt-2">
+                            <label for="USer_Checkedpassword">確認密碼</label>
+                            <input type="password" class="form-control" id="USer_password"
+                                   placeholder="Checked password">
+                        </div>
+                        <button type="button"
+                                class="btn btn-primary form-control mt-4 justify-content-center registered_Account">
+                            註冊
+                        </button>
+                    </from>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- userImg Modal -->
+    <div class="modal fade " id="user_pic" tabindex="-1" role="dialog" aria-labelledby="userImgModal"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content user_Choiceimg">
+                <div class="modal-header border-bottom-0 user_btn">
+                    <h5 class="modal-title" id="userImgModalLabel">頭像選擇</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="d-flex row">
+                    <!-- onclick="changePICS(this)" -->
+                    <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/9Pbvhnk.png"
+                         alt="girl1" onclick="changePICS(this)">
+                    <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/ayhI3DJ.png"
+                         alt="girl2" onclick="changePICS(this)">
+                    <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/XFglbZc.png"
+                         alt="girl3" onclick="changePICS(this)">
+                </div>
+                <div class="d-flex row">
+                    <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/HBcZ8nk.png" alt="boy2"
+                         onclick="changePICS(this)">
+                    <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/vRjQfJc.png" alt="boy3"
+                         onclick="changePICS(this)">
+                    <!-- <button   class="btn users_pic user_picws plus mt-5 ml-4 " onclick="changePICS(this)"><b>+</b></button> -->
+                    <div class="upLoadImg btn" id="upLoadImg">
+                        <span class="upload_icon" id="upload_icon">+</span>
+                        <input type="file" id="update" class="btn users_pic plus" v-on:change="load">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+</body>
+</html>
