@@ -68,3 +68,19 @@ $(document).ready(function () {
         $('#update').click();
     });
 });
+
+var json = {
+    Name: "",
+    PicUrl: "",
+    Account: "",
+    Password: ""
+};
+
+function AddNewAccount() {
+    var AddAccount = {
+        Name: $('#Name_ID'),
+        PicUrl: $('#avatat'),
+        Account: $('#Email_ID'),
+        Password: $('#USer_password')
+    };
+}        
