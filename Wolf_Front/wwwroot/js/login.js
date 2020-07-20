@@ -26,7 +26,7 @@ function changePICS(e) {
     // $('#avatat').attr('src','none');
     $('#avatat').attr('src', getChoiceUrl);
 }
-
+//imgur
 const id = '796f96ba6f57a84';
 const token = '7fad7c5f2e1fe7bf50fc28274bd1583c336b0926';
 const upload = new Vue({
@@ -67,5 +67,4 @@ $(document).ready(function () {
     $('#upload_icon').click(function () {
         $('#update').click();
     });
-
 });

@@ -17,7 +17,7 @@
 
 .BG_img {
 /*    background-color: black;*/
-    background-image: url("https://i.imgur.com/mF8XJ9t.png");
+    background-image: url(https://i.imgur.com/mF8XJ9t.png);
     overflow-x: hidden;
     overflow-y: hidden;
 }
