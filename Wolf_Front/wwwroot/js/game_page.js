@@ -37,6 +37,8 @@ function toggleScheme() {
         document.getElementById("messageInput").hidden = true;
         document.getElementById("userInput2").hidden = false;
         document.getElementById("messageInput2").hidden = false;
+        document.getElementById("sendButton1").hidden = false;
+        document.getElementById("sendButton").hidden = true;
 
     } else {
         toggle.setAttribute("aria-checked", "true");
@@ -46,6 +48,8 @@ function toggleScheme() {
         document.getElementById("messageInput").hidden = false;
         document.getElementById("userInput2").hidden = true;
         document.getElementById("messageInput2").hidden = true;
+        document.getElementById("sendButton").hidden = false;
+        document.getElementById("sendButton1").hidden = true;
     }
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')

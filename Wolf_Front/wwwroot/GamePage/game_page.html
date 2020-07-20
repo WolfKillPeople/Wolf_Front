@@ -13,12 +13,9 @@
     <link rel="stylesheet" href="../css/gamepage.css">
     <link rel="stylesheet" href="../css/clock.css">
     <style>
-        html{
-            background-color:#253641;
-        }
-        li{
-            color:#000000;
-        }
+        html {
+            background-color: #253641;
+        }      
     </style>
 
 </head>
@@ -255,10 +252,10 @@
                 <div class="col-md-4 col-sm-12 rightcontent">
                     <div class="role d-flex" style="margin-top: 4%; margin-bottom:7% ; ">
                         <!-- <img src="/a6.jpg" alt="狼人" width="200" height="180" style="margin-top: 10%;">
-        -->
+                        -->
                         <button type="button" id="describe" data-toggle="tooltip" data-placement="right"
                                 title="職業:狼人,夜間可以溝通，共同決定將殺害哪名玩家並商討戰術">
-                            <img src="https://picsum.photos/300/300?random=10" alt="狼人" width="150" height="130">
+                            <img src="https://picsum.photos/300/300?random=10" alt="職業" width="150" height="130" >
                         </button>
 
                         <div class="pie degree">
@@ -270,75 +267,39 @@
 
 
 
-                    <div class="dialogue" style="background-color: transparent;">
-                        <!--test-->
-                        <!--<div class="right_dialogue">
-            <div class="dialogue_card">
-                <div class="dialogue_txt" id="div1">
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos
-                        debitis
-                        illum nisi doloribus,adipisci, recusandae molestiae repellat consectetur iste!
-                        Exercitationem nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum
-                        dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum
-                        nisi
-                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
-                        nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum dolor sit amet
-                        consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum nisi
-                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
-                        nesciunt vitae aliquam, minus quiaasperiores repellendus?
-                    </p>
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos
-                        debitis
-                        illum nisi doloribus,adipisci, recusandae molestiae repellat consectetur iste!
-                        Exercitationem nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum
-                        dolor sit amet consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum
-                        nisi
-                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
-                        nesciunt vitae aliquam, minus quiaasperiores repellendus?Lorem, ipsum dolor sit amet
-                        consectetur adipisicing elit. Fuga eligendi, quos eos debitis illum nisi
-                        doloribus,adipisci, recusandae molestiae repellat consectetur iste! Exercitationem
-                        nesciunt vitae aliquam, minus quiaasperiores repellendus?
-                    </p>
-
-                </div>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" id="sendBtn">傳送</button>
-                    </div>
-                </div>
-            </div>
-        </div>-->
+                    <div class="dialogue" style="background-color: transparent;">                       
                         <input type="hidden" value="黑夜" id="Day" style="background-color: transparent; border-style: none;" readonly="readonly">
                         <!--<input type="button" onclick="ChangeDay()" value="換天"  style="background-color: transparent;"/>-->
                         <!--test push-->
-                        <div class="row" id="background" style="background-color: transparent;">
-                            <div class="col-6">
+                        <div class="row" id="background" style="background-color:rgba(104, 157, 186, 0.6);margin-left:3%;padding-top:3%">
+                            <div class="col-5 " style="background-color: #253641">
                                 <div class="container">
                                     <div class="row">&nbsp;</div>
                                     <div class="row">
-                                        <div class="col-4"><input type="text" id="userInput" value="人類" readonly="readonly" style="border-style: none;background-color: transparent;" /></div>
+                                        <div class="col-4"><input type="text" id="userInput" value="人類" readonly="readonly" style="border-style: none;background-color: transparent;color:#ffffff" /></div>
                                     </div>
-
-
                                 </div>
                                 <div class="row">
                                     <div class="col-12" style="height:150px;overflow:auto;overflow-x:hidden;">
                                         <ul id="messagesList"></ul>
                                     </div>
                                 </div>
-                                <div class="row" style="padding:0 15px">
+                                <div class="row" style="padding:0">
                                     <!--<div class="col-2">Message</div>-->
-                                    <div class="col-4"><input type="text" id="messageInput" style="background-color: transparent;" /></div>
+                                    <div class="col d-flex" style="padding-left:1%">
+                                        <input type="text" id="messageInput" style="background-color: transparent; color:#ffffff;width:85%;border-color:#ffffff" />
+                                        <input class="btn btn-info" type="button" id="sendButton" value="發言" style="font-size:10px" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
+
+                            <div class="col-1"></div>
+
+                            <div class="col-5" style="background-color: #253641">
                                 <div class="container">
                                     <div class="row">&nbsp;</div>
                                     <div class="row">
-                                        <div class="col-4"><input type="text" id="userInput2" value="狼人" readonly="readonly" style="border-style:none;background-color: transparent;" /></div>
+                                        <div class="col-4"><input type="text" id="userInput2" value="狼人" readonly="readonly" style="border-style:none;background-color: transparent;color:#ffffff" /></div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -346,16 +307,16 @@
                                         <ul id="messagesList1"></ul>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-4"><input type="text" id="messageInput2" style="background-color: transparent;" /></div>
-                                </div>
-                            </div>
-                                <div class="row" style="width:100%">
-                                    <div class="col-10"></div>
-                                    <div class="col-2">
-                                        <input type="button" id="sendButton" value="發言" />
+                                <div class="row" style="padding:0">
+                                    <div class="col d-flex" style="padding-left:1%">
+                                        <input type="text" id="messageInput2" style="background-color: transparent;color:#ffffff;width:85%;border-color:#ffffff"" />
+                                        <input class="btn btn-info" type="button" id="sendButton1" value="發言" style="font-size:10px" />
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row" style="width:100%">
+                                <div class="col-10"></div>
+                            </div>
 
                         </div>
                         <div class="row">
@@ -363,7 +324,6 @@
                                 <hr />
                             </div>
                         </div>
-
                         <!-- 身體尾 -->
                     </div>
                     <div class="leave">
