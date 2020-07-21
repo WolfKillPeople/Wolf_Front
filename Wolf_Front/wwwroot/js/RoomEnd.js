@@ -90,6 +90,30 @@ function addDoor() {
         $('.scroll_ul').append(`<li data-target="${door_page}" class="nav-btn nav-page${door_page}"></li>`)
     }
     no++;
+
+    $.ajax({
+        type: 'POST',
+        url: 'https://wolfpeoplekillapi.azurewebsites.net/api/Room/AddRoom',
+        data: [
+            {
+                "roomId": `${no}`,
+                "player1": "",
+                "player2": "",
+                "player3": "",
+                "player4": "",
+                "player5": "",
+                "player6": "",
+                "player7": "",
+                "player8": "",
+                "player9": "",
+                "player10": "",
+                "length": 0
+            }
+        ],
+        success: function (msg) {
+            alert('Data Saved: ' + msg);
+        }
+    });
 }
 
 
