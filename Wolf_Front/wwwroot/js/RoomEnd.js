@@ -26,7 +26,7 @@ var clicks = 0;
 function addDoor() {
     let id = no.toString().padStart(3, '0');
     clicks += 1;
-    if (door_page == 1 && clicks == 1) {
+    if (clicks == 1) {
         $(`.door_all`).append(`<div class="page page-${door_page} active">
             <div class="half left">
             <div class="perspective" onclick="openDoor(this)">
@@ -88,23 +88,6 @@ function addDoor() {
             </div>`);
 
         $('.scroll_ul').append(`<li data-target="${door_page}" class="nav-btn nav-page${door_page}"></li>`)
-    }
-    else if (door_page >= 2 && clicks == 1) {
-        $(`.door_all`).append(`<div class="page page-${door_page} active">
-            <div class="half left">
-            <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src=${close_img} alt=${alt_close} class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">${id}</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p class="people">人數: 3/10</p>
-                    </div>          
-                </div>
-            </div><div class="half right withText">
-            </div>
-            </div>`);
     }
     no++;
 }
