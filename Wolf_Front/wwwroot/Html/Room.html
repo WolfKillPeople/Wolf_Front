@@ -1,15 +1,20 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://s.codepen.io/assets/libs/prefixfree.min.js"></script>
     <script src="https://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Room</title>
-    <link href="../css/RoomTop.css" rel="stylesheet" />
     <link href="../css/Room.css" rel="stylesheet" />
+    <link href="../css/RoomTop.css" rel="stylesheet" />
 </head>
+
 <body>
     <div class="sky_all">
         <div class="sky">
@@ -17,12 +22,12 @@
         </div>
         <div style="position: relative;">
             <div class="add_room_container">
-                <a href="#" class="add_room_href">
+                <div class="add_room_href">
                     <div class="add_room_btn">
                         <span id="add_btn">+創建房間</span>
                         <div class="dot"></div>
                     </div>
-                </a>
+                </div>
 
                 <form id="search_content">
                     <input v-for="item in " type="text" name="input" class="input" id="search-input" placeholder="ID">
@@ -68,132 +73,26 @@
             </div>
 
             <div class="door_all">
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">001</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 3/10</p>
-                    </div>
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">002</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 10/10</p>
-                    </div>
-                </div>
-
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">003</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 2/10</p>
-                    </div>
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">004</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 10/10</p>
-                    </div>
-
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">005</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 7/10</p>
-                    </div>
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">006</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 9/10</p>
-                    </div>
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">007</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 7/10</p>
-                    </div>
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">008</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 10/10</p>
-                    </div>
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">009</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 2/10</p>
-                    </div>
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">010</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 10/10</p>
-                    </div>
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="https://i.imgur.com/TGuCa7L.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">011</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 10/10</p>
-                    </div>
-                </div>
-                <div class="perspective" onclick="openDoor(this)">
-                    <div class="thumb">
-                        <img src="//i.imgur.com/582RIlF.png" alt="door_card" class="door_card" />
-                    </div>
-                    <div class="number">
-                        <p class="door_number">012</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p>人數: 5/10</p>
-                    </div>
-                </div>
+            </div>
+            <div class="nav-panel">
+                <div class="scroll-btn up"></div>
+                <div class="scroll-btn down"></div>
+                <nav>
+                    <ul class="scroll_ul">
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
     <script src="../js/RoomEnd.js"></script>
 </body>
 
