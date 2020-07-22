@@ -55,9 +55,9 @@ function toggleScheme() {
     image.classList.toggle('image-light')
 }
 //滑鼠移到職業圖片顯示該職業描述
-$('#describe').hover(tool);
+$('#depict').hover(tool);
 function tool() {
-    $('#describe').tooltip('show')
+    $('#depict').tooltip('show')
 }
 //  對話框滾輪
 $("#div1").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
@@ -68,3 +68,40 @@ $("#div1").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入�
     }
 });
 
+
+//職業
+let ary;
+function Binding() {
+    console.log('Binding');
+    console.log(ary);
+    var profession = new Vue({
+        el: "#describe",
+        data: { items: ary[0] },
+    });
+}
+
+$(document).ready(function () {
+    let obj = [{
+        "roomId": 3,
+    }]
+    $.ajax({
+        type: "post",
+        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/GetRole",
+        data: JSON.stringify(obj),
+        dataType: 'JSON',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        success: function (response) {
+            // console.log('ok')
+            //alert('ok')
+            ary = response;
+            // alert(ary[0].player)
+            // alert(ary[0].name)
+            // alert(ary[0].imgUrl)
+            // alert(ary[0].description)
+            Binding();
+        }
+    });
+}
+)
