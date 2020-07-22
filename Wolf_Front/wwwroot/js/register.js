@@ -1,3 +1,4 @@
+$("body").addClass("bgm-pic");
 var json = {
     Name: "",
     PicUrl: "",
