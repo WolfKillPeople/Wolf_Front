@@ -1,15 +1,18 @@
+var json = {
+    Name: "",
+    PicUrl: "",
+    Account: "",
+    Password: ""
+};
 
-document.getElementById("Start_Game_Btn").addEventListener('click', sign_in);
-function sign_in() {
-    $(".BG_img").css('background-image', 'none');
-    $(".BG_img").css('background-image', 'url(https://i.imgur.com/ju4D4eS.png)');
-    $("#login").modal('toggle')
-}
-
-document.getElementById("registered").addEventListener('click', registered_block);
-function registered_block() {
-    $("#registered_modal").modal('toggle')
-}
+function AddNewAccount() {
+    var AddAccount = {
+        Name:$('#Name_ID'),
+        PicUrl:$('#avatat'),
+        Account:$('#Email_ID'),
+        Password:$('#USer_password')                
+    };            
+}      
 
 document.getElementById("user_img").addEventListener('click', change_Userimg);
 function change_Userimg() {
@@ -26,7 +29,7 @@ function changePICS(e) {
     // $('#avatat').attr('src','none');
     $('#avatat').attr('src', getChoiceUrl);
 }
-//imgur
+
 const id = '796f96ba6f57a84';
 const token = '7fad7c5f2e1fe7bf50fc28274bd1583c336b0926';
 const upload = new Vue({
@@ -67,20 +70,5 @@ $(document).ready(function () {
     $('#upload_icon').click(function () {
         $('#update').click();
     });
+
 });
-
-var json = {
-    Name: "",
-    PicUrl: "",
-    Account: "",
-    Password: ""
-};
-
-function AddNewAccount() {
-    var AddAccount = {
-        Name: $('#Name_ID'),
-        PicUrl: $('#avatat'),
-        Account: $('#Email_ID'),
-        Password: $('#USer_password')
-    };
-}        

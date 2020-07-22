@@ -13,7 +13,6 @@
     font-family: 'Ubuntu', sans-serif;
   }
 .BG_img {
-/*    background-color: black;*/
     background-image: url(https://i.imgur.com/mF8XJ9t.png);
     overflow-x: hidden;
     overflow-y: hidden;
@@ -48,52 +47,4 @@
           background: linear-gradient(to top, #FF5511, #000);
       }
   }
-  .modal-content{  
-    background-color: rgba(15, 5, 2, 0.623);  
-  }
-  .avatat{
-    border-radius: 50%;
-    width: 30%;
-  }
-  .user_img_btn{
-    border-radius: 50%;    
-    outline: none;
-    &:active{
-      outline: none;
-    }
-    &:focus{
-      box-shadow: none;
-      outline:none;
-    }
-  }
-  .forgetPSW{
-    a{text-decoration:none;
-    color: #fff;}
-  }
-  .bgc_account{
-    background-color: rgba(15, 5, 2, 1);
-  }
-  .modal-body{
-    label{color: #fff;}
-  }
-  .user_img{
-    background-color: transparent;
-  } 
-  .user_Choiceimg{
-    background-color: rgba($color: #d4feff, $alpha: 1.0);
-  }
-  .users_pic{
-    width: 30%;
-    height: auto;
-  }
-  .upLoadImg{    
-    height: 6rem;
-    width: 6rem;
-    border: 2px #000 dashed ;
-    font-size: 50px;
-    margin-top: 60px;
-    margin-left: 40px;
-  }
-  .plus{
-    display: none;
-  }
+  

@@ -1,0 +1,164 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "登入";
+}
+@section topCSS{
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="~/css/signin.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script async src="~/js/jsbat.js"></script>
+        <script async src="~/js/jsbat.js"></script>
+        <script async src="~/js/jsbat.js"></script>
+        <script async src="~/js/jsbat.js"></script>
+        <script async src="~/js/jsbat.js"></script>
+}
+<body class="bgm-pic">
+    <div class="wrap col-md-12 col-12">
+        <div class="container d-flex justify-content-center">
+            <div class="title text-center">
+                <h1>BS 狼人殺</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="ShowSign_in" id="login" tabindex="-1" role="dialog" aria-labelledby="loginModal"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bgc">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="loginModal" style="color: #fff;">帳號登入</h5>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: #fff;">&times;</span>
+                    </button> -->
+                </div>
+
+                <div class="modal-body">
+                    <from>
+                        <div class="form-group">
+                            <label asp-for="Input.Email" for="Email_ID">帳號</label>
+                            <input asp-for="Input.Email" type="email" class="form-control" id="Email_ID" placeholder="Enter email">
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="from-group">
+                            <label asp-for="Input.Password" for="USer_password">密碼</label>
+                            <input asp-for="Input.Password" type="password" class="form-control" id="USer_password" placeholder="Enter password">
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Input.RememberMe">
+                                    <input asp-for="Input.RememberMe" type="checkbox" class="form-check-input ml-1 mt-2" id="Check_box" />
+                                    @*@Html.DisplayNameFor(m => m.Input.RememberMe)*@
+                                    <label class="form-check-label ml-4" for="Check_box">記住密碼</label>
+                                </label>
+                            </div>
+                        </div>
+                        @*<div class="from-check">
+                            <input type="checkbox" class="form-check-input ml-1 mt-2" id="Check_box">
+                            <label class="form-check-label ml-4" for="Check_box">記住密碼</label>
+                        </div>*@
+
+                        <button type="submit" class="btn btn-primary form-control mt-3 Sign_in">登入</button>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-danger registered" id="registered" onclick="location.href='https://localhost:44303/Identity/Account/Register'">註冊</button>
+                            <span class="forgetPSW"><a id="forgot-password"  asp-page="./ForgotPassword">忘記密碼?</a> </span>
+                        </div>
+                    </from>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@*<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe">
+                            <input asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h4>Use another service to log in.</h4>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                            for details on setting up this ASP.NET application to support logging in via external services.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+@section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+}
