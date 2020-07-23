@@ -1,5 +1,6 @@
 var synth = window.speechSynthesis;
 var voices = [];
+//旁白說話
 function Speak(txtInput) {
     var toSpeak = new SpeechSynthesisUtterance(txtInput);
     var selectedVoiceName = 'Google 國語（臺灣）';
@@ -65,6 +66,7 @@ function update(percent, totaltime) {
         );
     }
 }
+
 let c = [wolf, witch, prophet, hunter];
 let whos = ['天黑請閉眼，狼人請殺人', '此玩家死亡，女巫是否救人', '預言家請選人查身分', '11651'];
 async function asyncArray() {
