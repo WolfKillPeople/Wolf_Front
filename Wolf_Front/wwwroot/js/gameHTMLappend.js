@@ -254,7 +254,7 @@ $('body').append(`<div class="image image-dark">
                     <!-- 身體尾 -->
                 </div>
                 <div class="leave">
-                    <button class="glow-on-hover" type="button" style="margin-left:60%;margin-top: 10%;">離開</button>
+                    <button class="glow-on-hover" type="button" style="margin-left:80%;margin-top:20%;">離開</button>
                 </div>
             </div>
         </div>
