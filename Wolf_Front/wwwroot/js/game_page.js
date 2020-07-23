@@ -11,8 +11,9 @@ function Speak(txtInput) {
     });
     synth.speak(toSpeak);
 };
+
 //時間倒數
-function timeOn(time, fun) {
+function timeOn(time, mission) {
     return new Promise((resolve, reject) => {
         var count = time;
         var totaltime = time;
@@ -22,7 +23,7 @@ function timeOn(time, fun) {
             update(count, totaltime);
 
             if (count > 0) {
-                fun();
+                mission();
             }
             else {
                 clearInterval(myCounter);
@@ -56,6 +57,7 @@ function update(percent, totaltime) {
     }
 }
 
+//AJAX玩家資料
 var players = [
     {
         "name": "狼人",
@@ -148,6 +150,8 @@ var players = [
         "alive": true
     }
 ];
+
+//玩家頭像生成
 async function BindingPlayers() {
 var array = [];
 for (let i = 0; i < players.length / 2; i++) {
@@ -203,6 +207,71 @@ for (let i = players.length / 2; i <= players.length; i++) {
     }
 }
 
+//雜物生成
+async function BindingThings() {
+    //滑鼠移到職業圖片顯示該職業描述
+    $('#depict').hover(tool);
+    function tool() {
+        $('#depict').tooltip('show')
+    }
+    //  對話框滾輪
+    $("#div1").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+        if (event.type == "mouseenter") {
+            $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
+        } else {
+            $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+        }
+    });
+}
+//玩家職業
+let ary;
+async function playerHead() {
+    let obj = [{
+        "roomId": 3,
+    }]
+    $.ajax({
+        type: "post",
+        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/GetRole",
+        data: JSON.stringify(obj),
+        dataType: 'JSON',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        success: function (response) {
+            ary = response;
+            Binding();
+            console.log(ary);
+        }
+    });
+}
+function Binding() {
+    console.log('Binding');
+    console.log(ary);
+    var profession = new Vue({
+        el: "#describe",
+        data: { items: ary[0] },
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var wolf = function wolf() {
 
 }
@@ -229,5 +298,7 @@ async function asyncArray() {
 window.onload = function () {
     //AJAX玩家資料
     BindingPlayers();
+    playerHead();
+    BindingThings;
     asyncArray();
 }
