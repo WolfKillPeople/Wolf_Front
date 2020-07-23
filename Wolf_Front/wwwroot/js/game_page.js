@@ -11,18 +11,7 @@ function Speak(txtInput) {
     });
     synth.speak(toSpeak);
 };
-var wolf = function wolf() {
-
-}
-var witch = function witch() {
-
-}
-var prophet = function prophet() {
-
-}
-var hunter = function hunter() {
-
-}
+//時間倒數
 function timeOn(time, fun) {
     return new Promise((resolve, reject) => {
         var count = time;
@@ -67,6 +56,18 @@ function update(percent, totaltime) {
     }
 }
 
+var wolf = function wolf() {
+
+}
+var witch = function witch() {
+
+}
+var prophet = function prophet() {
+
+}
+var hunter = function hunter() {
+
+}
 let c = [wolf, witch, prophet, hunter];
 let whos = ['天黑請閉眼，狼人請殺人', '此玩家死亡，女巫是否救人', '預言家請選人查身分', '11651'];
 async function asyncArray() {
