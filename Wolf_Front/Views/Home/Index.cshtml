@@ -2,7 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <input type="button" class="btnClass" value="點擊">
+        <input type="button" class="btnCall" value="點擊呼叫名字">
+    </div>
+    <script>
+    var btn = document.querySelector('.btnClass');
+    var call = document.querySelector('.btnCall');
+    function saveName(e) {
+        //宣告一個變數，綁定輸入欄，讀取&紀錄使用者輸入的文字
+        @*var str = @User.Identity.Name;*@
+        //localStorage.setItem('myName', str); //把輸入的內容存在瀏覽器
+    }
+    function callName(e) {
+        str = localStorage.getItem('myName'); //取出已存在瀏覽器的資料
+        alert('你的名字叫做' + str);
+    }
+
+    btn.addEventListener('click', saveName)
+    call.addEventListener('click', callName)
+    </script>
