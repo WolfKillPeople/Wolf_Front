@@ -14,28 +14,16 @@ function Speak(txtInput) {
 };
 
 var wolf = function wolf() {
-    var wolf = document.querySelectorAll('.wolf');
-    wolf.forEach(element => {
-        element.disabled = false;
-    });
+
 }
 var witch = function witch() {
-    var witch = document.querySelectorAll('.witch');
-    witch.forEach(element => {
-        element.disabled = false;
-    });
+
 }
 var prophet = function prophet() {
-    var prophet = document.querySelectorAll('.prophet');
-    prophet.forEach(element => {
-        element.disabled = false;
-    });
+
 }
 var hunter = function hunter() {
-    var hunter = document.querySelectorAll('.hunter');
-    hunter.forEach(element => {
-        element.disabled = false;
-    });
+
 }
 
 function timeOn(time, fun) {
