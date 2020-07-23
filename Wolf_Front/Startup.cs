@@ -21,7 +21,9 @@ namespace Wolf_Front
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
+        
 
         public IConfiguration Configuration { get; }
 
@@ -31,7 +33,7 @@ namespace Wolf_Front
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -41,6 +43,7 @@ namespace Wolf_Front
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,8 +57,12 @@ namespace Wolf_Front
             }
             app.UseHttpsRedirection();
 
-            app.UseDefaultFiles();
+            var defaultFilesOptions = new DefaultFilesOptions();
+
+            defaultFilesOptions.DefaultFileNames.Add("Startpage.html");
+            app.UseDefaultFiles(defaultFilesOptions);
             app.UseStaticFiles();
+           
 
 
 

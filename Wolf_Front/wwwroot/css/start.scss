@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .html{
+    height: 100%;
+  }
+  .body{
+    background-size:cover;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: 'Ubuntu', sans-serif;
+  }
+.BG_img {
+    background-image: url(https://i.imgur.com/mF8XJ9t.png);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+  .wrap{
+      margin-top: 100px;
+  }
+  .wolf_yell{
+    width: 80%;
+  }
+  .title{
+      color: #FF5511;  
+      h1{
+          font-size: 60px;
+      }
+  }
+  .Start_Game_Btn{
+      color: #fff;
+      background: -webkit-linear-gradient(left, #5d8fab, #000);
+      background: -o-linear-gradient(right, #5d8fab, #000);
+      background: -moz-linear-gradient(right, #5d8fab, #000);
+      background: linear-gradient(#5d8fab, #000);
+      width: 40%;
+      height: 10%;
+      font-size: 25px;
+      z-index: 1;
+      &:hover{
+          color: #fff;
+          background: -webkit-linear-gradient(left, #FF5511, #000);
+          background: -o-linear-gradient(right, #FF5511, #000);
+          background: -moz-linear-gradient(right, #FF5511, #000);
+          background: linear-gradient(to top, #FF5511, #000);
+      }
+  }
+  
