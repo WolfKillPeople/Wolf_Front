@@ -1,4 +1,13 @@
-﻿//page
+﻿let no = 1;
+let door_page = 1;
+let people;
+// var countper = $(".perspective").length;
+let close_img = 'https://i.imgur.com/TGuCa7L.png';
+let open_img = '//i.imgur.com/582RIlF.png';
+let alt_close = 'close';
+let alt_open = 'open';
+let clicks = 0;
+//page
 $(document).ready(function () {
 
     let ary;
@@ -7,11 +16,11 @@ $(document).ready(function () {
         url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
+        async:false,
         success: function (msg) {
             ary = msg;
             var doorlength = ary.length;
             alert(ary.length);
-            //console.log(msg);
             
             for (var i = 0; i < ary.length; i++) {
                 displayDoor();
@@ -22,7 +31,6 @@ $(document).ready(function () {
             }
         }
     });
-    // var pages = $(".page").length,
     var scrolling = false,
         curPage = 1;
 
@@ -108,6 +116,91 @@ $(document).ready(function () {
         pagination(+$(this).attr("data-target"));
     });
 
+    function displayDoor() {
+        play1 = localStorage.getItem('myName');
+        let id = no.toString().padStart(3, '0');
+
+        clicks += 1;
+        $.ajax({
+            type: 'GET',
+            url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            async: false,
+            success: function (msg) {
+                people = msg;
+                var doorlength = people.length;
+                console.log(msg[0].totalPlayers);
+                let doorId = (people[no - 1].roomId).toString().padStart(3, '0');
+            }
+        });
+        if (clicks == 1) {
+            debugger
+            $(`.door_all`).append(`<div class="page page-${door_page} active">
+            <div class="half left">
+            <div class="perspective" onclick="openDoor(this)">
+                    <div class="thumb">
+                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                    </div>
+                    <div class="number">
+                        <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
+                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                        <p class="people">人數: ${people[no - 1].totalPlayers}/10</p>
+                    </div>          
+                </div>
+            </div><div class="half right withText">
+            </div>
+            </div>`);
+            $('.scroll_ul').append(`<li data-target="${door_page}" class="nav-btn nav-page${door_page} active"></li>`)
+        }
+        else if ((clicks <= 4 && clicks > 1) || (clicks > 8 && clicks <= 12)) {
+            $(`.page-${door_page}>.left`).append(`<div class="perspective" onclick="openDoor(this)">
+                    <div class="thumb">
+                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                    </div>
+                    <div class="number">
+                        <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
+                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                        <p class="people">人數: ${people[no - 1].totalPlayers}/10</p>
+                    </div>          
+                </div>`);
+        }
+        else if ((clicks > 4 && clicks <= 8) || (clicks > 12 & clicks <= 16)) {
+            $(`.page-${door_page}>.right`).append(`<div class="perspective" onclick="openDoor(this)">
+                    <div class="thumb">
+                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                    </div>
+                    <div class="number">
+                        <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
+                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                        <p class="people">人數: ${people[no - 1].totalPlayers}/10</p>
+                    </div>          
+                </div>`);
+        }
+        else if (clicks == 17) {
+            door_page += 1;
+            clicks = 1;
+            $('.door_all').append(`<div class="page page-${door_page}">
+            <div class="half left">
+            <div class="perspective" onclick="openDoor(this)">
+                    <div class="thumb">
+                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                    </div>
+                    <div class="number">
+                        <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
+                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
+                        <p class="people">人數: ${people[no - 1].totalPlayers}/10</p>
+                    </div>          
+                </div>
+            </div><div class="half right withText">
+            </div>
+            </div>`);
+
+            $('.scroll_ul').append(`<li data-target="${door_page}" class="nav-btn nav-page${door_page}"></li>`)
+        }
+
+    }
+
 });
 //door
 function openDoor(field) {
@@ -124,7 +217,7 @@ function openDoor(field) {
 
 $(".add_room_btn").on("click", addDoor);
 function addDoor() {
-    displayDoor();
+    AddOneDoor();
     $(function()
     {
 
@@ -149,38 +242,15 @@ function addDoor() {
 
     });
 }
-var no = 1;
-var door_page = 1;
-var people = 0;
-// var countper = $(".perspective").length;
-let close_img = 'https://i.imgur.com/TGuCa7L.png';
-let open_img = '//i.imgur.com/582RIlF.png';
-let alt_close = 'close';
-let alt_open = 'open';
 
-var clicks = 0;
-function displayDoor() {
-    
+
+function AddOneDoor() {
     play1 = localStorage.getItem('myName');
     let id = no.toString().padStart(3, '0');
+
     clicks += 1;
-    $.ajax({
-        type: 'GET',
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
-        dataType: 'json',
-        contentType: 'application/json;charset=UTF-8',
-        success: function (msg) {
-            ary = msg;
-            var doorlength = ary.length;
-            
-            for (var i = 0; i < ary.length; i++) {
-                for (var j = 0; j <= msg.length - 1; j++) {
-                    console.log(msg[j].length);
-                }
-            }
-        }
-    });
     if (clicks == 1) {
+        debugger
         $(`.door_all`).append(`<div class="page page-${door_page} active">
             <div class="half left">
             <div class="perspective" onclick="openDoor(this)">
@@ -190,7 +260,7 @@ function displayDoor() {
                     <div class="number">
                         <p class="door_number">${id}</p>
                         <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p class="people">人數: 3/10</p>
+                        <p class="people">人數: 1/10</p>
                     </div>          
                 </div>
             </div><div class="half right withText">
@@ -206,7 +276,7 @@ function displayDoor() {
                     <div class="number">
                         <p class="door_number">${id}</p>
                         <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p class="people">人數: 3/10</p>
+                        <p class="people">人數: 1/10</p>
                     </div>          
                 </div>`);
     }
@@ -218,7 +288,7 @@ function displayDoor() {
                     <div class="number">
                         <p class="door_number">${id}</p>
                         <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p class="people">人數: 3/10</p>
+                        <p class="people">人數: 1/10</p>
                     </div>          
                 </div>`);
     }
@@ -234,7 +304,7 @@ function displayDoor() {
                     <div class="number">
                         <p class="door_number">${id}</p>
                         <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf" /></a>
-                        <p class="people">人數: 3/10</p>
+                        <p class="people">人數: 1/10</p>
                     </div>          
                 </div>
             </div><div class="half right withText">
@@ -243,7 +313,7 @@ function displayDoor() {
 
         $('.scroll_ul').append(`<li data-target="${door_page}" class="nav-btn nav-page${door_page}"></li>`)
     }
-    
+
 }
 
 
