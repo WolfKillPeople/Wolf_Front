@@ -82,15 +82,25 @@
     background-image: url(https://i.imgur.com/Lv764FI.png);
     background-size: 103px 35px;
     background-position: center center;
+    margin-top: 10px;
 }
 
 /*sky*/
-#sky, body {
+* {
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+#sky {
     background: -webkit-linear-gradient(#00111e 30%, #033d5e);
     background: -moz-linear-gradient(#00111e 30%, #033d5e);
     background: -o-linear-gradient(#00111e 30%, #033d5e);
     background: linear-gradient(#00111e 30%, #033d5e);
     overflow: hidden;
+    margin: 0 !important;
 }
 
 .sky_all {
@@ -105,10 +115,12 @@
 
 .wolf {
     width: 100px;
-    margin-top: 70px
+    margin-top: 77px;
 }
 
-
+.people {
+    margin-top: 12px;
+}
 
 
 /*search*/
@@ -124,16 +136,16 @@
     margin-left: 58%;
 }
 
-#search_content.on {
-    -webkit-animation-name: in-out;
-    animation-name: in-out;
-    -webkit-animation-duration: 0.7s;
-    animation-duration: 0.7s;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    -webkit-animation-iteration-count: 1;
-    animation-iteration-count: 1;
-}
+    #search_content.on {
+        -webkit-animation-name: in-out;
+        animation-name: in-out;
+        -webkit-animation-duration: 0.7s;
+        animation-duration: 0.7s;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        -webkit-animation-iteration-count: 1;
+        animation-iteration-count: 1;
+    }
 
 input {
     box-sizing: border-box;
@@ -146,7 +158,7 @@ input {
     font-size: 16px;
     font-weight: 400;
     font-family: Roboto;
-    outline: 0;
+    outline: none !important;
     -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
     transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
     -webkit-transition-delay: 0.4s;
@@ -167,7 +179,7 @@ input {
     width: 50px;
     padding: 0;
     border-radius: 100%;
-    outline: 0;
+    outline: none !important;
     border: 0;
     color: inherit;
     cursor: pointer;
@@ -243,7 +255,7 @@ input {
     font-family: Roboto;
     font-size: 16px;
     font-weight: 400;
-    outline: 0;
+    outline: none !important;
     -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
     transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
     -webkit-transition-delay: 0.4s, 0s, 0.4s;
@@ -282,6 +294,10 @@ input {
     font-size: 1.3em;
     line-height: 2em;
     cursor: pointer;
+}
+
+#add_btn {
+    user-select: none;
 }
 
 .dot {
@@ -339,7 +355,7 @@ input {
 .add_room_container {
     padding-top: 5px;
     width: 50%;
-    margin-left: 7%;
+    /*margin-left: 7%;*/
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -347,11 +363,12 @@ input {
 
 .add_room_href {
     text-decoration: none;
+    margin-left: 7%;
 }
 
-p {
+/*p {
     margin-top: 9px;
-}
+}*/
 
 /*modal*/
 /* Modal Base CSS */
@@ -423,7 +440,7 @@ p {
     cursor: pointer;
     color: #fff;
     border: 0;
-    outline: none;
+    outline: none !important;
     background: #e74c3c;
 }
 
@@ -502,7 +519,7 @@ p {
     color: #fff;
     border: 0;
     border-radius: 3px;
-    outline: none;
+    outline: none !important;
     background: #2ecc71;
     box-shadow: 0 5px 1px #27ae60;
     margin-top: -45px;
@@ -528,5 +545,3 @@ p {
     width: 50px;
     height: 50px;
 }
-
-
