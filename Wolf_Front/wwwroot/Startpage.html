@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/start.css">
+    
+    
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script async src="../js/jsbat.js"></script>
@@ -18,8 +20,29 @@
     <div class="wrap col-md-12 col-12">
         <div class="container d-flex justify-content-center">
             <div class="title text-center">
-                <img src="https://i.imgur.com/g4rDyId.png" alt="BS 狼人殺" />
-                <br />
+                <link href="https://fonts.googleapis.com/css?family=Raleway:300,500,700,900" rel="stylesheet">
+
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width: 0;height: 0;">
+                    <defs>
+                        <filter id="goo">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                                           result="goo" />
+                            <feBlend in="SourceGraphic" in2="goo" />
+                        </filter>
+                    </defs>
+                </svg>
+
+                <h2 class="title">
+                    B S 狼 人 殺
+                    <span class="drop"></span>
+                    <span class="drop"></span>
+                    <span class="drop"></span>
+                    <span class="drop"></span>
+                    <span class="drop"></span>
+                </h2>
+                <!--<img src="https://i.imgur.com/g4rDyId.png" alt="BS 狼人殺" />
+                <br />-->
                 <!--<h1>BS 狼人殺</h1>-->
                 <button class="btn Start_Game_Btn mt-5 col-md-12 col-12 " id="Start_Game_Btn" onclick="location.href='https://localhost:44303/Identity/Account/Login'">遊戲開始</button>
                 <img class="wolf_yell col-md-12 col-12 col-sm-12" src="https://i.imgur.com/Nc3aHeQ.png" alt="wolf">
