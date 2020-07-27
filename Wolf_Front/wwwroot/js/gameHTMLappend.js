@@ -275,19 +275,61 @@
 
     <!-- 規則Modal -->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">規則</h5>
+      <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content " style="width: 70em; height: 35em;   overflow:hidden;      ">
+                <div class="modal-header ">
+                    <h5 class="modal-title" id="staticBackdropLabel"></h5>
                     <button type="button" onclick="Speak('')" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    規則
+                  
+                        <div class="witch">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="rule">
+                            <h1>角色介紹</h1>
+                            <p>預言家:功能是每晚可以驗證一名玩家身分，只能得知其身分為好人或狼人，無法確切得知其身分。</p>
+
+                            <p>女巫:有一瓶解藥與一瓶毒藥，一晚只能使用一瓶藥，可以自救。</p>
+
+                            <p> 獵人:
+                                在死亡時可以帶走一名玩家，在被毒死時不可以開槍。(也可以壓槍不帶人走)</p>
+                            <p>
+                                村民:
+                                沒有任何技能，僅白天可以公投出心中的狼人。</p>
+                            <p>狼人:
+                                夜間可以溝通，共同決定將殺害哪名玩家並商討戰術。
+                            </p>
+                            <p> 狼王:
+                                死亡後可以開槍殺死一名玩家，被毒則不可以開槍。(可以自爆帶人)
+                            </p>
+                            <p>
+                                被票出去有遺言
+                                夜晚被殺沒有遺言
+                            </p>
+                            <p> 屠邊局(民死或神死)</p>
+                            <p style="color: red;"> 如果對自己角色還有不清楚，可以觸碰自己角色圖片(右上角)</p>
+                        </div>
+                   
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick="Speak('')" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="Speak('')" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
