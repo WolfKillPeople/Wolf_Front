@@ -371,9 +371,17 @@ async function game() {
 
     Speak('所有玩家投票，得票最高者將出局');
     //判斷輸贏
-
 }
 
+  //< !--當我按下x時要去加入css動畫 -->
+   $('#aa').click(function () {
+        $('.img-spin').css("animation-name", " spin")
+   $('.img-spin').css("animation-timing-function"," linear")
+   $('.img-spin').css("animation-duration"," 1s")
+   var tt=document.styleSheets[0];
+                tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}",9);//寫入樣式      
+
+});
     //AJAX玩家資料
     BindingPlayers();
     playerHead();
