@@ -312,16 +312,20 @@ function Binding() {
 
 
 function wolf() {
-    if (myJob == "狼人" || myJob == "狼王") { }
+    //if (myJob == "狼人" || myJob == "狼王") { }
+    $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto")
 }
 function prophet() {
-    if (myJob == "預言家") { }
+    //if (myJob == "預言家") { }
+    $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
 }
 function witch() {
-    if (myJob == "女巫") { }
+    //if (myJob == "女巫") { }
+    $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto")
 }
 function hunter() {
-    if (myJob == "獵人") { }
+    //if (myJob == "獵人") { }
+    $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto")
 }
 
 
@@ -351,6 +355,7 @@ async function game() {
     //回傳投票結果
 
     //抓誰死了
+    $("body").css("cursor", "default")
     $('#toggleDark').click();
     Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
     await timeOn(5);
