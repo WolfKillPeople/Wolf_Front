@@ -187,7 +187,7 @@
             <div class="col-md-4 col-sm-12 rightcontent">
                 <div class="role d-flex" style="margin-top: 4%; margin-bottom:7%" id="describe">
                     <div id="depict" data-toggle="tooltip" data-placement="right" v-bind:title="items.description">
-                        <img class="_picture" id="_picture" alt="職業" style="width:200px;height:180px" v-bind:src="items.imgUrl">
+                        <img class="_picture img-spin" id="_picture" alt="職業" style="width:200px;height:180px" v-bind:src="items.imgUrl">
                     </div>
 
                     <div class="pie degree">

@@ -5,7 +5,7 @@
 }
 
 .image {
-    transition: fill 3s ease-in-out;
+    transition: fill 1s ease-in-out;
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 80vh 1fr;
@@ -30,29 +30,22 @@ svg {
     grid-row: 1;
 }
 
-.section_rl,
-.section_ml,
-.section_fl {
+.section_rl, .section_ml, .section_fl {
     grid-column: 1;
     grid-row: 1;
 }
 
-.section_rm,
-.section_mm,
-.section_fm {
+.section_rm, .section_mm, .section_fm {
     grid-column: 2;
     grid-row: 1;
 }
 
-.section_rr,
-.section_mr,
-.section_fr {
+.section_rr, .section_mr, .section_fr {
     grid-column: 3;
     grid-row: 1;
 }
 
-[class*="section_f"],
-.section_trees {
+[class*="section_f"], .section_trees {
     isolation: isolate;
 }
 
@@ -73,7 +66,7 @@ svg {
 }
 
 .gradient stop {
-    transition: stop-color 3s ease-in-out;
+    transition: stop-color 1s ease-in-out;
 }
 
 .image-light {
@@ -123,15 +116,11 @@ svg {
     opacity: .22;
 }
 
-#sun {
-    color: black;
-}
-
 .moon {
     isolation: isolate;
     opacity: 0.22;
     mix-blend-mode: multiply;
-    transition: opacity 3s ease-in-out;
+    transition: opacity 1s ease-in-out;
 }
 
 .moon-grey1 {
@@ -150,13 +139,12 @@ svg {
     fill: #ddd;
 }
 
-path,
-polygon {
-    transition: fill 2s ease-in-out;
+path, polygon {
+    transition: fill 1s ease-in-out;
 }
 
 .image {
-    transition: background-color 0.5s ease-in-out;
+    transition: background-color 1s ease-in-out;
 }
 
 .switch {
@@ -177,7 +165,7 @@ polygon {
         padding: .25rem;
         border-bottom-style: solid;
         border-bottom-width: 2px;
-        transition: border-bottom-color 3s ease-in-out, filter 3s ease-in-out, opacity 3s ease-in-out;
+        transition: border-bottom-color 1s ease-in-out, filter 1s ease-in-out, opacity 1s ease-in-out;
     }
 
         .switch span:first-child {
@@ -195,6 +183,7 @@ polygon {
     opacity: 1;
     border-color: white;
 }
+/*背景尾*/
 
 .top-playerimg {
     display: flex;
@@ -416,4 +405,48 @@ li {
     margin: 5px;
     ;
     filter: alpha(Opacity=20)
+}
+
+/*選轉*/
+.img-spin {
+    width: 200px;
+    height: 180px;
+    display: block;
+    animation-name: spin;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+    -webkit-animation-name: spin;
+    animation-timing-function: ease-out;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-duration: 2s;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotateY(0deg);
+        moz-transform: rotateY(0deg);
+        ms-transform: rotateY(0deg);
+    }
+
+    25% {
+        transform: rotateY(360deg);
+        moz-transform: rotateY(360deg);
+        ms-transform: rotateY(360deg);
+    }
+
+    50% {
+        transform: rotateY(0deg);
+        moz-transform: rotateY(0deg);
+        ms-transform: rotateY(0deg);
+    }
+
+    75% {
+        transform: rotateY(360deg);
+        moz-transform: rotateY(360deg);
+        ms-transform: rotateY(360deg);
+    }
+
+    100% {
+        animation-fill-mode: forwards;
+    }
 }
