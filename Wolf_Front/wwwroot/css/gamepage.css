@@ -1,7 +1,7 @@
 ﻿body {
     margin: 0;
     /* overflow: hidden; */
-    cursor: url('/Images/paw.jpg') 45 45, auto;
+    /*cursor: url('/Images/paw.jpg') 45 45, auto;*/
 }
 
 .image {
@@ -416,4 +416,51 @@ li {
     margin: 5px;
     ;
     filter: alpha(Opacity=20)
+}
+
+/*選轉*/
+.img-spin {
+    width: 200px;
+    height: 180px;
+    display: block;
+    animation-name: spin;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+    -webkit-animation-name: spin;
+    animation-timing-function: ease-out;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-duration: 2s;
+}
+#toggleDark {
+    top: -10000px;
+    left: -10000px;
+}
+@keyframes spin {
+    0% {
+        transform: rotateY(0deg);
+        moz-transform: rotateY(0deg);
+        ms-transform: rotateY(0deg);
+    }
+
+    25% {
+        transform: rotateY(360deg);
+        moz-transform: rotateY(360deg);
+        ms-transform: rotateY(360deg);
+    }
+
+    50% {
+        transform: rotateY(0deg);
+        moz-transform: rotateY(0deg);
+        ms-transform: rotateY(0deg);
+    }
+
+    75% {
+        transform: rotateY(360deg);
+        moz-transform: rotateY(360deg);
+        ms-transform: rotateY(360deg);
+    }
+
+    100% {
+        animation-fill-mode: forwards;
+    }
 }
