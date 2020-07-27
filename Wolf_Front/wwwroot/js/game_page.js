@@ -332,6 +332,7 @@ async function game() {
 
     //抓誰死了
     $('#toggleDark').click();
+    //判斷輸贏
     Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
     await timeOn(5);
 
@@ -344,6 +345,7 @@ async function game() {
     Speak('1到10號玩家發言');
 
     Speak('所有玩家投票，得票最高者將出局');
+    //判斷輸贏
 
 }
 
