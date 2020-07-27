@@ -13,7 +13,7 @@ function Speak(txtInput) {
 };
 
 //時間倒數
-function timeOn(time, mission) {
+function timeOn(time) {
     return new Promise((resolve, reject) => {
         var count = time;
         var totaltime = time;
@@ -22,7 +22,6 @@ function timeOn(time, mission) {
             $('#time').html(padLeft(count.toString(), 2));
             update(count, totaltime);
             if (count > 0) {
-                mission();
             }
             else {
                 clearInterval(myCounter);
@@ -292,30 +291,60 @@ function Binding() {
 
 
 
-var wolf = function wolf() {
-    $('#')
+function wolf() {
     if (myJob == "狼人" || myJob == "狼王") { }
 }
-var prophet = function prophet() {
+function prophet() {
     if (myJob == "預言家") { }
 }
-var witch = function witch() {
+function witch() {
     if (myJob == "女巫") { }
 }
-var hunter = function hunter() {
+function hunter() {
     if (myJob == "獵人") { }
 }
-let round = [wolf, prophet, witch, hunter];
+
+
 let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '天亮請睜眼'];
+
 async function game() {
     $('#staticBackdrop').modal('show');
     await timeOn(10);
+
     Speak('我是測試版，請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
-    for (var i = 0; i <= round.length; i++) {
-        Speak(roundSound[i])
-        await timeOn(10, round[i]);
-    }
+
+
+    $('#toggleDark').click();
+    Speak('天黑請閉眼，狼人請殺人');
+    wolf();
+    await timeOn(10);
+    //回傳投票結果
+
+    Speak('預言家請選擇玩家查身分');
+    prophet();
+    await timeOn(10);
+
+    Speak('此玩家死亡，女巫是否救人，是否殺人');
+    witch();
+    await timeOn(10);
+    //回傳投票結果
+
+    //抓誰死了
+    $('#toggleDark').click();
+    Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
+    await timeOn(5);
+
+    //if(某某某是 獵人){ if(自己是獵人) {獵人請選擇要帶走幾號玩家} }
+    //if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
+    await timeOn(10);
+    //回傳投票結果
+    Speak('玩家發言時間');
+
+    Speak('1到10號玩家發言');
+
+    Speak('所有玩家投票，得票最高者將出局');
+
 }
 
     //AJAX玩家資料
