@@ -314,18 +314,23 @@ function Binding() {
 
 
 var wolf = function wolf() {
-    $('#')
-    if (myJob == "狼人" || myJob == "狼王") { }
+    
+    //if (myJob == "狼人" || myJob == "狼王") { $('body').css("cursor", "url('/Images/paw.jpg') 45 45, auto"); }
+    $('body').css("cursor", "url('/Images/paw.jpg') 50 50, auto");
 }
 var prophet = function prophet() {
-    if (myJob == "預言家") { }
+    //if (myJob == "預言家") { document.body.style.cursor = url('/Images/search.jpg')}
+    $('body').css("cursor", "url('/Images/search.jpg') 45 45, auto");
 }
 var witch = function witch() {
-    if (myJob == "女巫") { }
+    //if (myJob == "女巫") { document.body.style.cursor = url('/Images/poison.jpg') }
+    $('body').css("cursor", "url('/Images/poison.jpg') 45 45, auto");
 }
 var hunter = function hunter() {
-    if (myJob == "獵人") { }
+    //if (myJob == "獵人") { document.body.style.cursor = url('/Images/gun.jpg')}
+    $('body').css("cursor", "url('/Images/gun.jpg') 45 45, auto");
 }
+
 let round = [wolf, prophet, witch, hunter];
 let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '天亮請睜眼'];
 async function game() {
