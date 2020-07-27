@@ -284,7 +284,7 @@ function Binding() {
 
 
 var wolf = function wolf() {
-
+    
 }
 var witch = function witch() {
 
@@ -295,22 +295,22 @@ var prophet = function prophet() {
 var hunter = function hunter() {
 
 }
-let c = [wolf, witch, prophet, hunter];
-let whos = ['天黑請閉眼，狼人請殺人', '此玩家死亡，女巫是否救人', '預言家請選人查身分', '11651'];
-async function asyncArray() {
+let round = [wolf, prophet, witch, hunter];
+let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '11651'];
+async function game() {
     $('#staticBackdrop').modal('show');
     await timeOn(10);
     Speak('我是測試版，請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
-    for (var i = 0; i <= c.length; i++) {
-        Speak(whos[i])
-        await timeOn(10, c[i]);
+    for (var i = 0; i <= round.length; i++) {
+        Speak(roundSound[i])
+        await timeOn(10, round[i]);
     }
 }
-window.onload = function () {
+
     //AJAX玩家資料
     BindingPlayers();
     playerHead();
     BindingThings;
-    asyncArray();
-}
+    game();
+
