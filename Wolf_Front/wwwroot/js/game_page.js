@@ -57,10 +57,14 @@ let image = document.querySelector('.image')
 
 toggle.addEventListener('click', toggleScheme, true)
 
+var x = document.getElementById("MorningAudio");
+var y = document.getElementById("NightAudio");
+
 function toggleScheme() {
     if (toggle.getAttribute("aria-checked") == "true") {
         toggle.setAttribute("aria-checked", "false");
         document.getElementById("Day").value = "黑夜";
+        nightAudio();
         document.getElementById("userInput").hidden = true;
         document.getElementById("messageInput").hidden = true;
         document.getElementById("userInput2").hidden = false;
@@ -71,6 +75,7 @@ function toggleScheme() {
     } else {
         toggle.setAttribute("aria-checked", "true");
         document.getElementById("Day").value = "白天";
+        morningAudio();
         document.getElementById("messagesList1").hidden = true;
         document.getElementById("userInput").hidden = false;
         document.getElementById("messageInput").hidden = false;
@@ -82,6 +87,22 @@ function toggleScheme() {
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')
 }
+
+function morningAudio() {
+    x.play();
+    x.volume = 0.2;
+    y.pause();
+}
+
+function nightAudio() {
+    y.play();
+    y.volume = 0.2;
+    x.pause();
+} 
+
+
+
+
 //AJAX玩家資料
 var players = [
     {
