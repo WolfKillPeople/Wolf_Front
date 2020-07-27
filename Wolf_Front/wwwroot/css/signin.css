@@ -1,8 +1,9 @@
 .body {
-  background-size: cover;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  font-family: 'Ubuntu', sans-serif;
+    font-family: 'Noto Sans TC';
+    background-size: cover;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .bgm-pic {
@@ -12,7 +13,7 @@
 }
 
 .bgm-pic .wrap {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .bgm-pic .title {
