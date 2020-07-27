@@ -328,8 +328,8 @@
                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick="Speak('')" class="btn btn-secondary"
-                        data-dismiss="modal"id="aa">Close</button>
+                    <button type="button"id="BB" onclick="Speak('')" class="btn btn-secondary"
+                        data-dismiss="modal" >Close</button>
                 </div>
             </div>
         </div>
