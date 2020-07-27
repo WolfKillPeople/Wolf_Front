@@ -1,4 +1,4 @@
-﻿$('body').append(`<div class="image image-dark">
+﻿$('body').append(`<div class="image image-light ">
 
     <svg class="section_sky" preserveAspectRatio="none">
         <defs>

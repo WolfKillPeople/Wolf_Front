@@ -91,7 +91,7 @@ var players = [
         "isGood": false,
         "roomId": 1,
         "player": "string",
-        "alive": false
+        "isAlive": false
     },
     {
         "name": "獵人",
@@ -100,7 +100,7 @@ var players = [
         "isGood": true,
         "roomId": 1,
         "player": "string",
-        "alive": true
+        "isAlive": true
     },
     {
         "name": "女巫",
@@ -109,7 +109,7 @@ var players = [
         "isGood": true,
         "roomId": 1,
         "player": "string",
-        "alive": false
+        "isAlive": false
     },
     {
         "name": "預言家",
@@ -118,7 +118,7 @@ var players = [
         "isGood": true,
         "roomId": 1,
         "player": "string",
-        "alive": true
+        "isAlive": true
     },
     {
         "name": "村民",
@@ -127,7 +127,7 @@ var players = [
         "isGood": true,
         "roomId": 1,
         "player": "string",
-        "alive": false
+        "isAlive": false
     },
     {
         "name": "村民",
@@ -136,7 +136,7 @@ var players = [
         "isGood": true,
         "roomId": 1,
         "player": "string",
-        "alive": true
+        "isAlive": true
     },
     {
         "name": "狼王",
@@ -145,7 +145,7 @@ var players = [
         "isGood": false,
         "roomId": 1,
         "player": "",
-        "alive": true
+        "isAlive": true
     },
     {
         "name": "狼人",
@@ -154,7 +154,7 @@ var players = [
         "isGood": false,
         "roomId": 1,
         "player": "string",
-        "alive": true
+        "isAlive": true
     },
     {
         "name": "村民",
@@ -163,7 +163,7 @@ var players = [
         "isGood": true,
         "roomId": 1,
         "player": "string",
-        "alive": true
+        "isAlive": true
     },
     {
         "name": "村民",
@@ -172,7 +172,7 @@ var players = [
         "isGood": true,
         "roomId": 1,
         "player": "string",
-        "alive": true
+        "isAlive": true
     }
 ];
 
@@ -269,9 +269,18 @@ async function playerHead() {
         }
     });
 }
+var myName;
+var myAlive;
+var myJob;
 function Binding() {
-    console.log('Binding');
-    console.log(ary);
+    myName = localStorage.getItem("myName");
+    players.forEach(element => {
+        if (element.player == myName) {
+            myAlive=this.isAlive;
+            myJob = this.name;
+            let jobPhoto = this.imgUrl;
+        }
+    });
     var profession = new Vue({
         el: "#describe",
         data: { items: ary[0] },
@@ -284,19 +293,20 @@ function Binding() {
 
 
 var wolf = function wolf() {
-    
-}
-var witch = function witch() {
-
+    $('#')
+    if (myJob == "狼人" || myJob == "狼王") { }
 }
 var prophet = function prophet() {
-
+    if (myJob == "預言家") { }
+}
+var witch = function witch() {
+    if (myJob == "女巫") { }
 }
 var hunter = function hunter() {
-
+    if (myJob == "獵人") { }
 }
 let round = [wolf, prophet, witch, hunter];
-let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '11651'];
+let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '天亮請睜眼'];
 async function game() {
     $('#staticBackdrop').modal('show');
     await timeOn(10);
