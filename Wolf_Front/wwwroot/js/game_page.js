@@ -60,23 +60,23 @@ function toggleScheme() {
     if (toggle.getAttribute("aria-checked") == "true") {
         toggle.setAttribute("aria-checked", "false");
         document.getElementById("Day").value = "黑夜";
-        document.getElementById("userInput").hidden = true;
-        document.getElementById("messageInput").hidden = true;
-        document.getElementById("userInput2").hidden = false;
-        document.getElementById("messageInput2").hidden = false;
-        document.getElementById("sendButton1").hidden = false;
-        document.getElementById("sendButton").hidden = true;
-
-    } else {
-        toggle.setAttribute("aria-checked", "true");
-        document.getElementById("Day").value = "白天";
-        document.getElementById("messagesList1").hidden = true;
         document.getElementById("userInput").hidden = false;
         document.getElementById("messageInput").hidden = false;
         document.getElementById("userInput2").hidden = true;
         document.getElementById("messageInput2").hidden = true;
-        document.getElementById("sendButton").hidden = false;
         document.getElementById("sendButton1").hidden = true;
+        document.getElementById("sendButton").hidden = false;
+
+    } else {
+        toggle.setAttribute("aria-checked", "true");
+        document.getElementById("Day").value = "白天";
+        document.getElementById("messagesList1").hidden = false;
+        document.getElementById("userInput").hidden = true; 
+        document.getElementById("messageInput").hidden = true; 
+        document.getElementById("userInput2").hidden = false;
+        document.getElementById("messageInput2").hidden = false;
+        document.getElementById("sendButton").hidden = true; 
+        document.getElementById("sendButton1").hidden = false;
     }
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')

@@ -420,7 +420,10 @@ li {
     -webkit-animation-timing-function: linear;
     -webkit-animation-duration: 2s;
 }
-
+#toggleDark {
+    top: -10000px;
+    left: -10000px;
+}
 @keyframes spin {
     0% {
         transform: rotateY(0deg);
