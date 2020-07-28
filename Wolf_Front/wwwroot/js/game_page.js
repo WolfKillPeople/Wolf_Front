@@ -70,30 +70,42 @@ toggle.addEventListener('click', toggleScheme, true)
 var x = document.getElementById("MorningAudio");
 var y = document.getElementById("NightAudio");
 
+function closeMessage() {
+    document.getElementById("userInput").hidden = true;
+    document.getElementById("messageInput").hidden = true;
+    document.getElementById("userInput2").hidden = true;
+    document.getElementById("messageInput2").hidden = true;
+    document.getElementById("sendButton1").hidden = true;
+    document.getElementById("sendButton").hidden = true;
+}
+
 function toggleScheme() {
     if (toggle.getAttribute("aria-checked") == "true") {
         toggle.setAttribute("aria-checked", "false");
-        document.getElementById("Day").value = "黑夜";
-        //nightAudio();
-        morningAudio();
-        document.getElementById("userInput").hidden = false;
-        document.getElementById("messageInput").hidden = false;
-        document.getElementById("userInput2").hidden = true;
-        document.getElementById("messageInput2").hidden = true;
-        document.getElementById("sendButton1").hidden = true;
-        document.getElementById("sendButton").hidden = false;
-
-    } else {
-        toggle.setAttribute("aria-checked", "true");
+        document.getElementById("PeoplemessagesList").hidden = false;
         document.getElementById("Day").value = "白天";
+        morningAudio();
+        document.getElementById("WolfmessagesList").innerHTML = "";
+        document.getElementById("WolfmessagesList").hidden = true;
+        document.getElementById("PeopleuserInput").hidden = false;
+        document.getElementById("PeoplemessageInput").hidden = false;
+        document.getElementById("WolfuserInput").hidden = true;
+        document.getElementById("WolfmessageInput").hidden = true;
+        document.getElementById("PeoplesendButton").hidden = false;
+        document.getElementById("WolfsendButton").hidden = true;
+
+
+    } else if (toggle.getAttribute("aria-checked") == "false") {
+        toggle.setAttribute("aria-checked", "true");
+        document.getElementById("PeoplemessagesList").hidden = false;
+        document.getElementById("Day").value = "黑夜";
         nightAudio();
-        document.getElementById("messagesList1").hidden = false;
-        document.getElementById("userInput").hidden = true; 
-        document.getElementById("messageInput").hidden = true; 
-        document.getElementById("userInput2").hidden = false;
-        document.getElementById("messageInput2").hidden = false;
-        document.getElementById("sendButton").hidden = true; 
-        document.getElementById("sendButton1").hidden = false;
+        document.getElementById("WolfuserInput").hidden = false;
+        document.getElementById("WolfmessageInput").hidden = false;
+        document.getElementById("PeopleuserInput").hidden = true;
+        document.getElementById("PeoplemessageInput").hidden = true;
+        document.getElementById("WolfsendButton").hidden = false;
+        document.getElementById("PeoplesendButton").hidden = true;
     }
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')
