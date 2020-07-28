@@ -374,7 +374,7 @@ async function game() {
 }
 
   //< !--當我按下x時要去加入css動畫 -->
-   $('#aa').click(function () {
+$('#close').click(function () {
         $('.img-spin').css("animation-name", " spin")
    $('.img-spin').css("animation-timing-function"," linear")
    $('.img-spin').css("animation-duration"," 1s")
@@ -382,7 +382,7 @@ async function game() {
                 tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}",9);//寫入樣式      
 
    });
-$('#BB').click(function () {
+$('#closebtn').click(function () {
     $('.img-spin').css("animation-name", " spin")
     $('.img-spin').css("animation-timing-function", " linear")
     $('.img-spin').css("animation-duration", " 1s")
