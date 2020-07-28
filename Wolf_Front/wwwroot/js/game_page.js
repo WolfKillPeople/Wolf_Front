@@ -112,11 +112,24 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
     document.getElementById("touxiang").getElementsByClassName('circleImg')[h - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[i - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[j - 1].className = "circleImg off";
-    console.log(a);
+    let backChoose = [false, false, false, false, false, false, false, false, false, false];
+    backChoose[a - 1] = true;
+    voteBack(backChoose);
 }
 //投票回傳
-function voteBack() {
-
+function voteBack(backChoose) {
+    $.ajax({
+        type: "post",
+        url: "",
+        data: JSON.stringify(backChoose),
+        dataType: 'JSON',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        success: function (response) {
+            console.log('OK');
+        }
+    });
 }
 
 //AJAX玩家資料
