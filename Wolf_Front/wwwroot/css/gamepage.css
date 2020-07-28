@@ -1,7 +1,7 @@
-﻿
-body {
+﻿body {
     margin: 0;
     /* overflow: hidden; */
+    cursor: url('/Images/paw.jpg') 45 45, auto;
 }
 
 .image {
@@ -198,8 +198,16 @@ polygon {
 
 .top-playerimg {
     display: flex;
-    margin-top: 8%;
+    margin-top: 4%;
     margin-left: 4%;
+}
+
+    .top-playerimg a {
+        margin-left: 6%;
+    }
+
+.footer-playerimg a {
+    margin-left: 6%;
 }
 
 .playerimg {
@@ -208,21 +216,34 @@ polygon {
 
 .footer-playerimg {
     display: flex;
-    margin-top: 2%;
+    margin-top: 6%;
     margin-left: 4%;
 }
 
-.top-playerimg img {
-    width: 50%;
-    margin-left: 5%;
-    border-radius: 50px;
+.deadimg {
+    position: absolute;
+    z-index: 6;
 }
 
-.footer-playerimg img {
-    width: 50%;
-    margin-left: 5%;
-    border-radius: 50px;
+.playerphoto {
+    /* position: absolute;  */
+    z-index: 1;
 }
+
+.circleImg {
+    width: 5em;
+    height: 5em;
+    overflow: hidden;
+    border-radius: 100%;
+    margin-left: 15%;
+    z-index: 8;
+}
+
+    .circleImg img {
+        border-radius: 100%;
+        max-width: 100% !important;
+    }
+
 
 .gamerecord {
     display: flex;
@@ -257,7 +278,7 @@ polygon {
     font-family: "Work Sans";
     position: absolute;
     top: 0px;
-    left: 10px;
+    left: 5px;
     color: #ffffff;
 }
 
@@ -269,27 +290,6 @@ polygon {
     width: 95%;
     position: absolute;
 }
-
-/* #wolf_003-01-01 {
-        position: absolute;
-        top: 100%;
-        animation-name: oxxo;
-        animation-duration: 5s;
-        animation-iteration-count: infinite;
-        animation-direction: normal;
-        animation-timing-function: linear;
-
-    }
-
-    @keyframes oxxo {
-        from {
-            left: 100%;
-        }
-
-        to {
-            left: -6%;
-        }
-    } */
 
 .bb {
     position: absolute;
@@ -314,12 +314,12 @@ polygon {
 
 #div1 {
     overflow-y: scroll;
-    width: 400px;
+    width: 89%;
     height: 300px;
 }
 
 .glow-on-hover {
-    width: 220px;
+    width: 120px;
     height: 50px;
     border: none;
     outline: none;
@@ -385,4 +385,35 @@ polygon {
     100% {
         background-position: 0 0;
     }
+}
+
+#sendBtn {
+    height: 50px;
+    width: auto;
+}
+
+.text_decord {
+    width: 69%;
+    margin-left: 43px;
+}
+
+#describe {
+    cursor: default;
+}
+
+li {
+    color: #ffffff;
+}
+
+
+.on {
+    margin: 5px;
+    box-shadow: 0px 0px 25px rgba(0, 255, 178, 1);
+    filter: alpha(Opacity=100)
+}
+
+.off {
+    margin: 5px;
+    ;
+    filter: alpha(Opacity=20)
 }
