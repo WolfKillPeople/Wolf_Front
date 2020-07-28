@@ -185,6 +185,7 @@
                         </div>
                         <div class="rightgamerecord">
                             <ul id="rightgamerecordli">
+
                             </ul>
                         </div>
                     </div>
@@ -279,7 +280,7 @@
                 <div class="modal-header ">
                     <h5 class="modal-title" id="staticBackdropLabel"></h5>
                     <button type="button" onclick="Speak('')" class="close" data-dismiss="modal" aria-label="Close" id="close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" style="color:white;">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">

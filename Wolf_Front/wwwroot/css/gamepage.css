@@ -29,7 +29,7 @@ li {
     height: 100%;
     width: 100%;
 }
-.yesbtn {
+.btn-secondary {
     background-color: #4F7086;
     outline: none !important;
     border: none;
@@ -37,21 +37,21 @@ li {
     margin-left: 5px;
     border-width: 0px;
 }
-    .yesbtn:focus {
-        background-color: #76B3D7;
-    }
-   
-    .nobtn {
-        background-color: #4F7086;
-        outline: none !important;
-        border: none;
-        color: white;
-        margin-left: 5px;
-        border-width: 0px;
-    }
-.nobtn:focus {
-    background-color: #76B3D7;
+.active {
+ /*   background-color: #76B3D7 !important;*/
+    outline: none !important;
+    border: none;
+    box-shadow: none !important;
 }
+.btn-secondary:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
+.active:active {
+    border: none !important;
+    box-shadow: none !important;
+}
+
 svg {
     width: 100%;
     height: 100%;

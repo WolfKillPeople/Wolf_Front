@@ -391,17 +391,43 @@ function prophet() {
 function witch() {
     //if (myJob == "女巫") { }
     var li = document.createElement('li');
-    var yesbtn = document.createElement("BUTTON");
-    var nobtn = document.createElement("BUTTON");
-    var yes = document.createTextNode("是");
-    var no = document.createTextNode("否");
-    yesbtn.appendChild(yes);
-    nobtn.appendChild(no);
     li.innerHTML = "4號被殺死了你要救他們嗎?";
-    li.appendChild(yesbtn)
-    li.appendChild(nobtn)
-    yesbtn.setAttribute('class', 'yesbtn');
-    nobtn.setAttribute('class', 'nobtn');
+    //外面的div
+    var yesnodiv = document.createElement('div')
+    yesnodiv.setAttribute('class', 'btn-group btn-group-toggle')
+    yesnodiv.setAttribute('data-toggle', 'buttons')
+    li.appendChild(yesnodiv)
+    //是的按鈕
+    var yeslabel = document.createElement('label')
+    var yesinput = document.createElement('input')
+    yeslabel.setAttribute('class','btn btn-secondary')
+    yesinput.setAttribute('type', 'radio')
+    yesinput.setAttribute('name', 'options')
+    yesinput.setAttribute('id', 'option2')
+    var yes = document.createTextNode("是");
+    yeslabel.appendChild(yes)
+    yeslabel.appendChild(yesinput)
+    yesnodiv.appendChild(yeslabel)
+    //否的按鈕
+    var nolabel = document.createElement('label')
+    var noinput = document.createElement('input')
+    nolabel.setAttribute('class', 'btn btn-secondary')
+    noinput.setAttribute('type', 'radio')
+    noinput.setAttribute('name', 'options')
+    noinput.setAttribute('id', 'option2')
+    var no = document.createTextNode("否");
+    nolabel.appendChild(no)
+    nolabel.appendChild(noinput)
+    yesnodiv.appendChild(nolabel)
+    //var yesbtn = document.createElement("BUTTON");
+    //var nobtn = document.createElement("BUTTON");
+ 
+    //yesbtn.appendChild(yes);
+    //nobtn.appendChild(no);
+    //li.appendChild(yesbtn)
+    //li.appendChild(nobtn)
+    //yesbtn.setAttribute('class', 'yesbtn');
+    //nobtn.setAttribute('class', 'nobtn');
     document.querySelector('#rightgamerecordli').appendChild(li);
 
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto")
