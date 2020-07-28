@@ -30,7 +30,7 @@ for (let i = 0; i < players.length / 2; i++) {
     playerImg.setAttribute('class', 'playerphoto')
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
     dead.setAttribute('class', 'deadimg')
-    Circle.setAttribute('class', 'circleImg off');
+    Circle.setAttribute('class', 'circleImg off');  
     if (players[i].alive) { Circle.setAttribute('onclick', `aa(${array})`); }
     else { Circle.appendChild(dead); }
     Circle.appendChild(playerImg);

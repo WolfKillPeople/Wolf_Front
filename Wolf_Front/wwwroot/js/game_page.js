@@ -88,18 +88,36 @@ function toggleScheme() {
     image.classList.toggle('image-light')
 }
 
-
+//音效
 function morningAudio() {
     x.play();
     x.volume = 0.2;
     y.pause();
 }
-
 function nightAudio() {
     y.play();
     y.volume = 0.2;
     x.pause();
 } 
+
+//投票
+function vote(a, b, c, d, e, f, g, h, i, j) {
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].className = "circleImg on";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[b - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[c - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[d - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[e - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[f - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[g - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[h - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[i - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[j - 1].className = "circleImg off";
+    console.log(a);
+}
+//投票回傳
+function voteBack() {
+
+}
 
 //AJAX玩家資料
 var players = [
@@ -217,6 +235,8 @@ for (let i = 0; i < players.length / 2; i++) {
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
     dead.setAttribute('class', 'deadimg')
     Circle.setAttribute('class', 'circleImg off');
+    if (players[i].isAlive) { Circle.setAttribute('onclick', `vote(${array})`); }
+    else { Circle.appendChild(dead); }
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
     aplayer.appendChild(num);
@@ -243,6 +263,8 @@ for (let i = players.length / 2; i <= players.length; i++) {
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
     dead.setAttribute('class', 'deadimg')
     Circle.setAttribute('class', 'circleImg off');
+    if (players[i].isAlive) { Circle.setAttribute('onclick', `vote(${array})`); }
+    else { Circle.appendChild(dead); }
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
     aplayer.appendChild(num);
@@ -306,13 +328,21 @@ function Binding() {
     });
 }
 
+
+
+
+
+
 //以下開始遊戲
+
+
 
 
 
 
 function wolf() {
     //if (myJob == "狼人" || myJob == "狼王") { }
+    $('.circleImg').css("pointer-events", "auto")
     $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto")
 }
 function prophet() {
@@ -332,8 +362,11 @@ function hunter() {
 let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '天亮請睜眼'];
 
 async function game() {
+
     $('#staticBackdrop').modal('show');
+    $('.circleImg').css("pointer-events", "none")
     await timeOn(10);
+
 
     Speak('我是測試版，請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
@@ -373,7 +406,7 @@ async function game() {
     //判斷輸贏
 }
 
-  //< !--當我按下x時要去加入css動畫 -->
+  //當我按下x時要去加入css動畫
    $('#aa').click(function () {
         $('.img-spin').css("animation-name", " spin")
    $('.img-spin').css("animation-timing-function"," linear")
