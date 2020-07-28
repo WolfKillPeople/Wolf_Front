@@ -359,7 +359,14 @@ function hunter() {
     //if (myJob == "獵人") { }
     $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto")
 }
-
+//滾輪
+$(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+    if (event.type == "mouseenter") {
+        $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
+    } else {
+        $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+    }
+});
 
 let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '天亮請睜眼'];
 
