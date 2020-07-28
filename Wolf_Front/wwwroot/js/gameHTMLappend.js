@@ -180,13 +180,12 @@
                     </div>
                     <div class="gamerecord">
                         <div class="leftgamerecord">
-                            <p>4號玩家被殺死</p>
-                            <p>我好好想吃章魚燒</p>
-                            <p>喔天啊~~阿華上課跟不上</p>
-                            <p>請支持BTS!</p>
+                            <ul id='leftgamerecordli'>
+                            </ul>
                         </div>
                         <div class="rightgamerecord">
-                            <p> 4號被殺死了你要救他嗎?</p>
+                            <ul id="rightgamerecordli">
+                            </ul>
                         </div>
                     </div>
                     <div class="footer-playerimg">
@@ -279,7 +278,7 @@
             <div class="modal-content " style="width: 70em; height: 35em;   overflow:hidden;      ">
                 <div class="modal-header ">
                     <h5 class="modal-title" id="staticBackdropLabel"></h5>
-                    <button type="button" onclick="Speak('')" class="close" data-dismiss="modal" aria-label="Close" id="aa">
+                    <button type="button" onclick="Speak('')" class="close" data-dismiss="modal" aria-label="Close" id="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -328,7 +327,7 @@
                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button"id="BB" onclick="Speak('')" class="btn btn-secondary"
+                    <button type="button"id="closebtn" onclick="Speak('')" class="btn btn-secondary"
                         data-dismiss="modal" >Close</button>
                 </div>
             </div>
