@@ -31,19 +31,26 @@ li {
 }
 .yesbtn {
     background-color: #4F7086;
-    outline: none;
+    outline: none !important;
     border: none;
     color: white;
     margin-left: 5px;
     border-width: 0px;
 }
-.nobtn {
-    background-color: #4F7086;
-    outline: none;
-    border: none;
-    color: white;
-    margin-left: 5px;
-    border-width: 0px;
+    .yesbtn:focus {
+        background-color: #76B3D7;
+    }
+   
+    .nobtn {
+        background-color: #4F7086;
+        outline: none !important;
+        border: none;
+        color: white;
+        margin-left: 5px;
+        border-width: 0px;
+    }
+.nobtn:focus {
+    background-color: #76B3D7;
 }
 svg {
     width: 100%;
