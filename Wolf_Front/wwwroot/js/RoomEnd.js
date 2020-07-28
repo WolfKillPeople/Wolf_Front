@@ -13,7 +13,7 @@ $(document).ready(function () {
     let ary;
     $.ajax({
         type: 'GET',
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
+        url: 'https://localhost:5001/api/Room/CurrentRoom',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         async:false,
@@ -213,19 +213,23 @@ function addPeople(member) {
         }
     });
 
-    //var person = $(member).find(`.wolf${people[no - 2].roomId}`);
     play1 = localStorage.getItem('myName');
     var RoomId = $(member).attr('class').substring(9);
-    var Player1 = people[no - 2].player1;
-    var Player2 = people[no - 2].player2;
-    var Player3 = people[no - 2].player3;
-    var Player4 = people[no - 2].player4;
-    var Player5 = people[no - 2].player5;
-    var Player6 = people[no - 2].player6;
-    var Player7 = people[no - 2].player7;
-    var Player8 = people[no - 2].player8;
-    var Player9 = people[no - 2].player9;
-    var Player10 = people[no - 2].player10;
+    for (let j = 0; j < people.length; j++) {
+        if (people[j].roomId == RoomId) {
+            var Player1 = people[j].player1;
+            var Player2 = people[j].player2;
+            var Player3 = people[j].player3;
+            var Player4 = people[j].player4;
+            var Player5 = people[j].player5;
+            var Player6 = people[j].player6;
+            var Player7 = people[j].player7;
+            var Player8 = people[j].player8;
+            var Player9 = people[j].player9;
+            var Player10 = people[j].player10;
+        }
+    }
+    
     var array = [Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8, Player9, Player10];
 
     for (var i = 0; i < 10; i++) {
@@ -263,6 +267,7 @@ function addPeople(member) {
             console.log(response);
         }
     });
+    localStorage.setItem('roomid', RoomId);
 }
 //door
 function openDoor(field) {
