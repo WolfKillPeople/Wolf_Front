@@ -464,6 +464,16 @@ async function game() {
 
     Speak('所有玩家投票，得票最高者將出局');
     //判斷輸贏
+
+    $('#toggleDark').click();
+    Speak('天黑請閉眼，狼人請殺人');
+    wolf();
+    await timeOn(10);
+    //回傳投票結果
+
+    Speak('預言家請選擇玩家查身分');
+    prophet();
+    await timeOn(10);
 }
 
   //< !--當我按下x時要去加入css動畫 -->

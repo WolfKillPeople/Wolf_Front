@@ -218,19 +218,19 @@
                             <div class="container">
                                 <div class="row">&nbsp;</div>
                                 <div class="row">
-                                    <div class="col-4"><input type="text" id="userInput" value="人類" readonly="readonly" style="border-style: none;background-color: transparent;color:#ffffff" /></div>
+                                    <div class="col-4"><input type="text" id="PeopleuserInput" value="人類" readonly="readonly" style="border-style: none;background-color: transparent;color:#ffffff" /></div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12" style="height:150px;overflow:auto;overflow-x:hidden;">
-                                    <ul id="messagesList"></ul>
+                                    <ul id="PeoplemessagesList"></ul>
                                 </div>
                             </div>
                             <div class="row" style="padding:0">
                                 <!--<div class="col-2">Message</div>-->
                                 <div class="col d-flex" style="padding-left:8%">
-                                    <input type="text" id="messageInput" style="background-color: transparent; color:#ffffff;width:85%;border-color:#ffffff" />
-                                    <input class="btn btn-info" type="button" id="sendButton" value="發言" style="font-size:10px" />
+                                    <input type="text" id="PeoplemessageInput" style="background-color: transparent; color:#ffffff;width:85%;border-color:#ffffff"/>
+                                    <input class="btn btn-info" type="button" id="PeoplesendButton" value="發言" style="font-size:10px" />
                                 </div>
                             </div>
                         </div>
@@ -241,18 +241,18 @@
                             <div class="container">
                                 <div class="row">&nbsp;</div>
                                 <div class="row">
-                                    <div class="col-4"><input type="text" id="userInput2" value="狼人" readonly="readonly" style="border-style:none;background-color: transparent;color:#ffffff" /></div>
+                                    <div class="col-4"><input type="text" id="WolfuserInput" value="狼人" readonly="readonly" style="border-style:none;background-color: transparent;color:#ffffff" /></div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12" style="height:150px;overflow:auto;overflow-x:hidden;">
-                                    <ul id="messagesList1"></ul>
+                                    <ul id="WolfmessagesList"></ul>
                                 </div>
                             </div>
                             <div class="row" style="padding:0">
                                 <div class="col d-flex" style="padding-left:8%">
-                                    <input type="text" id="messageInput2" style="background-color: transparent;color:#ffffff;width:85%;border-color:#ffffff" "     />
-                                    <input class="btn btn-info" type="button" id="sendButton1" value="發言" style="font-size:10px" />
+                                    <input type="text" id="WolfmessageInput" style="background-color: transparent;color:#ffffff;width:85%;border-color:#ffffff"/>
+                                    <input class="btn btn-info" type="button" id="WolfsendButton" value="發言" style="font-size:10px" />
                                 </div>
                             </div>
                         </div>
