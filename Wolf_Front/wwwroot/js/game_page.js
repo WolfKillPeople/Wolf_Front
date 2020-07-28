@@ -11,13 +11,9 @@ function Speak(txtInput) {
     });
     synth.speak(toSpeak);
     //將陣列的最後一個打到li裡
-   
     var li = document.createElement('li');
     li.innerText = txtInput;
-
     document.querySelector('#leftgamerecordli').appendChild(li);
-
-
 };
 //滾輪
 $(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
