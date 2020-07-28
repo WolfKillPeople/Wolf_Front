@@ -71,12 +71,12 @@ var x = document.getElementById("MorningAudio");
 var y = document.getElementById("NightAudio");
 
 function closeMessage() {
-    document.getElementById("userInput").hidden = true;
-    document.getElementById("messageInput").hidden = true;
-    document.getElementById("userInput2").hidden = true;
-    document.getElementById("messageInput2").hidden = true;
-    document.getElementById("sendButton1").hidden = true;
-    document.getElementById("sendButton").hidden = true;
+    document.getElementById("PeopleuserInput").hidden = true;
+    document.getElementById("PeoplemessageInput").hidden = true;
+    document.getElementById("WolfuserInput").hidden = true;
+    document.getElementById("WolfmessageInput").hidden = true;
+    document.getElementById("PeoplesendButton").hidden = true;
+    document.getElementById("WolfsendButton").hidden = true;
 }
 
 function toggleScheme() {
@@ -496,6 +496,7 @@ $('#closebtn').click(function () {
     //AJAX玩家資料
     BindingPlayers();
     playerHead();
-    BindingThings;
+    BindingThings();
+    closeMessage()
     game();
 
