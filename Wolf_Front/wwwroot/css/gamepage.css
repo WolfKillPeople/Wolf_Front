@@ -12,14 +12,39 @@
     grid-template-rows: 72vh 1fr;
     background-color: var(--trees);
 }
+#leftgamerecordli{
+    padding:0px;
+}
 
+#rightgamerecordli {
+    padding: 0px;
+}
+li {
+    color: #ffffff;
+    list-style-type: none;
+}
 [class*="section_"] {
     grid-column: 1 / -1;
     grid-row: 1;
     height: 100%;
     width: 100%;
 }
-
+.yesbtn {
+    background-color: #4F7086;
+    outline: none;
+    border: none;
+    color: white;
+    margin-left: 5px;
+    border-width: 0px;
+}
+.nobtn {
+    background-color: #4F7086;
+    outline: none;
+    border: none;
+    color: white;
+    margin-left: 5px;
+    border-width: 0px;
+}
 svg {
     width: 100%;
     height: 100%;
@@ -239,7 +264,7 @@ path, polygon {
     height: 320px;
 }
 
-    .gamerecord p {
+    .gamerecord li {
         margin: 5Px 10px 0 10px;
         background-color: #253641;
         color: #ffffff;
@@ -390,9 +415,7 @@ path, polygon {
     cursor: default;
 }
 
-li {
-    color: #ffffff;
-}
+
 
 
 .on {

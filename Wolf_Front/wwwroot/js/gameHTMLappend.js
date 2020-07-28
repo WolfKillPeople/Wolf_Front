@@ -180,13 +180,12 @@
                     </div>
                     <div class="gamerecord">
                         <div class="leftgamerecord">
-                            <p>4號玩家被殺死</p>
-                            <p>我好好想吃章魚燒</p>
-                            <p>喔天啊~~阿華上課跟不上</p>
-                            <p>請支持BTS!</p>
+                            <ul id='leftgamerecordli'>
+                            </ul>
                         </div>
                         <div class="rightgamerecord">
-                            <p> 4號被殺死了你要救他嗎?</p>
+                            <ul id="rightgamerecordli">
+                            </ul>
                         </div>
                     </div>
                     <div class="footer-playerimg">

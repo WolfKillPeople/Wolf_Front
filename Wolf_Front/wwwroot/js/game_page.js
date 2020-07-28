@@ -10,8 +10,23 @@ function Speak(txtInput) {
         }
     });
     synth.speak(toSpeak);
-};
+    //將陣列的最後一個打到li裡
+   
+    var li = document.createElement('li');
+    li.innerText = txtInput;
 
+    document.querySelector('#leftgamerecordli').appendChild(li);
+
+
+};
+//滾輪
+$(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+    if (event.type == "mouseenter") {
+        $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
+    } else {
+        $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+    }
+});
 //時間倒數
 function timeOn(time) {
     return new Promise((resolve, reject) => {
@@ -318,9 +333,26 @@ function wolf() {
 function prophet() {
     //if (myJob == "預言家") { }
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
+    var li = document.createElement('li');
+    li.innerHTML = "4號是好人";
+    document.querySelector('#rightgamerecordli').appendChild(li);
 }
 function witch() {
     //if (myJob == "女巫") { }
+    var li = document.createElement('li');
+    var yesbtn = document.createElement("BUTTON");
+    var nobtn = document.createElement("BUTTON");
+    var yes = document.createTextNode("是");
+    var no = document.createTextNode("否");
+    yesbtn.appendChild(yes);
+    nobtn.appendChild(no);
+    li.innerHTML = "4號被殺死了你要救他們嗎?";
+    li.appendChild(yesbtn)
+    li.appendChild(nobtn)
+    yesbtn.setAttribute('class', 'yesbtn');
+    nobtn.setAttribute('class', 'nobtn');
+    document.querySelector('#rightgamerecordli').appendChild(li);
+
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto")
 }
 function hunter() {
