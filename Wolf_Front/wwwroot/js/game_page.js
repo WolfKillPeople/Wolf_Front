@@ -500,3 +500,72 @@ $('#closebtn').click(function () {
     closeMessage()
     game();
 
+//let _array;
+//async function DeadUpdate() {
+//    let _obj = [
+//        {
+//            "roomId": 10,
+//            "player": "AQ1234@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "Text002@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "ttt@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "test001@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "Text001@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "AQ123@gmail.com",
+//            "isAlive": true,
+//        }, {
+//            "roomId": 10,
+//            "player": "Aaaaassss@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "wolf@gmail.com",
+//            "isAlive": true,
+//        }, {
+//            "roomId": 10,
+//            "player": "jou@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "Aaaaassss2@gmail.com",
+//            "isAlive": true,
+//        },
+//    ]
+//    $.ajax({
+//        type: "patch",
+//        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/PatchCurrentPlayer",
+//        data: JSON.stringify(_obj),
+//        dataType: 'JSON',
+//        headers: {
+//            'Content-type': 'application/json'
+//        },
+//        success: function (response) {
+
+//            _array = response;
+//            console.log(_array);
+
+//            Binding();
+//        }
+//    });
+//}
