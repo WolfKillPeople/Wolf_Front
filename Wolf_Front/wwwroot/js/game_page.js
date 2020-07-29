@@ -128,13 +128,14 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
     voteResult = a;
 }
 
-var backVoteResult = [{
-    "roomid": 2,
-    "user": "@gmail.com",
-    "vote": voteResult
-}];
+
 //投票回傳
 function voteBack() {
+    var backVoteResult = [{
+        "roomid": roomid,
+        "user": myName,
+        "vote": voteResult
+    }];
     $.ajax({
         type: "post",
         url: "",
@@ -353,10 +354,17 @@ async function BindingThings() {
     });
 
 }
-//玩家職業
+
+//玩家資料
+var myName;
+var myAlive;
+var myJob;
+var roomid;
 let ary;
 async function playerHead() {
+    roomid = localStorage.getItem("roomid");
     let obj = [{
+        //"roomId": roomid,
         "roomId": 3,
     }]
     $.ajax({
@@ -373,9 +381,7 @@ async function playerHead() {
         }
     });
 }
-var myName;
-var myAlive;
-var myJob;
+
 function Binding() {
     myName = localStorage.getItem("myName");
     players.forEach(element => {
@@ -404,12 +410,12 @@ function Binding() {
 
 
 function wolf() {
-    //if (myJob == "狼人" || myJob == "狼王") { }
+    //if (myJob == "狼人" || myJob == "狼王" && myAlive == true) { }
     $('.circleImg').css("pointer-events", "auto");
     $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto");
 }
 function prophet() {
-    //if (myJob == "預言家") { }
+    //if (myJob == "預言家" && myAlive == true) { }
     $('.circleImg').css("pointer-events", "auto");
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
 
@@ -418,7 +424,7 @@ function prophet() {
     document.querySelector('#rightgamerecordli').appendChild(li);
 }
 function witch() {
-    //if (myJob == "女巫") { }
+    //if (myJob == "女巫" && myAlive == true) { }
     $('#rightgamerecordli').append(`
      <li>4號被殺死了你要救他們嗎?
      <div class="btn-group btn-group-toggle" data-toggle="buttons"> 
@@ -434,7 +440,7 @@ function witch() {
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
 }
 function hunter() {
-    //if (myJob == "獵人") { }
+    //if (myJob == "獵人" && myAlive == true) { }
     $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto");
 }
 
