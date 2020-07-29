@@ -120,6 +120,7 @@ function toggleScheme() {
 }
 
 //投票
+var voteResult;
 function vote(a, b, c, d, e, f, g, h, i, j) {
     document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].className = "circleImg on";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[b - 1].className = "circleImg off";
@@ -131,7 +132,7 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
     document.getElementById("touxiang").getElementsByClassName('circleImg')[h - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[i - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[j - 1].className = "circleImg off";
-    console.log(a);
+    voteResult = a;
     //let backChoose = [false, false, false, false, false, false, false, false, false, false];
     //backChoose[a - 1] = true;
     //voteBack(backChoose);
@@ -361,7 +362,23 @@ function Binding() {
 }
 
 
+//< !--當我按下x時要去加入css動畫 -->
+$('#close').click(function () {
+    $('.img-spin').css("animation-name", " spin")
+    $('.img-spin').css("animation-timing-function", " linear")
+    $('.img-spin').css("animation-duration", " 1s")
+    var tt = document.styleSheets[0];
+    tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
 
+});
+$('#closebtn').click(function () {
+    $('.img-spin').css("animation-name", " spin")
+    $('.img-spin').css("animation-timing-function", " linear")
+    $('.img-spin').css("animation-duration", " 1s")
+    var tt = document.styleSheets[0];
+    tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+});
 
 
 
@@ -389,48 +406,38 @@ function witch() {
     var li = document.createElement('li');
     li.innerHTML = "4號被殺死了你要救他們嗎?";
     //外面的div
-    var yesnodiv = document.createElement('div')
-    yesnodiv.setAttribute('class', 'btn-group btn-group-toggle')
-    yesnodiv.setAttribute('data-toggle', 'buttons')
-    li.appendChild(yesnodiv)
+    var yesnodiv = document.createElement('div');
+    yesnodiv.setAttribute('class', 'btn-group btn-group-toggle');
+    yesnodiv.setAttribute('data-toggle', 'buttons');
+    li.appendChild(yesnodiv);
     //是的按鈕
-    var yeslabel = document.createElement('label')
-    var yesinput = document.createElement('input')
+    var yeslabel = document.createElement('label');
+    var yesinput = document.createElement('input');
     yeslabel.setAttribute('class','btn btn-secondary')
-    yesinput.setAttribute('type', 'radio')
-    yesinput.setAttribute('name', 'options')
-    yesinput.setAttribute('id', 'option2')
+    yesinput.setAttribute('type', 'radio');
+    yesinput.setAttribute('name', 'options');
+    yesinput.setAttribute('id', 'option2');
     var yes = document.createTextNode("是");
-    yeslabel.appendChild(yes)
-    yeslabel.appendChild(yesinput)
-    yesnodiv.appendChild(yeslabel)
+    yeslabel.appendChild(yes);
+    yeslabel.appendChild(yesinput);
+    yesnodiv.appendChild(yeslabel);
     //否的按鈕
-    var nolabel = document.createElement('label')
-    var noinput = document.createElement('input')
-    nolabel.setAttribute('class', 'btn btn-secondary')
-    noinput.setAttribute('type', 'radio')
-    noinput.setAttribute('name', 'options')
-    noinput.setAttribute('id', 'option2')
+    var nolabel = document.createElement('label');
+    var noinput = document.createElement('input');
+    nolabel.setAttribute('class', 'btn btn-secondary');
+    noinput.setAttribute('type', 'radio');
+    noinput.setAttribute('name', 'options');
+    noinput.setAttribute('id', 'option2');
     var no = document.createTextNode("否");
-    nolabel.appendChild(no)
-    nolabel.appendChild(noinput)
-    yesnodiv.appendChild(nolabel)
-    //var yesbtn = document.createElement("BUTTON");
-    //var nobtn = document.createElement("BUTTON");
- 
-    //yesbtn.appendChild(yes);
-    //nobtn.appendChild(no);
-    //li.appendChild(yesbtn)
-    //li.appendChild(nobtn)
-    //yesbtn.setAttribute('class', 'yesbtn');
-    //nobtn.setAttribute('class', 'nobtn');
+    nolabel.appendChild(no);
+    nolabel.appendChild(noinput);
+    yesnodiv.appendChild(nolabel);
     document.querySelector('#rightgamerecordli').appendChild(li);
-
-    $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto")
+    $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
 }
 function hunter() {
     //if (myJob == "獵人") { }
-    $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto")
+    $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto");
 }
 //滾輪
 $(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
@@ -446,7 +453,7 @@ let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身
 async function game() {
 
     $('#staticBackdrop').modal('show');
-    $('.circleImg').css("pointer-events", "none")
+    $('.circleImg').css("pointer-events", "none");
     await timeOn(10);
 
 
@@ -470,7 +477,7 @@ async function game() {
     //回傳投票結果
 
     //抓誰死了
-    $("body").css("cursor", "default")
+    $("body").css("cursor", "default");
     $('#toggleDark').click();
     //判斷輸贏
     Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
@@ -498,29 +505,16 @@ async function game() {
     await timeOn(10);
 }
 
-  //< !--當我按下x時要去加入css動畫 -->
-$('#close').click(function () {
-        $('.img-spin').css("animation-name", " spin")
-   $('.img-spin').css("animation-timing-function"," linear")
-   $('.img-spin').css("animation-duration"," 1s")
-   var tt=document.styleSheets[0];
-                tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}",9);//寫入樣式      
 
-   });
-$('#closebtn').click(function () {
-    $('.img-spin').css("animation-name", " spin")
-    $('.img-spin').css("animation-timing-function", " linear")
-    $('.img-spin').css("animation-duration", " 1s")
-    var tt = document.styleSheets[0];
-    tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
 
-});
+
     //AJAX玩家資料
     BindingPlayers();
     playerHead();
     BindingThings();
     closeMessage()
     game();
+
 
 //let _array;
 //async function DeadUpdate() {
