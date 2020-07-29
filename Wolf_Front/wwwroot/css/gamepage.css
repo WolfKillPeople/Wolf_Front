@@ -309,9 +309,13 @@ path, polygon {
 }
 
 .gamebaby {
-    width: 95%;
+    width: 90%;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
 
 .bb {
     position: absolute;
@@ -1009,6 +1013,16 @@ path, polygon {
 .rule {
     margin-left: 50px;
     color: aliceblue;
+}
+/*//預言家*/
+.findperson {
+    background-color: black;
+    border-radius: 100%;
+    position: absolute;
+    top: 4%;
+    left: 7%;
+    width: 5em;
+    height: 5em;
 }
 
 /*選轉*/

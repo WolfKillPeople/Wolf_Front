@@ -268,7 +268,7 @@ for (let i = 0; i < players.length / 2; i++) {
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
     dead.setAttribute('class', 'deadimg')
     Circle.setAttribute('class', 'circleImg off');
-    if (players[i].isAlive) { Circle.setAttribute('onclick', `vote(${array})`); }
+    if (players[i].isAlive) { playerImg.setAttribute('onclick', `vote(${array})`); }
     else { Circle.appendChild(dead); }
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
@@ -296,7 +296,7 @@ for (let i = players.length / 2; i <= players.length; i++) {
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
     dead.setAttribute('class', 'deadimg')
     Circle.setAttribute('class', 'circleImg off');
-    if (players[i].isAlive) { Circle.setAttribute('onclick', `vote(${array})`); }
+    if (players[i].isAlive) { playerImg.setAttribute('onclick', `vote(${array})`); }
     else { Circle.appendChild(dead); }
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
@@ -380,9 +380,11 @@ function wolf() {
 function prophet() {
     //if (myJob == "預言家") { }
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
+
     var li = document.createElement('li');
     li.innerHTML = "4號是好人";
     document.querySelector('#rightgamerecordli').appendChild(li);
+    $('.circleImg').append(` <div class="findperson" ></div>`);
 }
 function witch() {
     //if (myJob == "女巫") { }
