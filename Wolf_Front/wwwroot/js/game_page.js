@@ -15,14 +15,7 @@ function Speak(txtInput) {
     li.innerText = txtInput;
     document.querySelector('#leftgamerecordli').appendChild(li);
 };
-//滾輪
-$(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
-    if (event.type == "mouseenter") {
-        $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
-    } else {
-        $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
-    }
-});
+
 //時間倒數
 function timeOn(time) {
     return new Promise((resolve, reject) => {
@@ -133,25 +126,28 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
     document.getElementById("touxiang").getElementsByClassName('circleImg')[i - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[j - 1].className = "circleImg off";
     voteResult = a;
-    //let backChoose = [false, false, false, false, false, false, false, false, false, false];
-    //backChoose[a - 1] = true;
-    //voteBack(backChoose);
 }
+
+var backVoteResult = [{
+    "roomid": 2,
+    "user": "@gmail.com",
+    "vote": voteResult
+}];
 //投票回傳
-//function voteBack(backChoose) {
-//    $.ajax({
-//        type: "post",
-//        url: "",
-//        data: JSON.stringify(backChoose),
-//        dataType: 'JSON',
-//        headers: {
-//            'Content-type': 'application/json'
-//        },
-//        success: function (response) {
-//            console.log('OK');
-//        }
-//    });
-//}
+function voteBack() {
+    $.ajax({
+        type: "post",
+        url: "",
+        data: JSON.stringify(backVoteResult),
+        dataType: 'JSON',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        success: function (response) {
+            console.log('OK');
+        }
+    });
+}
 
 //AJAX玩家資料
 var players = [
@@ -322,6 +318,40 @@ async function BindingThings() {
             $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
+    //滾輪
+    $(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+        if (event.type == "mouseenter") {
+            $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
+        } else {
+            $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+        }
+    });
+    //滾輪
+    $(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+        if (event.type == "mouseenter") {
+            $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
+        } else {
+            $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+        }
+    });
+    //< !--當我按下x時要去加入css動畫 -->
+    $('#close').click(function () {
+        $('.img-spin').css("animation-name", " spin")
+        $('.img-spin').css("animation-timing-function", " linear")
+        $('.img-spin').css("animation-duration", " 1s")
+        var tt = document.styleSheets[0];
+        tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+    });
+    $('#closebtn').click(function () {
+        $('.img-spin').css("animation-name", " spin")
+        $('.img-spin').css("animation-timing-function", " linear")
+        $('.img-spin').css("animation-duration", " 1s")
+        var tt = document.styleSheets[0];
+        tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+    });
+
 }
 //玩家職業
 let ary;
@@ -362,23 +392,7 @@ function Binding() {
 }
 
 
-//< !--當我按下x時要去加入css動畫 -->
-$('#close').click(function () {
-    $('.img-spin').css("animation-name", " spin")
-    $('.img-spin').css("animation-timing-function", " linear")
-    $('.img-spin').css("animation-duration", " 1s")
-    var tt = document.styleSheets[0];
-    tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
 
-});
-$('#closebtn').click(function () {
-    $('.img-spin').css("animation-name", " spin")
-    $('.img-spin').css("animation-timing-function", " linear")
-    $('.img-spin').css("animation-duration", " 1s")
-    var tt = document.styleSheets[0];
-    tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
-
-});
 
 
 
@@ -391,11 +405,12 @@ $('#closebtn').click(function () {
 
 function wolf() {
     //if (myJob == "狼人" || myJob == "狼王") { }
-    $('.circleImg').css("pointer-events", "auto")
-    $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto")
+    $('.circleImg').css("pointer-events", "auto");
+    $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto");
 }
 function prophet() {
     //if (myJob == "預言家") { }
+    $('.circleImg').css("pointer-events", "auto");
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
     var li = document.createElement('li');
     li.innerHTML = "4號是好人";
@@ -403,6 +418,7 @@ function prophet() {
 }
 function witch() {
     //if (myJob == "女巫") { }
+    $('.circleImg').css("pointer-events", "auto");
     var li = document.createElement('li');
     li.innerHTML = "4號被殺死了你要救他們嗎?";
     //外面的div
@@ -439,14 +455,6 @@ function hunter() {
     //if (myJob == "獵人") { }
     $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto");
 }
-//滾輪
-$(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
-    if (event.type == "mouseenter") {
-        $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
-    } else {
-        $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
-    }
-});
 
 let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '天亮請睜眼'];
 
@@ -457,6 +465,7 @@ async function game() {
     await timeOn(10);
 
 
+
     Speak('我是測試版，請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
 
@@ -465,18 +474,25 @@ async function game() {
     Speak('天黑請閉眼，狼人請殺人');
     wolf();
     await timeOn(10);
-    //回傳投票結果
+    $('.circleImg').css("pointer-events", "none");
+    voteBack();
+    //取回最高票
+
 
     Speak('預言家請選擇玩家查身分');
     prophet();
     await timeOn(10);
+    $('.circleImg').css("pointer-events", "none");
 
+    //顯示最高票
     Speak('此玩家死亡，女巫是否救人，是否殺人');
     witch();
     await timeOn(10);
-    //回傳投票結果
+    $('.circleImg').css("pointer-events", "none");
+    voteBack();
+    //取回最高票
 
-    //抓誰死了
+    //確認死亡
     $("body").css("cursor", "default");
     $('#toggleDark').click();
     //判斷輸贏
