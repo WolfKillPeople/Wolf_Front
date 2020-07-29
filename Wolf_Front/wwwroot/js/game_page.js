@@ -61,15 +61,25 @@ function update(percent, totaltime) {
         );
     }
 }
-//背景夜晚白天轉換
-let toggle = document.getElementById('toggleDark')
-let image = document.querySelector('.image')
-
-toggle.addEventListener('click', toggleScheme, true)
 
 var x = document.getElementById("MorningAudio");
 var y = document.getElementById("NightAudio");
+//音效
+function morningAudio() {
+    x.play();
+    x.volume = 0.2;
+    y.pause();
+}
+function nightAudio() {
+    y.play();
+    y.volume = 0.2;
+    x.pause();
+} 
 
+//背景夜晚白天轉換
+let toggle = document.getElementById('toggleDark');
+toggle.addEventListener('click', toggleScheme, true);
+let image = document.querySelector('.image'); 
 function closeMessage() {
     document.getElementById("PeopleuserInput").hidden = true;
     document.getElementById("PeoplemessageInput").hidden = true;
@@ -93,8 +103,6 @@ function toggleScheme() {
         document.getElementById("WolfmessageInput").hidden = true;
         document.getElementById("PeoplesendButton").hidden = false;
         document.getElementById("WolfsendButton").hidden = true;
-
-
     } else if (toggle.getAttribute("aria-checked") == "false") {
         toggle.setAttribute("aria-checked", "true");
         document.getElementById("PeoplemessagesList").hidden = false;
@@ -110,18 +118,6 @@ function toggleScheme() {
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')
 }
-
-//音效
-function morningAudio() {
-    x.play();
-    x.volume = 0.2;
-    y.pause();
-}
-function nightAudio() {
-    y.play();
-    y.volume = 0.2;
-    x.pause();
-} 
 
 //投票
 function vote(a, b, c, d, e, f, g, h, i, j) {
