@@ -412,43 +412,25 @@ function prophet() {
     //if (myJob == "預言家") { }
     $('.circleImg').css("pointer-events", "auto");
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
+
     var li = document.createElement('li');
     li.innerHTML = "4號是好人";
     document.querySelector('#rightgamerecordli').appendChild(li);
 }
 function witch() {
     //if (myJob == "女巫") { }
-    $('.circleImg').css("pointer-events", "auto");
-    var li = document.createElement('li');
-    li.innerHTML = "4號被殺死了你要救他們嗎?";
-    //外面的div
-    var yesnodiv = document.createElement('div');
-    yesnodiv.setAttribute('class', 'btn-group btn-group-toggle');
-    yesnodiv.setAttribute('data-toggle', 'buttons');
-    li.appendChild(yesnodiv);
-    //是的按鈕
-    var yeslabel = document.createElement('label');
-    var yesinput = document.createElement('input');
-    yeslabel.setAttribute('class','btn btn-secondary')
-    yesinput.setAttribute('type', 'radio');
-    yesinput.setAttribute('name', 'options');
-    yesinput.setAttribute('id', 'option2');
-    var yes = document.createTextNode("是");
-    yeslabel.appendChild(yes);
-    yeslabel.appendChild(yesinput);
-    yesnodiv.appendChild(yeslabel);
-    //否的按鈕
-    var nolabel = document.createElement('label');
-    var noinput = document.createElement('input');
-    nolabel.setAttribute('class', 'btn btn-secondary');
-    noinput.setAttribute('type', 'radio');
-    noinput.setAttribute('name', 'options');
-    noinput.setAttribute('id', 'option2');
-    var no = document.createTextNode("否");
-    nolabel.appendChild(no);
-    nolabel.appendChild(noinput);
-    yesnodiv.appendChild(nolabel);
-    document.querySelector('#rightgamerecordli').appendChild(li);
+    $('#rightgamerecordli').append(`
+     <li>4號被殺死了你要救他們嗎?
+     <div class="btn-group btn-group-toggle" data-toggle="buttons"> 
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="option2" autocomplete="off"> 是
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="option3" autocomplete="off"> 否
+    </label>
+  </div>
+  </li>`);
+    
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
 }
 function hunter() {
