@@ -276,6 +276,7 @@ path, polygon {
         background-color: #253641;
         color: #ffffff;
         padding: 2px 15px;
+        border-radius:15px;
     }
 
 .leftgamerecord {
