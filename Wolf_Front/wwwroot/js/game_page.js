@@ -247,6 +247,15 @@ var players = [
     }
 ];
 
+
+//抓取是哪個玩家及好或壞人
+function PlayerIsGood()
+{
+    let Player = $('??').val();
+    let IsGood = players[Player - 1].isGood;
+
+}
+
 //玩家頭像生成
 async function BindingPlayers() {
 var array = [];
