@@ -425,6 +425,7 @@ function prophet() {
 }
 function witch() {
     //if (myJob == "女巫" && myAlive == true) { }
+    $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('#rightgamerecordli').append(`
      <li>4號被殺死了你要救他們嗎?
      <div class="btn-group btn-group-toggle" data-toggle="buttons"> 
@@ -436,8 +437,6 @@ function witch() {
     </label>
   </div>
   </li>`);
-    
-    $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
 }
 function hunter() {
     //if (myJob == "獵人" && myAlive == true) { }
@@ -470,12 +469,14 @@ async function game() {
     Speak('預言家請選擇玩家查身分');
     prophet();
     await timeOn(10);
+    $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
 
     //顯示最高票
     Speak('此玩家死亡，女巫是否救人，是否殺人');
     witch();
     await timeOn(10);
+    $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
     voteBack();
     //取回最高票

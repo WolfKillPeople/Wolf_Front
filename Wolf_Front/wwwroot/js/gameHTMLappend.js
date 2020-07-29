@@ -185,7 +185,6 @@
                         </div>
                         <div class="rightgamerecord">
                             <ul id="rightgamerecordli">
-
                             </ul>
                         </div>
                     </div>
