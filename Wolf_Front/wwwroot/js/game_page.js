@@ -1,31 +1,3 @@
-//抓房間人數
-    function getPersonInroom() {
-    var totalperson;
-    var room; //roomid
-    var all;
-    $.ajax({
-        type: 'GET',
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
-        dataType: 'json',
-        contentType: 'application/json;charset=UTF-8',
-        async: false,
-        success: function (msg) {
-            totalperson = msg;
-            for (let i = 0; i < totalperson.length; i++) {
-                room = totalperson[i].roomId;
-                if (room == 2) {
-                    all = totalperson[i].totalPlayers;
-                }
-            }
-            console.log(all)
-        },
-        error: function () {
-            alert('你好笨')
-        }
-    });
-}
-
-
 var synth = window.speechSynthesis;
 var voices = [];
 //旁白說話
@@ -274,6 +246,8 @@ var players = [
 ];
 
 
+
+
 //玩家頭像生成
 async function BindingPlayers() {
 var array = [];
@@ -429,7 +403,7 @@ function Binding() {
 
 
 
-////抓取是哪個玩家及好或壞人
+//查詢是哪個玩家及好或壞人
 function PlayerIsGood(e) {
     let Player = e.getAttribute('value');
     let IsGood = players[Player - 1].isGood;
@@ -441,6 +415,61 @@ function PlayerIsGood(e) {
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
 }
+
+//抓房間人數
+function GetPersonInroom() {
+    var totalperson;
+    var room; //roomid
+    var all;
+    $.ajax({
+        type: 'GET',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function (msg) {
+            totalperson = msg;
+            for (let i = 0; i < totalperson.length; i++) {
+                room = totalperson[i].roomId;
+                if (room == 2) {
+                    all = totalperson[i].totalPlayers;
+                }
+            }
+            return all;
+        }
+    });
+}
+
+//離開房間
+function LeaveRoom() {
+    var personNum=getPersonInroom();
+
+    if (personNum <= 1) {
+        DeleteRoom();
+    }
+    //自己從房間移除
+    //連到房間畫面
+
+};
+
+//刪除房間
+function DeleteRoom() {
+    let _roomObj = [{ "roomId": roomid }];
+    $.ajax({
+        type: "delete",
+        url: "https://wolfpeoplekill.azurewebsites.net/api/Room/RemoveRoom",
+        data: JSON.stringify(_roomObj),
+        dataType: 'JSON',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        success: function (response) {
+            console.log('OK');
+        }
+    });
+}
+
+
 
 
 //以下開始遊戲
