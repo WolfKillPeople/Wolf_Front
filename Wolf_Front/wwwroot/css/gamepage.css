@@ -1016,7 +1016,6 @@ path, polygon {
 }
 /*//預言家*/
 .findperson {
-    background-color: black;
     border-radius: 100%;
     position: absolute;
     top: 4%;

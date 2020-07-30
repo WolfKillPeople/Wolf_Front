@@ -132,9 +132,10 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
 //投票回傳
 function voteBack() {
     var backVoteResult = [{
-        "roomid": roomid,
+        "roomId": roomid,
         "user": myName,
-        "vote": voteResult
+        "vote": voteResult,
+        "voteResult":null
     }];
     $.ajax({
         type: "post",
@@ -146,7 +147,7 @@ function voteBack() {
         },
         success: function (response) {
             console.log('OK');
-        }
+        }   
     });
 }
 
@@ -403,16 +404,16 @@ function Binding() {
 
 
 ////抓取是哪個玩家及好或壞人
-function PlayerIsGood() {
-    let Player = $('.findperson').val();
-    console.log('000');
-    alert("6666")
-    //let IsGood = players[Player - 1].isGood;
-    //if (IsGood) { IsGood = "好人" }
-    //else (IsGood){ IsGood = "壞人" }
-    //$('#rightgamerecordli').append(`
-    //    <li>${Player}是${IsGood}</li>
-    //`);
+function PlayerIsGood(e) {
+    let Player = e.getAttribute('value');
+    let IsGood = players[Player - 1].isGood;
+    if (IsGood) { IsGood = "好人" }
+    else { IsGood = "壞人" }
+    $('#rightgamerecordli').append(`
+        <li>${Player}是${IsGood}</li>
+    `);
+    $('.findperson').css("display", "none")
+    $('.circleImg').css("pointer-events", "none");
 }
 
 
@@ -436,7 +437,10 @@ function prophet() {
     var li = document.createElement('li');
     li.innerHTML = "4號是好人";
     document.querySelector('#rightgamerecordli').appendChild(li);
-    $('.circleImg').append(` <div class="findperson" onclick="PlayerIsGood()" ></div>`);
+    $('.circleImg').append(` <div class="findperson" onclick="PlayerIsGood(this)" ></div>`);
+    document.querySelectorAll('.findperson').forEach(function (element, index) {
+        element.setAttribute('value', index+1);
+    });
 }
 function witch() {
     //if (myJob == "女巫" && myAlive == true) { }
@@ -458,7 +462,6 @@ function hunter() {
     $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto");
 }
 
-let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '天亮請睜眼'];
 
 async function game() {
 
@@ -485,7 +488,6 @@ async function game() {
     prophet();
     await timeOn(10);
     $('#rightgamerecordli li').remove();
-    $('.circleImg').css("pointer-events", "none");
 
     //顯示最高票
     Speak('此玩家死亡，女巫是否救人，是否殺人');
