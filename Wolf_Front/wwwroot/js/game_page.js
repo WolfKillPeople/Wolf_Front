@@ -132,9 +132,9 @@ var prepareDead;
 //投票回傳
 function voteBack() {
     var backVoteResult = [{
-        "roomId": roomid,
-        "user": myName,
-        "vote": voteResult,
+        "roomId": 2,
+        "user": 'Text002@gmail.com',
+        "vote": `${voteResult}`,
         "voteResult":null
     }];
     $.ajax({
@@ -146,7 +146,7 @@ function voteBack() {
             'Content-type': 'application/json'
         },
         success: function (response) {
-            prepareDead = response;
+            players.forEach(function (element, index) { if (element.player == response) { prepareDead = index+1 } });
         }   
     });
 }
@@ -244,9 +244,6 @@ var players = [
         "isAlive": true
     }
 ];
-
-
-
 
 //玩家頭像生成
 async function BindingPlayers() {
@@ -409,9 +406,7 @@ function PlayerIsGood(e) {
     let IsGood = players[Player - 1].isGood;
     if (IsGood) { IsGood = "好人" }
     else { IsGood = "壞人" }
-    $('#rightgamerecordli').append(`
-        <li>${Player}是${IsGood}</li>
-    `);
+    $('#rightgamerecordli').append(`<li>${Player}是${IsGood}</li>`);
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
 }
@@ -496,17 +491,19 @@ function prophet() {
 function witch() {
     //if (myJob == "女巫" && myAlive == true) { }
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
+    $('.circleImg').css("pointer-events", "auto");
     $('#rightgamerecordli').append(`
-     <li>4號被殺死了你要救他們嗎?
+     <li>${prepareDead}號被殺死了你要救他們嗎?
      <div class="btn-group btn-group-toggle" data-toggle="buttons"> 
     <label class="btn btn-secondary">
-      <input type="radio" name="options" id="option2" autocomplete="off"> 是
+      <input type="radio" name="options" id="saveDead" autocomplete="off"> 是
     </label>
     <label class="btn btn-secondary">
-      <input type="radio" name="options" id="option3" autocomplete="off"> 否
+      <input type="radio" name="options" id="noSaveDead" autocomplete="off"> 否
     </label>
   </div>
   </li>`);
+    $('#saveDead').click(function () { prepareDead = null; });
 }
 function hunter() {
     //if (myJob == "獵人" && myAlive == true) { }
@@ -518,8 +515,7 @@ async function game() {
 
     $('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
-    await timeOn(10);
-
+    await timeOn(5);
 
 
     Speak('我是測試版，請確認你的身分，遊戲將於倒數完後開始');
@@ -539,6 +535,7 @@ async function game() {
     prophet();
     await timeOn(10);
     $('#rightgamerecordli li').remove();
+
 
     //顯示最高票
     Speak('此玩家死亡，女巫是否救人，是否殺人');
@@ -567,15 +564,6 @@ async function game() {
     Speak('所有玩家投票，得票最高者將出局');
     //判斷輸贏
 
-    $('#toggleDark').click();
-    Speak('天黑請閉眼，狼人請殺人');
-    wolf();
-    await timeOn(10);
-    //回傳投票結果
-
-    Speak('預言家請選擇玩家查身分');
-    prophet();
-    await timeOn(10);
 }
 
 
