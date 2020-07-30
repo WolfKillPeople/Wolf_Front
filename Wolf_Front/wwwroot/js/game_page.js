@@ -251,8 +251,13 @@ var players = [
 //抓取是哪個玩家及好或壞人
 function PlayerIsGood()
 {
-    let Player = $('??').val();
+    let Player = $('findperson').val();
     let IsGood = players[Player - 1].isGood;
+    if (IsGood) { IsGood = "好人" }
+    else (IsGood){ IsGood = "壞人" }
+    $('#rightgamerecordli').append(`
+        <li>${Player}是${IsGood}</li>
+    `);
 
 }
 
