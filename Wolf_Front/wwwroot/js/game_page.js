@@ -406,6 +406,7 @@ function Binding() {
 function PlayerIsGood() {
     let Player = $('.findperson').val();
     console.log('000');
+    alert("6666")
     //let IsGood = players[Player - 1].isGood;
     //if (IsGood) { IsGood = "好人" }
     //else (IsGood){ IsGood = "壞人" }
@@ -435,7 +436,7 @@ function prophet() {
     var li = document.createElement('li');
     li.innerHTML = "4號是好人";
     document.querySelector('#rightgamerecordli').appendChild(li);
-    $('.circleImg').append(` <div class="findperson" onclilk="PlayerIsGood()" ></div>`);
+    $('.circleImg').append(` <div class="findperson" onclick="PlayerIsGood()" ></div>`);
 }
 function witch() {
     //if (myJob == "女巫" && myAlive == true) { }
