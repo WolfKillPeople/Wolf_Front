@@ -603,9 +603,9 @@ var myModal = new Modal({
     content: myContent
 });
 
-var triggerButton = document.getElementById('trigger');
+//var triggerButton = document.getElementById('trigger');
 
-triggerButton.addEventListener('click', function () {
+$("#trigger").click(function () {
     myModal.open();
 });
 
@@ -617,7 +617,7 @@ function change_Userimg() {
 
 $('.users_pic').click(changePICS(this));
 $(document).ready(function () {
-    $('#avatat').attr('src', "./image/boy1.png");
+    $('#avatat').attr('src', "https://i.imgur.com/9Pbvhnk.png");
 
 });
 function changePICS(e) {
@@ -628,6 +628,8 @@ function changePICS(e) {
 
 const id = '796f96ba6f57a84';
 const token = '7fad7c5f2e1fe7bf50fc28274bd1583c336b0926';
+
+
 const upload = new Vue({
     el: '#upLoadImg',
     data: {
@@ -635,7 +637,7 @@ const upload = new Vue({
         file: null,
     },
     methods: {
-        load(e) {
+        load(e) {            
             this.file = e.target.files[0];
             let settings = {
                 async: false,
