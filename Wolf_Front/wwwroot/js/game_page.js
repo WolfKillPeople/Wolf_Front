@@ -434,9 +434,9 @@ function prophet() {
     $('.circleImg').css("pointer-events", "auto");
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
 
-    var li = document.createElement('li');
-    li.innerHTML = "4號是好人";
-    document.querySelector('#rightgamerecordli').appendChild(li);
+    //var li = document.createElement('li');
+    //li.innerHTML = "4號是好人";
+    //document.querySelector('#rightgamerecordli').appendChild(li);
     $('.circleImg').append(` <div class="findperson" onclick="PlayerIsGood(this)" ></div>`);
     document.querySelectorAll('.findperson').forEach(function (element, index) {
         element.setAttribute('value', index+1);
