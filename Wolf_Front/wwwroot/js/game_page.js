@@ -1,3 +1,31 @@
+//抓房間人數
+    function getPersonInroom() {
+    var totalperson;
+    var room; //roomid
+    var all;
+    $.ajax({
+        type: 'GET',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function (msg) {
+            totalperson = msg;
+            for (let i = 0; i < totalperson.length; i++) {
+                room = totalperson[i].roomId;
+                if (room == 2) {
+                    all = totalperson[i].totalPlayers;
+                }
+            }
+            console.log(all)
+        },
+        error: function () {
+            alert('你好笨')
+        }
+    });
+}
+
+
 var synth = window.speechSynthesis;
 var voices = [];
 //旁白說話
@@ -128,7 +156,7 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
     voteResult = a;
 }
 
-
+var prepareDead;
 //投票回傳
 function voteBack() {
     var backVoteResult = [{
@@ -139,14 +167,14 @@ function voteBack() {
     }];
     $.ajax({
         type: "post",
-        url: "",
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/Game/Vote',
         data: JSON.stringify(backVoteResult),
         dataType: 'JSON',
         headers: {
             'Content-type': 'application/json'
         },
         success: function (response) {
-            console.log('OK');
+            prepareDead = response;
         }   
     });
 }
@@ -244,8 +272,6 @@ var players = [
         "isAlive": true
     }
 ];
-
-
 
 
 //玩家頭像生成
@@ -433,10 +459,6 @@ function prophet() {
     //if (myJob == "預言家" && myAlive == true) { }
     $('.circleImg').css("pointer-events", "auto");
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
-
-    //var li = document.createElement('li');
-    //li.innerHTML = "4號是好人";
-    //document.querySelector('#rightgamerecordli').appendChild(li);
     $('.circleImg').append(` <div class="findperson" onclick="PlayerIsGood(this)" ></div>`);
     document.querySelectorAll('.findperson').forEach(function (element, index) {
         element.setAttribute('value', index+1);
