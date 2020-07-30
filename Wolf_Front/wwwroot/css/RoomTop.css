@@ -298,7 +298,7 @@ input {
     line-height: 2em;
     cursor: pointer;
     left: auto;
-    margin-top: 50px;
+    margin-top: 0px;
     z-index:6;
 }
 
@@ -512,11 +512,11 @@ input {
 
 /* Demo Styles */
 
-/*#content {
+#content {
     display: none;
-}*/
+}
 
-/*.trigger-button {
+.trigger-button {
     font-size: 17px;
     top: 100px;
     display: block;
@@ -531,9 +531,9 @@ input {
     margin-top: -45px;
     margin-left: auto;
     margin-right: auto;
-}*/
+}
 
-    /*.trigger-button:hover {
+    .trigger-button:hover {
         background: #27ae60;
         box-shadow: 0 5px 1px #145b32;
     }
@@ -541,16 +541,16 @@ input {
     .trigger-button:active {
         border-top: 5px solid #145b32;
         box-shadow: none;
-    }*/
+    }
 
-/*.how_to_play_title {
+.how_to_play_title {
     text-align: center;
 }
 
 .role {
     width: 50px;
     height: 50px;
-}*/
+}
 
 
 #toggle {
@@ -565,7 +565,7 @@ input {
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
     left: -32%;
     /* for sidebar to stay on top */
-    z-index: 5;
+    z-index: 6;
     transition: left 0.5s ease-in-out;
     top:0;
 }
@@ -687,3 +687,12 @@ input {
         outline:none;
         box-shadow: none;
     }
+
+
+#trigger {
+    margin-top: 0;
+    width: 150px;
+    height: 60px;
+    z-index: 6;
+    margin-right:650px;
+}

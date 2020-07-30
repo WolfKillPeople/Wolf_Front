@@ -19,7 +19,7 @@ $(document).ready(function () {
         async:false,
         success: function (msg) {
             ary = msg;
-            alert(ary.length);
+            //alert(ary.length);
             
             for (let i = 0; i < ary.length; i++) {
                 if (ary.length != 0) {
@@ -142,7 +142,7 @@ $(document).ready(function () {
         if (clicks == 1) {
             $(`.door_all`).append(`<div class="page page-${door_page} active">
             <div class="half left">
-            <div class="perspective perspective${people[no - 1].roomId}" onclick="openDoor(this)">
+            <div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
                         <img src=${doorImg} alt=${altImg} class="door_card" />
                     </div>
@@ -158,7 +158,7 @@ $(document).ready(function () {
             $('.scroll_ul').append(`<li data-target="${door_page}" class="nav-btn nav-page${door_page} active"></li>`)
         }
         else if ((clicks <= 4 && clicks > 1) || (clicks > 8 && clicks <= 12)) {
-            $(`.page-${door_page}>.left`).append(`<div class="perspective perspective${people[no - 1].roomId}" onclick="openDoor(this)">
+            $(`.page-${door_page}>.left`).append(`<div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
                         <img src=${doorImg} alt=${altImg} class="door_card" />
                     </div>
@@ -170,7 +170,7 @@ $(document).ready(function () {
                 </div>`);
         }
         else if ((clicks > 4 && clicks <= 8) || (clicks > 12 & clicks <= 16)) {
-            $(`.page-${door_page}>.right`).append(`<div class="perspective perspective${people[no - 1].roomId}" onclick="openDoor(this)">
+            $(`.page-${door_page}>.right`).append(`<div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
                         <img src=${doorImg} alt=${altImg} class="door_card" />
                     </div>
@@ -186,7 +186,7 @@ $(document).ready(function () {
             clicks = 1;
             $('.door_all').append(`<div class="page page-${door_page}">
             <div class="half left">
-            <div class="perspective perspective${people[no - 1].roomId}" onclick="openDoor(this)">
+            <div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
                         <img src=${doorImg} alt=${altImg} class="door_card" />
                     </div>
@@ -332,7 +332,7 @@ function addDoor() {
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify(jsonData),
             success: function (msg) {
-                alert('Data Saved: ' + msg);
+                //alert('Data Saved: ' + msg);
             }
         });
 
@@ -346,7 +346,7 @@ function AddOneDoor() {
     if (clicks == 1) {
         $(`.door_all`).append(`<div class="page page-${door_page} active">
             <div class="half left">
-            <div class="perspective perspective${people[no - 1].roomId}" onclick="openDoor(this)">
+            <div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
                         <img src=${close_img} alt=${alt_close} class="door_card" />
                     </div>
@@ -362,7 +362,7 @@ function AddOneDoor() {
         $('.scroll_ul').append(`<li data-target="${door_page}" class="nav-btn nav-page${door_page} active"></li>`)
     }
     else if ((clicks <= 4 && clicks > 1) || (clicks > 8 && clicks <= 12)) {
-        $(`.page-${door_page}>.left`).append(`<div class="perspective perspective${people[no - 1].roomId}" onclick="openDoor(this)">
+        $(`.page-${door_page}>.left`).append(`<div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
                         <img src=${close_img} alt=${alt_close} class="door_card" />
                     </div>
@@ -374,7 +374,7 @@ function AddOneDoor() {
                 </div>`);
     }
     else if ((clicks > 4 && clicks <= 8) || (clicks > 12 & clicks <= 16)) {
-        $(`.page-${door_page}>.right`).append(`<div class="perspective perspective${people[no - 1].roomId}" onclick="openDoor(this)">
+        $(`.page-${door_page}>.right`).append(`<div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
                         <img src=${close_img} alt=${alt_close} class="door_card" />
                     </div>
@@ -390,7 +390,7 @@ function AddOneDoor() {
         clicks = 1;
         $('.door_all').append(`<div class="page page-${door_page}">
             <div class="half left">
-            <div class="perspective perspective${people[no - 1].roomId}" onclick="openDoor(this)">
+            <div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
                         <img src=${close_img} alt=${alt_close} class="door_card" />
                     </div>
