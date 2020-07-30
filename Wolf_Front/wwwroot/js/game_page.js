@@ -245,18 +245,7 @@ var players = [
 ];
 
 
-//抓取是哪個玩家及好或壞人
-function PlayerIsGood()
-{
-    let Player = $('findperson').val();
-    let IsGood = players[Player - 1].isGood;
-    if (IsGood) { IsGood = "好人" }
-    else (IsGood){ IsGood = "壞人" }
-    $('#rightgamerecordli').append(`
-        <li>${Player}是${IsGood}</li>
-    `);
 
-}
 
 //玩家頭像生成
 async function BindingPlayers() {
@@ -413,7 +402,17 @@ function Binding() {
 
 
 
-
+////抓取是哪個玩家及好或壞人
+function PlayerIsGood() {
+    let Player = $('.findperson').val();
+    console.log('000');
+    //let IsGood = players[Player - 1].isGood;
+    //if (IsGood) { IsGood = "好人" }
+    //else (IsGood){ IsGood = "壞人" }
+    //$('#rightgamerecordli').append(`
+    //    <li>${Player}是${IsGood}</li>
+    //`);
+}
 
 
 //以下開始遊戲
@@ -436,7 +435,7 @@ function prophet() {
     var li = document.createElement('li');
     li.innerHTML = "4號是好人";
     document.querySelector('#rightgamerecordli').appendChild(li);
-    $('.circleImg').append(` <div class="findperson" ></div>`);
+    $('.circleImg').append(` <div class="findperson" onclilk="PlayerIsGood()" ></div>`);
 }
 function witch() {
     //if (myJob == "女巫" && myAlive == true) { }
