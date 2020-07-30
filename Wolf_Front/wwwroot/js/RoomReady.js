@@ -16,8 +16,7 @@ $('body').append(`<div class="sky_all">
             <button type="reset" class="search" id="search-btn"></button>
         </form>
     </div>
-///遊戲規則BTN
-   
+
 
     <div class="door_all">
     </div>
