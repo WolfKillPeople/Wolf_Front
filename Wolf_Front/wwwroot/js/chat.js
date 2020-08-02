@@ -7,7 +7,7 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 document.getElementById("sendButton").disabled = true;
 document.getElementById("sendButton2").disabled = true;
 
-function ChangeDay () {
+function ChangeDay() {
     var Day = document.getElementById("Day").value;
     if (Day == "白天") {
         document.getElementById('background').style.backgroundColor = "white";
@@ -30,7 +30,7 @@ connection.on("ReceiveMessage", function (user, message) {
         li.textContent = encodedMsg;
         document.getElementById("messagesList").appendChild(li);
     }
-    else if (user == "狼人" && Day=="黑夜") {
+    else if (user == "狼人" && Day == "黑夜") {
         document.getElementById("messagesList1").hidden = false;
         document.getElementById("messagesList").hidden = false;
         var UserName = document.getElementById("Name").textContent;
@@ -62,10 +62,47 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 });
 document.getElementById("sendButton2").addEventListener("click", function (event) {
     //var user = document.getElementById("userInput2").value;
-    var user = $('#userInput2').val()
+    var user = $('#userInput2').val();
 
     var message = document.getElementById("messageInput2").value;
     connection.invoke("SendMessage", user, message).catch(function (err) {
         return console.error(err.toString());
     });
 });
+
+//-----------------SAMPLE----------------------
+var roomId = 1;
+var id;
+var account = "oo";
+
+$('#Create').click(function () {
+    connection.invoke("CreateRoom", roomId, account).then(function (response) {
+        if (response.success) {
+            id = response.data;
+            alert(response.data);
+        }
+    });
+});
+
+$('#Delete').click(function () {
+    connection.invoke("RemoveRoom", roomId).then(function (response) {
+        if (response.success) {
+            alert(response.success);
+        }
+    });
+});
+
+$('#GetAll').click(function() {
+    connection.invoke("GetAllRoom").then(function(response) {
+        if (response.success) {
+            response.data.forEach(item=> {
+                console.log(item);  
+            });
+        }
+    })
+})
+
+
+
+
+
