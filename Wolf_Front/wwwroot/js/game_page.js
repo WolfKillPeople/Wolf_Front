@@ -1,11 +1,9 @@
-"use strict";
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 connection.start().then(function () {
 }).catch(function (err) {
     return console.error(err.toString());
 });
-
 
 var synth = window.speechSynthesis;
 var voices = [];
@@ -419,6 +417,7 @@ function PlayerIsGood(e) {
     $('.circleImg').css("pointer-events", "none");
 }
 
+
 var PersonInroom;
 //抓房間人數
 function GetPersonInroom() {
@@ -429,7 +428,6 @@ function GetPersonInroom() {
                 else { alert('no')}
             });
         }
-        alert(PersonInroom);
      })
 }
 
@@ -506,7 +504,7 @@ async function game() {
     await timeOn(5);
 
 
-    Speak('我是測試版，請確認你的身分，遊戲將於倒數完後開始');
+    Speak('請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
 
 
@@ -522,11 +520,13 @@ async function game() {
     Speak('預言家請選擇玩家查身分');
     prophet();
     await timeOn(10);
+    $('.findperson').css("display", "none")
+    $('.circleImg').css("pointer-events", "none");
     $('#rightgamerecordli li').remove();
 
 
     //顯示最高票
-    Speak('此玩家死亡，女巫是否救人，是否殺人');
+    Speak('此玩家死亡，女巫是否救人，與是否殺人');
     witch();
     await timeOn(10);
     $('#rightgamerecordli li').remove();
@@ -545,11 +545,25 @@ async function game() {
     //if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
     await timeOn(10);
     //回傳投票結果
-    Speak('玩家發言時間');
+    Speak('輪流發言時間');
 
-    Speak('1到10號玩家發言');
+    for (let i = 0; i <= players.length; i++) {
+        document.getElementById("PeopleuserInput").hidden = true;
+        document.getElementById("PeoplemessageInput").hidden = true;
+        document.getElementById("PeoplesendButton").hidden = true;
+        if (players[i].player == myName) {
+            document.getElementById("PeopleuserInput").hidden = false;
+            document.getElementById("PeoplemessageInput").hidden = false;
+            document.getElementById("PeoplesendButton").hidden = false;
+        }
+        Speak(`${i + 1}號玩家發言`);
+        await timeOn(10);
+    }
+
+
 
     Speak('所有玩家投票，得票最高者將出局');
+
     //判斷輸贏
 
 }
