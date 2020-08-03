@@ -1,45 +1,35 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
-/* body {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-  background: #b4f2ea;
-} */
-
 .pie {
-  width: 100px;
-  height:100px;
-  display: block;
-  position: relative;
-  border-radius: 50%;
-  background-color: #1fbba6;
-  border: 2px solid #1fbba6;
-  float: left;
-  margin: 1.5em;
-  margin-left:60px ;
+    width: 100px;
+    height: 100px;
+    display: block;
+    position: relative;
+    border-radius: 50%;
+    background-color: #1fbba6;
+    float: left;
+    margin: 1.5em;
+    margin-left: 60px;
 }
 
-.pie .block {
-  position: absolute;
-  background: #fff;
-  width: 80px;
-  height: 80px;
-  display: block;
-  border-radius: 50%;
-  top: 8px;
-  left: 8px;
-}
+    .pie .block {
+        position: absolute;
+        background: #fff;
+        width: 80px;
+        height: 80px;
+        display: block;
+        border-radius: 50%;
+        top: 10px;
+        left: 10px;
+    }
 
 #time {
-  font-size: 3em;
-  position: absolute;
-  top: 10%;
-  left: 18%;
-  color: #999999;
+    font-size: 3em;
+    position: relative;
+    top: 10px;
+    left: 20px;
+    color: #999999;
 }
 
 .degree {
-  /*90 + ( 360 * .1 )*/
-  background-image: -webkit-gradient(linear, left top, right top, color-stop(50%, transparent), color-stop(50%, white)), -webkit-gradient(linear, left top, right top, color-stop(50%, white), color-stop(50%, transparent));
-  background-image: linear-gradient(90deg, transparent 50%, white 50%), linear-gradient(90deg, white 50%, transparent 50%);
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(50%, transparent), color-stop(50%, white)), -webkit-gradient(linear, left top, right top, color-stop(50%, white), color-stop(50%, transparent));
+    background-image: linear-gradient(90deg, transparent 50%, white 50%), linear-gradient(90deg, white 50%, transparent 50%);
 }
-/*# sourceMappingURL=gamepage.css.map */
