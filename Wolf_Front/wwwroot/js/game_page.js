@@ -19,6 +19,10 @@ $('#addd').click(function () {
     });
 });
 
+$('#dele').click(function () {
+    LeaveRoom();
+});
+
 var synth = window.speechSynthesis;
 var voices = [];
 //旁白說話
@@ -430,46 +434,36 @@ function PlayerIsGood(e) {
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
 }
+
 var PersonInroom;
 //抓房間人數
 function GetPersonInroom() {
     connection.invoke("GetAllRoom").then(function (response) {
         if (response.success) {
             response.data.forEach(item => {
-                debugger
-                if (item.roomId == myroomid) { PersonInroom=item.count;}
+                if (item.roomId == myroomid) { PersonInroom = item.count; }
+                else { alert('no')}
             });
         }
-        console.log(PersonInroom);
+        alert(PersonInroom);
      })
 }
 
 //離開房間
 function LeaveRoom() {
+    PersonInroom = 0;
     GetPersonInroom();
-    if (PersonInroom == 0) { console.log('幹') } else { console.log('123')
+    if (PersonInroom <2 ) {
+        DeleteRoom();
     }
-    //if (personNum <= 1) {
-    //    DeleteRoom();
-    //}
     //自己從房間移除
     //連到房間畫面
-
 };
 
 //刪除房間
 function DeleteRoom() {
-    let _roomObj = [{ "roomId": roomid }];
-    $.ajax({
-        type: "delete",
-        url: "https://wolfpeoplekill.azurewebsites.net/api/Room/RemoveRoom",
-        data: JSON.stringify(_roomObj),
-        dataType: 'JSON',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        success: function (response) {
-            console.log('OK');
+    connection.invoke("RemoveRoom", myroomid).then(function (response) {
+        if (response.success) {
         }
     });
 }

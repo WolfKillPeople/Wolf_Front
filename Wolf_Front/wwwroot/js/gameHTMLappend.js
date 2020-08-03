@@ -265,7 +265,7 @@
                     <!-- 身體尾 -->
                 </div>
                 <div class="leave">
-                    <button class="glow-on-hover" id="leave" type="button" style="margin-left:80%;margin-top: 10%;" onclick="LeaveRoom()">離開</button>
+                    <button class="glow-on-hover" id="leave" type="button" style="margin-left:80%;margin-top: 10%;" onclick="GetPersonInroom()">離開</button>
                 </div>
             </div>
         </div>
