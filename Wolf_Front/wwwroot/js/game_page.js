@@ -157,6 +157,11 @@ function voteBack() {
     });
 }
 
+//取投票結果
+function getVoteResult() {
+
+}
+
 //AJAX玩家職業資料
 var players = [
     {
@@ -514,7 +519,6 @@ async function game() {
     await timeOn(10);
     $('.circleImg').css("pointer-events", "none");
     voteBack();
-    //取回最高票
 
 
     Speak('預言家請選擇玩家查身分');
@@ -525,6 +529,7 @@ async function game() {
     $('#rightgamerecordli li').remove();
 
 
+    getVoteResult()
     //顯示最高票
     Speak('此玩家死亡，女巫是否救人，與是否殺人');
     witch();
@@ -532,7 +537,7 @@ async function game() {
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
     voteBack();
-    //取回最高票
+    getVoteResult();
 
     //確認死亡
     $("body").css("cursor", "default");
@@ -543,33 +548,32 @@ async function game() {
 
     //if(某某某是 獵人){ if(自己是獵人) {獵人請選擇要帶走幾號玩家} }
     //if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
-    await timeOn(10);
-    //回傳投票結果
-    Speak('輪流發言時間');
+    //await timeOn(10);
+    //voteBack();
+    //getVoteResult();
 
-    for (let i = 0; i <= players.length; i++) {
-        document.getElementById("PeopleuserInput").hidden = true;
-        document.getElementById("PeoplemessageInput").hidden = true;
+
+    Speak('輪流發言時間');
+    for (let i = 0; i < players.length; i++) {
         document.getElementById("PeoplesendButton").hidden = true;
         if (players[i].player == myName) {
-            document.getElementById("PeopleuserInput").hidden = false;
-            document.getElementById("PeoplemessageInput").hidden = false;
             document.getElementById("PeoplesendButton").hidden = false;
         }
         Speak(`${i + 1}號玩家發言`);
-        await timeOn(10);
+        await timeOn(5);
     }
 
 
 
     Speak('所有玩家投票，得票最高者將出局');
-
+    $('.circleImg').css("pointer-events", "auto");
+    await timeOn(10);
+    voteBack();
+    getVoteResult();
+    $('.circleImg').css("pointer-events", "none");
     //判斷輸贏
 
 }
-
-
-
 
 
     //AJAX玩家資料
