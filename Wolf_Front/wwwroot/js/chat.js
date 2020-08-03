@@ -80,3 +80,36 @@ document.getElementById("WolfsendButton").addEventListener("click", function (ev
         document.getElementById('WolfmessageInput').value = "";
     }
 });
+
+
+//-----------------SAMPLE----------------------
+var roomId = 1;
+var id;
+var account = "oo";
+
+$('#Create').click(function () {
+    connection.invoke("CreateRoom", roomId, account).then(function (response) {
+        if (response.success) {
+            id = response.data;
+            alert(response.data);
+        }
+    });
+});
+
+$('#Delete').click(function () {
+    connection.invoke("RemoveRoom", roomId).then(function (response) {
+        if (response.success) {
+            alert(response.success);
+        }
+    });
+});
+
+$('#GetAll').click(function () {
+    connection.invoke("GetAllRoom").then(function (response) {
+        if (response.success) {
+            response.data.forEach(item => {
+                console.log(item);
+            });
+        }
+    })
+})
