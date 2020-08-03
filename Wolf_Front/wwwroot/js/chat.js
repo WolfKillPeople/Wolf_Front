@@ -34,9 +34,9 @@ connection.on("ReceiveMessage", function (user, message) {
         document.getElementById("PeoplemessagesList").appendChild(li);
     }
     else if (user == "狼人" && Day == "黑夜") {
-        document.getElementById("WolfmessagesList").hidden = false;
-        document.getElementById("PeoplemessagesList").hidden = false;
-        //var UserName = document.getElementById("Name").textContent;
+        document.getElementById("messagesList1").hidden = false;
+        document.getElementById("messagesList").hidden = false;
+        var UserName = document.getElementById("Name").textContent;
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         var encodedMsg = user + " says " + msg;
         var li = document.createElement("li");
@@ -68,19 +68,15 @@ document.getElementById("PeoplesendButton").addEventListener("click", function (
         document.getElementById('PeoplemessageInput').value = "";
     }
 });
+document.getElementById("sendButton2").addEventListener("click", function (event) {
+    //var user = document.getElementById("userInput2").value;
+    var user = $('#userInput2').val();
 
-document.getElementById("WolfsendButton").addEventListener("click", function (event) {
-    var user;
-    var message2 = document.getElementById("WolfmessageInput").value;
-    if (message2 != "") {
-        user = "狼人";
-        connection.invoke("SendMessage", user, message2).catch(function (err) {
-            return console.error(err.toString());
-        });
-        document.getElementById('WolfmessageInput').value = "";
-    }
+    var message = document.getElementById("messageInput2").value;
+    connection.invoke("SendMessage", user, message).catch(function (err) {
+        return console.error(err.toString());
+    });
 });
-
 
 //-----------------SAMPLE----------------------
 var roomId = 1;
@@ -104,12 +100,17 @@ $('#Delete').click(function () {
     });
 });
 
-$('#GetAll').click(function () {
-    connection.invoke("GetAllRoom").then(function (response) {
+$('#GetAll').click(function() {
+    connection.invoke("GetAllRoom").then(function(response) {
         if (response.success) {
-            response.data.forEach(item => {
-                console.log(item);
+            response.data.forEach(item=> {
+                console.log(item);  
             });
         }
     })
 })
+
+
+
+
+
