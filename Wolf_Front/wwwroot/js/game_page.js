@@ -380,7 +380,7 @@ async function BindingThings() {
 var myName;
 var myAlive;
 var myJob;
-var roomid = 1;
+var myroomid = 1;
 let ary;
 async function playerHead() {
     roomid = localStorage.getItem("roomid");
@@ -430,26 +430,28 @@ function PlayerIsGood(e) {
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
 }
-
+var PersonInroom;
 //抓房間人數
 function GetPersonInroom() {
-        connection.invoke("GetAllRoom").then(function (response) {
-            if (response.success) {
-                response.data.
-                response.data.forEach(item => {
-                    console.log(item);
-                });
-            }
-        })
+    connection.invoke("GetAllRoom").then(function (response) {
+        if (response.success) {
+            response.data.forEach(item => {
+                debugger
+                if (item.roomId == myroomid) { PersonInroom=item.count;}
+            });
+        }
+        console.log(PersonInroom);
+     })
 }
 
 //離開房間
 function LeaveRoom() {
-    var personNum=getPersonInroom();
-
-    if (personNum <= 1) {
-        DeleteRoom();
+    GetPersonInroom();
+    if (PersonInroom == 0) { console.log('幹') } else { console.log('123')
     }
+    //if (personNum <= 1) {
+    //    DeleteRoom();
+    //}
     //自己從房間移除
     //連到房間畫面
 
