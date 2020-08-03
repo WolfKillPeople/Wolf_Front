@@ -5,8 +5,8 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 
 //Disable send button until connection is established
-document.getElementById("sendButton").disabled = true;
-document.getElementById("sendButton2").disabled = true;
+document.getElementById("PeoplesendButton").disabled = true;
+document.getElementById("WolfsendButton").disabled = true;
 
 function ChangeDay() {
     var Day = document.getElementById("Day").value;
@@ -47,29 +47,37 @@ connection.on("ReceiveMessage", function (user, message) {
 });
 
 connection.start().then(function () {
-    document.getElementById("sendButton").disabled = false;
-    document.getElementById("sendButton2").disabled = false;
+    document.getElementById("PeoplesendButton").disabled = false;
+    document.getElementById("WolfsendButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
 
 
 
-document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById('userInput').value;
-    var message = document.getElementById('messageInput').value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
-        return console.error(err.toString());
-    });
+document.getElementById("PeoplesendButton").addEventListener("click", function (event) {
+    //var user = document.getElementById('userInput').value;
+    var message = document.getElementById('PeoplemessageInput').value;
+    var user;
+    if (message != "") {
+        user = "人類";
+        connection.invoke("SendMessage", user, message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        document.getElementById('PeoplemessageInput').value = "";
+    }
 });
-document.getElementById("sendButton2").addEventListener("click", function (event) {
-    //var user = document.getElementById("userInput2").value;
-    var user = $('#userInput2').val();
 
-    var message = document.getElementById("messageInput2").value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
-        return console.error(err.toString());
-    });
+document.getElementById("WolfsendButton").addEventListener("click", function (event) {
+    var user;
+    var message2 = document.getElementById("WolfmessageInput").value;
+    if (message2 != "") {
+        user = "狼人";
+        connection.invoke("SendMessage", user, message2).catch(function (err) {
+            return console.error(err.toString());
+        });
+        document.getElementById('WolfmessageInput').value = "";
+    }
 });
 
 //-----------------SAMPLE----------------------
