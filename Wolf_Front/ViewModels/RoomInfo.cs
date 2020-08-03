@@ -17,6 +17,11 @@ namespace Wolf_Front.ViewModels
         public int RoomId { get; set; }
 
         /// <summary>
+        /// 房間編號
+        /// </summary>
+        public string RoomName { get; set; }
+
+        /// <summary>
         /// 創建房間的那個人的ID
         /// </summary>
         public string ConnectionId { get; set; }
@@ -29,7 +34,7 @@ namespace Wolf_Front.ViewModels
         /// <summary>
         /// 玩家帳號
         /// </summary>
-        public string Account { get; set; }
+        public string[] Account { get; set; }
     }
 }
 

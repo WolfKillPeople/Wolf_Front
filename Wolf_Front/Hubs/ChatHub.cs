@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Wolf_Front.Models;
 using Wolf_Front.ViewModels;
 
 namespace Wolf_Front.Hubs
@@ -11,7 +14,10 @@ namespace Wolf_Front.Hubs
 
     public class ChatHub : Hub
     {
-        static ConcurrentDictionary<int, RoomInfo> _Rooms = new ConcurrentDictionary<int, RoomInfo>();
+        //static ConcurrentDictionary<int, RoomInfo> _Rooms = new ConcurrentDictionary<int, RoomInfo>();
+
+        static ConcurrentDictionary<int, List<RoomInfo>> _Rooms = new ConcurrentDictionary<int, List<RoomInfo>>();
+
 
         static ConcurrentDictionary<int, List<VotePlayers>> _votePlayers = new ConcurrentDictionary<int, List<VotePlayers>>();
 
@@ -30,24 +36,32 @@ namespace Wolf_Front.Hubs
         /// <summary>
         /// CreateRoom
         /// </summary>
-        /// <param name="roomId"></param>
+        /// <param name="roomName"></param>
         /// /// <param name="account"></param>
         /// <returns></returns>
-        public Task<ResponseBase<string>> CreateRoom(int roomId, string account)
+        public Task<ResponseBase<string>> CreateRoom(string roomName, string account)
         {
-            if (_Rooms.Values.Count(x => x.RoomId == roomId) > 0)
+            if (_Rooms.ContainsKey(int.Parse(roomName.Substring(0, 2))) == true)
             {
                 return Task.FromResult(new ResponseBase<string>() { Success = false, Message = "房間已存在" });
             }
+            var roomKey = _Rooms[int.Parse(roomName.Substring(0, 2))];
 
-            var model = new RoomInfo() { RoomId = roomId++, ConnectionId = base.Context.ConnectionId, Count = 1, Account = account };
-            _Rooms.TryAdd(model.RoomId, model);
-            _votePlayers.TryAdd(model.RoomId, new List<VotePlayers>());
-            Groups.AddToGroupAsync(base.Context.ConnectionId, model.RoomId.ToString());
+            List<string> accountTemp = new List<string>();
+            accountTemp.Add(account);
+
+            var model = new List<RoomInfo>();
+
+            model.Add(new RoomInfo { RoomId = int.Parse(roomName.Substring(0, 2)), RoomName = roomName, Count = 1, Account = accountTemp.ToArray() });
+            roomKey.AddRange(model);
+            _Rooms.TryAdd(model[0].RoomId, model);
+            _votePlayers.TryAdd(model[0].RoomId, new List<VotePlayers>());
+            Groups.AddToGroupAsync(base.Context.ConnectionId, model[0].RoomId.ToString());
+
             //將roomId傳給大家
-            Clients.All.SendAsync("NewRoom", model.RoomId);
+            Clients.All.SendAsync("NewRoom", model[0].RoomId);
 
-            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model.RoomId.ToString(), Count = 1 });
+            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = model[0].Count });
         }
 
         /// <summary>
@@ -57,18 +71,49 @@ namespace Wolf_Front.Hubs
         /// <param name="count"></param>
         /// <param name="Account"></param>
         /// <returns></returns>
-        public Task<ResponseBase<string>> JoinRoom(int roomId, int count, string Account)
+        public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, int count, string Account, string roomName)
         {
-            if (!_Rooms.ContainsKey(roomId) || _Rooms.Values.Where(x => x.RoomId == roomId).Select(x => x.Count).Equals(10))
+            int i = 0;
+            if (!_Rooms.ContainsKey(roomId))
             {
-                return Task.FromResult(new ResponseBase<string>() { Success = false, Message = "無法進入房間" });
+                return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
             }
-            count++;
+            foreach (var item in _Rooms.Values)
+            {
+                if (item[i].RoomId == roomId && item[i].Count.Equals(10))
+                {
+                    return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
+                }
+                i++;
+            }
+            _Rooms.TryGetValue(roomId, out var target);
+
+            var acc = target[0].Account;
+            var tempList = new List<string>();
+            //assign old value and new value to new List
+            foreach (var item in acc)
+            {
+                tempList.Add(item);
+            }
+            tempList.Add(Account);
+
+            var newValue = (from t in target
+                            select new RoomInfo
+                            {
+                                RoomId = roomId,
+                                RoomName = roomName,
+                                Account = tempList.ToArray(),
+                                Count = tempList.Count,
+                            }).ToList();
+
+            _Rooms.TryUpdate(roomId, newValue, target);
+
+
             Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
             //只在這個房間傳送訊息
             Clients.Groups(roomId.ToString()).SendAsync("JoinRoom", "歡迎" + Account);
 
-            return Task.FromResult(new ResponseBase<string>() { Success = true, Count = count, Account = Account });
+            return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newValue });
         }
 
         /// <summary>
@@ -77,14 +122,7 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public Task<ResponseBase<List<RoomInfo>>> GetAllRoom()
         {
-            var data = (from l in _Rooms.Values
-                        select new RoomInfo
-                        {
-                            RoomId = l.RoomId,
-                            Count = l.Count,
-                            ConnectionId = l.ConnectionId,
-                            Account = l.Account
-                        }).ToList();
+            var data = _Rooms.Values.SelectMany(x => x).ToList();
             return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data });
         }
 
@@ -176,7 +214,7 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="RoomId"></param>
         /// <returns></returns>
-        public  Task VoteResult(int RoomId)
+        public Task VoteResult(int RoomId)
         {
             var data = _votePlayers[RoomId].ToList();
             var target = data[0];
