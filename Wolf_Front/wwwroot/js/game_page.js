@@ -380,7 +380,7 @@ async function BindingThings() {
 var myName;
 var myAlive;
 var myJob;
-var roomid;
+var roomid = 1;
 let ary;
 async function playerHead() {
     roomid = localStorage.getItem("roomid");
@@ -435,6 +435,7 @@ function PlayerIsGood(e) {
 function GetPersonInroom() {
         connection.invoke("GetAllRoom").then(function (response) {
             if (response.success) {
+                response.data.
                 response.data.forEach(item => {
                     console.log(item);
                 });
