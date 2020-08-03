@@ -1,5 +1,6 @@
 ﻿"use strict";
 
+debugger
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 
@@ -76,6 +77,7 @@ var id;
 var account = "oo";
 
 $('#Create').click(function () {
+    debugger
     connection.invoke("CreateRoom", roomId, account).then(function (response) {
         if (response.success) {
             id = response.data;

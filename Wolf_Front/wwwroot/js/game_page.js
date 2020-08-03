@@ -1,3 +1,24 @@
+"use strict";
+var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+connection.start().then(function () {
+}).catch(function (err) {
+    return console.error(err.toString());
+});
+
+var roomId = 1;
+var id;
+var account = "oo";
+
+$('#addd').click(function () {
+    connection.invoke("CreateRoom", roomId, account).then(function (response) {
+        if (response.success) {
+            id = response.data;
+            alert(response.data);
+        }
+    });
+});
+
 var synth = window.speechSynthesis;
 var voices = [];
 //旁白說話
@@ -412,26 +433,13 @@ function PlayerIsGood(e) {
 
 //抓房間人數
 function GetPersonInroom() {
-    var totalperson;
-    var room; //roomid
-    var all;
-    $.ajax({
-        type: 'GET',
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
-        dataType: 'json',
-        contentType: 'application/json;charset=UTF-8',
-        async: false,
-        success: function (msg) {
-            totalperson = msg;
-            for (let i = 0; i < totalperson.length; i++) {
-                room = totalperson[i].roomId;
-                if (room == 2) {
-                    all = totalperson[i].totalPlayers;
-                }
+        connection.invoke("GetAllRoom").then(function (response) {
+            if (response.success) {
+                response.data.forEach(item => {
+                    console.log(item);
+                });
             }
-            return all;
-        }
-    });
+        })
 }
 
 //離開房間
@@ -568,12 +576,13 @@ async function game() {
 
 
 
+
     //AJAX玩家資料
-    BindingPlayers();
-    playerHead();
-    BindingThings();
-    closeMessage()
-    game();
+    //BindingPlayers();
+    //playerHead();
+    //BindingThings();
+    //closeMessage()
+    //game();
 
 
 //let _array;
