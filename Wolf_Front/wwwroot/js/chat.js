@@ -102,6 +102,8 @@ $('#GetAll').click(function() {
     })
 })
 
+connection.on("NewRoom".)
+
 
 
 
