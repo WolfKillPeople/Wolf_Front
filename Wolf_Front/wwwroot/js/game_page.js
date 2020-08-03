@@ -6,22 +6,6 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
-var roomId = 1;
-var id;
-var account = "oo";
-
-$('#addd').click(function () {
-    connection.invoke("CreateRoom", roomId, account).then(function (response) {
-        if (response.success) {
-            id = response.data;
-            alert(response.data);
-        }
-    });
-});
-
-$('#dele').click(function () {
-    LeaveRoom();
-});
 
 var synth = window.speechSynthesis;
 var voices = [];
@@ -575,11 +559,11 @@ async function game() {
 
 
     //AJAX玩家資料
-    //BindingPlayers();
-    //playerHead();
-    //BindingThings();
-    //closeMessage()
-    //game();
+    BindingPlayers();
+    playerHead();
+    BindingThings();
+    closeMessage()
+    game();
 
 
 //let _array;
