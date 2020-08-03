@@ -81,7 +81,6 @@ function closeMessage() {
     document.getElementById("PeoplesendButton").hidden = true;
     document.getElementById("WolfsendButton").hidden = true;
 }
-
 function toggleScheme() {
     if (toggle.getAttribute("aria-checked") == "true") {
         toggle.setAttribute("aria-checked", "false");
@@ -151,7 +150,7 @@ function voteBack() {
     });
 }
 
-//AJAX玩家資料
+//AJAX玩家職業資料
 var players = [
     {
         "name": "狼人",
