@@ -263,9 +263,9 @@ for (let i = 0; i < players.length / 2; i++) {
     aplayer.setAttribute('class', 'playerimg')
     aplayer.setAttribute('href', '#');
     playerImg.setAttribute('src', players[i].imgUrl);
-    playerImg.setAttribute('class', 'playerphoto')
+    playerImg.setAttribute('class', 'playerphoto');
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
-    dead.setAttribute('class', 'deadimg')
+    dead.setAttribute('class', 'deadimg');
     Circle.setAttribute('class', 'circleImg off');
     if (players[i].isAlive) { playerImg.setAttribute('onclick', `vote(${array})`); }
     else { Circle.appendChild(dead); }
