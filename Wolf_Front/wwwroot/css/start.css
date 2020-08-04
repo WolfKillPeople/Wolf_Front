@@ -36,6 +36,10 @@
     letter-spacing: -.12em;
     color: #C6161D;
     text-transform: uppercase;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 .drop {
@@ -47,6 +51,7 @@
   top: 72%;
   -webkit-animation: drop 3s infinite both;
           animation: drop 3s infinite both;
+   
 }
 
 .drop:nth-child(1) {
