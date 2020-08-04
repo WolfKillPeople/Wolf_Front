@@ -29,7 +29,7 @@ namespace Wolf_Front.ViewModels
         /// <summary>
         /// 玩家帳號
         /// </summary>
-        public string Account { get; set; }
+        public string[] Account { get; set; }
     }
 }
 
