@@ -439,6 +439,7 @@ function PlayerIsGood(e) {
     $('#rightgamerecordli').append(`<li>${Player}是${IsGood}</li>`);
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow", "none")
 }
 
 
@@ -527,6 +528,7 @@ async function game() {
 
     $('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow","none")
     await timeOn(5);
 
 
@@ -539,6 +541,7 @@ async function game() {
     wolf();
     await timeOn(10);
     $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow", "none")
     voteBack();
     getVoteResult();
 
@@ -548,6 +551,7 @@ async function game() {
     await timeOn(10);
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow", "none")
     $('#rightgamerecordli li').remove();
 
 
@@ -559,6 +563,9 @@ async function game() {
     await timeOn(10);
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow", "none")
+    voteBack();
+    getVoteResult();
     //deadConfirm();
     console.log(voteResult);
 
@@ -595,6 +602,7 @@ async function game() {
     voteBack();
     getVoteResult();
     $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow", "none")
     //判斷輸贏
 
 }
