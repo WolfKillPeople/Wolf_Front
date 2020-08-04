@@ -454,9 +454,8 @@ searchBtn.addEventListener("click", expand);
 //modal
 // Create an immediately invoked functional expression to wrap our code
 (function () {
-
     // Define our constructor 
-    this.Modal = function () {
+    window.Modal = function () {
 
         // Create global element references
         this.closeButton = null;
