@@ -57,7 +57,7 @@ namespace Wolf_Front.Hubs
             //將roomId傳給每個玩家
             Clients.All.SendAsync("NewRoom", model);
 
-            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count });
+            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count, Message = "創建房間成功!!!!" });
         }
 
         /// <summary>

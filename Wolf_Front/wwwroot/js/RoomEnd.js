@@ -2,9 +2,6 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-var roomId = 1;
-var account = "登凱";
-
 var no = 1;
 var door_page = 1;
 var people;
@@ -18,9 +15,24 @@ var clicks = 0;
 $(document).ready(function () {
     connection.start().then(function () {
         connection.invoke("GetAllRoom").then(function (response) {
+            debugger;
             if (response.success) {
                 response.data.forEach(item => {
-                    console.log(item);
+                    //alert(item.count);
+                    for (var i = 0; i < response.data.length; i++) {
+                        if (item[i].count == 10) {
+                            doorImg = close_img;
+                            altImg = 'close';
+                            document.querySelectorAll('.perspective')[item[i].roomId].removeAttribute("onclick");
+                        }
+                        else {
+                            doorImg = open_img;
+                            altImg = 'open';
+                        }
+                        clicks++;
+                        displayDoor();
+                    }
+                    
                 });
             }
         })
@@ -164,9 +176,9 @@ $(document).ready(function () {
                         <img src=${doorImg} alt=${altImg} class="door_card" />
                     </div>
                     <div class="number">
-                        <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${people[no - 1].roomId}" onclick="addPeople(this)"/></a>
-                        <p class="people">人數: ${people[no - 1].totalPlayers}/10</p>
+                        <p class="door_number">${item[i].roomId.toString().padStart(3, '0')}</p>
+                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${item[i].roomId}" onclick="addPeople(this)"/></a>
+                        <p class="people">人數: ${item[i].count}/10</p>
                     </div>          
                 </div>
             </div><div class="half right withText">
@@ -182,7 +194,7 @@ $(document).ready(function () {
                     <div class="number">
                         <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
                         <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${people[no - 1].roomId}" onclick="addPeople(this)"/></a>
-                        <p class="people">人數: ${people[no - 1].totalPlayers}/10</p>
+                        <p class="people">人數: ${item.count}/10</p>
                     </div>          
                 </div>`);
         }
@@ -194,7 +206,7 @@ $(document).ready(function () {
                     <div class="number">
                         <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
                         <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${people[no - 1].roomId}" onclick="addPeople(this)"/></a>
-                        <p class="people">人數: ${people[no - 1].totalPlayers}/10</p>
+                        <p class="people">人數: ${item.count}/10</p>
                     </div>          
                 </div>`);
         }
@@ -210,7 +222,7 @@ $(document).ready(function () {
                     <div class="number">
                         <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
                         <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${people[no - 1].roomId}" onclick="addPeople(this)"/></a>
-                        <p class="people">人數: ${people[no - 1].totalPlayers}/10</p>
+                        <p class="people">人數: ${item.count}/10</p>
                     </div>          
                 </div>
             </div><div class="half right withText">
@@ -225,15 +237,20 @@ $(document).ready(function () {
 
 $(".add_room_btn").on("click", addDoor);
 var nextRoom;
+
+var roomId = 1;
+var account = "登凱";
 function addDoor() {
     connection.on("NewRoom", function (xid) {
-        debugger
-        alert(xid);
+        //alert(xid);        
     });
 
     connection.invoke("CreateRoom", roomId, account).then(function (response) {
         if (response.success) {
             alert(response.data);
+            alert(response.message);
+            clicks++;
+            AddOneDoor();
         }
     });
 
@@ -286,18 +303,18 @@ function addDoor() {
 
 
 function AddOneDoor() {
-    play1 = localStorage.getItem('myName');
+    //play1 = localStorage.getItem('myName');
     let id = no.toString().padStart(3, '0');
     if (clicks == 1) {
         $(`.door_all`).append(`<div class="page page-${door_page} active">
             <div class="half left">
             <div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
-                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                        <img src=${open_img} alt="open" class="door_card" />
                     </div>
                     <div class="number">
-                        <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${no}" onclick="addPeople(this)" /></a>
+                        <p class="door_number">${roomId.toString().padStart(3, '0')}</p>
+                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${roomId}" onclick="addPeople(this)" /></a>
                         <p class="people">人數: 1/10</p>
                     </div>          
                 </div>
@@ -309,11 +326,11 @@ function AddOneDoor() {
     else if ((clicks <= 4 && clicks > 1) || (clicks > 8 && clicks <= 12)) {
         $(`.page-${door_page}>.left`).append(`<div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
-                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                        <img src=${open_img} alt="open" class="door_card" />
                     </div>
                     <div class="number">
-                        <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${no}" onclick="addPeople(this)"/></a>
+                        <p class="door_number">${roomId.toString().padStart(3, '0')}</p>
+                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${roomId}" onclick="addPeople(this)"/></a>
                         <p class="people">人數: 1/10</p>
                     </div>          
                 </div>`);
@@ -321,11 +338,11 @@ function AddOneDoor() {
     else if ((clicks > 4 && clicks <= 8) || (clicks > 12 & clicks <= 16)) {
         $(`.page-${door_page}>.right`).append(`<div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
-                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                        <img src=${open_img} alt="open" class="door_card" />
                     </div>
                     <div class="number">
-                        <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${no}" onclick="addPeople(this)" /></a>
+                        <p class="door_number">${roomId.toString().padStart(3, '0')}</p>
+                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${roomId}" onclick="addPeople(this)" /></a>
                         <p class="people">人數: 1/10</p>
                     </div>          
                 </div>`);
@@ -337,7 +354,7 @@ function AddOneDoor() {
             <div class="half left">
             <div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
-                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                        <img src=${open_img} alt="open" class="door_card" />
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
