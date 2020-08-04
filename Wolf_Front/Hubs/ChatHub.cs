@@ -11,7 +11,6 @@ namespace Wolf_Front.Hubs
 
     public class ChatHub : Hub
     {
-
         static ConcurrentDictionary<int, List<RoomInfo>> _Rooms = new ConcurrentDictionary<int, List<RoomInfo>>();
 
         static ConcurrentDictionary<int, List<VotePlayers>> _votePlayers = new ConcurrentDictionary<int, List<VotePlayers>>();
@@ -32,7 +31,7 @@ namespace Wolf_Front.Hubs
         /// CreateRoom
         /// </summary>
         /// <param name="roomName"></param>
-        /// /// <param name="account"></param>
+        /// <param name="account"></param>
         /// <returns></returns>
         public Task<ResponseBase<string>> CreateRoom(int roomId, string account)
         {
@@ -40,23 +39,20 @@ namespace Wolf_Front.Hubs
             {
                 return Task.FromResult(new ResponseBase<string>() { Success = false, Message = "房間已存在" });
             }
-            var roomKey = _Rooms[roomId];
-
+           
             List<string> accountTemp = new List<string>();
             accountTemp.Add(account);
 
             var model = new List<RoomInfo>();
-
-            model.Add(new RoomInfo { RoomId = roomId, Count = 1, Account = accountTemp.ToArray() });
-            roomKey.AddRange(model);
+            model.Add(new RoomInfo { RoomId = roomId, Count = account.Length, Account = accountTemp.ToArray() });
             _Rooms.TryAdd(model[0].RoomId, model);
             _votePlayers.TryAdd(model[0].RoomId, new List<VotePlayers>());
+
             Groups.AddToGroupAsync(base.Context.ConnectionId, model[0].RoomId.ToString());
 
             //將roomId傳給每個玩家
             Clients.All.SendAsync("NewRoom", model);
-
-            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = model[0].Count });
+            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = account.Length });
         }
 
         /// <summary>
@@ -65,7 +61,6 @@ namespace Wolf_Front.Hubs
         /// <param name="roomId"></param>
         /// <param name="count"></param>
         /// <param name="Account"></param>
-        /// /// <param name="roomName"></param>
         /// <returns></returns>
         public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, int count, string Account)
         {
@@ -145,6 +140,7 @@ namespace Wolf_Front.Hubs
                 _votePlayers.TryRemove(data.ToList()[0].RoomID, out _);
             }
 
+            _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
             var roomKey = _votePlayers[data.ToList()[0].RoomID];
 
             votePlayers.ForEach(x => x.VoteTickets = 0);
@@ -198,9 +194,6 @@ namespace Wolf_Front.Hubs
                 }
             }
 
-
-            newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.User = null; });
-            roomKey.AddRange(newVotePlayers.Take(1));
         }
 
 
@@ -215,5 +208,39 @@ namespace Wolf_Front.Hubs
             var target = data[0];
             return Clients.Groups(RoomId.ToString()).SendAsync("VoteResult", target);
         }
+
+        /// <summary>
+        /// 玩家死亡
+        /// </summary>
+        /// <returns></returns>
+        public Task PeopleDie(int RoomId,string account)
+        {
+            return Clients.Group(RoomId.ToString()).SendAsync("PeopleDie", account + "死惹!");
+        }
+
+
+        /// <summary>
+        /// 連線時自動加入玩家ID
+        /// </summary>
+        /// <returns></returns>
+        public override Task OnConnectedAsync()
+        {
+            UserHandler.ConnectionIds.Add(Context.ConnectionId);
+            return base.OnConnectedAsync();
+        }
+
+        /// <summary>
+        /// 離現時自動減少該玩家ID
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            UserHandler.ConnectionIds.Remove(Context.ConnectionId);
+            return base.OnDisconnectedAsync(exception);
+        }
+
+       
+
     }
 }
