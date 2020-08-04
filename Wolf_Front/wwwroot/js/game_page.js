@@ -564,8 +564,6 @@ async function game() {
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
-    voteBack();
-    getVoteResult();
     //deadConfirm();
     console.log(voteResult);
 
