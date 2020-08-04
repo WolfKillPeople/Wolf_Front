@@ -8,6 +8,7 @@ using Wolf_Front.ViewModels;
 
 namespace Wolf_Front.Hubs
 {
+
     public class ChatHub : Hub
     {
         static ConcurrentDictionary<int, RoomInfo> _Rooms = new ConcurrentDictionary<int, RoomInfo>();
