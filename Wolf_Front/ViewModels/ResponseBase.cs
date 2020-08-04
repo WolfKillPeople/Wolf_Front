@@ -19,5 +19,7 @@ namespace Wolf_Front.ViewModels
         public int Count { get; set; }
 
         public string Account { get; set; }
+
+        public int TempNextRoom { get; set; }
     }
 }

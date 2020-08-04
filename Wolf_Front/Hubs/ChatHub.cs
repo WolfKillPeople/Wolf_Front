@@ -17,7 +17,7 @@ namespace Wolf_Front.Hubs
 
         static List<VotePlayers> votePlayers = new List<VotePlayers>();
 
-        static List<TotalRoom> _totalRoom = new List<TotalRoom>();
+        static List<TotalRooms> _totalRoom = new List<TotalRooms>();
 
         /// <summary>
         /// SendMessage
@@ -52,12 +52,14 @@ namespace Wolf_Front.Hubs
             _votePlayers.TryAdd(model[0].RoomId, new List<VotePlayers>());
 
             Groups.AddToGroupAsync(base.Context.ConnectionId, model[0].RoomId.ToString());
-            _totalRoom.Add(new TotalRoom { TempNextRoom = roomId++ });
+
+            //_totalRoom.Add(new TotalRooms { TempNextRoom = roomId++, Total = })
+
 
             //將roomId傳給每個玩家
             Clients.All.SendAsync("NewRoom", model);
 
-            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count });
+            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count,TempNextRoom = _totalRoom[0].TempNextRoom,Message="創建房間成功" });
         }
 
         /// <summary>
@@ -215,12 +217,13 @@ namespace Wolf_Front.Hubs
         }
 
         /// <summary>
-        /// 玩家死亡
+        /// PeopleDie
         /// </summary>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public Task PeopleDie(int RoomId,string account)
+        public Task PeopleDie(IEnumerable<GameRoom> data)
         {
-            return Clients.Group(RoomId.ToString()).SendAsync("PeopleDie", account + "死惹!");
+            return Clients.Group(data.ToList()[0].RoomId.ToString()).SendAsync("PeopleDie", data.ToList()[0].Account + "死惹!");
         }
 
 
