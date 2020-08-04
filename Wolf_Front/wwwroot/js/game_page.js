@@ -164,7 +164,8 @@ function voteBack() {
 //取投票結果
 function getVoteResult() {
     connection.invoke("VoteResult", myroomid).then(function(res){
-        prepareDead=res.data[0].vote;
+        prepareDead = res.data[0].vote;
+        console.log(`${res.data[0].vote}號死`);
     });
 }
 
@@ -486,6 +487,7 @@ function prophet() {
     });
 }
 function witch() {
+    let saveOrDead = prepareDead;
     //if (myJob == "女巫" && myAlive == true) { }
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
@@ -500,7 +502,8 @@ function witch() {
     </label>
   </div>
   </li>`);
-    $('#saveDead').click(function () { prepareDead = null; });
+    $('#saveDead').click(function () { prepareDead = null; console.log(prepareDead); });
+    $('#noSaveDead').click(function () { prepareDead = saveOrDead; console.log(prepareDead); });
 }
 function hunter() {
     //if (myJob == "獵人" && myAlive == true) { }
@@ -536,49 +539,50 @@ async function game() {
     $('#rightgamerecordli li').remove();
 
 
-    getVoteResult();
-    //顯示最高票
-    Speak('此玩家死亡，女巫是否救人，與是否殺人');
+
+    Speak('此玩家死亡，女巫是否救人');
     witch();
+    await timeOn(10);
+    Speak('女巫是否殺人');
     await timeOn(10);
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
-    voteBack();
-    getVoteResult();
+    console.log(voteResult);
 
-    //確認死亡
-    $("body").css("cursor", "default");
-    $('#toggleDark').click();
-    //判斷輸贏
-    Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
-    await timeOn(5);
 
-    //if(某某某是 獵人){ if(自己是獵人) {獵人請選擇要帶走幾號玩家} }
-    //if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
+    ////確認死亡
+    //$("body").css("cursor", "default");
+    //$('#toggleDark').click();
+    ////判斷輸贏
+    //Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
+    //await timeOn(5);
+
+    ////if(某某某是 獵人){ if(自己是獵人) {獵人請選擇要帶走幾號玩家} }
+    ////if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
+    ////await timeOn(10);
+    ////voteBack();
+    ////getVoteResult();
+
+
+    //Speak('輪流發言時間');
+    //for (let i = 0; i < players.length; i++) {
+    //    document.getElementById("PeoplesendButton").hidden = true;
+    //    if (players[i].player == myName) {
+    //        document.getElementById("PeoplesendButton").hidden = false;
+    //    }
+    //    Speak(`${i + 1}號玩家發言`);
+    //    await timeOn(5);
+    //}
+
+
+
+    //Speak('所有玩家投票，得票最高者將出局');
+    //$('.circleImg').css("pointer-events", "auto");
     //await timeOn(10);
     //voteBack();
     //getVoteResult();
-
-
-    Speak('輪流發言時間');
-    for (let i = 0; i < players.length; i++) {
-        document.getElementById("PeoplesendButton").hidden = true;
-        if (players[i].player == myName) {
-            document.getElementById("PeoplesendButton").hidden = false;
-        }
-        Speak(`${i + 1}號玩家發言`);
-        await timeOn(5);
-    }
-
-
-
-    Speak('所有玩家投票，得票最高者將出局');
-    $('.circleImg').css("pointer-events", "auto");
-    await timeOn(10);
-    voteBack();
-    getVoteResult();
-    $('.circleImg').css("pointer-events", "none");
-    //判斷輸贏
+    //$('.circleImg').css("pointer-events", "none");
+    ////判斷輸贏
 
 }
 

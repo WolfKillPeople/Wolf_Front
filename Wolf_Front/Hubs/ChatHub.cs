@@ -141,7 +141,7 @@ namespace Wolf_Front.Hubs
                 _votePlayers.TryRemove(data.ToList()[0].RoomID, out _);
             }
 
-            _Rooms.TryAdd(data.ToList()[0].RoomID, new List<RoomInfo>());
+            _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
             var roomKey = _votePlayers[data.ToList()[0].RoomID];
 
             votePlayers.ForEach(x => x.VoteTickets = 0);
