@@ -15,14 +15,7 @@ function Speak(txtInput) {
     li.innerText = txtInput;
     document.querySelector('#leftgamerecordli').appendChild(li);
 };
-//滾輪
-$(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
-    if (event.type == "mouseenter") {
-        $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
-    } else {
-        $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
-    }
-});
+
 //時間倒數
 function timeOn(time) {
     return new Promise((resolve, reject) => {
@@ -61,24 +54,33 @@ function update(percent, totaltime) {
         );
     }
 }
-//背景夜晚白天轉換
-let toggle = document.getElementById('toggleDark')
-let image = document.querySelector('.image')
-
-toggle.addEventListener('click', toggleScheme, true)
 
 var x = document.getElementById("MorningAudio");
 var y = document.getElementById("NightAudio");
-
-function closeMessage() {
-    document.getElementById("userInput").hidden = true;
-    document.getElementById("messageInput").hidden = true;
-    document.getElementById("userInput2").hidden = true;
-    document.getElementById("messageInput2").hidden = true;
-    document.getElementById("sendButton1").hidden = true;
-    document.getElementById("sendButton").hidden = true;
+//音效
+function morningAudio() {
+    x.play();
+    x.volume = 0.2;
+    y.pause();
 }
+function nightAudio() {
+    y.play();
+    y.volume = 0.2;
+    x.pause();
+} 
 
+//背景夜晚白天轉換
+let toggle = document.getElementById('toggleDark');
+toggle.addEventListener('click', toggleScheme, true);
+let image = document.querySelector('.image'); 
+function closeMessage() {
+    document.getElementById("PeopleuserInput").hidden = true;
+    document.getElementById("PeoplemessageInput").hidden = true;
+    document.getElementById("WolfuserInput").hidden = true;
+    document.getElementById("WolfmessageInput").hidden = true;
+    document.getElementById("PeoplesendButton").hidden = true;
+    document.getElementById("WolfsendButton").hidden = true;
+}
 function toggleScheme() {
     if (toggle.getAttribute("aria-checked") == "true") {
         toggle.setAttribute("aria-checked", "false");
@@ -93,8 +95,6 @@ function toggleScheme() {
         document.getElementById("WolfmessageInput").hidden = true;
         document.getElementById("PeoplesendButton").hidden = false;
         document.getElementById("WolfsendButton").hidden = true;
-
-
     } else if (toggle.getAttribute("aria-checked") == "false") {
         toggle.setAttribute("aria-checked", "true");
         document.getElementById("PeoplemessagesList").hidden = false;
@@ -111,19 +111,8 @@ function toggleScheme() {
     image.classList.toggle('image-light')
 }
 
-//音效
-function morningAudio() {
-    x.play();
-    x.volume = 0.2;
-    y.pause();
-}
-function nightAudio() {
-    y.play();
-    y.volume = 0.2;
-    x.pause();
-} 
-
 //投票
+var voteResult;
 function vote(a, b, c, d, e, f, g, h, i, j) {
     document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].className = "circleImg on";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[b - 1].className = "circleImg off";
@@ -135,27 +124,33 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
     document.getElementById("touxiang").getElementsByClassName('circleImg')[h - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[i - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[j - 1].className = "circleImg off";
-    let backChoose = [false, false, false, false, false, false, false, false, false, false];
-    backChoose[a - 1] = true;
-    voteBack(backChoose);
+    voteResult = a;
 }
+
+var prepareDead;
 //投票回傳
-function voteBack(backChoose) {
+function voteBack() {
+    var backVoteResult = [{
+        "roomId": 2,
+        "user": 'Text002@gmail.com',
+        "vote": `${voteResult}`,
+        "voteResult":null
+    }];
     $.ajax({
         type: "post",
-        url: "",
-        data: JSON.stringify(backChoose),
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/Game/Vote',
+        data: JSON.stringify(backVoteResult),
         dataType: 'JSON',
         headers: {
             'Content-type': 'application/json'
         },
         success: function (response) {
-            console.log('OK');
-        }
+            players.forEach(function (element, index) { if (element.player == response) { prepareDead = index+1 } });
+        }   
     });
 }
 
-//AJAX玩家資料
+//AJAX玩家職業資料
 var players = [
     {
         "name": "狼人",
@@ -267,11 +262,11 @@ for (let i = 0; i < players.length / 2; i++) {
     aplayer.setAttribute('class', 'playerimg')
     aplayer.setAttribute('href', '#');
     playerImg.setAttribute('src', players[i].imgUrl);
-    playerImg.setAttribute('class', 'playerphoto')
+    playerImg.setAttribute('class', 'playerphoto');
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
-    dead.setAttribute('class', 'deadimg')
+    dead.setAttribute('class', 'deadimg');
     Circle.setAttribute('class', 'circleImg off');
-    if (players[i].isAlive) { Circle.setAttribute('onclick', `vote(${array})`); }
+    if (players[i].isAlive) { playerImg.setAttribute('onclick', `vote(${array})`); }
     else { Circle.appendChild(dead); }
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
@@ -299,7 +294,7 @@ for (let i = players.length / 2; i <= players.length; i++) {
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
     dead.setAttribute('class', 'deadimg')
     Circle.setAttribute('class', 'circleImg off');
-    if (players[i].isAlive) { Circle.setAttribute('onclick', `vote(${array})`); }
+    if (players[i].isAlive) { playerImg.setAttribute('onclick', `vote(${array})`); }
     else { Circle.appendChild(dead); }
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
@@ -324,11 +319,52 @@ async function BindingThings() {
             $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
+    //滾輪
+    $(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+        if (event.type == "mouseenter") {
+            $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
+        } else {
+            $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+        }
+    });
+    //滾輪
+    $(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+        if (event.type == "mouseenter") {
+            $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
+        } else {
+            $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+        }
+    });
+    //< !--當我按下x時要去加入css動畫 -->
+    $('#close').click(function () {
+        $('.img-spin').css("animation-name", " spin")
+        $('.img-spin').css("animation-timing-function", " linear")
+        $('.img-spin').css("animation-duration", " 1s")
+        var tt = document.styleSheets[0];
+        tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+    });
+    $('#closebtn').click(function () {
+        $('.img-spin').css("animation-name", " spin")
+        $('.img-spin').css("animation-timing-function", " linear")
+        $('.img-spin').css("animation-duration", " 1s")
+        var tt = document.styleSheets[0];
+        tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+    });
+
 }
-//玩家職業
+
+//玩家資料
+var myName;
+var myAlive;
+var myJob;
+var roomid;
 let ary;
 async function playerHead() {
+    roomid = localStorage.getItem("roomid");
     let obj = [{
+        //"roomId": roomid,
         "roomId": 3,
     }]
     $.ajax({
@@ -342,13 +378,10 @@ async function playerHead() {
         success: function (response) {
             ary = response;
             Binding();
-            console.log(ary);
         }
     });
 }
-var myName;
-var myAlive;
-var myJob;
+
 function Binding() {
     myName = localStorage.getItem("myName");
     players.forEach(element => {
@@ -366,6 +399,70 @@ function Binding() {
 
 
 
+//查詢是哪個玩家及好或壞人
+function PlayerIsGood(e) {
+    let Player = e.getAttribute('value');
+    let IsGood = players[Player - 1].isGood;
+    if (IsGood) { IsGood = "好人" }
+    else { IsGood = "壞人" }
+    $('#rightgamerecordli').append(`<li>${Player}是${IsGood}</li>`);
+    $('.findperson').css("display", "none")
+    $('.circleImg').css("pointer-events", "none");
+}
+
+//抓房間人數
+function GetPersonInroom() {
+    var totalperson;
+    var room; //roomid
+    var all;
+    $.ajax({
+        type: 'GET',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function (msg) {
+            totalperson = msg;
+            for (let i = 0; i < totalperson.length; i++) {
+                room = totalperson[i].roomId;
+                if (room == 2) {
+                    all = totalperson[i].totalPlayers;
+                }
+            }
+            return all;
+        }
+    });
+}
+
+//離開房間
+function LeaveRoom() {
+    var personNum=getPersonInroom();
+
+    if (personNum <= 1) {
+        DeleteRoom();
+    }
+    //自己從房間移除
+    //連到房間畫面
+
+};
+
+//刪除房間
+function DeleteRoom() {
+    let _roomObj = [{ "roomId": roomid }];
+    $.ajax({
+        type: "delete",
+        url: "https://wolfpeoplekill.azurewebsites.net/api/Room/RemoveRoom",
+        data: JSON.stringify(_roomObj),
+        dataType: 'JSON',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        success: function (response) {
+            console.log('OK');
+        }
+    });
+}
+
 
 
 
@@ -377,55 +474,47 @@ function Binding() {
 
 
 function wolf() {
-    //if (myJob == "狼人" || myJob == "狼王") { }
-    $('.circleImg').css("pointer-events", "auto")
-    $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto")
+    //if (myJob == "狼人" || myJob == "狼王" && myAlive == true) { }
+    $('.circleImg').css("pointer-events", "auto");
+    $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto");
 }
 function prophet() {
-    //if (myJob == "預言家") { }
+    //if (myJob == "預言家" && myAlive == true) { }
+    $('.circleImg').css("pointer-events", "auto");
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
-    var li = document.createElement('li');
-    li.innerHTML = "4號是好人";
-    document.querySelector('#rightgamerecordli').appendChild(li);
+    $('.circleImg').append(` <div class="findperson" onclick="PlayerIsGood(this)" ></div>`);
+    document.querySelectorAll('.findperson').forEach(function (element, index) {
+        element.setAttribute('value', index+1);
+    });
 }
 function witch() {
-    //if (myJob == "女巫") { }
-    var li = document.createElement('li');
-    var yesbtn = document.createElement("BUTTON");
-    var nobtn = document.createElement("BUTTON");
-    var yes = document.createTextNode("是");
-    var no = document.createTextNode("否");
-    yesbtn.appendChild(yes);
-    nobtn.appendChild(no);
-    li.innerHTML = "4號被殺死了你要救他們嗎?";
-    li.appendChild(yesbtn)
-    li.appendChild(nobtn)
-    yesbtn.setAttribute('class', 'yesbtn');
-    nobtn.setAttribute('class', 'nobtn');
-    document.querySelector('#rightgamerecordli').appendChild(li);
-
-    $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto")
+    //if (myJob == "女巫" && myAlive == true) { }
+    $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
+    $('.circleImg').css("pointer-events", "auto");
+    $('#rightgamerecordli').append(`
+     <li>${prepareDead}號被殺死了你要救他們嗎?
+     <div class="btn-group btn-group-toggle" data-toggle="buttons"> 
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="saveDead" autocomplete="off"> 是
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="noSaveDead" autocomplete="off"> 否
+    </label>
+  </div>
+  </li>`);
+    $('#saveDead').click(function () { prepareDead = null; });
 }
 function hunter() {
-    //if (myJob == "獵人") { }
-    $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto")
+    //if (myJob == "獵人" && myAlive == true) { }
+    $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto");
 }
-//滾輪
-$(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
-    if (event.type == "mouseenter") {
-        $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
-    } else {
-        $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
-    }
-});
 
-let roundSound = ['天黑請閉眼，狼人請殺人', '預言家請選人查身分', '此玩家死亡，女巫是否救人', '天亮請睜眼'];
 
 async function game() {
 
     $('#staticBackdrop').modal('show');
-    $('.circleImg').css("pointer-events", "none")
-    await timeOn(10);
+    $('.circleImg').css("pointer-events", "none");
+    await timeOn(5);
 
 
     Speak('我是測試版，請確認你的身分，遊戲將於倒數完後開始');
@@ -436,19 +525,28 @@ async function game() {
     Speak('天黑請閉眼，狼人請殺人');
     wolf();
     await timeOn(10);
-    //回傳投票結果
+    $('.circleImg').css("pointer-events", "none");
+    voteBack();
+    //取回最高票
+
 
     Speak('預言家請選擇玩家查身分');
     prophet();
     await timeOn(10);
+    $('#rightgamerecordli li').remove();
 
+
+    //顯示最高票
     Speak('此玩家死亡，女巫是否救人，是否殺人');
     witch();
     await timeOn(10);
-    //回傳投票結果
+    $('#rightgamerecordli li').remove();
+    $('.circleImg').css("pointer-events", "none");
+    voteBack();
+    //取回最高票
 
-    //抓誰死了
-    $("body").css("cursor", "default")
+    //確認死亡
+    $("body").css("cursor", "default");
     $('#toggleDark').click();
     //判斷輸贏
     Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
@@ -465,37 +563,85 @@ async function game() {
     Speak('所有玩家投票，得票最高者將出局');
     //判斷輸贏
 
-    $('#toggleDark').click();
-    Speak('天黑請閉眼，狼人請殺人');
-    wolf();
-    await timeOn(10);
-    //回傳投票結果
-
-    Speak('預言家請選擇玩家查身分');
-    prophet();
-    await timeOn(10);
 }
 
-  //< !--當我按下x時要去加入css動畫 -->
-$('#close').click(function () {
-        $('.img-spin').css("animation-name", " spin")
-   $('.img-spin').css("animation-timing-function"," linear")
-   $('.img-spin').css("animation-duration"," 1s")
-   var tt=document.styleSheets[0];
-                tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}",9);//寫入樣式      
 
-   });
-$('#closebtn').click(function () {
-    $('.img-spin').css("animation-name", " spin")
-    $('.img-spin').css("animation-timing-function", " linear")
-    $('.img-spin').css("animation-duration", " 1s")
-    var tt = document.styleSheets[0];
-    tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
 
-});
+
     //AJAX玩家資料
     BindingPlayers();
     playerHead();
-    BindingThings;
+    BindingThings();
+    closeMessage()
     game();
 
+
+//let _array;
+//async function DeadUpdate() {
+//    let _obj = [
+//        {
+//            "roomId": 10,
+//            "player": "AQ1234@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "Text002@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "ttt@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "test001@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "Text001@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "AQ123@gmail.com",
+//            "isAlive": true,
+//        }, {
+//            "roomId": 10,
+//            "player": "Aaaaassss@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "wolf@gmail.com",
+//            "isAlive": true,
+//        }, {
+//            "roomId": 10,
+//            "player": "jou@gmail.com",
+//            "isAlive": true,
+//        },
+//        {
+//            "roomId": 10,
+//            "player": "Aaaaassss2@gmail.com",
+//            "isAlive": true,
+//        },
+//    ]
+//    $.ajax({
+//        type: "patch",
+//        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/PatchCurrentPlayer",
+//        data: JSON.stringify(_obj),
+//        dataType: 'JSON',
+//        headers: {
+//            'Content-type': 'application/json'
+//        },
+//        success: function (response) {
+
+//            _array = response;
+//            console.log(_array);
+
+//            Binding();
+//        }
+//    });
+//}

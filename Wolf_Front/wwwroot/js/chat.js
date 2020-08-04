@@ -92,17 +92,12 @@ $('#Delete').click(function () {
     });
 });
 
-$('#GetAll').click(function() {
-    connection.invoke("GetAllRoom").then(function(response) {
+$('#GetAll').click(function () {
+    connection.invoke("GetAllRoom").then(function (response) {
         if (response.success) {
-            response.data.forEach(item=> {
-                console.log(item);  
+            response.data.forEach(item => {
+                console.log(item);
             });
         }
     })
 })
-
-
-
-
-
