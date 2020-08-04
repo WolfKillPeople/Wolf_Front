@@ -16,10 +16,7 @@ namespace Wolf_Front.ViewModels
         /// </summary>
         public int RoomId { get; set; }
 
-        /// <summary>
-        /// 房間編號
-        /// </summary>
-        public string RoomName { get; set; }
+       
 
         /// <summary>
         /// 創建房間的那個人的ID

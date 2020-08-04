@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Wolf_Front.Models;
 using Wolf_Front.ViewModels;
 
 namespace Wolf_Front.Hubs
@@ -14,10 +11,8 @@ namespace Wolf_Front.Hubs
 
     public class ChatHub : Hub
     {
-        //static ConcurrentDictionary<int, RoomInfo> _Rooms = new ConcurrentDictionary<int, RoomInfo>();
 
         static ConcurrentDictionary<int, List<RoomInfo>> _Rooms = new ConcurrentDictionary<int, List<RoomInfo>>();
-
 
         static ConcurrentDictionary<int, List<VotePlayers>> _votePlayers = new ConcurrentDictionary<int, List<VotePlayers>>();
 
@@ -39,27 +34,27 @@ namespace Wolf_Front.Hubs
         /// <param name="roomName"></param>
         /// /// <param name="account"></param>
         /// <returns></returns>
-        public Task<ResponseBase<string>> CreateRoom(string roomName, string account)
+        public Task<ResponseBase<string>> CreateRoom(int roomId, string account)
         {
-            if (_Rooms.ContainsKey(int.Parse(roomName.Substring(0, 2))) == true)
+            if (_Rooms.ContainsKey(roomId) == true)
             {
                 return Task.FromResult(new ResponseBase<string>() { Success = false, Message = "房間已存在" });
             }
-            var roomKey = _Rooms[int.Parse(roomName.Substring(0, 2))];
+            var roomKey = _Rooms[roomId];
 
             List<string> accountTemp = new List<string>();
             accountTemp.Add(account);
 
             var model = new List<RoomInfo>();
 
-            model.Add(new RoomInfo { RoomId = int.Parse(roomName.Substring(0, 2)), RoomName = roomName, Count = 1, Account = accountTemp.ToArray() });
+            model.Add(new RoomInfo { RoomId = roomId, Count = 1, Account = accountTemp.ToArray() });
             roomKey.AddRange(model);
             _Rooms.TryAdd(model[0].RoomId, model);
             _votePlayers.TryAdd(model[0].RoomId, new List<VotePlayers>());
             Groups.AddToGroupAsync(base.Context.ConnectionId, model[0].RoomId.ToString());
 
-            //將roomId傳給大家
-            Clients.All.SendAsync("NewRoom", model[0].RoomId);
+            //將roomId傳給每個玩家
+            Clients.All.SendAsync("NewRoom", model);
 
             return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = model[0].Count });
         }
@@ -70,8 +65,9 @@ namespace Wolf_Front.Hubs
         /// <param name="roomId"></param>
         /// <param name="count"></param>
         /// <param name="Account"></param>
+        /// /// <param name="roomName"></param>
         /// <returns></returns>
-        public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, int count, string Account, string roomName)
+        public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, int count, string Account)
         {
             int i = 0;
             if (!_Rooms.ContainsKey(roomId))
@@ -101,7 +97,6 @@ namespace Wolf_Front.Hubs
                             select new RoomInfo
                             {
                                 RoomId = roomId,
-                                RoomName = roomName,
                                 Account = tempList.ToArray(),
                                 Count = tempList.Count,
                             }).ToList();
