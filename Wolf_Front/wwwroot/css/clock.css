@@ -23,10 +23,11 @@
 
 #time {
     font-size: 3em;
-    position: absolute;
+    position: relative;
     top: 5%;
     left: 20%;
     color: #999999;
+
 }
 
 .degree {
