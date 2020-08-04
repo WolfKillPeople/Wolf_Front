@@ -227,6 +227,7 @@ $(".add_room_btn").on("click", addDoor);
 var nextRoom;
 function addDoor() {
     connection.on("NewRoom", function (xid) {
+        debugger
         alert(xid);
     });
 

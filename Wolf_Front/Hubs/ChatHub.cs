@@ -44,7 +44,7 @@ namespace Wolf_Front.Hubs
             accountTemp.Add(account);
 
             var model = new List<RoomInfo>();
-            model.Add(new RoomInfo { RoomId = roomId, Count = account.Length, Account = accountTemp.ToArray() });
+            model.Add(new RoomInfo { RoomId = roomId, Count = accountTemp.Count, Account = accountTemp.ToArray() });
             _Rooms.TryAdd(model[0].RoomId, model);
             _votePlayers.TryAdd(model[0].RoomId, new List<VotePlayers>());
 
@@ -52,7 +52,7 @@ namespace Wolf_Front.Hubs
 
             //將roomId傳給每個玩家
             Clients.All.SendAsync("NewRoom", model);
-            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = account.Length });
+            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count });
         }
 
         /// <summary>
