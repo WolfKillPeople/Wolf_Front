@@ -1,6 +1,6 @@
 .pie {
-    width: 100px;
-    height: 100px;
+    width: 6em;
+    height: 6em;
     display: block;
     position: relative;
     border-radius: 50%;
@@ -13,19 +13,19 @@
     .pie .block {
         position: absolute;
         background: #fff;
-        width: 80px;
-        height: 80px;
+        width: 80%;
+        height: 80%;
         display: block;
         border-radius: 50%;
-        top: 10px;
-        left: 10px;
+        top: 9%;
+        left: 9%;
     }
 
 #time {
     font-size: 3em;
-    position: relative;
-    top: 10px;
-    left: 20px;
+    position: absolute;
+    top: 5%;
+    left: 20%;
     color: #999999;
 }
 
