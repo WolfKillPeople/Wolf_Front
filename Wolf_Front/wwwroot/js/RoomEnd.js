@@ -1,4 +1,11 @@
-﻿var no = 1;
+﻿"use strict";
+
+var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+var roomId = 1;
+var account = "登凱";
+
+var no = 1;
 var door_page = 1;
 var people;
 // var countper = $(".perspective").length;
@@ -454,7 +461,7 @@ searchBtn.addEventListener("click", expand);
 //modal
 // Create an immediately invoked functional expression to wrap our code
 (function () {
-
+    debugger
     // Define our constructor 
     this.Modal = function () {
 
