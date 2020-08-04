@@ -4,4 +4,3 @@ function play() {
     var Bgm_music = document.getElementById("Bgm_music");
     Bgm_music.play();
 };
-$("body").addClass("bgm-pic");
