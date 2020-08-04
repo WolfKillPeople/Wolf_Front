@@ -559,7 +559,7 @@ async function game() {
     await timeOn(10);
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
-    deadConfirm()
+    //deadConfirm();
     console.log(voteResult);
 
 
