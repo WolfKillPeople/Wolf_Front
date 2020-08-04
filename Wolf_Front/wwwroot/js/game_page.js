@@ -5,6 +5,21 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
+var roomId = 1;
+var id;
+var account = "oo";
+var PersonInroom;
+
+$('#addd').click(function () {
+    connection.invoke("CreateRoom", roomId, account).then(function (response) {
+        if (response.success) {
+            id = response.data;
+            alert(response.data);
+            console.log(`roomID=${myroomid}`);
+        }
+    });
+});
+
 var synth = window.speechSynthesis;
 var voices = [];
 //旁白說話
@@ -138,28 +153,19 @@ var prepareDead;
 //投票回傳
 function voteBack() {
     var backVoteResult = [{
-        "roomId": 2,
-        "user": 'Text002@gmail.com',
-        "vote": `${voteResult}`,
+        "RoomID": myroomid,
+        "User": myName,
+        "Vote": `${voteResult}`,
         "voteResult":null
     }];
-    $.ajax({
-        type: "post",
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/Game/Vote',
-        data: JSON.stringify(backVoteResult),
-        dataType: 'JSON',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        success: function (response) {
-            players.forEach(function (element, index) { if (element.player == response) { prepareDead = index+1 } });
-        }   
-    });
+    connection.invoke("Vote", backVoteResult).then(function (response) {});
 }
 
 //取投票結果
 function getVoteResult() {
-
+    connection.invoke("VoteResult", myroomid).then(function(res){
+        prepareDead=res.data[0].vote;
+    });
 }
 
 //AJAX玩家職業資料
@@ -368,7 +374,7 @@ async function BindingThings() {
 }
 
 //玩家資料
-var myName;
+var myName='ma@gmail.com';
 var myAlive;
 var myJob;
 var myroomid = 1;
@@ -519,6 +525,7 @@ async function game() {
     await timeOn(10);
     $('.circleImg').css("pointer-events", "none");
     voteBack();
+    getVoteResult();
 
 
     Speak('預言家請選擇玩家查身分');
@@ -529,7 +536,7 @@ async function game() {
     $('#rightgamerecordli li').remove();
 
 
-    getVoteResult()
+    getVoteResult();
     //顯示最高票
     Speak('此玩家死亡，女巫是否救人，與是否殺人');
     witch();

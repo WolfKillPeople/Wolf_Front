@@ -112,6 +112,7 @@ namespace Wolf_Front.Hubs
                 _votePlayers.TryRemove(data.ToList()[0].RoomID, out _);
             }
 
+            _Rooms.TryAdd(data.ToList()[0].RoomID, new List<RoomInfo>());
             var roomKey = _votePlayers[data.ToList()[0].RoomID];
 
             votePlayers.ForEach(x => x.VoteTickets = 0);
@@ -164,10 +165,6 @@ namespace Wolf_Front.Hubs
                     }
                 }
             }
-
-
-            newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.User = null; });
-            roomKey.AddRange(newVotePlayers.Take(1));
         }
 
 
@@ -176,11 +173,13 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="RoomId"></param>
         /// <returns></returns>
-        public  Task VoteResult(int RoomId)
+        public Task<ResponseBase<List<VotePlayers>>> VoteResult(int RoomId)
         {
             var data = _votePlayers[RoomId].ToList();
-            var target = data[0];
-            return Clients.Groups(RoomId.ToString()).SendAsync("VoteResult", target);
+            //var target = data[0];
+            Clients.Groups(RoomId.ToString()).SendAsync("VoteResult", data);
+            return Task.FromResult(new ResponseBase<List<VotePlayers>>() { Success = true, Data = data });
+            
         }
     }
 }
