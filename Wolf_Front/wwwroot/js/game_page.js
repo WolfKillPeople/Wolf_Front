@@ -133,41 +133,6 @@ function toggleScheme() {
     image.classList.toggle('image-light')
 }
 
-//投票
-var voteResult;
-function vote(a, b, c, d, e, f, g, h, i, j) {
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].className = "circleImg on";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[b - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[c - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[d - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[e - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[f - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[g - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[h - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[i - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[j - 1].className = "circleImg off";
-    voteResult = a;
-}
-
-var prepareDead;
-//投票回傳
-function voteBack() {
-    var backVoteResult = [{
-        "RoomID": myroomid,
-        "User": myName,
-        "Vote": `${voteResult}`,
-        "voteResult":null
-    }];
-    connection.invoke("Vote", backVoteResult).then(function (response) {});
-}
-
-//取投票結果
-function getVoteResult() {
-    connection.invoke("VoteResult", myroomid).then(function(res){
-        prepareDead = res.data[0].vote;
-        console.log(`${res.data[0].vote}號死`);
-    });
-}
 
 //AJAX玩家職業資料
 var players = [
@@ -416,7 +381,54 @@ function Binding() {
     });
 }
 
+//投票
+var voteResult;
+function vote(a, b, c, d, e, f, g, h, i, j) {
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].className = "circleImg on";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[b - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[c - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[d - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[e - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[f - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[g - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[h - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[i - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[j - 1].className = "circleImg off";
+    voteResult = a;
+}
 
+var prepareDead;
+//投票回傳
+function voteBack() {
+    var backVoteResult = [{
+        "RoomID": myroomid,
+        "User": myName,
+        "Vote": `${voteResult}`,
+        "voteResult": null
+    }];
+    connection.invoke("Vote", backVoteResult).then(function (response) { });
+}
+
+//取投票結果
+function getVoteResult() {
+    connection.invoke("VoteResult", myroomid).then(function (res) {
+        prepareDead = res.data[0].vote;
+        console.log(`${res.data[0].vote}號死`);
+    });
+}
+
+//確認死亡
+function deadConfirm() {
+    var backDeadResult = [{
+        "RoomID": myroomid,
+        "User": prepareDead
+    },
+    {
+        "RoomID": myroomid,
+        "User": voteResult
+        }];
+
+}
 
 //查詢是哪個玩家及好或壞人
 function PlayerIsGood(e) {
@@ -521,7 +533,7 @@ async function game() {
     Speak('請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
 
-
+    voteResult = null;
     $('#toggleDark').click();
     Speak('天黑請閉眼，狼人請殺人');
     wolf();
@@ -530,7 +542,7 @@ async function game() {
     voteBack();
     getVoteResult();
 
-
+    voteResult = null;
     Speak('預言家請選擇玩家查身分');
     prophet();
     await timeOn(10);
@@ -539,7 +551,7 @@ async function game() {
     $('#rightgamerecordli li').remove();
 
 
-
+    voteResult = null;
     Speak('此玩家死亡，女巫是否救人');
     witch();
     await timeOn(10);
@@ -547,42 +559,43 @@ async function game() {
     await timeOn(10);
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
+    deadConfirm()
     console.log(voteResult);
 
 
-    ////確認死亡
-    //$("body").css("cursor", "default");
-    //$('#toggleDark').click();
-    ////判斷輸贏
-    //Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
-    //await timeOn(5);
+    //確認死亡
+    $("body").css("cursor", "default");
+    $('#toggleDark').click();
+    //判斷輸贏
+    Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
+    await timeOn(5);
 
-    ////if(某某某是 獵人){ if(自己是獵人) {獵人請選擇要帶走幾號玩家} }
-    ////if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
-    ////await timeOn(10);
-    ////voteBack();
-    ////getVoteResult();
-
-
-    //Speak('輪流發言時間');
-    //for (let i = 0; i < players.length; i++) {
-    //    document.getElementById("PeoplesendButton").hidden = true;
-    //    if (players[i].player == myName) {
-    //        document.getElementById("PeoplesendButton").hidden = false;
-    //    }
-    //    Speak(`${i + 1}號玩家發言`);
-    //    await timeOn(5);
-    //}
-
-
-
-    //Speak('所有玩家投票，得票最高者將出局');
-    //$('.circleImg').css("pointer-events", "auto");
+    //if(某某某是 獵人){ if(自己是獵人) {獵人請選擇要帶走幾號玩家} }
+    //if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
     //await timeOn(10);
     //voteBack();
     //getVoteResult();
-    //$('.circleImg').css("pointer-events", "none");
-    ////判斷輸贏
+
+
+    Speak('輪流發言時間');
+    for (let i = 0; i < players.length; i++) {
+        document.getElementById("PeoplesendButton").hidden = true;
+        if (players[i].player == myName) {
+            document.getElementById("PeoplesendButton").hidden = false;
+        }
+        Speak(`${i + 1}號玩家發言`);
+        await timeOn(5);
+    }
+
+
+
+    Speak('所有玩家投票，得票最高者將出局');
+    $('.circleImg').css("pointer-events", "auto");
+    await timeOn(10);
+    voteBack();
+    getVoteResult();
+    $('.circleImg').css("pointer-events", "none");
+    //判斷輸贏
 
 }
 
