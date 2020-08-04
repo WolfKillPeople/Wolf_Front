@@ -8,8 +8,8 @@ namespace Wolf_Front.ViewModels
     public class TotalRoom
     {
         /// <summary>
-        /// 房間總數量
+        /// 下一間房間
         /// </summary>
-        public int Total{ get; set; }
+        public int TempNextRoom{ get; set; }
     }
 }

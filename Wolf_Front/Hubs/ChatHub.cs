@@ -16,6 +16,9 @@ namespace Wolf_Front.Hubs
         static ConcurrentDictionary<int, List<VotePlayers>> _votePlayers = new ConcurrentDictionary<int, List<VotePlayers>>();
 
         static List<VotePlayers> votePlayers = new List<VotePlayers>();
+
+        static List<TotalRoom> _totalRoom = new List<TotalRoom>();
+
         /// <summary>
         /// SendMessage
         /// </summary>
@@ -49,9 +52,11 @@ namespace Wolf_Front.Hubs
             _votePlayers.TryAdd(model[0].RoomId, new List<VotePlayers>());
 
             Groups.AddToGroupAsync(base.Context.ConnectionId, model[0].RoomId.ToString());
+            _totalRoom.Add(new TotalRoom { TempNextRoom = roomId++ });
 
             //將roomId傳給每個玩家
             Clients.All.SendAsync("NewRoom", model);
+
             return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count });
         }
 
