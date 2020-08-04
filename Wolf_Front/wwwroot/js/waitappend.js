@@ -1,6 +1,6 @@
 var a=1;
 $('body').append(`
-<div class="container">
+<div class="container id="waitappendId"">
 
    <h1 class="ml3">等待玩家中......</h1>
 <div class="Numberpeopleddiv" >
