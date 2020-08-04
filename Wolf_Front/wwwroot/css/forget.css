@@ -6,3 +6,6 @@
 body {
     color:#ffffff;
 }
+#music_btn {
+    display: none;
+}
