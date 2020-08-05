@@ -27,7 +27,6 @@ $(document).ready(function () {
                         if (response.data[i].count == 10) {
                             doorImg = close_img;
                             altImg = 'close';
-                            //document.querySelectorAll('.perspective')[response.data[i].roomId].removeAttribute("onclick");
                         }
                         else {
                             doorImg = open_img;
@@ -39,26 +38,6 @@ $(document).ready(function () {
                         }
                     }
                     function displayDoor() {
-                        //play1 = localStorage.getItem('myName');        
-                        //$.ajax({
-                        //    type: 'GET',
-                        //    url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
-                        //    dataType: 'json',
-                        //    contentType: 'application/json;charset=UTF-8',
-                        //    async: false,
-                        //    success: function (msg) {
-                        //        people = msg;
-                        //        if (people[no - 1].totalPlayers == 10) {
-                        //            doorImg = 'https://i.imgur.com/TGuCa7L.png';
-                        //            altImg = 'close';
-                        //            document.querySelectorAll('.perspective')[no - 1].removeAttribute("onclick");
-                        //        }
-                        //        else {
-                        //            doorImg = '//i.imgur.com/582RIlF.png';
-                        //            altImg = 'open';
-                        //        }
-                        //    }
-                        //});
                         if (clicks == 1) {
                             $(`.door_all`).append(`<div class="page page-${door_page} active">
                                                     <div class="half left">
@@ -130,29 +109,6 @@ $(document).ready(function () {
     }).catch(function (err) {
         return console.error(err.toString());
     });
-    //let ary;
-    //$.ajax({
-    //    type: 'GET',
-    //    url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
-    //    dataType: 'json',
-    //    contentType: 'application/json;charset=UTF-8',
-    //    async:false,
-    //    success: function (msg) {
-    //        ary = msg;
-    //        //alert(ary.length);
-            
-    //        for (let i = 0; i < ary.length; i++) {
-    //            if (ary.length != 0) {
-    //                clicks++;
-    //                displayDoor();
-    //                if (people[no - 1].totalPlayers == 10) {
-    //                    document.querySelectorAll('.perspective')[no - 1].removeAttribute("onclick");
-    //                }
-    //                no++;
-    //            }
-    //        }
-    //    }
-    //});
     var scrolling = false,
         curPage = 1;
 
@@ -326,52 +282,6 @@ function addDoor() {
             }
         }
     });
-
-    //let ary;
-    //$.ajax({
-    //    type: 'GET',
-    //    url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
-    //    dataType: 'json',
-    //    contentType: 'application/json;charset=UTF-8',
-    //    async: false,
-    //    success: function (msg) {
-    //        ary = msg;
-    //        for (let i = 0; i < ary.length; i++) {
-    //            nextRoom = parseInt(ary[0].tempRoomID);
-    //        }
-    //        if (nextRoom == undefined) {
-    //            clicks = 1;
-    //            nextRoom = clicks;
-    //        }
-    //        else if (nextRoom != undefined) {
-    //            clicks++;
-    //        }
-    //        //alert(nextRoom);
-    //        AddOneDoor();
-    //    }
-    //});
-
-    //$(function () {
-    //    //var stringNextRoom = nextRoom.toString;
-    //    let jsonData = [
-    //        {
-    //            roomId: nextRoom,
-    //            player1: play1
-    //        }
-    //    ];
-
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/AddRoom',
-    //        dataType: 'json',
-    //        contentType: 'application/json;charset=UTF-8',
-    //        data: JSON.stringify(jsonData),
-    //        success: function (msg) {
-    //            //alert('Data Saved: ' + msg);
-    //        }
-    //    });
-
-    //});
 }
 
 //People
@@ -381,84 +291,10 @@ function addPeople(member) {
     connection.invoke("JoinRoom", roomId, account).then(function (response) {
         if (response.success) {
             alert('加人成功~~');
-            //for (var i = 0; i < response.data.length; i++) {
-            //    count = response.data[i].count;
-            //    if (response.data[i].roomId == RoomId) {
-            //        account =
-            //    }
-            //}
         }
     });
 
 
-
-    //play1 = localStorage.getItem('myName');
-    //$.ajax({
-    //    type: 'GET',
-    //    url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
-    //    dataType: 'json',
-    //    contentType: 'application/json;charset=UTF-8',
-    //    async: false,
-    //    success: function (msg) {
-    //        people = msg;
-    //    }
-    //});
-
-
-    //var RoomId = $(member).attr('class').substring(9);
-    //for (let j = 0; j < people.length; j++) {
-    //    if (people[j].roomId == RoomId) {
-    //        var Player1 = people[j].player1;
-    //        var Player2 = people[j].player2;
-    //        var Player3 = people[j].player3;
-    //        var Player4 = people[j].player4;
-    //        var Player5 = people[j].player5;
-    //        var Player6 = people[j].player6;
-    //        var Player7 = people[j].player7;
-    //        var Player8 = people[j].player8;
-    //        var Player9 = people[j].player9;
-    //        var Player10 = people[j].player10;
-    //    }
-    //}
-    
-    //var array = [Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8, Player9, Player10];
-
-    //for (var i = 0; i < 10; i++) {
-    //    if (array[i] == null) {
-    //        array[i] = play1;
-    //        console.log(array[i]);
-    //        i = 11;
-    //    }
-    //}
-   
-
-    //var PatchData = [
-    //    {
-    //        "roomId": parseInt(RoomId),
-    //        "player1": array[0],
-    //        "player2": array[1],
-    //        "player3": array[2],
-    //        "player4": array[3],
-    //        "player5": array[4],
-    //        "player6": array[5],
-    //        "player7": array[6],
-    //        "player8": array[7],
-    //        "player9": array[8],
-    //        "player10": array[9],
-    //    }
-    //]
-    //$.ajax({
-    //    url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/UpdatePlayer',
-    //    data: JSON.stringify(PatchData),
-    //    type: 'PATCH',
-    //    contentType: 'application/json;charset=UTF-8',
-    //    processData: false,
-    //    dataType: 'json',
-    //    success: function (response) {
-    //        console.log(response);
-    //    }
-    //});
-    //localStorage.setItem('roomid', RoomId);
 }
 //door
 function openDoor(field) {
