@@ -365,7 +365,7 @@ function AddOneDoor() {
             <div class="half left">
             <div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
-                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                        <img src=${open_img} alt="open" class="door_card" />
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
@@ -381,7 +381,7 @@ function AddOneDoor() {
     else if ((clicks <= 4 && clicks > 1) || (clicks > 8 && clicks <= 12)) {
         $(`.page-${door_page}>.left`).append(`<div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
-                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                        <img src=${open_img} alt="open" class="door_card" />
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
@@ -393,7 +393,7 @@ function AddOneDoor() {
     else if ((clicks > 4 && clicks <= 8) || (clicks > 12 & clicks <= 16)) {
         $(`.page-${door_page}>.right`).append(`<div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
-                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                        <img src=${open_img} alt="open" class="door_card" />
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
@@ -409,7 +409,7 @@ function AddOneDoor() {
             <div class="half left">
             <div class="perspective" onclick="openDoor(this)">
                     <div class="thumb">
-                        <img src=${close_img} alt=${alt_close} class="door_card" />
+                        <img src=${open_img} alt="open" class="door_card" />
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
