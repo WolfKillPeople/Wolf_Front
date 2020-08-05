@@ -499,7 +499,7 @@ function LeaveRoom() {
     }
     //自己從房間移除
     //連到房間畫面
-};
+}
 
 //刪除房間
 function DeleteRoom() {
@@ -511,8 +511,6 @@ function DeleteRoom() {
 
 
 
-
-//以下開始遊戲
 
 
 
@@ -561,17 +559,20 @@ function hunter() {
 }
 
 
+//以下遊戲主體
 async function game() {
-
+    //----------顯示規則---------
     $('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     await timeOn(5);
 
-
+    //----------準備時間---------
     Speak('請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
 
+
+    //----------狼人---------
     voteResult = null;
     $('#toggleDark').click();
     Speak('天黑請閉眼，狼人請殺人');
@@ -586,7 +587,7 @@ async function game() {
     });
 
 
-
+    //----------預言家---------
     Speak('預言家請選擇玩家查身分');
     prophet();
     await timeOn(10);
@@ -596,6 +597,8 @@ async function game() {
     $('#rightgamerecordli li').remove();
 
 
+
+    //----------女巫---------
     voteResult = null;
     Speak('此玩家死亡，女巫是否救人');
     witch();
@@ -611,13 +614,8 @@ async function game() {
 
 
 
-
-
+    //----------天亮遺言---------
     //確認死亡
-
-
-
-
     $("body").css("cursor", "default");
     $('#toggleDark').click();
     //判斷輸贏
@@ -630,7 +628,7 @@ async function game() {
     //voteBack();
     //getVoteResult();
 
-
+    //----------討論---------
     Speak('輪流發言時間');
     for (let i = 0; i < players.length; i++) {
         document.getElementById("PeoplesendButton").hidden = true;
@@ -642,7 +640,7 @@ async function game() {
     }
 
 
-
+    //----------投票---------
     Speak('所有玩家投票，得票最高者將出局');
     $('.circleImg').css("pointer-events", "auto");
     await timeOn(10);
@@ -651,6 +649,8 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     //判斷輸贏
+
+    //----------遺言---------
 
 }
 
