@@ -142,7 +142,7 @@ var players = [
         "occupationId": 8,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
         "isGood": true,
-        "roomId": 0,
+        "roomId": 1,
         "player": "dfghjkhgfrtyu@yuiknhuiol",
         "isAlive": true,
         "playerPic": null
@@ -153,7 +153,7 @@ var players = [
         "occupationId": 9,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
         "isGood": true,
-        "roomId": 0,
+        "roomId": 1,
         "player": "",
         "isAlive": true,
         "playerPic": null
@@ -164,7 +164,7 @@ var players = [
         "occupationId": 4,
         "description": "神職。每夜可以查驗一位存活玩家的所屬陣營，並在白天透過發言向好人報出資訊。",
         "isGood": true,
-        "roomId": 0,
+        "roomId": 1,
         "player": "",
         "isAlive": true,
         "playerPic": null
@@ -175,7 +175,7 @@ var players = [
         "occupationId": 5,
         "description": "神職。擁有一瓶解藥和一瓶毒藥。解藥未使用時可以得知狼人的殺害對象，並決定是否救這一位玩家。然而，解藥全程不能用於解救自己。女巫也可以利用白天所得資訊，將懷疑的對象毒殺，該對象死後不能發動技能。解藥和毒藥不可以在同一夜使用。",
         "isGood": true,
-        "roomId": 0,
+        "roomId": 1,
         "player": "",
         "isAlive": true,
         "playerPic": null
@@ -186,7 +186,7 @@ var players = [
         "occupationId": 1,
         "description": "又稱「狼槍」、「毒狼」。除殉情或被毒殺外，以任何其他方式被淘汰時可以發動技能帶走任何一位玩家。狼王在場時，獵人和黑狼王淘汰啟動技能均不公布角色牌。部分局式中，黑狼王自爆不能發動技能。",
         "isGood": false,
-        "roomId": 0,
+        "roomId": 1,
         "player": "",
         "isAlive": true,
         "playerPic": null
@@ -197,7 +197,7 @@ var players = [
         "occupationId": 2,
         "description": "黑夜可以睜眼與隊友見面並討論戰術與選擇殺害對象。狼人可以選擇當夜不殺害任何玩家（空刀）或自殺（自刀）。白天混入村落中混淆好人。狼人可以在白天任何時候選擇公布角色牌自我淘汰（自爆）強制進入黑夜階段，並在黑夜階段結束時離場。",
         "isGood": false,
-        "roomId": 0,
+        "roomId": 1,
         "player": "",
         "isAlive": true,
         "playerPic": null
@@ -208,7 +208,7 @@ var players = [
         "occupationId": 6,
         "description": "神職。除殉情或被毒殺外，以任何其他方式被淘汰時可以公布角色牌發動技能開槍帶走一位玩家，亦可以選擇壓槍不發動技能。",
         "isGood": true,
-        "roomId": 0,
+        "roomId": 1,
         "player": "",
         "isAlive": true,
         "playerPic": null
@@ -219,7 +219,7 @@ var players = [
         "occupationId": 10,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
         "isGood": true,
-        "roomId": 0,
+        "roomId": 1,
         "player": "",
         "isAlive": true,
         "playerPic": null
@@ -230,7 +230,7 @@ var players = [
         "occupationId": 7,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
         "isGood": true,
-        "roomId": 0,
+        "roomId": 1,
         "player": "",
         "isAlive": true,
         "playerPic": null
@@ -241,7 +241,7 @@ var players = [
         "occupationId": 3,
         "description": "黑夜可以睜眼與隊友見面並討論戰術與選擇殺害對象。狼人可以選擇當夜不殺害任何玩家（空刀）或自殺（自刀）。白天混入村落中混淆好人。狼人可以在白天任何時候選擇公布角色牌自我淘汰（自爆）強制進入黑夜階段，並在黑夜階段結束時離場。",
         "isGood": false,
-        "roomId": 0,
+        "roomId": 1,
         "player": "",
         "isAlive": true,
         "playerPic": null
@@ -437,19 +437,31 @@ var prepareDead;
 function getVoteResult() {
     return connection.invoke("VoteResult", myroomid).then(function (res) {
         prepareDead = res.data[0].vote;
-        console.log(prepareDead);
     });
 }
 
 //確認死亡
-function deadConfirm() {
-    let deadMan = players[prepareDead - 1];
+function deadConfirm(die) {
+    let deadMan = players[die - 1];
     var backDeadResult = [{
-        "RoomId": myroomid,
+        "RoomId": deadMan.roomId,
         "isAlive": false,
         "Account": deadMan.player
     }];
-    connection.invoke("PeopleDie", backDeadResult).then(function (response) {});
+    return connection.invoke("PeopleDie", backDeadResult).then(function (response) { console.log(response) });
+}
+
+function syncDead() {
+    return connection.on("PeopleDie", function (message) {
+        //for (let i = 0; i <= players.length; i++) {
+        //    if (players[i].player == message) {
+        console.log(message);
+        //        let ABC = document.getElementsByClassName(`${i}`);
+        //        console.log(ABC);
+        //        ABC.setAttribute('style', 'display:flex');
+        //    }
+        //}
+    });
 }
 
 //查詢是哪個玩家及好或壞人
@@ -526,7 +538,9 @@ function witch() {
     //if (myJob == "女巫" && myAlive == true) { }
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
-    $('#rightgamerecordli').append(`
+    if (prepareDead == null) { $('#rightgamerecordli').append(`無人死亡`); }
+    else {
+        $('#rightgamerecordli').append(`
      <li>${prepareDead}號被殺死了你要救他們嗎?
      <div class="btn-group btn-group-toggle" data-toggle="buttons"> 
     <label class="btn btn-secondary">
@@ -537,6 +551,7 @@ function witch() {
     </label>
   </div>
   </li>`);
+    }
     $('#saveDead').click(function () { prepareDead = null; console.log(prepareDead); });
     $('#noSaveDead').click(function () { prepareDead = saveOrDead; console.log(prepareDead); });
 }
@@ -565,16 +580,13 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     voteBack();
+    getVoteResult();
     getVoteResult().then(function (x) {
-        deadConfirm();
+        deadConfirm(prepareDead);
     });
-   
 
 
 
-
-
-    voteResult = null;
     Speak('預言家請選擇玩家查身分');
     prophet();
     await timeOn(10);
@@ -593,22 +605,19 @@ async function game() {
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
-    deadConfirm();
     console.log(voteResult);
-    connection.on("PeopleDie", function (message) {
-        alert(message);
-        for (let i = 0; i <= players.length; i++) {
-            if (players[i].player == message) {
-                console.log(i);
-                let ABC = document.getElementsByClassName(`${i}`);
-                console.log(ABC);
-                ABC.removeAttribute('display');
-            }
-        }
-    });
+
+
+
+
+
 
 
     //確認死亡
+
+
+
+
     $("body").css("cursor", "default");
     $('#toggleDark').click();
     //判斷輸贏
