@@ -73,7 +73,11 @@ namespace Wolf_Front.Hubs
             {
                 if (RoomList[i].RoomId != i + 1)
                 {
-                    RoomList[0].RoomId = i + 1;
+                    TempNextRoom = i + 1;
+                }
+                else
+                {
+                    TempNextRoom = RoomList.Last().RoomId + 1;
                 }
             }
 
@@ -157,7 +161,20 @@ namespace Wolf_Front.Hubs
         public Task<ResponseBase<List<RoomInfo>>> GetAllRoom()
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
-            return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data });
+            int tempNextRoom = 0;
+            for (int i = 0; i < data.Count; i++)
+            {
+                if (data[i].RoomId != i + 1)
+                {
+                    tempNextRoom = i + 1;
+                }
+                else
+                {
+                    tempNextRoom = data.Last().RoomId + 1;
+                }
+            }
+
+            return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = tempNextRoom });
         }
 
 
@@ -166,7 +183,7 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="roomId"></param>
         /// <returns></returns>
-        public Task<ResponseBase<string>> RemoveRoom(int roomId)
+        public Task<ResponseBase<int>> RemoveRoom(int roomId)
         {
             Clients.Groups(roomId.ToString()).SendAsync("RemoveRoom");
             _Rooms.TryRemove(roomId, out _);
@@ -187,7 +204,7 @@ namespace Wolf_Front.Hubs
             }
 
 
-            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = temp.ToString() });
+            return Task.FromResult(new ResponseBase<int>() { Success = true, TempNextRoom = temp });
         }
 
         /// <summary>
@@ -290,7 +307,7 @@ namespace Wolf_Front.Hubs
 
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
-            
+
             //Clients.Group(data.ToList()[0].RoomId.ToString()).SendAsync("PeopleDie", data.ToList()[0].Account + "死惹!");
 
             return Task.FromResult(newResult);
