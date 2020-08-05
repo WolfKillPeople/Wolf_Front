@@ -669,3 +669,10 @@ $(document).ready(function () {
     });
 
 });
+var registered_btn = document.querySelector('.registered_Account');
+function savePic(e) {
+    //宣告一個變數，綁定輸入欄，讀取&紀錄使用者輸入的文字
+    var picSrc = $('#avatat').val();
+    localStorage.setItem('userPic', picSrc); //把輸入的內容存在瀏覽器
+}
+btn.addEventListener('click', savePic)

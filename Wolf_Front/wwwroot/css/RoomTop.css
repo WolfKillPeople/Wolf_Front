@@ -696,3 +696,16 @@ input {
     z-index: 6;
     margin-right:650px;
 }
+
+.confirmBtn {
+    background-color: #CCEEFF;
+    border: 0;
+    display: flex;
+    margin-left: 0;
+    float: right;
+    color:#000;
+    margin-right:5%;
+}
+    .confirmBtn:hover {
+        background-color: #4e5f72;
+    }

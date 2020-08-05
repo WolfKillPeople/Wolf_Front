@@ -23,12 +23,12 @@ namespace Wolf_Front.Controllers
         {
             var apiKey = _configuration.GetSection("SENDGRID_API_KEY").Value;
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("AQ123@gmail.com", "Example User 1");
+            var from = new EmailAddress("aquariusjou@gmail.com", "Example User 1");
             List<EmailAddress> tos = new List<EmailAddress>
             {
-                new EmailAddress("test2@example.com", "Example User 2"),
-                new EmailAddress("test3@example.com", "Example User 3"),
-                new EmailAddress("test4@example.com","Example User 4")
+                new EmailAddress("aquariusjou@gmail.com", "Example User 2")
+                //new EmailAddress("test3@example.com", "Example User 3"),
+                //new EmailAddress("test4@example.com","Example User 4")
             };
             var subject = "Hello world email from Sendgrid ";
             var htmlContent = "<strong>Hello world with HTML content</strong>";
