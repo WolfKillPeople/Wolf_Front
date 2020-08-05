@@ -109,19 +109,24 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, string Account)
         {
-            int i = 0;
             if (!_Rooms.ContainsKey(roomId))
             {
                 return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
             }
+
             foreach (var item in _Rooms.Values)
             {
-                if (item[i].RoomId == roomId && item[i].Count.Equals(10))
+                var _target = item.Find(x => x.RoomId == roomId);
+                if (_target != null && _target.Count.Equals(10))
                 {
                     return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
                 }
-                i++;
+                else
+                {
+                    break;
+                }
             }
+
             _Rooms.TryGetValue(roomId, out var target);
 
             var acc = target[0].Account;
@@ -153,6 +158,10 @@ namespace Wolf_Front.Hubs
             //將這個玩家加到指定的room
             Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
+            //將資訊都丟出去
+            var allInfo = _Rooms.Values.SelectMany(x => x);
+            Clients.All.SendAsync("GetAll", allInfo);
+
             //只在這個房間傳送訊息
             Clients.Groups(roomId.ToString()).SendAsync("JoinRoom", "歡迎" + Account);
 
@@ -182,6 +191,8 @@ namespace Wolf_Front.Hubs
                     tempNextRoom = data.LastOrDefault().RoomId + 1;
                 }
             }
+
+            Clients.All.SendAsync("GetAllRoomInfo", data);
 
             return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = tempNextRoom });
         }
