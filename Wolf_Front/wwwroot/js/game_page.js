@@ -5,13 +5,11 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
-var roomId = 1;
 var id;
-var account = "oo";
 var PersonInroom;
 
 $('#addd').click(function () {
-    connection.invoke("CreateRoom", roomId, account).then(function (response) {
+    connection.invoke("CreateRoom", 1, "dfghjkhgfrtyu@yuiknhuiol").then(function (response) {
         if (response.success) {
             id = response.data;
             console.log(`roomID=${myroomid}`);
@@ -35,6 +33,9 @@ function Speak(txtInput) {
     var li = document.createElement('li');
     li.innerText = txtInput;
     document.querySelector('#leftgamerecordli').appendChild(li);
+    //保持滾動條一直在最底部
+    var leftgamerecordli = document.getElementById("leftgamerecordli").parentNode;
+    leftgamerecordli.scrollTop = leftgamerecordli.scrollHeight;
 };
 
 //時間倒數
@@ -88,12 +89,12 @@ function nightAudio() {
     y.play();
     y.volume = 0.2;
     x.pause();
-} 
+}
 
 //背景夜晚白天轉換
 let toggle = document.getElementById('toggleDark');
 toggle.addEventListener('click', toggleScheme, true);
-let image = document.querySelector('.image'); 
+let image = document.querySelector('.image');
 function closeMessage() {
     document.getElementById("PeopleuserInput").hidden = true;
     document.getElementById("PeoplemessageInput").hidden = true;
@@ -142,7 +143,7 @@ var players = [
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
         "isGood": true,
         "roomId": 0,
-        "player": "",
+        "player": "dfghjkhgfrtyu@yuiknhuiol",
         "isAlive": true,
         "playerPic": null
     },
@@ -249,65 +250,65 @@ var players = [
 
 //玩家頭像生成
 async function BindingPlayers() {
-var array = [];
-for (let i = 0; i < players.length / 2; i++) {
-    array.push(i + 1);
-    for (let j = 1; j <= players.length; j++) {
-        if (j != i + 1) { array.push(j); }
+    var array = [];
+    for (let i = 0; i < players.length / 2; i++) {
+        array.push(i + 1);
+        for (let j = 1; j <= players.length; j++) {
+            if (j != i + 1) { array.push(j); }
+        }
+        let aplayer = document.createElement('a');
+        let playerImg = document.createElement('img');
+        let dead = document.createElement('img');
+        let num = document.createElement('span');
+        let Circle = document.createElement('div');
+        num.innerHTML = i + 1;
+        num.setAttribute('class', 'number');
+        aplayer.setAttribute('class', 'playerimg')
+        aplayer.setAttribute('href', '#');
+        playerImg.setAttribute('src', players[i].imgUrl);
+        playerImg.setAttribute('class', 'playerphoto');
+        dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
+        dead.setAttribute('class', `deadimg ${i}`);
+        Circle.setAttribute('class', 'circleImg off');
+        playerImg.setAttribute('onclick', `vote(${array})`);
+        Circle.appendChild(dead);
+        //死掉顯示下面的
+        dead.setAttribute('style', 'display:none');
+        Circle.appendChild(playerImg);
+        aplayer.appendChild(Circle);
+        aplayer.appendChild(num);
+        document.querySelector('.top-playerimg').appendChild(aplayer);
+        array = [];
     }
-    let aplayer = document.createElement('a');
-    let playerImg = document.createElement('img');
-    let dead = document.createElement('img');
-    let num = document.createElement('span');
-    let Circle = document.createElement('div');
-    num.innerHTML = i + 1;
-    num.setAttribute('class', 'number');
-    aplayer.setAttribute('class', 'playerimg')
-    aplayer.setAttribute('href', '#');
-    playerImg.setAttribute('src', players[i].imgUrl);
-    playerImg.setAttribute('class', 'playerphoto');
-    dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
-    dead.setAttribute('class', 'deadimg');
-    Circle.setAttribute('class', 'circleImg off');
-    playerImg.setAttribute('onclick', `vote(${array})`);
-    Circle.appendChild(dead);
-    //死掉顯示下面的
-    dead.setAttribute('style', 'display:none');
-    Circle.appendChild(playerImg);
-    aplayer.appendChild(Circle);
-    aplayer.appendChild(num);
-    document.querySelector('.top-playerimg').appendChild(aplayer);
-    array = [];
-}
-var array = [];
-for (let i = players.length / 2; i <= players.length; i++) {
-    array.push(i + 1);
-    for (let j = 1; j <= players.length; j++) {
-        if (j != i + 1) { array.push(j); }
-    }
-    let aplayer = document.createElement('a');
-    let playerImg = document.createElement('img');
-    let dead = document.createElement('img');
-    let num = document.createElement('span');
-    let Circle = document.createElement('div');
-    num.innerHTML = i + 1;
-    num.setAttribute('class', 'number');
-    aplayer.setAttribute('class', 'playerimg')
-    aplayer.setAttribute('href', '#');
-    playerImg.setAttribute('src', players[i].imgUrl);
-    playerImg.setAttribute('class', 'playerphoto')
-    dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
-    dead.setAttribute('class', 'deadimg')
-    Circle.setAttribute('class', 'circleImg off');
-    playerImg.setAttribute('onclick', `vote(${array})`);
-    Circle.appendChild(dead);
-    //死掉顯示下面的
-    dead.setAttribute('style', 'display:none');
-    Circle.appendChild(playerImg);
-    aplayer.appendChild(Circle);
-    aplayer.appendChild(num);
-    document.querySelector('.footer-playerimg').appendChild(aplayer);
-    array = [];
+    var array = [];
+    for (let i = players.length / 2; i <= players.length; i++) {
+        array.push(i + 1);
+        for (let j = 1; j <= players.length; j++) {
+            if (j != i + 1) { array.push(j); }
+        }
+        let aplayer = document.createElement('a');
+        let playerImg = document.createElement('img');
+        let dead = document.createElement('img');
+        let num = document.createElement('span');
+        let Circle = document.createElement('div');
+        num.innerHTML = i + 1;
+        num.setAttribute('class', 'number');
+        aplayer.setAttribute('class', 'playerimg')
+        aplayer.setAttribute('href', '#');
+        playerImg.setAttribute('src', players[i].imgUrl);
+        playerImg.setAttribute('class', 'playerphoto')
+        dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
+        dead.setAttribute('class', `deadimg ${i}`);
+        Circle.setAttribute('class', 'circleImg off');
+        playerImg.setAttribute('onclick', `vote(${array})`);
+        Circle.appendChild(dead);
+        //死掉顯示下面的
+        dead.setAttribute('style', 'display:none');
+        Circle.appendChild(playerImg);
+        aplayer.appendChild(Circle);
+        aplayer.appendChild(num);
+        document.querySelector('.footer-playerimg').appendChild(aplayer);
+        array = [];
     }
 }
 
@@ -363,7 +364,7 @@ async function BindingThings() {
 }
 
 //玩家資料
-var myName='ma@gmail.com';
+var myName = 'ma@gmail.com';
 var myAlive;
 var myJob;
 var myroomid = 1;
@@ -393,7 +394,7 @@ function Binding() {
     myName = localStorage.getItem("myName");
     players.forEach(element => {
         if (element.player == myName) {
-            myAlive=this.isAlive;
+            myAlive = this.isAlive;
             myJob = this.name;
             let jobPhoto = this.imgUrl;
         }
@@ -420,7 +421,6 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
     voteResult = a;
 }
 
-var prepareDead;
 //投票回傳
 function voteBack() {
     var backVoteResult = [{
@@ -432,21 +432,24 @@ function voteBack() {
     connection.invoke("Vote", backVoteResult).then(function (response) { });
 }
 
+var prepareDead;
 //取投票結果
 function getVoteResult() {
-    connection.invoke("VoteResult", myroomid).then(function (res) {
+    return connection.invoke("VoteResult", myroomid).then(function (res) {
         prepareDead = res.data[0].vote;
-        console.log(`${res.data[0].vote}號死`);
+        console.log(prepareDead);
     });
 }
 
 //確認死亡
 function deadConfirm() {
+    let deadMan = players[prepareDead - 1];
     var backDeadResult = [{
-        "RoomID": myroomid,
-        "User": prepareDead
-    }]
-
+        "RoomId": myroomid,
+        "isAlive": false,
+        "Account": deadMan.player
+    }];
+    connection.invoke("PeopleDie", backDeadResult).then(function (response) {});
 }
 
 //查詢是哪個玩家及好或壞人
@@ -469,17 +472,17 @@ function GetPersonInroom() {
         if (response.success) {
             response.data.forEach(item => {
                 if (item.roomId == myroomid) { PersonInroom = item.count; }
-                else { alert('no')}
+                else { alert('no') }
             });
         }
-     })
+    })
 }
 
 //離開房間
 function LeaveRoom() {
     PersonInroom = 0;
     GetPersonInroom();
-    if (PersonInroom <2 ) {
+    if (PersonInroom < 2) {
         DeleteRoom();
     }
     //自己從房間移除
@@ -515,7 +518,7 @@ function prophet() {
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
     $('.circleImg').append(` <div class="findperson" onclick="PlayerIsGood(this)" ></div>`);
     document.querySelectorAll('.findperson').forEach(function (element, index) {
-        element.setAttribute('value', index+1);
+        element.setAttribute('value', index + 1);
     });
 }
 function witch() {
@@ -547,7 +550,7 @@ async function game() {
 
     $('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow","none")
+    $('.on').css("box-shadow", "none")
     await timeOn(5);
 
 
@@ -562,7 +565,14 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     voteBack();
-    getVoteResult();
+    getVoteResult().then(function (x) {
+        deadConfirm();
+    });
+   
+
+
+
+
 
     voteResult = null;
     Speak('預言家請選擇玩家查身分');
@@ -583,8 +593,19 @@ async function game() {
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
-    //deadConfirm();
+    deadConfirm();
     console.log(voteResult);
+    connection.on("PeopleDie", function (message) {
+        alert(message);
+        for (let i = 0; i <= players.length; i++) {
+            if (players[i].player == message) {
+                console.log(i);
+                let ABC = document.getElementsByClassName(`${i}`);
+                console.log(ABC);
+                ABC.removeAttribute('display');
+            }
+        }
+    });
 
 
     //確認死亡
@@ -625,12 +646,12 @@ async function game() {
 }
 
 
-    //AJAX玩家資料
-    BindingPlayers();
-    playerHead();
-    BindingThings();
-    closeMessage()
-    game();
+//AJAX玩家資料
+BindingPlayers();
+playerHead();
+BindingThings();
+closeMessage()
+game();
 
 
 //let _array;

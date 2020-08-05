@@ -312,8 +312,8 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
 
-            //Clients.Group(data.ToList()[0].RoomId.ToString()).SendAsync("PeopleDie", data.ToList()[0].Account + "死惹!");
-
+            Clients.Group(data.ToList()[0].RoomId.ToString()).SendAsync("PeopleDie", newResult[0].Account );
+            
             return Task.FromResult(newResult);
         }
 
