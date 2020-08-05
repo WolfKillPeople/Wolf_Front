@@ -115,6 +115,8 @@ function toggleScheme() {
         document.getElementById("WolfmessageInput").hidden = true;
         document.getElementById("PeoplesendButton").hidden = false;
         document.getElementById("WolfsendButton").hidden = true;
+        $("figure").removeClass("absolute-bg");
+        $("div").removeClass("fog__img fog__img--first");
     } else if (toggle.getAttribute("aria-checked") == "false") {
         toggle.setAttribute("aria-checked", "true");
         document.getElementById("PeoplemessagesList").hidden = false;
@@ -126,6 +128,12 @@ function toggleScheme() {
         document.getElementById("PeoplemessageInput").hidden = true;
         document.getElementById("WolfsendButton").hidden = false;
         document.getElementById("PeoplesendButton").hidden = true;
+        let figure = document.createElement('figure');
+        let clouddiv = document.createElement('div');
+        figure.setAttribute('class', 'absolute-bg');
+        clouddiv.setAttribute('class', 'fog__img fog__img--first')
+        figure.appendChild(clouddiv);
+        document.querySelector('body').appendChild(figure);
     }
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')
