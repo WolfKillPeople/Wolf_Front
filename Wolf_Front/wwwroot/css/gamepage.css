@@ -284,6 +284,7 @@ path, polygon {
     background-color: rgba(104, 157, 186, 0.6);
     margin-left: 5%;
     margin-top: 2%;
+    overflow:hidden;
 }
 
 .rightgamerecord {
@@ -291,6 +292,7 @@ path, polygon {
     background-color: rgba(104, 157, 186, 0.6);
     margin-left: 5%;
     margin-top: 2%;
+    overflow: hidden;
 }
 
 .number {
@@ -432,13 +434,13 @@ path, polygon {
 
 .on {
     margin: 5px;
-    box-shadow: 0px 0px 25px rgba(0, 255, 178, 1);
+    box-shadow: 0px 0px 25px red;
+    /*   box-shadow:red;*/
     filter: alpha(Opacity=100)
 }
 
 .off {
     margin: 5px;
-    ;
     filter: alpha(Opacity=20)
 }
 #toggleDark {

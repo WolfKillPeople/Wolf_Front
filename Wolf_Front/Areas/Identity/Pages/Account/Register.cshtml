@@ -18,6 +18,12 @@
 
 
 <!-- registered Modal -->
+<button id="music_btn" class="btn active" onclick="play()" value=1>
+    ▶
+</button>
+<audio autoplay="autoplay" loop="loop" id="Bgm_music">
+    <source src="~/music/homePage.mp3" type="audio/mp3" />
+</audio>
 <div class="registered_modal" id="registered_modal" tabindex="-1" role="dialog"
      aria-labelledby="registered_modal" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -26,29 +32,29 @@
                 <h5 class="modal-title" id="registered_modal" style="color: #fff;">註冊帳號</h5>
             </div>
 
-            <div class="modal-body">                
-                <form asp-route-returnUrl="@Model.ReturnUrl" method="post">                    
+            <div class="modal-body">
+                <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="imgcontainer mx-auto d-flex justify-content-center">
                         <div class="btn user_img_btn" data-toggle="tooltip" data-placement="right" id="user_img"
-                                title="選擇更換頭像">
+                             title="選擇更換頭像">
                             <img id="avatat" class="avatat" src="https://i.imgur.com/FMfI2fM.png" alt="user" v-model="item.PicUrl">
                         </div>
                     </div>
                     <div class="form-group">
                         <label asp-for="Input.Email">帳號</label>
-                        <input asp-for="Input.Email" class="form-control" id="Email_ID" placeholder="Enter email" type="email"/>
+                        <input asp-for="Input.Email" class="form-control" id="Email_ID" placeholder="Enter email" type="email" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Input.Password">密碼</label>
-                        <input asp-for="Input.Password" class="form-control" id="USer_password" placeholder="Enter password" type="password"/>
+                        <input asp-for="Input.Password" class="form-control" id="USer_password" placeholder="Enter password" type="password" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Input.ConfirmPassword">確認密碼</label>
                         <input asp-for="Input.ConfirmPassword" class="form-control" id="USer_password"
-                       placeholder="Checked password" type="password"/>
+                               placeholder="Checked password" type="password" />
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
                     <button type="submit" class="btn btn-primary form-control mt-4 justify-content-center registered_Account">註冊</button>
