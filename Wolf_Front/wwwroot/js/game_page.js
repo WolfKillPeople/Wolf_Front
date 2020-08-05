@@ -1,3 +1,25 @@
+var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+connection.start().then(function () {
+}).catch(function (err) {
+    return console.error(err.toString());
+});
+
+var roomId = 1;
+var id;
+var account = "oo";
+var PersonInroom;
+
+$('#addd').click(function () {
+    connection.invoke("CreateRoom", roomId, account).then(function (response) {
+        if (response.success) {
+            id = response.data;
+            alert(response.data);
+            console.log(`roomID=${myroomid}`);
+        }
+    });
+});
+
 var synth = window.speechSynthesis;
 var voices = [];
 //旁白說話
@@ -111,44 +133,6 @@ function toggleScheme() {
     image.classList.toggle('image-light')
 }
 
-//投票
-var voteResult;
-function vote(a, b, c, d, e, f, g, h, i, j) {
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].className = "circleImg on";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[b - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[c - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[d - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[e - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[f - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[g - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[h - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[i - 1].className = "circleImg off";
-    document.getElementById("touxiang").getElementsByClassName('circleImg')[j - 1].className = "circleImg off";
-    voteResult = a;
-}
-
-var prepareDead;
-//投票回傳
-function voteBack() {
-    var backVoteResult = [{
-        "roomId": 2,
-        "user": 'Text002@gmail.com',
-        "vote": `${voteResult}`,
-        "voteResult":null
-    }];
-    $.ajax({
-        type: "post",
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/Game/Vote',
-        data: JSON.stringify(backVoteResult),
-        dataType: 'JSON',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        success: function (response) {
-            players.forEach(function (element, index) { if (element.player == response) { prepareDead = index+1 } });
-        }   
-    });
-}
 
 //AJAX玩家職業資料
 var players = [
@@ -356,10 +340,10 @@ async function BindingThings() {
 }
 
 //玩家資料
-var myName;
+var myName='ma@gmail.com';
 var myAlive;
 var myJob;
-var roomid;
+var myroomid = 1;
 let ary;
 async function playerHead() {
     roomid = localStorage.getItem("roomid");
@@ -397,7 +381,54 @@ function Binding() {
     });
 }
 
+//投票
+var voteResult;
+function vote(a, b, c, d, e, f, g, h, i, j) {
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].className = "circleImg on";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[b - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[c - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[d - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[e - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[f - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[g - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[h - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[i - 1].className = "circleImg off";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[j - 1].className = "circleImg off";
+    voteResult = a;
+}
 
+var prepareDead;
+//投票回傳
+function voteBack() {
+    var backVoteResult = [{
+        "RoomID": myroomid,
+        "User": myName,
+        "Vote": `${voteResult}`,
+        "voteResult": null
+    }];
+    connection.invoke("Vote", backVoteResult).then(function (response) { });
+}
+
+//取投票結果
+function getVoteResult() {
+    connection.invoke("VoteResult", myroomid).then(function (res) {
+        prepareDead = res.data[0].vote;
+        console.log(`${res.data[0].vote}號死`);
+    });
+}
+
+//確認死亡
+function deadConfirm() {
+    var backDeadResult = [{
+        "RoomID": myroomid,
+        "User": prepareDead
+    },
+    {
+        "RoomID": myroomid,
+        "User": voteResult
+        }];
+
+}
 
 //查詢是哪個玩家及好或壞人
 function PlayerIsGood(e) {
@@ -408,57 +439,38 @@ function PlayerIsGood(e) {
     $('#rightgamerecordli').append(`<li>${Player}是${IsGood}</li>`);
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow", "none")
 }
 
+
+var PersonInroom;
 //抓房間人數
 function GetPersonInroom() {
-    var totalperson;
-    var room; //roomid
-    var all;
-    $.ajax({
-        type: 'GET',
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
-        dataType: 'json',
-        contentType: 'application/json;charset=UTF-8',
-        async: false,
-        success: function (msg) {
-            totalperson = msg;
-            for (let i = 0; i < totalperson.length; i++) {
-                room = totalperson[i].roomId;
-                if (room == 2) {
-                    all = totalperson[i].totalPlayers;
-                }
-            }
-            return all;
+    connection.invoke("GetAllRoom").then(function (response) {
+        if (response.success) {
+            response.data.forEach(item => {
+                if (item.roomId == myroomid) { PersonInroom = item.count; }
+                else { alert('no')}
+            });
         }
-    });
+     })
 }
 
 //離開房間
 function LeaveRoom() {
-    var personNum=getPersonInroom();
-
-    if (personNum <= 1) {
+    PersonInroom = 0;
+    GetPersonInroom();
+    if (PersonInroom <2 ) {
         DeleteRoom();
     }
     //自己從房間移除
     //連到房間畫面
-
 };
 
 //刪除房間
 function DeleteRoom() {
-    let _roomObj = [{ "roomId": roomid }];
-    $.ajax({
-        type: "delete",
-        url: "https://wolfpeoplekill.azurewebsites.net/api/Room/RemoveRoom",
-        data: JSON.stringify(_roomObj),
-        dataType: 'JSON',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        success: function (response) {
-            console.log('OK');
+    connection.invoke("RemoveRoom", myroomid).then(function (response) {
+        if (response.success) {
         }
     });
 }
@@ -488,6 +500,7 @@ function prophet() {
     });
 }
 function witch() {
+    let saveOrDead = prepareDead;
     //if (myJob == "女巫" && myAlive == true) { }
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
@@ -502,7 +515,8 @@ function witch() {
     </label>
   </div>
   </li>`);
-    $('#saveDead').click(function () { prepareDead = null; });
+    $('#saveDead').click(function () { prepareDead = null; console.log(prepareDead); });
+    $('#noSaveDead').click(function () { prepareDead = saveOrDead; console.log(prepareDead); });
 }
 function hunter() {
     //if (myJob == "獵人" && myAlive == true) { }
@@ -514,36 +528,45 @@ async function game() {
 
     $('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow","none")
     await timeOn(5);
 
 
-    Speak('我是測試版，請確認你的身分，遊戲將於倒數完後開始');
+    Speak('請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
 
-
+    voteResult = null;
     $('#toggleDark').click();
     Speak('天黑請閉眼，狼人請殺人');
     wolf();
     await timeOn(10);
     $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow", "none")
     voteBack();
-    //取回最高票
+    getVoteResult();
 
-
+    voteResult = null;
     Speak('預言家請選擇玩家查身分');
     prophet();
     await timeOn(10);
+    $('.findperson').css("display", "none")
+    $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow", "none")
     $('#rightgamerecordli li').remove();
 
 
-    //顯示最高票
-    Speak('此玩家死亡，女巫是否救人，是否殺人');
+    voteResult = null;
+    Speak('此玩家死亡，女巫是否救人');
     witch();
+    await timeOn(10);
+    Speak('女巫是否殺人');
     await timeOn(10);
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
-    voteBack();
-    //取回最高票
+    $('.on').css("box-shadow", "none")
+    //deadConfirm();
+    console.log(voteResult);
+
 
     //確認死亡
     $("body").css("cursor", "default");
@@ -554,18 +577,33 @@ async function game() {
 
     //if(某某某是 獵人){ if(自己是獵人) {獵人請選擇要帶走幾號玩家} }
     //if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
-    await timeOn(10);
-    //回傳投票結果
-    Speak('玩家發言時間');
+    //await timeOn(10);
+    //voteBack();
+    //getVoteResult();
 
-    Speak('1到10號玩家發言');
+
+    Speak('輪流發言時間');
+    for (let i = 0; i < players.length; i++) {
+        document.getElementById("PeoplesendButton").hidden = true;
+        if (players[i].player == myName) {
+            document.getElementById("PeoplesendButton").hidden = false;
+        }
+        Speak(`${i + 1}號玩家發言`);
+        await timeOn(5);
+    }
+
+
 
     Speak('所有玩家投票，得票最高者將出局');
+    $('.circleImg').css("pointer-events", "auto");
+    await timeOn(10);
+    voteBack();
+    getVoteResult();
+    $('.circleImg').css("pointer-events", "none");
+    $('.on').css("box-shadow", "none")
     //判斷輸贏
 
 }
-
-
 
 
     //AJAX玩家資料

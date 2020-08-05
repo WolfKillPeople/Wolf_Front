@@ -216,6 +216,7 @@ namespace Wolf_Front.Hubs
             if (_votePlayers.ContainsKey(data.ToList()[0].RoomID))
             {
                 _votePlayers.TryRemove(data.ToList()[0].RoomID, out _);
+                
             }
 
             _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
@@ -280,11 +281,14 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="RoomId"></param>
         /// <returns></returns>
-        public Task VoteResult(int RoomId)
+        public Task<ResponseBase<List<VotePlayers>>> VoteResult(int RoomId)
         {
             var data = _votePlayers[RoomId].ToList();
-            var target = data[0];
-            return Clients.Groups(RoomId.ToString()).SendAsync("VoteResult", target);
+            votePlayers.Clear();
+            //var target = data[0];
+            Clients.Groups(RoomId.ToString()).SendAsync("VoteResult", data);
+            return Task.FromResult(new ResponseBase<List<VotePlayers>>() { Success = true, Data = data });
+            
         }
 
         /// <summary>
