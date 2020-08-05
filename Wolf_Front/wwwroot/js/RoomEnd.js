@@ -10,6 +10,10 @@ var clicks = 0;
 //page
 $(document).ready(function () {
 
+    $('#RoomMusic').click(function () {
+        room_BackgroundMusic();
+    });
+
     let ary;
     $.ajax({
         type: 'GET',
@@ -203,6 +207,19 @@ $(document).ready(function () {
         }
 
     }
+
+    var x = document.getElementById("RoomAudio");
+    var room = document.getElementById('RoomMusic');
+
+    function roomAudio() {
+        x.play();
+    }
+
+    function room_BackgroundMusic() {
+        roomAudio();
+    }
+
+
 
 });
 //People
