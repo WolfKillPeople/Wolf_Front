@@ -284,6 +284,7 @@ path, polygon {
     background-color: rgba(104, 157, 186, 0.6);
     margin-left: 5%;
     margin-top: 2%;
+    overflow:hidden;
 }
 
 .rightgamerecord {
@@ -291,6 +292,7 @@ path, polygon {
     background-color: rgba(104, 157, 186, 0.6);
     margin-left: 5%;
     margin-top: 2%;
+    overflow: hidden;
 }
 
 .number {
