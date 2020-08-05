@@ -67,16 +67,16 @@ namespace Wolf_Front.Hubs
             {
                 TempNextRoom = 2;
             }
+            if (RoomList.Count == 0)
+            {
+                TempNextRoom = 1;
+            }
 
             for (int i = 0; i < RoomList.Count; i++)
             {
                 if (RoomList[i].RoomId != i + 1)
                 {
                     TempNextRoom = i + 1;
-                }
-                else if(RoomList.Count == 0)
-                {
-                    TempNextRoom = 1;
                 }
                 else
                 {
@@ -106,7 +106,7 @@ namespace Wolf_Front.Hubs
         /// <param name="count"></param>
         /// <param name="Account"></param>
         /// <returns></returns>
-        public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, int count, string Account)
+        public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, string Account)
         {
             int i = 0;
             if (!_Rooms.ContainsKey(roomId))
@@ -115,11 +115,20 @@ namespace Wolf_Front.Hubs
             }
             foreach (var item in _Rooms.Values)
             {
-                if (item[i].RoomId == roomId && item[i].Count.Equals(10))
+                try
                 {
-                    return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
+                    if (item[i].RoomId == roomId && item[i].Count.Equals(10))
+                    {
+                        return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
+                    }
+                    i++;
                 }
-                i++;
+                catch (Exception ex)
+                {
+                    //ignored
+                    break;
+                }
+                
             }
             _Rooms.TryGetValue(roomId, out var target);
 
@@ -166,15 +175,15 @@ namespace Wolf_Front.Hubs
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
             int tempNextRoom = 0;
+            if (data.Count == 0)
+            {
+                tempNextRoom = 1;
+            }
             for (int i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
                 {
                     tempNextRoom = i + 1;
-                }
-                else if(data.Count == 0)
-                {
-                    tempNextRoom = 1;
                 }
                 else
                 {
