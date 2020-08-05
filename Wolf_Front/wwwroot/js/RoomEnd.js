@@ -152,7 +152,7 @@ $(document).ready(function () {
                     </div>
                     <div class="number">
                         <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${people[no - 1].roomId}" onclick="addPeople(this)"/></a>
+                        <a href="https://werewolfkill.azurewebsites.net/GamePage/game_page.html"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${people[no - 1].roomId}" onclick="addPeople(this)"/></a>
                         <p class="people">人數: ${people[no - 1].totalPlayers}/10</p>
                     </div>          
                 </div>
@@ -369,7 +369,7 @@ function AddOneDoor() {
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${no}" onclick="addPeople(this)" /></a>
+                        <a href="https://werewolfkill.azurewebsites.net/GamePage/game_page.html"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${no}" onclick="addPeople(this)" /></a>
                         <p class="people">人數: 1/10</p>
                     </div>          
                 </div>
