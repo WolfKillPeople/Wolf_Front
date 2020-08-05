@@ -77,9 +77,9 @@ $(document).ready(function () {
                         <img src=${doorImg} alt=${altImg} class="door_card" />
                     </div>
                     <div class="number">
-                        <p class="door_number">${(people[no - 1].roomId).toString().padStart(3, '0')}</p>
-                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${people[no - 1].roomId}" onclick="addPeople(this)"/></a>
-                        <p class="people">人數: ${item.count}/10</p>
+                        <p class="door_number">${response.data[i].roomId.toString().padStart(3, '0')}</p>
+                        <a href="#"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${response.data[i].roomId}" onclick="addPeople(this)"/></a>
+                        <p class="people">人數: ${response.data[i].count}/10</p>
                     </div>          
                 </div>`);
                         }
@@ -334,6 +334,7 @@ function addDoor() {
         if (response.success) {
             alert(response.data);
             alert(response.message);
+            alert(response.tempnextroom);
             clicks++;
             AddOneDoor();
         }
@@ -458,6 +459,9 @@ function AddOneDoor() {
 
 //People
 function addPeople(member) {
+    play1 = localStorage.getItem('myName');
+
+
     //$.ajax({
     //    type: 'GET',
     //    url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
@@ -469,49 +473,49 @@ function addPeople(member) {
     //    }
     //});
 
-    play1 = localStorage.getItem('myName');
-    var RoomId = $(member).attr('class').substring(9);
-    for (let j = 0; j < people.length; j++) {
-        if (people[j].roomId == RoomId) {
-            var Player1 = people[j].player1;
-            var Player2 = people[j].player2;
-            var Player3 = people[j].player3;
-            var Player4 = people[j].player4;
-            var Player5 = people[j].player5;
-            var Player6 = people[j].player6;
-            var Player7 = people[j].player7;
-            var Player8 = people[j].player8;
-            var Player9 = people[j].player9;
-            var Player10 = people[j].player10;
-        }
-    }
-    
-    var array = [Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8, Player9, Player10];
 
-    for (var i = 0; i < 10; i++) {
-        if (array[i] == null) {
-            array[i] = play1;
-            console.log(array[i]);
-            i = 11;
-        }
-    }
+    //var RoomId = $(member).attr('class').substring(9);
+    //for (let j = 0; j < people.length; j++) {
+    //    if (people[j].roomId == RoomId) {
+    //        var Player1 = people[j].player1;
+    //        var Player2 = people[j].player2;
+    //        var Player3 = people[j].player3;
+    //        var Player4 = people[j].player4;
+    //        var Player5 = people[j].player5;
+    //        var Player6 = people[j].player6;
+    //        var Player7 = people[j].player7;
+    //        var Player8 = people[j].player8;
+    //        var Player9 = people[j].player9;
+    //        var Player10 = people[j].player10;
+    //    }
+    //}
+    
+    //var array = [Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8, Player9, Player10];
+
+    //for (var i = 0; i < 10; i++) {
+    //    if (array[i] == null) {
+    //        array[i] = play1;
+    //        console.log(array[i]);
+    //        i = 11;
+    //    }
+    //}
    
 
-    var PatchData = [
-        {
-            "roomId": parseInt(RoomId),
-            "player1": array[0],
-            "player2": array[1],
-            "player3": array[2],
-            "player4": array[3],
-            "player5": array[4],
-            "player6": array[5],
-            "player7": array[6],
-            "player8": array[7],
-            "player9": array[8],
-            "player10": array[9],
-        }
-    ]
+    //var PatchData = [
+    //    {
+    //        "roomId": parseInt(RoomId),
+    //        "player1": array[0],
+    //        "player2": array[1],
+    //        "player3": array[2],
+    //        "player4": array[3],
+    //        "player5": array[4],
+    //        "player6": array[5],
+    //        "player7": array[6],
+    //        "player8": array[7],
+    //        "player9": array[8],
+    //        "player10": array[9],
+    //    }
+    //]
     //$.ajax({
     //    url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/UpdatePlayer',
     //    data: JSON.stringify(PatchData),
