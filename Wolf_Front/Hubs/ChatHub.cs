@@ -162,17 +162,22 @@ namespace Wolf_Front.Hubs
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
             int tempNextRoom = 0;
+
+            if (data.Count == 0)
+            {
+                tempNextRoom =  1;
+            }
+
             for (int i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
                 {
                     tempNextRoom = i + 1;
                 }
-                else
-                {
-                    tempNextRoom = data.Last().RoomId + 1;
-                }
+                
             }
+            
+
 
             return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = tempNextRoom });
         }
