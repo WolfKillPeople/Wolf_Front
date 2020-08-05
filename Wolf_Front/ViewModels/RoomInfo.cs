@@ -17,11 +17,6 @@ namespace Wolf_Front.ViewModels
         public int RoomId { get; set; }
 
         /// <summary>
-        /// 創建房間的那個人的ID
-        /// </summary>
-        public string ConnectionId { get; set; }
-
-        /// <summary>
         /// 房間人數
         /// </summary>
         public int Count { get; set; }
