@@ -13,6 +13,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Wolf_Front.Hubs;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Wolf_Front.Services;
+using System.Configuration;
 
 namespace Wolf_Front
 {
@@ -47,6 +50,10 @@ namespace Wolf_Front
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSignalR();
