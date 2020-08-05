@@ -571,7 +571,6 @@ async function game() {
     Speak('請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
 
-
     //----------狼人---------
     voteResult = null;
     $('#toggleDark').click();
@@ -586,7 +585,6 @@ async function game() {
         deadConfirm(prepareDead);
     });
 
-
     //----------預言家---------
     Speak('預言家請選擇玩家查身分');
     prophet();
@@ -595,8 +593,6 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     $('#rightgamerecordli li').remove();
-
-
 
     //----------女巫---------
     voteResult = null;
@@ -609,10 +605,6 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     console.log(voteResult);
-
-
-
-
 
     //----------天亮遺言---------
     //確認死亡
@@ -639,7 +631,6 @@ async function game() {
         await timeOn(5);
     }
 
-
     //----------投票---------
     Speak('所有玩家投票，得票最高者將出局');
     $('.circleImg').css("pointer-events", "auto");
@@ -659,7 +650,7 @@ async function game() {
 BindingPlayers();
 playerHead();
 BindingThings();
-closeMessage()
+closeMessage();
 game();
 
 
