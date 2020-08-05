@@ -71,13 +71,13 @@ namespace Wolf_Front.Hubs
 
             for (int i = 0; i < RoomList.Count; i++)
             {
+                if (RoomList.Count == 0)
+                {
+                    TempNextRoom = 1;
+                }
                 if (RoomList[i].RoomId != i + 1)
                 {
                     TempNextRoom = i + 1;
-                }
-                else if(RoomList.Count == 0)
-                {
-                    TempNextRoom = 1;
                 }
                 else
                 {
@@ -176,15 +176,15 @@ namespace Wolf_Front.Hubs
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
             int tempNextRoom = 0;
+            if (data.Count == 0)
+            {
+                tempNextRoom = 1;
+            }
             for (int i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
                 {
                     tempNextRoom = i + 1;
-                }
-                else if(data.Count == 0)
-                {
-                    tempNextRoom = 1;
                 }
                 else
                 {
