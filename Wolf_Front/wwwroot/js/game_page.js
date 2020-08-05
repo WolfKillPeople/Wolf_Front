@@ -1,13 +1,11 @@
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
 connection.start().then(function () {
 }).catch(function (err) {
     return console.error(err.toString());
 });
-
+//測試建房按鈕
 var id;
 var PersonInroom;
-
 $('#addd').click(function () {
     connection.invoke("CreateRoom", 1, "dfghjkhgfrtyu@yuiknhuiol").then(function (response) {
         if (response.success) {
@@ -15,7 +13,7 @@ $('#addd').click(function () {
             console.log(`roomID=${myroomid}`);
         }
     });
-});
+})
 
 var synth = window.speechSynthesis;
 var voices = [];
@@ -36,7 +34,7 @@ function Speak(txtInput) {
     //保持滾動條一直在最底部
     var leftgamerecordli = document.getElementById("leftgamerecordli").parentNode;
     leftgamerecordli.scrollTop = leftgamerecordli.scrollHeight;
-};
+}
 
 //時間倒數
 function timeOn(time) {
@@ -77,18 +75,18 @@ function update(percent, totaltime) {
     }
 }
 
-var x = document.getElementById("MorningAudio");
-var y = document.getElementById("NightAudio");
 //音效
+var Morning = document.getElementById("MorningAudio");
+var Night = document.getElementById("NightAudio");
 function morningAudio() {
-    x.play();
-    x.volume = 0.2;
-    y.pause();
+    Morning.play();
+    Morning.volume = 0.2;
+    Night.pause();
 }
 function nightAudio() {
-    y.play();
-    y.volume = 0.2;
-    x.pause();
+    Night.play();
+    Night.volume = 0.2;
+    Morning.pause();
 }
 
 //背景夜晚白天轉換
@@ -132,7 +130,6 @@ function toggleScheme() {
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')
 }
-
 
 //AJAX玩家職業資料
 var players = [
@@ -246,7 +243,7 @@ var players = [
         "isAlive": true,
         "playerPic": null
     }
-];
+]
 
 //玩家頭像生成
 async function BindingPlayers() {
@@ -432,8 +429,8 @@ function voteBack() {
     connection.invoke("Vote", backVoteResult).then(function (response) { });
 }
 
-var prepareDead;
 //取投票結果
+var prepareDead;
 function getVoteResult() {
     return connection.invoke("VoteResult", myroomid).then(function (res) {
         prepareDead = res.data[0].vote;
@@ -476,9 +473,8 @@ function PlayerIsGood(e) {
     $('.on').css("box-shadow", "none")
 }
 
-
-var PersonInroom;
 //抓房間人數
+var PersonInroom;
 function GetPersonInroom() {
     connection.invoke("GetAllRoom").then(function (response) {
         if (response.success) {
@@ -508,12 +504,6 @@ function DeleteRoom() {
         }
     });
 }
-
-
-
-
-
-
 
 
 
@@ -565,11 +555,11 @@ async function game() {
     $('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
-    await timeOn(5);
+    await timeOn(1);
 
     //----------準備時間---------
     Speak('請確認你的身分，遊戲將於倒數完後開始');
-    await timeOn(10);
+    await timeOn(5);
 
     //----------狼人---------
     voteResult = null;
@@ -587,7 +577,7 @@ async function game() {
     //----------預言家---------
     Speak('預言家請選擇玩家查身分');
     prophet();
-    await timeOn(10);
+    await timeOn(1);
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
@@ -597,9 +587,9 @@ async function game() {
     voteResult = null;
     Speak('此玩家死亡，女巫是否救人');
     witch();
-    await timeOn(10);
+    await timeOn(5);
     Speak('女巫是否殺人');
-    await timeOn(10);
+    await timeOn(5);
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
@@ -627,7 +617,7 @@ async function game() {
             document.getElementById("PeoplesendButton").hidden = false;
         }
         Speak(`${i + 1}號玩家發言`);
-        await timeOn(5);
+        await timeOn(1);
     }
 
     //----------投票---------
@@ -643,7 +633,6 @@ async function game() {
     //----------遺言---------
 
 }
-
 
 //AJAX玩家資料
 BindingPlayers();
