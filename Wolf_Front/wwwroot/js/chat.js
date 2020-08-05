@@ -85,7 +85,7 @@ var id;
 var account = "oo";
 
 $('#Create').click(function () {
-    debugger
+    debugger;
     connection.invoke("CreateRoom", roomId, account).then(function (response) {
         if (response.success) {
             id = response.data;
@@ -95,6 +95,7 @@ $('#Create').click(function () {
 });
 
 $('#Delete').click(function () {
+    debugger;
     connection.invoke("RemoveRoom", roomId).then(function (response) {
         if (response.success) {
             alert(response.success);
@@ -103,6 +104,7 @@ $('#Delete').click(function () {
 });
 
 $('#GetAll').click(function () {
+    debugger;
     connection.invoke("GetAllRoom").then(function (response) {
         if (response.success) {
             response.data.forEach(item => {

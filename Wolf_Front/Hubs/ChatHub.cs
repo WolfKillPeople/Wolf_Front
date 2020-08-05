@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -75,10 +74,15 @@ namespace Wolf_Front.Hubs
                 {
                     TempNextRoom = i + 1;
                 }
+                else if(RoomList.Count == 0)
+                {
+                    TempNextRoom = 1;
+                }
                 else
                 {
                     TempNextRoom = RoomList.Last().RoomId + 1;
                 }
+
             }
 
             //將玩家加入到GameRoom
@@ -162,22 +166,21 @@ namespace Wolf_Front.Hubs
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
             int tempNextRoom = 0;
-
-            if (data.Count == 0)
-            {
-                tempNextRoom =  1;
-            }
-
             for (int i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
                 {
                     tempNextRoom = i + 1;
                 }
-                
+                else if(data.Count == 0)
+                {
+                    tempNextRoom = 1;
+                }
+                else
+                {
+                    tempNextRoom = data.LastOrDefault().RoomId + 1;
+                }
             }
-            
-
 
             return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = tempNextRoom });
         }
