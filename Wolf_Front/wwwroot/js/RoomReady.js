@@ -130,6 +130,12 @@ $('body').append(`<div class="sky_all">
         </div>
     </div>
 
+     <audio autoplay="autoplay" loop="loop" id="RoomAudio">
+        <source src="../music/room.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="RoomMusic" type="button">🎵</button>
+
 `)
 
 
