@@ -2,29 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Razor.Language.Extensions;
 
 namespace Wolf_Front.ViewModels
 {
-    /// <summary>
-    /// RoomInfo
-    /// </summary>
-    public class RoomInfo
+    public class GameRoom
     {
         /// <summary>
-        /// 房間Id
+        /// 房間ID
         /// </summary>
         public int RoomId { get; set; }
-
         /// <summary>
-        /// 房間人數
+        /// 是否存活
         /// </summary>
-        public int Count { get; set; }
+        public bool isAlive { get; set; }
 
         /// <summary>
         /// 玩家帳號
         /// </summary>
-        public string[] Account { get; set; }
+        public string Account { get; set; }
+
     }
 }
-
