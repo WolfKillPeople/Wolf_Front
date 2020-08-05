@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using Wolf_Front.ViewModels;
 
 namespace Wolf_Front.Hubs
 {
-
+    //[Authorize]
     public class ChatHub : Hub
     {
         static ConcurrentDictionary<int, List<RoomInfo>> _Rooms = new ConcurrentDictionary<int, List<RoomInfo>>();
@@ -67,16 +68,16 @@ namespace Wolf_Front.Hubs
             {
                 TempNextRoom = 2;
             }
-            if (RoomList.Count == 0)
-            {
-                TempNextRoom = 1;
-            }
 
             for (int i = 0; i < RoomList.Count; i++)
             {
                 if (RoomList[i].RoomId != i + 1)
                 {
                     TempNextRoom = i + 1;
+                }
+                else if(RoomList.Count == 0)
+                {
+                    TempNextRoom = 1;
                 }
                 else
                 {
@@ -108,28 +109,24 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, string Account)
         {
-            int i = 0;
             if (!_Rooms.ContainsKey(roomId))
             {
                 return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
             }
+
             foreach (var item in _Rooms.Values)
             {
-                try
+                var _target = item.Find(x => x.RoomId == roomId);
+                if (_target != null && _target.Count.Equals(10))
                 {
-                    if (item[i].RoomId == roomId && item[i].Count.Equals(10))
-                    {
-                        return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
-                    }
-                    i++;
+                    return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
                 }
-                catch (Exception ex)
+                else
                 {
-                    //ignored
                     break;
                 }
-                
             }
+
             _Rooms.TryGetValue(roomId, out var target);
 
             var acc = target[0].Account;
@@ -161,6 +158,10 @@ namespace Wolf_Front.Hubs
             //將這個玩家加到指定的room
             Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
+            //將資訊都丟出去
+            var allInfo = _Rooms.Values.SelectMany(x => x);
+            Clients.All.SendAsync("GetAll", allInfo);
+
             //只在這個房間傳送訊息
             Clients.Groups(roomId.ToString()).SendAsync("JoinRoom", "歡迎" + Account);
 
@@ -175,21 +176,23 @@ namespace Wolf_Front.Hubs
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
             int tempNextRoom = 0;
-            if (data.Count == 0)
-            {
-                tempNextRoom = 1;
-            }
             for (int i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
                 {
                     tempNextRoom = i + 1;
                 }
+                else if(data.Count == 0)
+                {
+                    tempNextRoom = 1;
+                }
                 else
                 {
                     tempNextRoom = data.LastOrDefault().RoomId + 1;
                 }
             }
+
+            Clients.All.SendAsync("GetAllRoomInfo", data);
 
             return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = tempNextRoom });
         }
@@ -302,7 +305,6 @@ namespace Wolf_Front.Hubs
         {
             var data = _votePlayers[RoomId].ToList();
             votePlayers.Clear();
-            //var target = data[0];
             Clients.Groups(RoomId.ToString()).SendAsync("VoteResult", data);
             return Task.FromResult(new ResponseBase<List<VotePlayers>>() { Success = true, Data = data });
             
