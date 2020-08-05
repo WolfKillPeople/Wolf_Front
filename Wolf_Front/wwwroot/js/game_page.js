@@ -580,7 +580,6 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     voteBack();
-    getVoteResult();
     getVoteResult().then(function (x) {
         deadConfirm(prepareDead);
     });
