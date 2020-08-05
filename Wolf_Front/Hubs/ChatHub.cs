@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using Wolf_Front.ViewModels;
 
 namespace Wolf_Front.Hubs
 {
-
+    //[Authorize]
     public class ChatHub : Hub
     {
         static ConcurrentDictionary<int, List<RoomInfo>> _Rooms = new ConcurrentDictionary<int, List<RoomInfo>>();
@@ -106,7 +107,7 @@ namespace Wolf_Front.Hubs
         /// <param name="count"></param>
         /// <param name="Account"></param>
         /// <returns></returns>
-        public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, int count, string Account)
+        public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, string Account)
         {
             int i = 0;
             if (!_Rooms.ContainsKey(roomId))
@@ -293,7 +294,6 @@ namespace Wolf_Front.Hubs
         {
             var data = _votePlayers[RoomId].ToList();
             votePlayers.Clear();
-            //var target = data[0];
             Clients.Groups(RoomId.ToString()).SendAsync("VoteResult", data);
             return Task.FromResult(new ResponseBase<List<VotePlayers>>() { Success = true, Data = data });
             

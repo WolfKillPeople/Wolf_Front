@@ -20,6 +20,19 @@ $('#addd').click(function () {
     });
 });
 
+var data = [{
+    "RoomId": 1,
+    "Account": "sda",
+    "isAlive": false
+}]
+
+$('#People_Die').click(function () {
+    connection.invoke("PeopleDie", data).then(function (res) {
+        debugger;
+        alert(res)
+    })
+})
+
 var synth = window.speechSynthesis;
 var voices = [];
 //旁白說話
