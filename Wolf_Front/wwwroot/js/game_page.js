@@ -1,8 +1,10 @@
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAutomaticReconnect([0, 0, 10000]).build();
-connection.start().then(function () {
-}).catch(function (err) {
-    return console.error(err.toString());
-});
+//signalr監聽
+function signalrListener() {
+    connection.on("PeopleDie", function (message) {
+        console.log(message);
+    });
+}
+
 //測試建房按鈕
 var id;
 var PersonInroom;
@@ -442,7 +444,6 @@ var prepareDead;
 function getVoteResult() {
     return connection.invoke("VoteResult", myroomid).then(function (res) {
         prepareDead = res.data[0].vote;
-        console.log(prepareDead);
     });
 }
 
@@ -454,14 +455,9 @@ function deadConfirm(die) {
         "isAlive": false,
         "Account": deadMan.player
     }];
-    return connection.invoke("PeopleDie", backDeadResult)/*.then(function (response) { console.log(response) alert(response) });*/
+    connection.invoke("PeopleDie", backDeadResult);
 }
 
-async function syncDead() {
-    connection.on("PeopleDie", function (message) {
-        alert(message);
-    });
-}
 
 //查詢是哪個玩家及好或壞人
 function PlayerIsGood(e) {
@@ -507,8 +503,6 @@ function DeleteRoom() {
     });
 }
 
-
-
 function wolf() {
     //if (myJob == "狼人" || myJob == "狼王" && myAlive == true) { }
     $('.circleImg').css("pointer-events", "auto");
@@ -523,12 +517,15 @@ function prophet() {
         element.setAttribute('value', index + 1);
     });
 }
+var witchSave = 1;
+var witchKill = 1;
 function witch() {
     let saveOrDead = prepareDead;
     //if (myJob == "女巫" && myAlive == true) { }
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
-    if (prepareDead == 'null') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
+    if (witchSave != 1) { $('#rightgamerecordli').append(`<li>特殊能力已使用</li>`); }
+    else if (prepareDead == 'null') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
     else {
         $('#rightgamerecordli').append(`
      <li>${prepareDead}號被殺死了你要救他們嗎?
@@ -542,7 +539,7 @@ function witch() {
   </div>
   </li>`);
     }
-    $('#saveDead').click(function () { prepareDead = null; console.log(prepareDead); });
+    $('#saveDead').click(function () { prepareDead = 'null'; witchSave = witchSave - 1; console.log(prepareDead); });
     $('#noSaveDead').click(function () { prepareDead = saveOrDead; console.log(prepareDead); });
 }
 function hunter() {
@@ -553,6 +550,7 @@ function hunter() {
 
 //以下遊戲主體
 async function game() {
+
     //----------顯示規則---------
     //$('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
@@ -565,6 +563,7 @@ async function game() {
 
     //----------狼人---------
     voteResult = null;
+    prepareDead = 'null';
     $('#toggleDark').click();
     Speak('天黑請閉眼，狼人請殺人');
     wolf();
@@ -573,14 +572,6 @@ async function game() {
     $('.on').css("box-shadow", "none")
     voteBack();
     await getVoteResult();
-    //await deadConfirm(prepareDead);
-
-    
-    //console.log(voteResult);
-    
-    //getVoteResult().then(function (x) {
-    //    deadConfirm(prepareDead).then(function () { syncDead();});
-    //});
 
     //----------預言家---------
     Speak('預言家請選擇玩家查身分');
@@ -602,9 +593,11 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none");
 
-    deadConfirm(prepareDead);
-    ////console.log(voteResult);
-    syncDead();
+    console.log(typeof (prepareDead));
+
+    if (prepareDead != 'null') { await deadConfirm(prepareDead); }
+    if (voteResult != null && witchKill == 1) { await deadConfirm(voteResult); witchKill = witchKill - 1; }
+
 
     //----------天亮遺言---------
     //確認死亡
@@ -645,6 +638,7 @@ async function game() {
 
 }
 
+signalrListener();
 //AJAX玩家資料
 BindingPlayers();
 playerHead();

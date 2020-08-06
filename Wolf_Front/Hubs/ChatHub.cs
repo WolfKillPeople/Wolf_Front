@@ -158,7 +158,7 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryAdd(roomId, newgameRooms);
 
             //將這個玩家加到指定的room
-            Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
+            Groups.AddToGroupAsync(Context.ConnectionId, roomId.ToString());
 
             //將房間資訊給大家
             var allInfo = _Rooms.Values.SelectMany(x => x);
@@ -319,7 +319,7 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Task<List<GameRoom>> PeopleDie(IEnumerable<GameRoom> data)
+        async public Task<List<GameRoom>> PeopleDie(IEnumerable<GameRoom> data)
         {
             _GameRoom.TryGetValue(data.ToList()[0].RoomId, out List<GameRoom> result);
 
@@ -330,9 +330,9 @@ namespace Wolf_Front.Hubs
 
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
-            Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
+            await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
 
-            return Task.FromResult(newResult);
+            return await Task.FromResult(newResult);
         }
 
 

@@ -2,8 +2,6 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-
-//Disable send button until connection is established
 document.getElementById("PeoplesendButton").disabled = true;
 document.getElementById("WolfsendButton").disabled = true;
 
