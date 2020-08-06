@@ -14,7 +14,7 @@ var clicks = 0;
 var nextRoom;
 connection.on("NewRoom", function (xid) {
     debugger
-    //alert(xid);
+    alert(xid);
     clicks = 0;
     door_page = 1;
     displayDoor();
@@ -164,8 +164,6 @@ $(document).ready(function () {
 function displayDoor() {
     connection.invoke("GetAllRoom").then(function (response) {
         if (response.success) {
-            clicks = 0;
-            door_page = 1;
             nextRoom = response.tempNextRoom;
             //response.data.forEach(item => {
             //alert(item.count);
@@ -267,7 +265,7 @@ function addDoor() {
             //alert(response.message);
             //nextRoom = response.tempNextRoom;
             //alert(nextRoom);
-            //clicks++;
+            clicks++;
             AddOneDoor();
             nextRoom = response.tempNextRoom;
             function AddOneDoor() {
