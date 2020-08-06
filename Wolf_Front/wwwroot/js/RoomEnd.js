@@ -15,12 +15,7 @@ var nextRoom;
 //var roomId;
 //page
 $(document).ready(function () {
-    connection.on("ReceiveMessage", (user, message) => {
-        const encodedMsg = `${user} says ${message}`;
-        const li = document.createElement('li');
-        li.textContent = encodedMsg;
-        document.getElementById("messagesList").appendchild(li);
-    });
+    
     connection.start().then(function () {
         connection.invoke("GetAllRoom").then(function (response) {
             if (response.success) {
@@ -292,6 +287,10 @@ function addDoor() {
 
 //People
 function addPeople(member) {
+    connection.on("GetAll", function (people) {
+        debugger
+        alert(people);
+    });
     var strRoomId = $(member).attr('class').substring(9);
     var roomId = parseInt(strRoomId);
     connection.invoke("JoinRoom", roomId, account).then(function (response) {
@@ -299,9 +298,14 @@ function addPeople(member) {
             alert('加人成功~~');
         }
     });
-
-
+    //lolo();
 }
+
+//function lolo() {
+    
+//}
+
+
 //door
 function openDoor(field) {
     var y = $(field).find(".thumb");

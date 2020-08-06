@@ -161,7 +161,7 @@ namespace Wolf_Front.Hubs
             //將資訊都丟出去
             var allInfo = _Rooms.Values.SelectMany(x => x);
             Clients.All.SendAsync("GetAll", allInfo);
-
+            int i = 0;
             //只在這個房間傳送訊息
             Clients.Groups(roomId.ToString()).SendAsync("JoinRoom", "歡迎" + Account);
 
