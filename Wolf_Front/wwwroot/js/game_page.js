@@ -578,7 +578,7 @@ async function game() {
     voteBack();
     await getVoteResult();
     await deadConfirm(prepareDead);
-    await syncDead();
+    //await syncDead();
     //getVoteResult().then(function (x) {
     //    deadConfirm(prepareDead).then(function () { syncDead();});
     //});
@@ -602,7 +602,11 @@ async function game() {
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none");
+    deadConfirm();
     console.log(voteResult);
+    connection.on("PeopleDie", function (message) {
+        alert(message);
+    });
 
     //----------天亮遺言---------
     //確認死亡
