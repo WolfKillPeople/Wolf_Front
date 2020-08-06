@@ -114,4 +114,17 @@ $('#GetAll').click(function () {
     })
 })
 
+$('#JoinRoom').click(function () {
+    debugger;
+    connection.invoke("JoinRoom").then(function (response) {
+        if (response.success) {
+            response.data.forEach(item => {
+                console.log(item);
+            });
+        }
+    })
+})
+
+
+
 
