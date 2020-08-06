@@ -77,6 +77,10 @@ namespace Wolf_Front.Hubs
 
             for (int i = 0; i < RoomList.Count; i++)
             {
+                if (RoomList.Count == 0)
+                {
+                    TempNextRoom = 1;
+                }
                 if (RoomList[i].RoomId != i + 1)
                 {
                     TempNextRoom = i + 1;
@@ -214,15 +218,15 @@ namespace Wolf_Front.Hubs
             _Rooms.TryRemove(roomId, out _);
             _GameRoom.TryRemove(roomId, out _);
 
-            var newList = _Rooms.Keys.ToList();
-            newList.Sort();
-            var index = newList.BinarySearch(roomId);
-            newList.RemoveAt(index);
+            //var newList = _Rooms.Keys.ToList();
+            //newList.Sort();
+            //var index = newList.FindIndex(x=>x == roomId);
+            //newList.RemoveAt(index);
 
 
-            for (int i = 0; i < newList.Count; i++)
+            for (int i = 0; i < _Rooms.Values.Count; i++)
             {
-                if (newList[i] != i + 1)
+                if (_Rooms.Keys.ToList()[i] != i + 1)
                 {
                     temp = i + 1;
                 }

@@ -10,7 +10,7 @@ $('body').append(`<div class="sky_all">
                 <div class="dot"></div>
             </div>
         </div>
-    
+        <button class="btn btn-success deleteBtn" onclick="deleteRoom()">delete</button>
         <form id="search_content">
             <input v-for="item in " type="text" name="room" class="input" id="search-input" placeholder="ID">
             <button type="reset" class="search" id="search-btn"></button>
