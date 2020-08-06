@@ -60,5 +60,11 @@ namespace Wolf_Front.Hubs.Tests
 
             Assert.Fail();
         }
+
+        [TestMethod()]
+        public void RemoveRoomTest()
+        {
+            Assert.Fail();
+        }
     }
 }
