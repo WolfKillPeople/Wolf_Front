@@ -22,14 +22,34 @@ $('#addd').click(function () {
 
 var data = [{
     "RoomId": 1,
-    "Account": "sda",
-    "isAlive": false
+    "Account": "oo",
+    "isAlive": true
 }]
 
 $('#People_Die').click(function () {
-    connection.invoke("PeopleDie", data).then(function (res) {
+    connection.invoke("PeopleResurrection", data).then(function (res) {
         debugger;
         alert(res)
+    })
+})
+$('#JoinRoom').click(function () {
+    debugger;
+    connection.invoke("JoinRoom",1,"AAA").then(function (response) {
+        if (response.success) {
+            response.data.forEach(item => {
+                console.log(item);
+            });
+        }
+    })
+})
+$('#OutToRoom').click(function () {
+    debugger;
+    connection.invoke("OutToRoom", 1, "AAA").then(function (response) {
+        if (response.success) {
+            response.data.forEach(item => {
+                console.log(item);
+            });
+        }
     })
 })
 
