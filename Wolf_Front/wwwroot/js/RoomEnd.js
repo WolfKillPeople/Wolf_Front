@@ -12,6 +12,13 @@ var doorImg;
 var altImg;
 var clicks = 0;
 var nextRoom;
+connection.on("NewRoom", function (xid) {
+    debugger
+    alert(xid);
+    clicks = 0;
+    door_page = 1;
+    displayDoor();
+});
 //var roomId;
 //page
 $(document).ready(function () {
@@ -248,9 +255,9 @@ function displayDoor() {
 $(".add_room_btn").on("click", addDoor);
 var account = "登凱";
 function addDoor() {
-    connection.on("NewRoom", function (xid) {
-        //alert(xid);        
-    });
+    //connection.on("NewRoom", function (xid) {
+    //    //alert(xid);        
+    //});
 
     connection.invoke("CreateRoom", nextRoom, account).then(function (response) {
         if (response.success) {
