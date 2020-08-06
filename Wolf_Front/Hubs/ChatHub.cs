@@ -25,7 +25,7 @@ namespace Wolf_Front.Hubs
 
         static ConcurrentDictionary<int, List<GameRoom>> _GameRoom = new ConcurrentDictionary<int, List<GameRoom>>();
 
-        private int temp = 0;
+        private static int temp = 0;
 
         /// <summary>
         /// SendMessage
@@ -64,10 +64,10 @@ namespace Wolf_Front.Hubs
             Groups.AddToGroupAsync(base.Context.ConnectionId, model[0].RoomId.ToString());
 
             var RoomList = _Rooms.Values.SelectMany(o => o).ToList();
-            int TempNextRoom = 0;
+            //int TempNextRoom = 0;
             if (RoomList.Count == 0)
             {
-                TempNextRoom = 1;
+                temp = 1;
             }
 
             //if (RoomList.Last().RoomId == 1)
@@ -77,17 +77,13 @@ namespace Wolf_Front.Hubs
 
             for (int i = 0; i < RoomList.Count; i++)
             {
-                if (RoomList.Count == 0)
-                {
-                    TempNextRoom = 1;
-                }
                 if (RoomList[i].RoomId != i + 1)
                 {
-                    TempNextRoom = i + 1;
+                    temp = i + 1;
                 }
                 else
                 {
-                    TempNextRoom = RoomList.Last().RoomId + 1;
+                    temp = RoomList.Last().RoomId + 1;
                 }
 
             }
@@ -100,10 +96,8 @@ namespace Wolf_Front.Hubs
             //將roomId傳給每個玩家
             Clients.All.NewRoom(model);
 
-            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count, TempNextRoom = TempNextRoom, Message = "創建房間成功" });
+            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count, TempNextRoom = temp, Message = "創建房間成功" });
         }
-
-
 
 
         /// <summary>
@@ -182,27 +176,27 @@ namespace Wolf_Front.Hubs
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
 
-            int tempNextRoom = 0;
+            
             if (data.Count == 0)
             {
-                tempNextRoom = 1;
+                temp = 1;
             }
 
             for (int i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
                 {
-                    tempNextRoom = i + 1;
+                    temp = i + 1;
                 }
                 else
                 {
-                    tempNextRoom = data.LastOrDefault().RoomId + 1;
+                    temp = data.LastOrDefault().RoomId + 1;
                 }
             }
 
             Clients.All.GetAllRoomInfo(data);
 
-            return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = tempNextRoom });
+            return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = temp });
         }
 
 
@@ -217,14 +211,9 @@ namespace Wolf_Front.Hubs
             Clients.Groups(roomId.ToString()).GroupRemoveRoom(roomisClose);
             _Rooms.TryRemove(roomId, out _);
             _GameRoom.TryRemove(roomId, out _);
+            var target = _Rooms.Values.SelectMany(x => x);
 
-            //var newList = _Rooms.Keys.ToList();
-            //newList.Sort();
-            //var index = newList.FindIndex(x=>x == roomId);
-            //newList.RemoveAt(index);
-
-
-            for (int i = 0; i < _Rooms.Values.Count; i++)
+            for (int i = 0; i < target.ToList().Count; i++)
             {
                 if (_Rooms.Keys.ToList()[i] != i + 1)
                 {
@@ -232,7 +221,8 @@ namespace Wolf_Front.Hubs
                 }
             }
 
-            Clients.All.AllRemoveRoom(newList,);
+
+            Clients.All.AllRemoveRoom(target);
             return Task.FromResult(new ResponseBase<int>() { Success = true, TempNextRoom = temp });
         }
 
