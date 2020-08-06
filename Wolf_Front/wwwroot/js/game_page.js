@@ -14,7 +14,6 @@ $('#addd').click(function () {
     connection.invoke("CreateRoom", roomId, account).then(function (response) {
         if (response.success) {
             id = response.data;
-            alert(response.data);
             console.log(`roomID=${myroomid}`);
         }
     });
@@ -170,94 +169,114 @@ function toggleScheme() {
 //AJAX玩家職業資料
 var players = [
     {
-        "name": "狼人",
-        "imgUrl": "https://i.imgur.com/n7knadr.png",
-        "description": "黑夜可以睜眼與隊友見面並討論戰術與選擇殺害對象。狼人可以選擇當夜不殺害任何玩家（空刀）或自殺（自刀）。白天混入村落中混淆好人。狼人可以在白天任何時候選擇公布角色牌自我淘汰（自爆）強制進入黑夜階段，並在黑夜階段結束時離場。",
-        "isGood": false,
-        "roomId": 1,
-        "player": "string",
-        "isAlive": false
+        "name": "村民",
+        "imgUrl": "https://i.imgur.com/4eJqZgk.png",
+        "occupationId": 8,
+        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
+        "isGood": true,
+        "roomId": 0,
+        "player": "",
+        "isAlive": true,
+        "playerPic": null
     },
     {
-        "name": "獵人",
-        "imgUrl": "https://i.imgur.com/TIvcUG5.png",
-        "description": "神職。除殉情或被毒殺外，以任何其他方式被淘汰時可以公布角色牌發動技能開槍帶走一位玩家，亦可以選擇壓槍不發動技能。",
+        "name": "村民",
+        "imgUrl": "https://i.imgur.com/D2o6MV6.png",
+        "occupationId": 9,
+        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
         "isGood": true,
-        "roomId": 1,
-        "player": "string",
-        "isAlive": true
-    },
-    {
-        "name": "女巫",
-        "imgUrl": "https://i.imgur.com/i9eRyug.png",
-        "description": "神職。擁有一瓶解藥和一瓶毒藥。解藥未使用時可以得知狼人的殺害對象，並決定是否救這一位玩家。然而，解藥全程不能用於解救自己。女巫也可以利用白天所得資訊，將懷疑的對象毒殺，該對象死後不能發動技能。解藥和毒藥不可以在同一夜使用。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "string",
-        "isAlive": false
+        "roomId": 0,
+        "player": "",
+        "isAlive": true,
+        "playerPic": null
     },
     {
         "name": "預言家",
         "imgUrl": "https://i.imgur.com/8tiIFAB.png",
+        "occupationId": 4,
         "description": "神職。每夜可以查驗一位存活玩家的所屬陣營，並在白天透過發言向好人報出資訊。",
         "isGood": true,
-        "roomId": 1,
-        "player": "string",
-        "isAlive": true
+        "roomId": 0,
+        "player": "",
+        "isAlive": true,
+        "playerPic": null
     },
     {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/D2o6MV6.png",
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
+        "name": "女巫",
+        "imgUrl": "https://i.imgur.com/i9eRyug.png",
+        "occupationId": 5,
+        "description": "神職。擁有一瓶解藥和一瓶毒藥。解藥未使用時可以得知狼人的殺害對象，並決定是否救這一位玩家。然而，解藥全程不能用於解救自己。女巫也可以利用白天所得資訊，將懷疑的對象毒殺，該對象死後不能發動技能。解藥和毒藥不可以在同一夜使用。",
         "isGood": true,
-        "roomId": 1,
-        "player": "string",
-        "isAlive": false
-    },
-    {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/4eJqZgk.png",
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "string",
-        "isAlive": true
+        "roomId": 0,
+        "player": "",
+        "isAlive": true,
+        "playerPic": null
     },
     {
         "name": "狼王",
         "imgUrl": "https://i.imgur.com/fVQQgnM.png",
+        "occupationId": 1,
         "description": "又稱「狼槍」、「毒狼」。除殉情或被毒殺外，以任何其他方式被淘汰時可以發動技能帶走任何一位玩家。狼王在場時，獵人和黑狼王淘汰啟動技能均不公布角色牌。部分局式中，黑狼王自爆不能發動技能。",
         "isGood": false,
-        "roomId": 1,
+        "roomId": 0,
         "player": "",
-        "isAlive": true
+        "isAlive": true,
+        "playerPic": null
     },
     {
         "name": "狼人",
         "imgUrl": "https://i.imgur.com/n7knadr.png",
+        "occupationId": 2,
         "description": "黑夜可以睜眼與隊友見面並討論戰術與選擇殺害對象。狼人可以選擇當夜不殺害任何玩家（空刀）或自殺（自刀）。白天混入村落中混淆好人。狼人可以在白天任何時候選擇公布角色牌自我淘汰（自爆）強制進入黑夜階段，並在黑夜階段結束時離場。",
         "isGood": false,
-        "roomId": 1,
-        "player": "string",
-        "isAlive": true
+        "roomId": 0,
+        "player": "",
+        "isAlive": true,
+        "playerPic": null
+    },
+    {
+        "name": "獵人",
+        "imgUrl": "https://i.imgur.com/TIvcUG5.png",
+        "occupationId": 6,
+        "description": "神職。除殉情或被毒殺外，以任何其他方式被淘汰時可以公布角色牌發動技能開槍帶走一位玩家，亦可以選擇壓槍不發動技能。",
+        "isGood": true,
+        "roomId": 0,
+        "player": "",
+        "isAlive": true,
+        "playerPic": null
     },
     {
         "name": "村民",
         "imgUrl": "https://i.imgur.com/D2o6MV6.png",
+        "occupationId": 10,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
         "isGood": true,
-        "roomId": 1,
-        "player": "string",
-        "isAlive": true
+        "roomId": 0,
+        "player": "",
+        "isAlive": true,
+        "playerPic": null
     },
     {
         "name": "村民",
         "imgUrl": "https://i.imgur.com/4eJqZgk.png",
+        "occupationId": 7,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
         "isGood": true,
-        "roomId": 1,
-        "player": "string",
-        "isAlive": true
+        "roomId": 0,
+        "player": "",
+        "isAlive": true,
+        "playerPic": null
+    },
+    {
+        "name": "狼人",
+        "imgUrl": "https://i.imgur.com/n7knadr.png",
+        "occupationId": 3,
+        "description": "黑夜可以睜眼與隊友見面並討論戰術與選擇殺害對象。狼人可以選擇當夜不殺害任何玩家（空刀）或自殺（自刀）。白天混入村落中混淆好人。狼人可以在白天任何時候選擇公布角色牌自我淘汰（自爆）強制進入黑夜階段，並在黑夜階段結束時離場。",
+        "isGood": false,
+        "roomId": 0,
+        "player": "",
+        "isAlive": true,
+        "playerPic": null
     }
 ];
 
@@ -283,8 +302,10 @@ for (let i = 0; i < players.length / 2; i++) {
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
     dead.setAttribute('class', 'deadimg');
     Circle.setAttribute('class', 'circleImg off');
-    if (players[i].isAlive) { playerImg.setAttribute('onclick', `vote(${array})`); }
-    else { Circle.appendChild(dead); }
+    playerImg.setAttribute('onclick', `vote(${array})`);
+    Circle.appendChild(dead);
+    //死掉顯示下面的
+    dead.setAttribute('style', 'display:none');
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
     aplayer.appendChild(num);
@@ -311,8 +332,10 @@ for (let i = players.length / 2; i <= players.length; i++) {
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
     dead.setAttribute('class', 'deadimg')
     Circle.setAttribute('class', 'circleImg off');
-    if (players[i].isAlive) { playerImg.setAttribute('onclick', `vote(${array})`); }
-    else { Circle.appendChild(dead); }
+    playerImg.setAttribute('onclick', `vote(${array})`);
+    Circle.appendChild(dead);
+    //死掉顯示下面的
+    dead.setAttribute('style', 'display:none');
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
     aplayer.appendChild(num);
@@ -333,7 +356,7 @@ async function BindingThings() {
         if (event.type == "mouseenter") {
             $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
         } else {
-            $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+            $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
     //滾輪
@@ -341,7 +364,7 @@ async function BindingThings() {
         if (event.type == "mouseenter") {
             $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
         } else {
-            $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+            $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
     //滾輪
@@ -349,7 +372,7 @@ async function BindingThings() {
         if (event.type == "mouseenter") {
             $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
         } else {
-            $(this).scrollTop(0).css({ "overflow-y": "hidden" }); //滑鼠離開
+            $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
     //< !--當我按下x時要去加入css動畫 -->
@@ -455,11 +478,7 @@ function deadConfirm() {
     var backDeadResult = [{
         "RoomID": myroomid,
         "User": prepareDead
-    },
-    {
-        "RoomID": myroomid,
-        "User": voteResult
-        }];
+    }]
 
 }
 
@@ -469,7 +488,7 @@ function PlayerIsGood(e) {
     let IsGood = players[Player - 1].isGood;
     if (IsGood) { IsGood = "好人" }
     else { IsGood = "壞人" }
-    $('#rightgamerecordli').append(`<li>${Player}是${IsGood}</li>`);
+    $('#rightgamerecordli').append(`<li>${Player}號是${IsGood}</li>`);
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
