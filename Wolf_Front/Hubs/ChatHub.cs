@@ -40,7 +40,7 @@ namespace Wolf_Front.Hubs
         /// <param name="roomId"></param>
         /// <param name="account"></param>
         /// <returns></returns>
-        public Task<ResponseBase<string>> CreateRoom(int roomId, string account)
+        public async Task CreateRoom(int roomId, string account)
         {
             if (_Rooms.ContainsKey(roomId) == true)
             {
@@ -87,9 +87,9 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryAdd(roomId, gameModel);
 
             //將roomId傳給每個玩家
-            Clients.All.NewRoom(model, temp);
+            await Clients.All.NewRoom(model, temp);
 
-            return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count, TempNextRoom = temp, Message = "創建房間成功" });
+            //return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count, TempNextRoom = temp, Message = "創建房間成功" });
         }
 
 
@@ -99,7 +99,7 @@ namespace Wolf_Front.Hubs
         /// <param name="roomId"></param>
         /// <param name="Account"></param>
         /// <returns></returns>
-        public Task<ResponseBase<List<RoomInfo>>> JoinRoom(int roomId, string Account)
+        public async Task/*<ResponseBase<List<RoomInfo>>>*/ JoinRoom(int roomId, string Account)
         {
             if (!_Rooms.ContainsKey(roomId))
             {
@@ -156,16 +156,16 @@ namespace Wolf_Front.Hubs
             Clients.All.GetAll(newRoomValue);
 
             //只在這個房間傳送訊息
-            Clients.Groups(roomId.ToString()).JoinRoom(Account);
+            await Clients.Groups(roomId.ToString()).JoinRoom(Account);
 
-            return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newRoomValue });
+            //return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newRoomValue });
         }
 
         /// <summary>
         /// GetAllRoom
         /// </summary>
         /// <returns></returns>
-        public Task<ResponseBase<List<RoomInfo>>> GetAllRoom()
+        public async Task/*<ResponseBase<List<RoomInfo>>>*/ GetAllRoom()
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
 
@@ -189,9 +189,9 @@ namespace Wolf_Front.Hubs
                 }
             }
 
-            Clients.All.GetAllRoomInfo(data, temp);
+            await Clients.All.GetAllRoomInfo(data, temp);
 
-            return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = temp });
+            //return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = temp });
         }
 
 
@@ -200,7 +200,7 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="roomId"></param>
         /// <returns></returns>
-        public Task<ResponseBase<int>> RemoveRoom(int roomId)
+        public async Task/*<ResponseBase<int>>*/ RemoveRoom(int roomId)
         {
             string roomisClose = "This room is closed";
             Clients.Groups(roomId.ToString()).GroupRemoveRoom(roomisClose);
@@ -219,8 +219,8 @@ namespace Wolf_Front.Hubs
             }
 
 
-            Clients.All.AllRemoveRoom(target, temp);
-            return Task.FromResult(new ResponseBase<int>() { Success = true, TempNextRoom = temp });
+            await Clients.All.AllRemoveRoom(target, temp);
+            //return Task.FromResult(new ResponseBase<int>() { Success = true, TempNextRoom = temp });
         }
 
         /// <summary>
