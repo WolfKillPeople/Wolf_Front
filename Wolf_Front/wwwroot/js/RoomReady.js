@@ -77,11 +77,12 @@ $('body').append(`<div class="sky_all">
                 <img id="avatat" class="avatat" src="https://i.imgur.com/9Pbvhnk.png" alt="user" v-model="item.PicUrl" onclick="change_Userimg(this)">
             </div>
         </div>
+        <button class="btn btn-primary confirmBtn d-flex align-items-center">修改圖片</button>
         <ul class="member_info justify-content-start my-5">
             <li>
                 <p class=ml-1>會員帳號:</p>
             </li>
-        </ul>
+        </ul>        
     </aside>
 
     <!-- Content -->
@@ -128,6 +129,12 @@ $('body').append(`<div class="sky_all">
             </div>
         </div>
     </div>
+
+     <audio autoplay="autoplay" loop="loop" id="RoomAudio">
+        <source src="../music/room.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="RoomMusic" type="button">🎵</button>
 
 `)
 

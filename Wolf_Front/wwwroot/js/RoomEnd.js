@@ -12,13 +12,68 @@ var doorImg;
 var altImg;
 var clicks = 0;
 var nextRoom;
+connection.on("NewRoom", function (xid) {
+    debugger
+    alert(xid);
+    clicks = 0;
+    door_page = 1;
+    displayDoor();
+});
 //var roomId;
 //page
-$(document).ready(function () {    
-    connection.start().then(function () {
-        displayDoor();
-    }).catch(function (err) {
-        return console.error(err.toString());
+$(document).ready(function () {
+
+    //先抓側邊欄的頭像
+    var getOriPic = $('#avatat').attr('src');
+    console.log(getOriPic);
+   
+
+    //// picData 需先Get兩個圖片資料
+    //let picData = 
+    //{
+    //    email: localStorage.getItem('myName')
+    //}
+    
+    ////從註冊抓
+    //$.ajax({
+    //    type: 'Post',
+    //    url: 'https://localhost:5001/api/UserRegister/LoingPostpic',
+    //    dataType: 'json',
+    //    contentType: 'application/json;charset=UTF-8',
+    //    data: JSON.stringify(picData),
+    //    success: function (msg) {
+    //        //alert('Data Saved: ' + msg);
+    //        alert(msg);
+    //    }
+    //});
+
+
+    $('#RoomMusic').click(function () {
+        room_BackgroundMusic();
+    });
+
+    let ary;
+    $.ajax({
+        type: 'GET',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/CurrentRoom',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        async:false,
+        success: function (msg) {
+            ary = msg;
+            //alert(ary.length);
+            
+            for (let i = 0; i < ary.length; i++) {
+                if (ary.length != 0) {
+                    clicks++;
+                    displayDoor();
+                    if (people[no - 1].totalPlayers == 10) {
+                        document.querySelectorAll('.perspective')[no - 1].removeAttribute("onclick");
+                    }
+                    no++;
+                }
+            }
+        }
     });
     var scrolling = false,
         curPage = 1;
@@ -200,9 +255,9 @@ function displayDoor() {
 $(".add_room_btn").on("click", addDoor);
 var account = "登凱";
 function addDoor() {
-    connection.on("NewRoom", function (xid) {
-        //alert(xid);        
-    });
+    //connection.on("NewRoom", function (xid) {
+    //    //alert(xid);        
+    //});
 
     connection.invoke("CreateRoom", nextRoom, account).then(function (response) {
         if (response.success) {
@@ -540,10 +595,13 @@ function change_Userimg() {
 }
 
 $('.users_pic').click(changePICS(this));
-$(document).ready(function () {
-    $('#avatat').attr('src', "https://i.imgur.com/9Pbvhnk.png");
 
-});
+//預設一張圖
+//$(document).ready(function () {
+//    $('#avatat').attr('src', "https://i.imgur.com/9Pbvhnk.png");
+
+//});
+
 function changePICS(e) {
     var getChoiceUrl = $(e).attr('src');
     // $('#avatat').attr('src','none');
@@ -594,3 +652,27 @@ $(document).ready(function () {
     });
 
 });
+
+ 
+$('.confirmBtn').click(function () {
+
+       
+    let picData =
+    {
+        email: localStorage.getItem('myName'),
+        pic: `${ getOriPic}`
+        }
+    
+        
+        //post回資料庫
+        $.ajax({
+            type: 'POST',
+            url: 'https://localhost:5001/api/UserRegister/postpic',
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(picData),
+            success: function (msg) {
+                alert('Data Saved: ' + msg);
+            }
+        });
+})

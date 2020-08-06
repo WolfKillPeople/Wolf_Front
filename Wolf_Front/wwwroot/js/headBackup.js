@@ -27,12 +27,14 @@ for (let i = 0; i < players.length / 2; i++) {
     aplayer.setAttribute('class', 'playerimg')
     aplayer.setAttribute('href', '#');
     playerImg.setAttribute('src', players[i].imgUrl);
-    playerImg.setAttribute('class', 'playerphoto')
+    playerImg.setAttribute('class', 'playerphoto');
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
-    dead.setAttribute('class', 'deadimg')
-    Circle.setAttribute('class', 'circleImg off');  
-    if (players[i].alive) { Circle.setAttribute('onclick', `aa(${array})`); }
-    else { Circle.appendChild(dead); }
+    dead.setAttribute('class', 'deadimg');
+    Circle.setAttribute('class', 'circleImg off');
+    playerImg.setAttribute('onclick', `vote(${array})`);
+    Circle.appendChild(dead);
+    //死掉顯示下面的
+    dead.setAttribute('style', 'display:none');
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
     aplayer.appendChild(num);
@@ -59,11 +61,14 @@ for (let i = players.length / 2; i <= players.length; i++) {
     dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
     dead.setAttribute('class', 'deadimg')
     Circle.setAttribute('class', 'circleImg off');
-    if (players[i].alive) { Circle.setAttribute('onclick', `aa(${array})`); }
-    else { Circle.appendChild(dead); }
+    playerImg.setAttribute('onclick', `vote(${array})`);
+    Circle.appendChild(dead);
+    //死掉顯示下面的
+    dead.setAttribute('style', 'display:none');
     Circle.appendChild(playerImg);
     aplayer.appendChild(Circle);
     aplayer.appendChild(num);
     document.querySelector('.footer-playerimg').appendChild(aplayer);
     array = [];
+}
 }
