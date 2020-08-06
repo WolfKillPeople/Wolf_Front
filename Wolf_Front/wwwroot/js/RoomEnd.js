@@ -15,6 +15,12 @@ var nextRoom;
 //var roomId;
 //page
 $(document).ready(function () {
+    connection.on("ReceiveMessage", (user, message) => {
+        const encodedMsg = `${user} says ${message}`;
+        const li = document.createElement('li');
+        li.textContent = encodedMsg;
+        document.getElementById("messagesList").appendchild(li);
+    });
     connection.start().then(function () {
         connection.invoke("GetAllRoom").then(function (response) {
             if (response.success) {
