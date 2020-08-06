@@ -318,6 +318,7 @@ function deleteRoom() {
             $('.nav-btn').remove();
             clicks = 0;
             door_page = 1;
+            nextRoom = response.tempNextRoom;
             displayDoor();
         }
     });
