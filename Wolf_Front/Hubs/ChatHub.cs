@@ -18,11 +18,6 @@ namespace Wolf_Front.Hubs
 
         static List<VotePlayers> votePlayers = new List<VotePlayers>();
 
-        /// <summary>
-        /// 房間總數
-        /// </summary>
-        static TotalRooms _totalRoom = new TotalRooms();
-
         static ConcurrentDictionary<int, List<GameRoom>> _GameRoom = new ConcurrentDictionary<int, List<GameRoom>>();
 
         private static int temp = 0;
