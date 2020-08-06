@@ -27,6 +27,8 @@ function change_Userimg() {
 }
 
 $('.users_pic').click(changePICS(this));
+
+//預設一張圖
 $(document).ready(function () {
     $('#avatat').attr('src', "https://i.imgur.com/FMfI2fM.png");
 

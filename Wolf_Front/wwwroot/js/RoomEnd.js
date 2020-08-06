@@ -15,24 +15,24 @@ $(document).ready(function () {
     console.log(getOriPic);
    
 
-    // picData 需先Get兩個圖片資料
-    let picData = 
-    {
-        email: localStorage.getItem('myName')
-    }
+    //// picData 需先Get兩個圖片資料
+    //let picData = 
+    //{
+    //    email: localStorage.getItem('myName')
+    //}
     
-    //從註冊抓
-    $.ajax({
-        type: 'Post',
-        url: 'https://localhost:5001/api/UserRegister/LoingPostpic',
-        dataType: 'json',
-        contentType: 'application/json;charset=UTF-8',
-        data: JSON.stringify(picData),
-        success: function (msg) {
-            //alert('Data Saved: ' + msg);
-            alert(msg);
-        }
-    });
+    ////從註冊抓
+    //$.ajax({
+    //    type: 'Post',
+    //    url: 'https://localhost:5001/api/UserRegister/LoingPostpic',
+    //    dataType: 'json',
+    //    contentType: 'application/json;charset=UTF-8',
+    //    data: JSON.stringify(picData),
+    //    success: function (msg) {
+    //        //alert('Data Saved: ' + msg);
+    //        alert(msg);
+    //    }
+    //});
 
 
     $('#RoomMusic').click(function () {
@@ -657,10 +657,13 @@ function change_Userimg() {
 }
 
 $('.users_pic').click(changePICS(this));
-$(document).ready(function () {
-    $('#avatat').attr('src', "https://i.imgur.com/9Pbvhnk.png");
 
-});
+//預設一張圖
+//$(document).ready(function () {
+//    $('#avatat').attr('src', "https://i.imgur.com/9Pbvhnk.png");
+
+//});
+
 function changePICS(e) {
     var getChoiceUrl = $(e).attr('src');
     // $('#avatat').attr('src','none');
@@ -715,24 +718,14 @@ $(document).ready(function () {
  
 $('.confirmBtn').click(function () {
 
-        // picData 需先Get兩個圖片資料
-        let picData = 
-            {
-                email: "judy870131@gmail.com",
-                pic: "pic123.jpg"
-            }
+       
+    let picData =
+    {
+        email: localStorage.getItem('myName'),
+        pic: `${ getOriPic}`
+        }
     
-        //從註冊抓
-        //$.ajax({
-        //    type: 'Get',
-        //    url: 'https://localhost:5001/api/UserRegister/postpic',
-        //    dataType: 'json',
-        //    contentType: 'application/json;charset=UTF-8',
-        //    data: JSON.stringify(picData),
-        //    success: function (msg) {
-        //        alert('Data Saved: ' + msg);
-        //    }
-        //});
+        
         //post回資料庫
         $.ajax({
             type: 'POST',
