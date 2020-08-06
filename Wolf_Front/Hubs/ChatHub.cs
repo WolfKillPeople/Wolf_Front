@@ -214,7 +214,7 @@ namespace Wolf_Front.Hubs
             _Rooms.TryRemove(roomId, out _);
             _GameRoom.TryRemove(roomId, out _);
 
-            var newList = _totalRoom.Total.ToList();
+            var newList = _Rooms.Keys.ToList();
             newList.Sort();
             var index = newList.BinarySearch(roomId);
             newList.RemoveAt(index);
@@ -228,7 +228,7 @@ namespace Wolf_Front.Hubs
                 }
             }
 
-            Clients.All.AllRemoveRoom(newList);
+            Clients.All.AllRemoveRoom(newList,);
             return Task.FromResult(new ResponseBase<int>() { Success = true, TempNextRoom = temp });
         }
 
