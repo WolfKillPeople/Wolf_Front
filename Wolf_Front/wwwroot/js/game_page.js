@@ -1,7 +1,10 @@
 //signalr監聽
 function signalrListener() {
     connection.on("PeopleDie", function (message) {
-        console.log(message);
+        let allHead = document.querySelectorAll('.deadimg');
+        for (let i = 0; i <= players.length; i++) {
+            if (players[i].player == message) { console.log(allHead[i]); allHead[i].setAttribute('style', 'display:flex');   }
+        }
     });
 }
 
@@ -275,7 +278,7 @@ async function BindingPlayers() {
         playerImg.setAttribute('src', players[i].imgUrl);
         playerImg.setAttribute('class', 'playerphoto');
         dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
-        dead.setAttribute('class', `deadimg ${i}`);
+        dead.setAttribute('class', 'deadimg');
         Circle.setAttribute('class', 'circleImg off');
         playerImg.setAttribute('onclick', `vote(${array})`);
         Circle.appendChild(dead);
@@ -305,7 +308,7 @@ async function BindingPlayers() {
         playerImg.setAttribute('src', players[i].imgUrl);
         playerImg.setAttribute('class', 'playerphoto')
         dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
-        dead.setAttribute('class', `deadimg ${i}`);
+        dead.setAttribute('class', 'deadimg');
         Circle.setAttribute('class', 'circleImg off');
         playerImg.setAttribute('onclick', `vote(${array})`);
         Circle.appendChild(dead);
@@ -525,7 +528,7 @@ function witch() {
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
     if (witchSave != 1) { $('#rightgamerecordli').append(`<li>特殊能力已使用</li>`); }
-    else if (prepareDead == 'null') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
+    else if (prepareDead == '') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
     else {
         $('#rightgamerecordli').append(`
      <li>${prepareDead}號被殺死了你要救他們嗎?
@@ -539,7 +542,7 @@ function witch() {
   </div>
   </li>`);
     }
-    $('#saveDead').click(function () { prepareDead = 'null'; witchSave = witchSave - 1; console.log(prepareDead); });
+    $('#saveDead').click(function () { prepareDead = ''; witchSave = witchSave - 1; console.log(prepareDead); });
     $('#noSaveDead').click(function () { prepareDead = saveOrDead; console.log(prepareDead); });
 }
 function hunter() {
@@ -563,7 +566,7 @@ async function game() {
 
     //----------狼人---------
     voteResult = null;
-    prepareDead = 'null';
+    prepareDead = '';
     $('#toggleDark').click();
     Speak('天黑請閉眼，狼人請殺人');
     wolf();
@@ -593,9 +596,8 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none");
 
-    console.log(typeof (prepareDead));
 
-    if (prepareDead != 'null') { await deadConfirm(prepareDead); }
+    if (prepareDead != '') { await deadConfirm(prepareDead); }
     if (voteResult != null && witchKill == 1) { await deadConfirm(voteResult); witchKill = witchKill - 1; }
 
 
