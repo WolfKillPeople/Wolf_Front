@@ -10,6 +10,31 @@ var clicks = 0;
 //page
 $(document).ready(function () {
 
+    //先抓側邊欄的頭像
+    var getOriPic = $('#avatat').attr('src');
+    console.log(getOriPic);
+   
+
+    // picData 需先Get兩個圖片資料
+    let picData = 
+    {
+        email: localStorage.getItem('myName')
+    }
+    
+    //從註冊抓
+    $.ajax({
+        type: 'Post',
+        url: 'https://localhost:5001/api/UserRegister/LoingPostpic',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify(picData),
+        success: function (msg) {
+            //alert('Data Saved: ' + msg);
+            alert(msg);
+        }
+    });
+
+
     $('#RoomMusic').click(function () {
         room_BackgroundMusic();
     });
@@ -686,10 +711,37 @@ $(document).ready(function () {
     });
 
 });
-var registered_btn = document.querySelector('.registered_Account');
-function savePic(e) {
-    //宣告一個變數，綁定輸入欄，讀取&紀錄使用者輸入的文字
-    var picSrc = $('#avatat').val();
-    localStorage.setItem('userPic', picSrc); //把輸入的內容存在瀏覽器
-}
-btn.addEventListener('click', savePic)
+
+ 
+$('.confirmBtn').click(function () {
+
+        // picData 需先Get兩個圖片資料
+        let picData = 
+            {
+                email: "judy870131@gmail.com",
+                pic: "pic123.jpg"
+            }
+    
+        //從註冊抓
+        //$.ajax({
+        //    type: 'Get',
+        //    url: 'https://localhost:5001/api/UserRegister/postpic',
+        //    dataType: 'json',
+        //    contentType: 'application/json;charset=UTF-8',
+        //    data: JSON.stringify(picData),
+        //    success: function (msg) {
+        //        alert('Data Saved: ' + msg);
+        //    }
+        //});
+        //post回資料庫
+        $.ajax({
+            type: 'POST',
+            url: 'https://localhost:5001/api/UserRegister/postpic',
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(picData),
+            success: function (msg) {
+                alert('Data Saved: ' + msg);
+            }
+        });
+})
