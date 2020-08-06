@@ -296,7 +296,7 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Task<List<GameRoom>> PeopleDie(IEnumerable<GameRoom> data)
+        public Task PeopleDie(IEnumerable<GameRoom> data)
         {
             _GameRoom.TryGetValue(data.ToList()[0].RoomId, out List<GameRoom> result);
 
@@ -311,10 +311,10 @@ namespace Wolf_Front.Hubs
 
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
-
-            Clients.Group(data.ToList()[0].RoomId.ToString()).SendAsync("PeopleDie", newResult[0].Account );
+            string target = newResult[0].Account;
+            return Clients.Group(data.ToList()[0].RoomId.ToString()).SendAsync("PeopleDie",  target);
             
-            return Task.FromResult(newResult);
+             //Task.FromResult(newResult);
         }
 
 

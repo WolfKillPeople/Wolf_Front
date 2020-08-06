@@ -1,4 +1,4 @@
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAutomaticReconnect([0, 0, 10000]).build();
 connection.start().then(function () {
 }).catch(function (err) {
     return console.error(err.toString());
@@ -395,7 +395,7 @@ async function playerHead() {
     });
 }
 
-function Binding() {
+async function Binding() {
     myName = localStorage.getItem("myName");
     players.forEach(element => {
         if (element.player == myName) {
@@ -434,7 +434,7 @@ function voteBack() {
         "Vote": `${voteResult}`,
         "voteResult": null
     }];
-    connection.invoke("Vote", backVoteResult).then(function (response) { });
+    connection.invoke("Vote", backVoteResult);
 }
 
 //取投票結果
@@ -453,20 +453,18 @@ function deadConfirm(die) {
         "isAlive": false,
         "Account": deadMan.player
     }];
-    return connection.invoke("PeopleDie", backDeadResult).then(function (response) { console.log(response) });
+    return connection.invoke("PeopleDie", backDeadResult)/*.then(function (response) { console.log(response) alert(response) });*/
 }
 
-function syncDead() {
-    return connection.on("PeopleDie", function (message) {
-        //for (let i = 0; i <= players.length; i++) {
-        //    if (players[i].player == message) {
-        console.log(message);
-        //        let ABC = document.getElementsByClassName(`${i}`);
-        //        console.log(ABC);
-        //        ABC.setAttribute('style', 'display:flex');
-        //    }
-        //}
+async function syncDead() {
+    await console.log('123')
+    
+    connection.on("rPeopleDie", function(target){
+        debugger;
+        console.log(target);
     });
+    
+    await console.log('321');
 }
 
 //查詢是哪個玩家及好或壞人
@@ -560,7 +558,7 @@ function hunter() {
 //以下遊戲主體
 async function game() {
     //----------顯示規則---------
-    $('#staticBackdrop').modal('show');
+    //$('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     await timeOn(1);
@@ -578,9 +576,12 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     voteBack();
-    getVoteResult().then(function (x) {
-        deadConfirm(prepareDead);
-    });
+    await getVoteResult();
+    await deadConfirm(prepareDead);
+    await syncDead();
+    //getVoteResult().then(function (x) {
+    //    deadConfirm(prepareDead).then(function () { syncDead();});
+    //});
 
     //----------預言家---------
     Speak('預言家請選擇玩家查身分');
@@ -595,12 +596,12 @@ async function game() {
     voteResult = null;
     Speak('此玩家死亡，女巫是否救人');
     witch();
-    await timeOn(5);
+    await timeOn(3);
     Speak('女巫是否殺人');
-    await timeOn(5);
+    await timeOn(3);
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none")
+    $('.on').css("box-shadow", "none");
     console.log(voteResult);
 
     //----------天亮遺言---------
