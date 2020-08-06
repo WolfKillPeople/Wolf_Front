@@ -696,3 +696,7 @@ input {
     z-index: 6;
     margin-right:650px;
 }
+.deleteBtn {
+    margin-top:100px;
+    z-index:6;
+}
