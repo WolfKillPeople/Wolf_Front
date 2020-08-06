@@ -10,17 +10,17 @@ namespace Wolf_Front.Hubs
     {
         Task ReceiveMessage(string user, string message);
 
-        Task NewRoom(List<RoomInfo> model);
+        Task NewRoom(List<RoomInfo> model,int temp);
 
         Task GetAll(IEnumerable<RoomInfo> allInfo);
 
         Task JoinRoom(string Account);
 
-        Task GetAllRoomInfo(List<RoomInfo> data);
+        Task GetAllRoomInfo(List<RoomInfo> data,int temp);
 
         Task GroupRemoveRoom(string roomisClose);
 
-        Task AllRemoveRoom(IEnumerable<RoomInfo> newList);
+        Task AllRemoveRoom(IEnumerable<RoomInfo> newList ,int temp);
 
         Task VoteResult(List<VotePlayers> data);
 
