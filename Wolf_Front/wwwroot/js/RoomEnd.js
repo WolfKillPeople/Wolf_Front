@@ -209,7 +209,7 @@ function addDoor() {
             //alert(response.data);
             //alert(response.message);
             //nextRoom = response.tempNextRoom;
-            alert(nextRoom);
+            //alert(nextRoom);
             clicks++;
             AddOneDoor();
             nextRoom = response.tempNextRoom;
@@ -293,7 +293,7 @@ function addPeople(member) {
     var roomId = parseInt(strRoomId);
     connection.invoke("JoinRoom", roomId, account).then(function (response) {
         if (response.success) {
-            alert('加人成功~~');
+            //alert('加人成功~~');
             $('.page').remove();
             $('.nav-btn').remove();
             clicks = 0;
@@ -302,26 +302,21 @@ function addPeople(member) {
         }
     });
 }
-
-function deleteRoom() {
-    //alert('delete');
-    connection.on("GetAll", function (room) {
-        //alert(people);
-    });
-    //var strRoomId = $(del).attr('class').substring(9);
-    //var roomId = parseInt(strRoomId);
-    var delroom = 2;
-    connection.invoke("RemoveRoom", delroom).then(function (response) {
-        if (response.success) {
-            alert('刪除成功');
-            $('.page').remove();
-            $('.nav-btn').remove();
-            clicks = 0;
-            door_page = 1;
-            displayDoor();
-        }
-    });
-}
+//var delroom = 1;
+//function deleteRoom() {
+//    delroom++;
+//    connection.invoke("RemoveRoom", delroom).then(function (response) {
+//        if (response.success) {
+//            alert('刪除成功');
+//            $('.page').remove();
+//            $('.nav-btn').remove();
+//            clicks = 0;
+//            door_page = 1;
+//            nextRoom = response.tempNextRoom;
+//            displayDoor();
+//        }
+//    });
+//}
 
 
 //door

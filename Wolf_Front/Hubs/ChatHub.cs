@@ -74,7 +74,9 @@ namespace Wolf_Front.Hubs
             {
                 if (RoomList[i].RoomId != i + 1)
                 {
+                    temp = 0;
                     temp = i + 1;
+                    break;
                 }
                 else
                 {
@@ -181,7 +183,9 @@ namespace Wolf_Front.Hubs
             {
                 if (data[i].RoomId != i + 1)
                 {
+                    temp = 0;
                     temp = i + 1;
+                    break;
                 }
                 else
                 {
@@ -212,7 +216,9 @@ namespace Wolf_Front.Hubs
             {
                 if (_Rooms.Keys.ToList()[i] != i + 1)
                 {
+                    temp = 0;
                     temp = i + 1;
+                    break;
                 }
             }
 
