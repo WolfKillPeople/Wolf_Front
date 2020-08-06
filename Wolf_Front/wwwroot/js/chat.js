@@ -1,11 +1,13 @@
 ﻿"use strict";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAutomaticReconnect([0, 0, 10000]).build();
 
 
 //Disable send button until connection is established
 document.getElementById("PeoplesendButton").disabled = true;
 document.getElementById("WolfsendButton").disabled = true;
+
+
 
 function ChangeDay() {
     var Day = document.getElementById("Day").value;
@@ -18,7 +20,7 @@ function ChangeDay() {
     }
 }
 
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("ReceiveMessage", function (user, message, roomId) {
     var Day = document.getElementById("Day").value;
     if (user == "人類" && Day == "白天") {
         document.getElementById("PeoplemessagesList").hidden = false;
