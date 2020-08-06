@@ -217,7 +217,7 @@ namespace Wolf_Front.Hubs
             Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
             //只在這個房間傳送訊息
-            Clients.Groups(roomId.ToString()).SendAsync("aa",Account + "離開");
+            Clients.Groups(roomId.ToString()).aa(Account);
 
             return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newRoomValue });
         }

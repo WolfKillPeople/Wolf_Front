@@ -25,5 +25,6 @@ namespace Wolf_Front.Hubs
         Task VoteResult(List<VotePlayers> data);
 
         Task PeopleDie(string Account);
+        Task aa(string Account);
     }
 }
