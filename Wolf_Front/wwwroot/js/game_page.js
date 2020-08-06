@@ -442,6 +442,7 @@ var prepareDead;
 function getVoteResult() {
     return connection.invoke("VoteResult", myroomid).then(function (res) {
         prepareDead = res.data[0].vote;
+        console.log(prepareDead);
     });
 }
 
@@ -457,14 +458,9 @@ function deadConfirm(die) {
 }
 
 async function syncDead() {
-    await console.log('123')
-    
-    connection.on("rPeopleDie", function(target){
-        debugger;
-        console.log(target);
+    connection.on("PeopleDie", function (message) {
+        alert(message);
     });
-    
-    await console.log('321');
 }
 
 //查詢是哪個玩家及好或壞人
@@ -577,8 +573,11 @@ async function game() {
     $('.on').css("box-shadow", "none")
     voteBack();
     await getVoteResult();
-    await deadConfirm(prepareDead);
-    //await syncDead();
+    //await deadConfirm(prepareDead);
+
+    
+    //console.log(voteResult);
+    
     //getVoteResult().then(function (x) {
     //    deadConfirm(prepareDead).then(function () { syncDead();});
     //});
@@ -602,11 +601,10 @@ async function game() {
     $('#rightgamerecordli li').remove();
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none");
-    deadConfirm();
-    console.log(voteResult);
-    connection.on("PeopleDie", function (message) {
-        alert(message);
-    });
+
+    deadConfirm(prepareDead);
+    ////console.log(voteResult);
+    syncDead();
 
     //----------天亮遺言---------
     //確認死亡
