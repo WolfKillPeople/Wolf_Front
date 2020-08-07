@@ -321,6 +321,15 @@ async function BindingPlayers() {
 //雜物生成
 var eleBack = null, eleFront = null;
 var eleList = null;
+var funBackOrFront = function () {
+    eleList.each(function () {
+        if ($(this).hasClass("out")) {
+            eleFront = $(this);
+        } else {
+            eleBack = $(this);
+        }
+    });
+};
 function BindingThings() {
     //滑鼠移到職業圖片顯示該職業描述
     $('#depict').hover(tool);
@@ -352,48 +361,44 @@ function BindingThings() {
         }
     });
     // 在前面显示的元素，隐藏在后面的元素
-    eleBack = null;
-    eleFront = null;
-    eleList = $(".list");// 纸牌元素们 
+    //eleBack = null;
+    //eleFront = null;
+    //eleList = null; //$(".list");// 纸牌元素们 
 
-    console.log("eleList: ", eleList);
+    
     //debugger;
     // 确定前面与后面元素
-    var funBackOrFront = function () {
-        eleList.each(function () {
-            if ($(this).hasClass("out")) {
-                eleFront = $(this);
-            } else {
-                eleBack = $(this);
-            }
-        });
-    };
-    funBackOrFront();
+
+
     //< !--當我按下x時要去加入css動畫 -->
     $('#close').click(function () {
-        //$('.box').css("animation-name", " spin");
-        //$('.box').css("animation-timing-function", " linear")
-        //$('.box').css("animation-duration", " 1s")
-        //$('.box').css("animation - fill - mode", "forwards")
-        //var tt = document.styleSheets[0];
-        //tt.insertRule("@keyframes spin { 0% { transform: rotateY(0deg); } 25% { transform: rotateY(360deg); } 50% { transform: rotateY(0deg); } 75% { transform: rotateY(360deg); }}", 9);//寫入樣式      
-        // 切换的顺序如下
+        funBackOrFront();
+        console.log("eleList: ", eleList);
+
+        var tt = document.styleSheets[0];
+        tt.insertRule("@keyframes spin { 0% { transform: rotateY(0deg); } 25% { transform: rotateY(360deg); } 50% { transform: rotateY(0deg); } 75% { transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+        $('.box').css("animation-name", " spin");
+        $('.box').css("animation-timing-function", " linear")
+        $('.box').css("animation-duration", " 1s")
+        $('.box').css("animation-fill-mode", "forwards")
+        //切换的顺序如下
         // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
         // 2. 结束后，之前显示在后面的元素逆向90度翻转显示在前 
         // 3. 完成翻面效果
 
         //eleFront.removeClass("out").addClass("in");
+        //eleBack.removeClass("in").addClass("out");
         eleFront.removeClass("out").addClass("in");
-        eleBack.removeClass("in").addClass("out");
 
+        setTimeout(function () {
 
-        //setTimeout(function () {
-        //    //eleBack.removeClass("in").addClass("out");
-        //    console.log(eleBack, eleFront);
+            eleBack.removeClass("in").addClass("out");
+            console.log(eleBack, eleFront);
 
-        //    // 重新确定正反元素
-        //    //funBackOrFront();
-        //}, 3000);
+            // 重新确定正反元素
+            //funBackOrFront();
+        }, 100);
     });
     $('#closebtn').click(function () {
         $('.img-spin').css("animation-name", " spin")
@@ -412,7 +417,7 @@ var myAlive;
 var myJob;
 var myroomid = 1;
 let ary;
-async function playerHead() {
+function playerHead() {
     roomid = localStorage.getItem("roomid");
     let obj = [{
         //"roomId": roomid,
@@ -433,7 +438,8 @@ async function playerHead() {
     });
 }
 
-function Binding() {
+function Binding()
+{
     myName = localStorage.getItem("myName");
     players.forEach(element => {
         if (element.player == myName) {
@@ -445,8 +451,15 @@ function Binding() {
     var profession = new Vue({
         el: "#describe",
         data: { items: ary[0] },
-        updated: function () {
+        mounted: function () {
+            alert('generate Done!!!');
             eleList = $(".list");// 纸牌元素们 
+            console.log(eleList);
+        },
+        updated: function () {
+            console.log("vue updated");
+            eleList = $(".list");// 纸牌元素们 
+            console.log(eleList);
         }
     });
 }
@@ -687,8 +700,7 @@ async function game() {
 }
 
 //AJAX玩家資料
-document.body.onload = () =>
-{
+document.body.onload = () => {
     console.log('body load done!!!');
     BindingPlayers();
     playerHead();

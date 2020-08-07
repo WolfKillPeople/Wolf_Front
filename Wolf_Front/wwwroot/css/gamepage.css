@@ -1236,10 +1236,10 @@ path, polygon {
         transform: translate(-50%, -50%);
     }
 
-.onlight {
+/*.onlight {
     max-width: 100%;
     max-height: 100%;
     box-shadow: 0px 0px 100px rgb(251, 255, 0);
     filter: alpha(Opacity=100);
     border-radius: 20%;
-}
+}*/
