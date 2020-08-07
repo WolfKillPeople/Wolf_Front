@@ -9,7 +9,11 @@ using Microsoft.Extensions.Hosting;
 using Wolf_Front.Hubs;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Wolf_Front.Services;
-using System.Configuration;
+using Wolf_Front.Mapping;
+using AutoMapper;
+using Wolf_Front.Interface;
+using Wolf_Front.Repository;
+
 
 namespace Wolf_Front
 {
@@ -38,6 +42,7 @@ namespace Wolf_Front
                 options.Password.RequiredLength = 6;
             });
             services.AddMvc();
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -47,7 +52,8 @@ namespace Wolf_Front
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-
+            services.AddScoped<IChatRepo, ChatHubRepo>();
+            services.AddScoped<IChatHubService, ChatHubService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSignalR();

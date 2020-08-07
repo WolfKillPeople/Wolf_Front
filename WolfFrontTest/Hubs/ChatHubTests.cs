@@ -100,7 +100,7 @@ namespace Wolf_Front.Hubs.Tests
             //value assign to gamerooom
 
             _GameRoom.TryGetValue(roomId, out var newgameRooms);
-            newgameRooms.Add(new GameRoom { RoomId = roomId, Account = account, isAlive = true });
+            newgameRooms.Add(new GameRoom { RoomId = roomId, Account = account, IsAlive = true });
             _GameRoom.TryRemove(roomId, out _);
             _GameRoom.TryAdd(roomId, newgameRooms);
 

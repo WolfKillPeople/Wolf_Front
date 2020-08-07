@@ -29,5 +29,9 @@ namespace Wolf_Front.Hubs
         Task aa(string Account);
 
         Task Exception(string exce);
+
+        Task SendAccountPic(string ImgUrl);
+
+        Task GetRole(List<GameRoom> data);
     }
 }
