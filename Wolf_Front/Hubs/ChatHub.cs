@@ -22,6 +22,7 @@ namespace Wolf_Front.Hubs
 
         private static int temp = 0;
 
+        private string exce = "Fail";
         /// <summary>
         /// SendMessage
         /// </summary>
@@ -44,7 +45,7 @@ namespace Wolf_Front.Hubs
         {
             if (_Rooms.ContainsKey(roomId) == true)
             {
-                return Task.FromResult(new ResponseBase<string>() { Success = false, Message = "房間已存在" });
+                await Clients.Caller.Exception(exce);
             }
 
             List<string> accountTemp = new List<string>();
@@ -56,15 +57,13 @@ namespace Wolf_Front.Hubs
             _Rooms.TryAdd(model[0].RoomId, model);
             _votePlayers.TryAdd(model[0].RoomId, new List<VotePlayers>());
 
-            Groups.AddToGroupAsync(base.Context.ConnectionId, model[0].RoomId.ToString());
+            await Groups.AddToGroupAsync(base.Context.ConnectionId, model[0].RoomId.ToString());
 
             var RoomList = _Rooms.Values.SelectMany(o => o).ToList();
-            //int TempNextRoom = 0;
             if (RoomList.Count == 0)
             {
                 temp = 1;
             }
-
 
             for (int i = 0; i < RoomList.Count; i++)
             {
@@ -78,7 +77,6 @@ namespace Wolf_Front.Hubs
                 {
                     temp = RoomList.Last().RoomId + 1;
                 }
-
             }
 
             //將玩家加入到GameRoom
@@ -88,8 +86,6 @@ namespace Wolf_Front.Hubs
 
             //將roomId傳給每個玩家
             await Clients.All.NewRoom(model, temp);
-
-            //return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count, TempNextRoom = temp, Message = "創建房間成功" });
         }
 
 
@@ -99,11 +95,11 @@ namespace Wolf_Front.Hubs
         /// <param name="roomId"></param>
         /// <param name="Account"></param>
         /// <returns></returns>
-        public async Task/*<ResponseBase<List<RoomInfo>>>*/ JoinRoom(int roomId, string Account)
+        public async Task JoinRoom(int roomId, string Account)
         {
             if (!_Rooms.ContainsKey(roomId))
             {
-                return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
+                await Clients.Caller.Exception(exce);
             }
 
             foreach (var item in _Rooms.Values)
@@ -111,7 +107,7 @@ namespace Wolf_Front.Hubs
                 var _target = item.Find(x => x.RoomId == roomId);
                 if (_target != null && _target.Count.Equals(10))
                 {
-                    return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
+                    await Clients.Caller.Exception(exce);
                 }
                 else
                 {
@@ -149,16 +145,13 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryAdd(roomId, newgameRooms);
 
             //將這個玩家加到指定的room
-            Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
+            await Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
             //將房間資訊給大家
-            //var allInfo = _Rooms.Values.SelectMany(x => x);
-            Clients.All.GetAll(newRoomValue);
+            await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
 
             //只在這個房間傳送訊息
             await Clients.Groups(roomId.ToString()).JoinRoom(Account);
-
-            //return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newRoomValue });
         }
 
 
@@ -217,7 +210,7 @@ namespace Wolf_Front.Hubs
             Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
             //只在這個房間傳送訊息
-            Clients.Groups(roomId.ToString()).SendAsync("aa",Account + "離開");
+            Clients.Groups(roomId.ToString()).aa(Account);
 
             return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newRoomValue });
         }
@@ -228,10 +221,9 @@ namespace Wolf_Front.Hubs
         /// GetAllRoom
         /// </summary>
         /// <returns></returns>
-        public async Task/*<ResponseBase<List<RoomInfo>>>*/ GetAllRoom()
+        public async Task GetAllRoom()
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
-
 
             if (data.Count == 0)
             {
@@ -253,8 +245,6 @@ namespace Wolf_Front.Hubs
             }
 
             await Clients.All.GetAllRoomInfo(data, temp);
-
-            //return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = temp });
         }
 
 
@@ -263,10 +253,10 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="roomId"></param>
         /// <returns></returns>
-        public async Task/*<ResponseBase<int>>*/ RemoveRoom(int roomId)
+        public async Task RemoveRoom(int roomId)
         {
             string roomisClose = "This room is closed";
-            Clients.Groups(roomId.ToString()).GroupRemoveRoom(roomisClose);
+            await Clients.Groups(roomId.ToString()).GroupRemoveRoom(roomisClose);
             _Rooms.TryRemove(roomId, out _);
             _GameRoom.TryRemove(roomId, out _);
             var target = _Rooms.Values.SelectMany(x => x);
@@ -281,9 +271,7 @@ namespace Wolf_Front.Hubs
                 }
             }
 
-
             await Clients.All.AllRemoveRoom(target, temp);
-            //return Task.FromResult(new ResponseBase<int>() { Success = true, TempNextRoom = temp });
         }
 
         /// <summary>
@@ -360,12 +348,11 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="RoomId"></param>
         /// <returns></returns>
-        public Task<ResponseBase<List<VotePlayers>>> VoteResult(int RoomId)
+        public async Task VoteResult(int RoomId)
         {
             var data = _votePlayers[RoomId].ToList();
             votePlayers.Clear();
-            Clients.Groups(RoomId.ToString()).VoteResult(data);
-            return Task.FromResult(new ResponseBase<List<VotePlayers>>() { Success = true, Data = data });
+            await Clients.Groups(RoomId.ToString()).VoteResult(data);
         }
 
         /// <summary>
@@ -373,7 +360,7 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Task<List<GameRoom>> PeopleDie(IEnumerable<GameRoom> data)
+        public async Task PeopleDie(IEnumerable<GameRoom> data)
         {
             _GameRoom.TryGetValue(data.ToList()[0].RoomId, out List<GameRoom> result);
 
@@ -384,14 +371,8 @@ namespace Wolf_Front.Hubs
 
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
-            Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
-
-            return Task.FromResult(newResult);
+            await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
         }
-
-
-
-
 
         /// <summary>
         /// PeopleResurrection
@@ -401,22 +382,20 @@ namespace Wolf_Front.Hubs
         public Task<List<GameRoom>> PeopleResurrection(IEnumerable<GameRoom> data)
         {
             _GameRoom.TryGetValue(data.ToList()[0].RoomId, out List<GameRoom> result);
-          
-            var rrr = _GameRoom.Values.FirstOrDefault(x => 
+
+            var rrr = _GameRoom.Values.FirstOrDefault(x =>
             {
                 var t = x.FirstOrDefault(p => p.RoomId == data.ToList()[0].RoomId && p.Account == data.ToList()[0].Account);
-                if(t != null)
+                if (t != null)
                 {
                     t.isAlive = true;
                     return true;
                 }
                 return false;
             });
-            _GameRoom.AddOrUpdate(rrr.ToList()[0].RoomId, new List<GameRoom>() ,(k ,v) => rrr);
+            _GameRoom.AddOrUpdate(rrr.ToList()[0].RoomId, new List<GameRoom>(), (k, v) => rrr);
             return Task.FromResult(rrr);
         }
-
-
 
 
         /// <summary>
@@ -439,8 +418,5 @@ namespace Wolf_Front.Hubs
             UserHandler.ConnectionIds.Remove(Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
         }
-
-
-
     }
 }

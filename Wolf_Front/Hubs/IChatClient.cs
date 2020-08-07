@@ -12,7 +12,7 @@ namespace Wolf_Front.Hubs
 
         Task NewRoom(List<RoomInfo> model,int temp);
 
-        Task GetAll(IEnumerable<RoomInfo> allInfo);
+        Task GetAll(IEnumerable<RoomInfo> all);
 
         Task JoinRoom(string Account);
 
@@ -25,5 +25,9 @@ namespace Wolf_Front.Hubs
         Task VoteResult(List<VotePlayers> data);
 
         Task PeopleDie(string Account);
+
+        Task aa(string Account);
+
+        Task Exception(string exce);
     }
 }
