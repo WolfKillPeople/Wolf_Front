@@ -368,7 +368,7 @@ input {
 }
 
 .add_room_href {
-    text-decoration: none;
+    text-decoration: none!important;
     margin-left: 7%;
 }
 

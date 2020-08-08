@@ -4,12 +4,12 @@ $('body').append(`<div class="sky_all">
 </div>
 <div style="position: relative;">
     <div class="add_room_container">
-        <div class="add_room_href">
+        <a href="#" class="add_room_href">
             <div class="add_room_btn">
                 <span id="add_btn">+創建房間</span>
                 <div class="dot"></div>
             </div>
-        </div>
+        </a>
         <form id="search_content">
             <input v-for="item in " type="text" name="room" class="input" id="search-input" placeholder="ID">
             <button type="reset" class="search" id="search-btn"></button>

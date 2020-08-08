@@ -124,8 +124,7 @@ namespace Wolf_Front.Hubs
             //將這個玩家加到指定的room
             await Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
             //將房間資訊給大家
-            //var allInfo = _Rooms.Values.SelectMany(x => x);
-            await Clients.All.GetAll(newRoomValue);
+            await Clients.All.GetAll(_Rooms.Values.SelectMany(x=>x));
 
             //只在這個房間傳送訊息
             await Clients.Groups(roomId.ToString()).JoinRoom(Account);
