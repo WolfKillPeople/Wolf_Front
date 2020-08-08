@@ -1,9 +1,17 @@
 //signalr監聽
+var deadLis = '';
+var deadNum = [];
 function signalrListener() {
+    //玩家死亡
     connection.on("PeopleDie", function (message) {
         let allHead = document.querySelectorAll('.deadimg');
-        for (let i = 0; i <= players.length; i++) {
-            if (players[i].player == message) { console.log(allHead[i]); allHead[i].setAttribute('style', 'display:flex');   }
+        for (let i = 0; i < players.length; i++) {
+            if (players[i].player == message) {
+                allHead[i].setAttribute('style', 'display:flex');
+                deadLis = deadLis + `${i + 1}號`;
+                deadNum.push(i);
+                players[i].isAlive = false;
+            }
         }
     });
 }
@@ -147,7 +155,7 @@ function toggleScheme() {
 //AJAX玩家職業資料
 var players = [
     {
-        "name": "村民",
+        "name": "狼王",
         "imgUrl": "https://i.imgur.com/4eJqZgk.png",
         "occupationId": 8,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
@@ -191,7 +199,7 @@ var players = [
         "playerPic": null
     },
     {
-        "name": "狼王",
+        "name": "獵人",
         "imgUrl": "https://i.imgur.com/fVQQgnM.png",
         "occupationId": 1,
         "description": "又稱「狼槍」、「毒狼」。除殉情或被毒殺外，以任何其他方式被淘汰時可以發動技能帶走任何一位玩家。狼王在場時，獵人和黑狼王淘汰啟動技能均不公布角色牌。部分局式中，黑狼王自爆不能發動技能。",
@@ -213,7 +221,7 @@ var players = [
         "playerPic": null
     },
     {
-        "name": "獵人",
+        "name": "村民",
         "imgUrl": "https://i.imgur.com/TIvcUG5.png",
         "occupationId": 6,
         "description": "神職。除殉情或被毒殺外，以任何其他方式被淘汰時可以公布角色牌發動技能開槍帶走一位玩家，亦可以選擇壓槍不發動技能。",
@@ -374,9 +382,9 @@ async function BindingThings() {
 }
 
 //玩家資料
-var myName = 'ma@gmail.com';
+var myName = 'dfghjkhgfrtyu@yuiknhuiol';
 var myAlive;
-var myJob;
+var myJob = '狼王';
 var myroomid = 1;
 let ary;
 async function playerHead() {
@@ -401,11 +409,11 @@ async function playerHead() {
 }
 
 async function Binding() {
-    myName = localStorage.getItem("myName");
+    //myName = localStorage.getItem("myName");
     players.forEach(element => {
         if (element.player == myName) {
             myAlive = this.isAlive;
-            myJob = this.name;
+            //myJob = this.name;
             let jobPhoto = this.imgUrl;
         }
     });
@@ -506,15 +514,16 @@ function DeleteRoom() {
     });
 }
 
+//各職業
 function wolf() {
     //if (myJob == "狼人" || myJob == "狼王" && myAlive == true) { }
-    $('.circleImg').css("pointer-events", "auto");
     $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto");
+    $('.circleImg').css("pointer-events", "auto");
 }
 function prophet() {
     //if (myJob == "預言家" && myAlive == true) { }
+    $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
-    $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto")
     $('.circleImg').append(` <div class="findperson" onclick="PlayerIsGood(this)" ></div>`);
     document.querySelectorAll('.findperson').forEach(function (element, index) {
         element.setAttribute('value', index + 1);
@@ -542,12 +551,22 @@ function witch() {
   </div>
   </li>`);
     }
-    $('#saveDead').click(function () { prepareDead = ''; witchSave = witchSave - 1; console.log(prepareDead); });
-    $('#noSaveDead').click(function () { prepareDead = saveOrDead; console.log(prepareDead); });
+    $('#saveDead').click(function () { prepareDead = ''; witchSave = witchSave - 1; });
+    $('#noSaveDead').click(function () { prepareDead = saveOrDead; });
 }
 function hunter() {
-    //if (myJob == "獵人" && myAlive == true) { }
-    $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto");
+    if (myJob == "獵人") {
+        $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto");
+        $('.circleImg').css("pointer-events", "auto");
+        $('#rightgamerecordli').append(`<li>請選擇帶走玩家</li>`);
+    }
+}
+function wolfKing() {
+    if (myJob == "狼王") {
+        $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto");
+        $('.circleImg').css("pointer-events", "auto");
+        $('#rightgamerecordli').append(`<li>請選擇帶走玩家</li>`);
+    }
 }
 
 
@@ -596,18 +615,48 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none");
 
-
+    //----------天亮遺言---------
+    $("body").css("cursor", "default");
+    $('#toggleDark').click();
+    document.getElementById("PeoplesendButton").hidden = true;
     if (prepareDead != '') { await deadConfirm(prepareDead); }
     if (voteResult != null && witchKill == 1) { await deadConfirm(voteResult); witchKill = witchKill - 1; }
 
-
-    //----------天亮遺言---------
-    //確認死亡
-    $("body").css("cursor", "default");
-    $('#toggleDark').click();
     //判斷輸贏
-    Speak('天亮請睜眼 昨晚某某某死了 幫哭哭');
-    await timeOn(5);
+    Speak('天亮請睜眼');
+    await timeOn(1);
+
+    if (deadNum.length > 0) {
+        Speak(`昨晚${deadLis}玩家死了`);
+        await timeOn(1);
+        for (let i = 0; i < deadNum.length; i++) {
+            if (players[deadNum[i]].name == '獵人') {
+                Speak('發動角色技能');
+                voteResult = null;
+                prepareDead = '';
+                await timeOn(1);
+                hunter();
+                await timeOn(15);
+                $('#rightgamerecordli li').remove();
+                $('.circleImg').css("pointer-events", "none");
+                $('.on').css("box-shadow", "none");
+                if (voteResult != null) { await deadConfirm(voteResult); }
+            }
+            if (players[deadNum[i]].name == '狼王') {
+                Speak('發動角色技能');
+                voteResult = null;
+                prepareDead = '';
+                await timeOn(1);
+                wolfKing();
+                await timeOn(15);
+                $('#rightgamerecordli li').remove();
+                $('.circleImg').css("pointer-events", "none");
+                $('.on').css("box-shadow", "none");
+                if (voteResult != null) { await deadConfirm(voteResult); }
+            }
+        }
+    } else { Speak('昨晚是平安夜'); await timeOn(1); }
+
 
     //if(某某某是 獵人){ if(自己是獵人) {獵人請選擇要帶走幾號玩家} }
     //if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
@@ -637,6 +686,15 @@ async function game() {
     //判斷輸贏
 
     //----------遺言---------
+        //for (let i = 0; i < deadNum.length; i++) {
+    //    Speak(`${deadNum[i] + 1}號玩家請發表遺言`);
+    //    await timeOn(1);
+    //    if (players[deadNum[i]].player == myName) {
+    //        document.getElementById("PeoplesendButton").hidden = false;
+    //    }
+    //    await timeOn(5);
+    //    document.getElementById("PeoplesendButton").hidden = true;
+    //}
 
 }
 
