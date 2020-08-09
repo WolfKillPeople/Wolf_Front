@@ -87,6 +87,11 @@ namespace Wolf_Front.Hubs
                 _temp = 1;
             }
 
+            //if (RoomList.Last().RoomId == 1)
+            //{
+            //    TempNextRoom = 2;
+            //}
+
             for (int i = 0; i < RoomList.Count; i++)
             {
                 if (RoomList[i].RoomId != i + 1)
@@ -99,6 +104,7 @@ namespace Wolf_Front.Hubs
                 {
                     _temp = RoomList.Last().RoomId + 1;
                 }
+
             }
 
             //將玩家加入到GameRoom
@@ -244,6 +250,11 @@ namespace Wolf_Front.Hubs
             if (data.Count == 0)
             {
                 _temp = 1;
+            }
+
+            if (data.Count == 0)
+            {
+                tempNextRoom = 1;
             }
 
             for (int i = 0; i < data.Count; i++)
