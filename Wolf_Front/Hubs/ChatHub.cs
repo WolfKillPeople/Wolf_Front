@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wolf_Front.Interface;
 using Wolf_Front.ViewModels;
-
 namespace Wolf_Front.Hubs
 {
     //[Authorize]
@@ -100,18 +99,15 @@ namespace Wolf_Front.Hubs
                     _temp = RoomList.Last().RoomId + 1;
                 }
             }
-
             //將玩家加入到GameRoom
             var gameModel = new List<GameRoom>
             {
                 new GameRoom() { RoomId = roomId, Account = account, IsAlive = true, ConnectionId = connectionId  }
             };
             _GameRoom.TryAdd(roomId, gameModel);
-
             //將roomId傳給每個玩家
             await Clients.All.NewRoom(model, _temp);
         }
-
 
         /// <summary>
         /// JoinRoom
@@ -126,7 +122,6 @@ namespace Wolf_Front.Hubs
             {
                 await Clients.Caller.Exception(Exce);
             }
-
             foreach (var item in _Rooms.Values)
             {
                 var _target = item.Find(x => x.RoomId == roomId);
@@ -139,9 +134,7 @@ namespace Wolf_Front.Hubs
                     break;
                 }
             }
-
             _Rooms.TryGetValue(roomId, out var target);
-
             var acc = target[0].Account;
             var tempList = acc.ToList();
 
@@ -155,7 +148,6 @@ namespace Wolf_Front.Hubs
                                     Account = tempList.ToArray(),
                                     Count = tempList.Count,
                                 }).ToList();
-
             _Rooms.TryUpdate(roomId, newRoomValue, target);
 
             //value assign to gameroom
@@ -247,7 +239,6 @@ namespace Wolf_Front.Hubs
             {
                 _temp = 1;
             }
-
             for (int i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
@@ -290,7 +281,6 @@ namespace Wolf_Front.Hubs
 
             await Clients.All.AllRemoveRoom(target, _temp);
         }
-
         /// <summary>
         /// Vote
         /// </summary>
@@ -323,7 +313,6 @@ namespace Wolf_Front.Hubs
                     }
                 }
             }
-
             var ran = new Random();
             var newVotePlayers = _svotePlayer.OrderByDescending(x => x.VoteTickets).ToList();
 
@@ -344,16 +333,13 @@ namespace Wolf_Front.Hubs
                             }
                         };
 
-
                         newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.User = null; });
                         roomKey.AddRange(newVotePlayers.Take(1));
                         break;
                     }
                 }
             }
-
         }
-
 
         /// <summary>
         /// VoteResult
@@ -367,7 +353,6 @@ namespace Wolf_Front.Hubs
             _votePlayers.TryRemove(data.ToList()[0].RoomID, out _);
             await Clients.Groups(roomId.ToString()).VoteResult(data);
         }
-
         /// <summary>
         /// PeopleDie
         /// </summary>
@@ -419,7 +404,6 @@ namespace Wolf_Front.Hubs
             UserHandler.ConnectionIds.Add(Context.ConnectionId);
             return base.OnConnectedAsync();
         }
-
         /// <summary>
         /// 離現時自動減少該玩家ID
         /// </summary>
