@@ -29,39 +29,6 @@ $('#addd').click(function () {
     });
 })
 
-var data = [{
-    "RoomId": 1,
-    "Account": "oo",
-    "isAlive": true
-}]
-
-$('#People_Die').click(function () {
-    connection.invoke("PeopleResurrection", data).then(function (res) {
-        debugger;
-        alert(res)
-    })
-})
-$('#JoinRoom').click(function () {
-    debugger;
-    connection.invoke("JoinRoom",1,"AAA").then(function (response) {
-        if (response.success) {
-            response.data.forEach(item => {
-                console.log(item);
-            });
-        }
-    })
-})
-$('#OutToRoom').click(function () {
-    debugger;
-    connection.invoke("OutToRoom", 1, "AAA").then(function (response) {
-        if (response.success) {
-            response.data.forEach(item => {
-                console.log(item);
-            });
-        }
-    })
-})
-
 var synth = window.speechSynthesis;
 var voices = [];
 //旁白說話
