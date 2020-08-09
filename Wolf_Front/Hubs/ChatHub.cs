@@ -87,11 +87,6 @@ namespace Wolf_Front.Hubs
                 _temp = 1;
             }
 
-            //if (RoomList.Last().RoomId == 1)
-            //{
-            //    TempNextRoom = 2;
-            //}
-
             for (int i = 0; i < RoomList.Count; i++)
             {
                 if (RoomList[i].RoomId != i + 1)
@@ -104,7 +99,6 @@ namespace Wolf_Front.Hubs
                 {
                     _temp = RoomList.Last().RoomId + 1;
                 }
-
             }
 
             //將玩家加入到GameRoom
@@ -216,7 +210,9 @@ namespace Wolf_Front.Hubs
 
             var newRoomValue = (target.Select(t => new RoomInfo
             {
-                RoomId = roomId, Account = tempList.ToArray(), Count = tempList.Count,
+                RoomId = roomId,
+                Account = tempList.ToArray(),
+                Count = tempList.Count,
             })).ToList();
 
             _Rooms.TryUpdate(roomId, newRoomValue, target);
@@ -252,11 +248,6 @@ namespace Wolf_Front.Hubs
                 _temp = 1;
             }
 
-            if (data.Count == 0)
-            {
-                tempNextRoom = 1;
-            }
-
             for (int i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
@@ -269,7 +260,7 @@ namespace Wolf_Front.Hubs
                 {
                     _temp = Enumerable.LastOrDefault(data).RoomId + 1;
                 }
-                
+
             }
             await Clients.All.GetAllRoomInfo(data, _temp);
         }
@@ -306,11 +297,7 @@ namespace Wolf_Front.Hubs
         /// <param name="data"></param>
         public void Vote(IEnumerable<VotePlayers> data)
         {
-            if (_votePlayers.ContainsKey(data.ToList()[0].RoomID))
-            {
-                _votePlayers.TryRemove(data.ToList()[0].RoomID, out _);
-            }
-
+            
             _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
             var roomKey = _votePlayers[data.ToList()[0].RoomID];
 
@@ -346,13 +333,12 @@ namespace Wolf_Front.Hubs
                 {
                     if (newVotePlayers[i].VoteTickets == newVotePlayers[o].VoteTickets)
                     {
-                        dynamic temp;
                         for (var r = 0; r < newVotePlayers.Count; r++)
                         {
                             var index = ran.Next(0, newVotePlayers.Count - 1);
                             if (index != r)
                             {
-                                temp = newVotePlayers[r];
+                                dynamic temp = newVotePlayers[r];
                                 newVotePlayers[r] = newVotePlayers[index];
                                 newVotePlayers[index] = temp;
                             }
@@ -378,6 +364,7 @@ namespace Wolf_Front.Hubs
         {
             var data = _votePlayers[roomId].ToList();
             _svotePlayer.Clear();
+            _votePlayers.TryRemove(data.ToList()[0].RoomID, out _);
             await Clients.Groups(roomId.ToString()).VoteResult(data);
         }
 
