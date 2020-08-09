@@ -11,6 +11,7 @@ function signalrListener() {
                 deadLis = deadLis + `${i + 1}號`;
                 deadNum.push(i);
                 players[i].isAlive = false;
+                //死掉特效+這裡
             }
         }
     });
