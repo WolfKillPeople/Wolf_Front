@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Wolf_Front.Models
 {
-    public partial class WerewolfkillContext : DbContext
+    public partial class WerewolfkillContext : IdentityDbContext
     {
         public WerewolfkillContext()
         {
@@ -148,7 +147,7 @@ namespace Wolf_Front.Models
 
             modelBuilder.Entity<Occupation>(entity =>
             {
-                entity.Property(e => e.OccupationId)
+                entity.Property(e => e.Occupation_ID)
                     .HasColumnName("Occupation_ID")
                     .ValueGeneratedNever();
 
@@ -156,13 +155,13 @@ namespace Wolf_Front.Models
                     .IsRequired()
                     .HasMaxLength(250);
 
-                entity.Property(e => e.OccupationGb)
+                entity.Property(e => e.Occupation_GB)
                     .IsRequired()
                     .HasColumnName("Occupation_GB")
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.OccupationName)
+                entity.Property(e => e.Occupation_Name)
                     .IsRequired()
                     .HasColumnName("Occupation_Name")
                     .HasMaxLength(3);

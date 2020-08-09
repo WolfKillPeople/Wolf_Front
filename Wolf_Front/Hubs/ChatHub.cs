@@ -13,29 +13,31 @@ namespace Wolf_Front.Hubs
     //[Authorize]
     public class ChatHub : Hub<IChatClient>
     {
-        static ConcurrentDictionary<int, List<RoomInfo>> _Rooms = new ConcurrentDictionary<int, List<RoomInfo>>();
+        private static ConcurrentDictionary<int, List<RoomInfo>> _Rooms = new ConcurrentDictionary<int, List<RoomInfo>>();
 
-        static ConcurrentDictionary<int, List<VotePlayers>> _votePlayers = new ConcurrentDictionary<int, List<VotePlayers>>();
+        private static ConcurrentDictionary<int, List<VotePlayers>> _votePlayers = new ConcurrentDictionary<int, List<VotePlayers>>();
 
-        static List<VotePlayers> votePlayers = new List<VotePlayers>();
+        private static List<VotePlayers> _svotePlayer = new List<VotePlayers>();
 
-        static ConcurrentDictionary<int, List<GameRoom>> _GameRoom = new ConcurrentDictionary<int, List<GameRoom>>();
+        private static ConcurrentDictionary<int, List<GameRoom>> _GameRoom = new ConcurrentDictionary<int, List<GameRoom>>();
+
+        private readonly IChatHubService _service;
 
         /// <summary>
         /// 下一間房間的roomID
         /// </summary>
-        private static int temp = 0;
+        private static int _temp;
 
         /// <summary>
-        /// 出錯時的
+        /// 錯誤訊息
         /// </summary>
         private const string Exce = "Fail";
 
-        private readonly IChatHubService _service;
-
-        public ChatHub(IChatHubService service)
+        public ChatHub(IChatHubService service, int temp = 0)
         {
             _service = service;
+            _temp = temp;
+
         }
 
         /// <summary>
@@ -82,20 +84,20 @@ namespace Wolf_Front.Hubs
             var RoomList = _Rooms.Values.SelectMany(o => o).ToList();
             if (RoomList.Count == 0)
             {
-                temp = 1;
+                _temp = 1;
             }
 
             for (int i = 0; i < RoomList.Count; i++)
             {
                 if (RoomList[i].RoomId != i + 1)
                 {
-                    temp = 0;
-                    temp = i + 1;
+                    _temp = 0;
+                    _temp = i + 1;
                     break;
                 }
                 else
                 {
-                    temp = RoomList.Last().RoomId + 1;
+                    _temp = RoomList.Last().RoomId + 1;
                 }
             }
 
@@ -107,7 +109,7 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryAdd(roomId, gameModel);
 
             //將roomId傳給每個玩家
-            await Clients.All.NewRoom(model, temp);
+            await Clients.All.NewRoom(model, _temp);
         }
 
 
@@ -201,25 +203,18 @@ namespace Wolf_Front.Hubs
             _Rooms.TryGetValue(roomId, out var target);
 
             var acc = target[0].Account;
-            var tempList = new List<string>();
+            var tempList = acc.ToList();
+
             //assign old value and new value to new List
-            foreach (var item in acc)
-            {
-                tempList.Add(item);
-            }
             tempList.Remove(Account);
 
-            var newRoomValue = (from t in target
-                                select new RoomInfo
-                                {
-                                    RoomId = roomId,
-                                    Account = tempList.ToArray(),
-                                    Count = tempList.Count,
-                                }).ToList();
+            var newRoomValue = (target.Select(t => new RoomInfo
+            {
+                RoomId = roomId, Account = tempList.ToArray(), Count = tempList.Count,
+            })).ToList();
 
             _Rooms.TryUpdate(roomId, newRoomValue, target);
 
-            //value assign to gamerooom
 
             _GameRoom.TryGetValue(roomId, out var newgameRooms);
             var a = newgameRooms.FirstOrDefault(x => x.Account == Account);
@@ -248,26 +243,25 @@ namespace Wolf_Front.Hubs
 
             if (data.Count == 0)
             {
-                temp = 1;
+                _temp = 1;
             }
 
             for (int i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
                 {
-                    temp = 0;
-                    temp = i + 1;
+                    _temp = 0;
+                    _temp = i + 1;
                     break;
                 }
                 else
                 {
-                    temp = Enumerable.LastOrDefault(data).RoomId + 1;
+                    _temp = Enumerable.LastOrDefault(data).RoomId + 1;
                 }
+                
             }
-
-            await Clients.All.GetAllRoomInfo(data, temp);
+            await Clients.All.GetAllRoomInfo(data, _temp);
         }
-
 
         /// <summary>
         /// RemoveRoom
@@ -286,13 +280,13 @@ namespace Wolf_Front.Hubs
             {
                 if (_Rooms.Keys.ToList()[i] != i + 1)
                 {
-                    temp = 0;
-                    temp = i + 1;
+                    _temp = 0;
+                    _temp = i + 1;
                     break;
                 }
             }
 
-            await Clients.All.AllRemoveRoom(target, temp);
+            await Clients.All.AllRemoveRoom(target, _temp);
         }
 
         /// <summary>
@@ -309,31 +303,31 @@ namespace Wolf_Front.Hubs
             _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
             var roomKey = _votePlayers[data.ToList()[0].RoomID];
 
-            votePlayers.ForEach(x => x.VoteTickets = 0);
+            _svotePlayer.ForEach(x => x.VoteTickets = 0);
 
-            if (votePlayers.Exists(x => data.ToList()[0].User == x.User) == false)
+            if (_svotePlayer.Exists(x => data.ToList()[0].User == x.User) == false)
             {
-                votePlayers.AddRange(data);
+                _svotePlayer.AddRange(data);
             }
             else
             {
-                var index = votePlayers.IndexOf(data.ToList()[0]);
-                votePlayers.InsertRange(index, data);
+                var index = _svotePlayer.IndexOf(data.ToList()[0]);
+                _svotePlayer.InsertRange(index, data);
             }
 
-            for (int i = 0; i < votePlayers.Count; i++)
+            for (int i = 0; i < _svotePlayer.Count; i++)
             {
-                for (int o = 0; o < votePlayers.Count; o++)
+                for (int o = 0; o < _svotePlayer.Count; o++)
                 {
-                    if (votePlayers[i].Vote == votePlayers[o].Vote)
+                    if (_svotePlayer[i].Vote == _svotePlayer[o].Vote)
                     {
-                        votePlayers[i].VoteTickets++;
+                        _svotePlayer[i].VoteTickets++;
                     }
                 }
             }
 
             var ran = new Random();
-            var newVotePlayers = votePlayers.OrderByDescending(x => x.VoteTickets).ToList();
+            var newVotePlayers = _svotePlayer.OrderByDescending(x => x.VoteTickets).ToList();
 
             for (var i = 0; i < newVotePlayers.Count; i++)
             {
@@ -372,7 +366,7 @@ namespace Wolf_Front.Hubs
         public async Task VoteResult(int roomId)
         {
             var data = _votePlayers[roomId].ToList();
-            votePlayers.Clear();
+            _svotePlayer.Clear();
             await Clients.Groups(roomId.ToString()).VoteResult(data);
         }
 
@@ -418,7 +412,6 @@ namespace Wolf_Front.Hubs
             return Task.FromResult(rrr);
         }
 
-
         /// <summary>
         /// 連線時自動加入玩家ID
         /// </summary>
@@ -454,14 +447,14 @@ namespace Wolf_Front.Hubs
         }
 
         /// <summary>
-        /// 進房後遊戲開始前拿取玩家頭像
+        /// 進房後遊戲開始前讀取玩家頭像
         /// </summary>
         /// <param name="roomId"></param>
         /// <param name="account"></param>
         /// <returns>string ImgUrl</returns>
         public async Task GetPlayerPic(int roomId, string account)
         {
-            await Clients.Groups(roomId.ToString()).SendAccountPic(_service.GetPlayerPic(account));
+            await Clients.Groups(roomId.ToString()).ReceiveAccountPic(_service.GetPlayerPic(account));
         }
     }
 }

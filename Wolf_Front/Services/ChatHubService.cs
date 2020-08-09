@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Wolf_Front.Interface;
 using Wolf_Front.ViewModels;
 
@@ -9,10 +8,11 @@ namespace Wolf_Front.Services
     public class ChatHubService : IChatHubService
     {
         private readonly IChatRepo _repo;
-
-        public ChatHubService(IChatRepo repo)
+        private int _o;
+        public ChatHubService(IChatRepo repo, int o = 0)
         {
             _repo = repo;
+            _o = o;
         }
 
         public string GetPlayerPic(string account)
@@ -22,7 +22,6 @@ namespace Wolf_Front.Services
 
         public List<GameRoom> GetRole(List<GameRoom> data, string connectionId)
         {
-            int o = 0;
             var _list = _repo.GetRoles();
             var result = new List<GameRoom>();
 
@@ -41,12 +40,12 @@ namespace Wolf_Front.Services
 
             foreach (var d in data)
             {
-                d.Name = _list[o].Name;
-                d.OccupationId = _list[o].OccupationId;
-                d.ImgUrl = _list[o].ImgUrl;
-                d.IsGood = _list[o].IsGood;
-                d.Description = _list[o].Description;
-                o++;
+                d.Name = _list[_o].Name;
+                d.OccupationId = _list[_o].OccupationId;
+                d.ImgUrl = _list[_o].ImgUrl;
+                d.IsGood = _list[_o].IsGood;
+                d.Description = _list[_o].Description;
+                _o++;
             }
 
             var t = data.Find(x => x.ConnectionId == connectionId);

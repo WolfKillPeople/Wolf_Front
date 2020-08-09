@@ -1,18 +1,18 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Wolf_Front.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Wolf_Front.Data;
 using Wolf_Front.Hubs;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Wolf_Front.Services;
-using Wolf_Front.Mapping;
-using AutoMapper;
 using Wolf_Front.Interface;
+using Wolf_Front.Mapping;
 using Wolf_Front.Repository;
+using Wolf_Front.Services;
 
 
 namespace Wolf_Front
@@ -52,7 +52,7 @@ namespace Wolf_Front
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-            services.AddScoped<IChatRepo, ChatHubRepo>();
+            services.AddScoped<IChatRepo, DapperChatHubRepo>();
             services.AddScoped<IChatHubService, ChatHubService>();
             services.AddControllersWithViews();
             services.AddRazorPages();

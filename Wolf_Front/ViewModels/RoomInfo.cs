@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Razor.Language.Extensions;
-
-namespace Wolf_Front.ViewModels
+﻿namespace Wolf_Front.ViewModels
 {
     /// <summary>
     /// RoomInfo

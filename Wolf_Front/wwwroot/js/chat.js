@@ -4,8 +4,8 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAuto
 
 
 //Disable send button until connection is established
-document.getElementById("PeoplesendButton").disabled = true;
-document.getElementById("WolfsendButton").disabled = true;
+document.getElementById("sendButton").disabled = true;
+document.getElementById("sendButton2").disabled = true;
 
 
 
@@ -48,15 +48,15 @@ connection.on("ReceiveMessage", function (user, message, roomId) {
 });
 
 connection.start().then(function () {
-    document.getElementById("PeoplesendButton").disabled = false;
-    document.getElementById("WolfsendButton").disabled = false;
+    document.getElementById("sendButton").disabled = false;
+    document.getElementById("sendButton2").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
 
 
 
-document.getElementById("PeoplesendButton").addEventListener("click", function (event) {
+document.getElementById("sendButton").addEventListener("click", function (event) {
     //var user = document.getElementById('userInput').value;
     var message = document.getElementById('PeoplemessageInput').value;
     var user;
@@ -69,7 +69,7 @@ document.getElementById("PeoplesendButton").addEventListener("click", function (
     }
 });
 
-document.getElementById("WolfsendButton").addEventListener("click", function (event) {
+document.getElementById("sendButton2").addEventListener("click", function (event) {
     var user;
     var message2 = document.getElementById("WolfmessageInput").value;
     if (message2 != "") {
@@ -82,23 +82,19 @@ document.getElementById("WolfsendButton").addEventListener("click", function (ev
 });
 
 //-----------------SAMPLE----------------------
-var roomId = 1;
-var id;
-var account = "oo";
+//var roomId = 1;
+//var id;
 
-$('#Test').click(function () {
-    connection.invoke("GetRole", roomId, account).then(function (response) {
-        if (response.success) {
-            id = response.data;
-            alert(response.data);
-        }
-    });
-});
 
-connection.on("GetRole",
-    function(result) {
-        alert(result);
-    });
+//$('#Test').click(function () {
+//    var account = "Text009@gmail.com";
+//    connection.invoke("GetPlayerPic", roomId, account);
+//});
+
+//connection.on("ReceiveAccountPic",
+//    function (response) {
+//        alert(response);
+//    });
 
 
 

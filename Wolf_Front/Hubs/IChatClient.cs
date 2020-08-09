@@ -30,7 +30,7 @@ namespace Wolf_Front.Hubs
 
         Task Exception(string exce);
 
-        Task SendAccountPic(string ImgUrl);
+        Task ReceiveAccountPic(string ImgUrl);
 
         Task GetRole(List<GameRoom> data);
     }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
-using Wolf_Front.Data;
+using System.Linq;
 using Wolf_Front.Interface;
 using Wolf_Front.Models;
 using GameRoom = Wolf_Front.ViewModels.GameRoom;
@@ -10,10 +10,10 @@ namespace Wolf_Front.Repository
 {
     public class ChatHubRepo : IChatRepo
     {
-        private readonly ApplicationDbContext _context;
+        private readonly WerewolfkillContext _context;
         private readonly IMapper _mapper;
 
-        public ChatHubRepo(ApplicationDbContext context, IMapper mapper)
+        public ChatHubRepo(WerewolfkillContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

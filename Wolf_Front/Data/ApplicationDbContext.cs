@@ -12,5 +12,7 @@ namespace Wolf_Front.Data
             : base(options)
         {
         }
+
+
     }
 }
