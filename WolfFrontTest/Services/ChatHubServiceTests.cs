@@ -45,13 +45,12 @@ namespace Wolf_Front.Services.Tests
             var result = new List<GameRoom>();
 
             var random = new Random();
-            dynamic temp;
             for (var i = 0; i < _list.Count; i++)
             {
                 var index = random.Next(0, _list.Count - 1);
                 if (index != i)
                 {
-                    temp = _list[i];
+                    var temp = _list[i];
                     _list[i] = _list[index];
                     _list[index] = temp;
                 }
