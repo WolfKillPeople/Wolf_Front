@@ -572,7 +572,6 @@ function wolfKing() {
 
 //以下遊戲主體
 async function game() {
-
     //----------顯示規則---------
     //$('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
@@ -583,119 +582,128 @@ async function game() {
     Speak('請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(5);
 
-    //----------狼人---------
-    voteResult = null;
-    prepareDead = '';
-    $('#toggleDark').click();
-    Speak('天黑請閉眼，狼人請殺人');
-    wolf();
-    await timeOn(10);
-    $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none")
-    voteBack();
-    await getVoteResult();
+    for (let round = 0; round < 100; round++) {
+        //----------狼人---------
+        voteResult = null;
+        prepareDead = '';
+        $('#toggleDark').click();
+        Speak('天黑請閉眼，狼人請殺人');
+        wolf();
+        await timeOn(10);
+        $('.circleImg').css("pointer-events", "none");
+        $('.on').css("box-shadow", "none")
+        voteBack();
+        await getVoteResult();
 
-    //----------預言家---------
-    Speak('預言家請選擇玩家查身分');
-    prophet();
-    await timeOn(1);
-    $('.findperson').css("display", "none")
-    $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none")
-    $('#rightgamerecordli li').remove();
+        //----------預言家---------
+        Speak('預言家請選擇玩家查身分');
+        prophet();
+        await timeOn(5);
+        $('.findperson').css("display", "none")
+        $('.circleImg').css("pointer-events", "none");
+        $('.on').css("box-shadow", "none")
+        $('#rightgamerecordli li').remove();
 
-    //----------女巫---------
-    voteResult = null;
-    Speak('此玩家死亡，女巫是否救人');
-    witch();
-    await timeOn(3);
-    Speak('女巫是否殺人');
-    await timeOn(3);
-    $('#rightgamerecordli li').remove();
-    $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none");
+        //----------女巫---------
+        voteResult = null;
+        Speak('此玩家死亡，女巫是否救人');
+        witch();
+        await timeOn(3);
+        Speak('女巫是否殺人');
+        await timeOn(3);
+        $('#rightgamerecordli li').remove();
+        $('.circleImg').css("pointer-events", "none");
+        $('.on').css("box-shadow", "none");
 
-    //----------天亮遺言---------
-    $("body").css("cursor", "default");
-    $('#toggleDark').click();
-    document.getElementById("PeoplesendButton").hidden = true;
-    if (prepareDead != '') { await deadConfirm(prepareDead); }
-    if (voteResult != null && witchKill == 1) { await deadConfirm(voteResult); witchKill = witchKill - 1; }
-
-    //判斷輸贏
-    Speak('天亮請睜眼');
-    await timeOn(1);
-
-    if (deadNum.length > 0) {
-        Speak(`昨晚${deadLis}玩家死了`);
-        await timeOn(1);
-        for (let i = 0; i < deadNum.length; i++) {
-            if (players[deadNum[i]].name == '獵人') {
-                Speak('發動角色技能');
-                voteResult = null;
-                prepareDead = '';
-                await timeOn(1);
-                hunter();
-                await timeOn(15);
-                $('#rightgamerecordli li').remove();
-                $('.circleImg').css("pointer-events", "none");
-                $('.on').css("box-shadow", "none");
-                if (voteResult != null) { await deadConfirm(voteResult); }
-            }
-            if (players[deadNum[i]].name == '狼王') {
-                Speak('發動角色技能');
-                voteResult = null;
-                prepareDead = '';
-                await timeOn(1);
-                wolfKing();
-                await timeOn(15);
-                $('#rightgamerecordli li').remove();
-                $('.circleImg').css("pointer-events", "none");
-                $('.on').css("box-shadow", "none");
-                if (voteResult != null) { await deadConfirm(voteResult); }
-            }
-        }
-    } else { Speak('昨晚是平安夜'); await timeOn(1); }
-
-
-    //if(某某某是 獵人){ if(自己是獵人) {獵人請選擇要帶走幾號玩家} }
-    //if(某某某是 狼王){ if(自己是狼王) {狼王請選擇要帶走幾號玩家} }
-    //await timeOn(10);
-    //voteBack();
-    //getVoteResult();
-
-    //----------討論---------
-    Speak('輪流發言時間');
-    for (let i = 0; i < players.length; i++) {
+        //----------天亮遺言---------
+        $("body").css("cursor", "default");
+        $('#toggleDark').click();
         document.getElementById("PeoplesendButton").hidden = true;
-        if (players[i].player == myName) {
-            document.getElementById("PeoplesendButton").hidden = false;
-        }
-        Speak(`${i + 1}號玩家發言`);
+        if (prepareDead != '') { await deadConfirm(prepareDead); }
+        if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1; }
+        if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
+
+        //判斷輸贏
+        Speak('天亮請睜眼');
         await timeOn(1);
+
+        if (deadNum.length > 0) {
+            Speak(`昨晚${deadLis}玩家死了`);
+            await timeOn(1);
+            for (let i = 0; i < deadNum.length; i++) {
+                if (players[deadNum[i]].name == '獵人') {
+                    Speak('發動角色技能');
+                    voteResult = null;
+                    prepareDead = '';
+                    await timeOn(1);
+                    hunter();
+                    await timeOn(15);
+                    $('#rightgamerecordli li').remove();
+                    $('.circleImg').css("pointer-events", "none");
+                    $('.on').css("box-shadow", "none");
+                    if (voteResult != null) { await deadConfirm(voteResult); }
+                    if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
+                    await timeOn(1);
+                }
+                if (players[deadNum[i]].name == '狼王') {
+                    Speak('發動角色技能');
+                    voteResult = null;
+                    prepareDead = '';
+                    await timeOn(1);
+                    wolfKing();
+                    await timeOn(15);
+                    $('#rightgamerecordli li').remove();
+                    $('.circleImg').css("pointer-events", "none");
+                    $('.on').css("box-shadow", "none");
+                    if (voteResult != null) { await deadConfirm(voteResult); }
+                    if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
+                    await timeOn(1);
+                }
+            }
+        } else { Speak('昨晚是平安夜'); await timeOn(1); }
+
+        //----------討論---------
+        Speak('輪流發言時間');
+        for (let i = 0; i < players.length; i++) {
+            document.getElementById("PeoplesendButton").hidden = true;
+            if (players[i].isAlive) {
+                if (players[i].player == myName) {
+                    document.getElementById("PeoplesendButton").hidden = false;
+                }
+                Speak(`${i + 1}號玩家發言`);
+                await timeOn(3);
+                document.getElementById("PeoplesendButton").hidden = true;
+            }
+        }
+
+        //----------投票---------
+        voteResult = null;
+        prepareDead = '';
+        await timeOn(1);
+        Speak('所有玩家投票，得票最高者將出局');
+        $('.circleImg').css("pointer-events", "auto");
+        await timeOn(10);
+        $('.circleImg').css("pointer-events", "none");
+        $('.on').css("box-shadow", "none")
+        voteBack();
+        await getVoteResult();
+        await deadConfirm(prepareDead);
+        await timeOn(1);
+        Speak(`${prepareDead}號玩家最高票`);
+
+        //判斷輸贏
+
+        //----------遺言---------
+        for (let i = 0; i < deadNum.length; i++) {
+            Speak(`${deadNum[i] + 1}號玩家請發表遺言`);
+            await timeOn(1);
+            if (players[deadNum[i]].player == myName) {
+                document.getElementById("PeoplesendButton").hidden = false;
+            }
+            await timeOn(5);
+            document.getElementById("PeoplesendButton").hidden = true;
+        }
     }
-
-    //----------投票---------
-    Speak('所有玩家投票，得票最高者將出局');
-    $('.circleImg').css("pointer-events", "auto");
-    await timeOn(10);
-    voteBack();
-    getVoteResult();
-    $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none")
-    //判斷輸贏
-
-    //----------遺言---------
-        //for (let i = 0; i < deadNum.length; i++) {
-    //    Speak(`${deadNum[i] + 1}號玩家請發表遺言`);
-    //    await timeOn(1);
-    //    if (players[deadNum[i]].player == myName) {
-    //        document.getElementById("PeoplesendButton").hidden = false;
-    //    }
-    //    await timeOn(5);
-    //    document.getElementById("PeoplesendButton").hidden = true;
-    //}
-
 }
 
 signalrListener();
