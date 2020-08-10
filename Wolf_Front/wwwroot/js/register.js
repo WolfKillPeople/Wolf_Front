@@ -27,6 +27,8 @@ function change_Userimg() {
 }
 
 $('.users_pic').click(changePICS(this));
+
+//預設一張圖
 $(document).ready(function () {
     $('#avatat').attr('src', "https://i.imgur.com/FMfI2fM.png");
 
@@ -74,8 +76,27 @@ const upload = new Vue({
     }
 });
 $(document).ready(function () {
+
     $('#upload_icon').click(function () {
         $('#update').click();
     });
 
 });
+
+$('.registered_Account').click(function () {
+    var getOriPic = $('#avatat').attr('src');
+    console.log(getOriPic);
+    localStorage.setItem('Register_pic', `${getOriPic}`);
+    //petch??
+
+    //$.ajax({
+    //    type: 'POST',
+    //    url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/AddRoom',
+    //    dataType: 'json',
+    //    contentType: 'application/json;charset=UTF-8',
+    //    data: JSON.stringify(jsonData),
+    //    success: function (msg) {
+    //        //alert('Data Saved: ' + msg);
+    //    }
+    //});
+})

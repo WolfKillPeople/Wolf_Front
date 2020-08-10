@@ -2,12 +2,8 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAutomaticReconnect([0, 0, 10000]).build();
 
-
-//Disable send button until connection is established
 document.getElementById("PeoplesendButton").disabled = true;
 document.getElementById("WolfsendButton").disabled = true;
-
-
 
 function ChangeDay() {
     var Day = document.getElementById("Day").value;
@@ -20,7 +16,7 @@ function ChangeDay() {
     }
 }
 
-connection.on("ReceiveMessage", function (user, message, roomId) {
+connection.on("ReceiveMessage", function (user, message) {
     var Day = document.getElementById("Day").value;
     if (user == "人類" && Day == "白天") {
         document.getElementById("PeoplemessagesList").hidden = false;
@@ -87,7 +83,7 @@ var id;
 var account = "oo";
 
 $('#Create').click(function () {
-    debugger;
+    debugger
     connection.invoke("CreateRoom", roomId, account).then(function (response) {
         if (response.success) {
             id = response.data;
@@ -97,7 +93,6 @@ $('#Create').click(function () {
 });
 
 $('#Delete').click(function () {
-    debugger;
     connection.invoke("RemoveRoom", roomId).then(function (response) {
         if (response.success) {
             alert(response.success);
@@ -106,7 +101,6 @@ $('#Delete').click(function () {
 });
 
 $('#GetAll').click(function () {
-    debugger;
     connection.invoke("GetAllRoom").then(function (response) {
         if (response.success) {
             response.data.forEach(item => {
@@ -115,5 +109,3 @@ $('#GetAll').click(function () {
         }
     })
 })
-
-

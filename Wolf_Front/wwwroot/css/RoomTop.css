@@ -21,7 +21,7 @@
     -webkit-perspective: 450px;
     border-radius: 3px;
     box-sizing: border-box;
-    user-select: none;
+    user-select:none;
 }
 
 .thumb {
@@ -369,7 +369,7 @@ input {
 }
 
 .add_room_href {
-    text-decoration: none!important;
+    text-decoration: none;
     margin-left: 7%;
 }
 
@@ -518,6 +518,7 @@ input {
 }
 
 .trigger-button {
+    user-select:none;
     font-size: 17px;
     top: 100px;
     display: block;
@@ -532,7 +533,6 @@ input {
     margin-top: -45px;
     margin-left: auto;
     margin-right: auto;
-    user-select: none;
 }
 
     .trigger-button:hover {
@@ -697,6 +697,20 @@ input {
     height: 60px;
     z-index: 6;
     margin-right:650px;
+}
+
+.confirmBtn {
+    background-color: #CCEEFF;
+    border: 0;
+    display: flex;
+    margin-left: 0;
+    float: right;
+    color:#000;
+    margin-right:5%;
+}
+    .confirmBtn:hover {
+        background-color: #4e5f72;
+    }
 }
 .deleteBtn {
     margin-top:100px;

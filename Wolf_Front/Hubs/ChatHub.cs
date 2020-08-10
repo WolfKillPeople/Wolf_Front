@@ -52,7 +52,6 @@ namespace Wolf_Front.Hubs
             {
                 temp = 1;
             }
-
             for (int i = 0; i < RoomList.Count; i++)
             {
                 if (RoomList[i].RoomId != i + 1)
@@ -74,7 +73,6 @@ namespace Wolf_Front.Hubs
             await Clients.All.NewRoom(model, temp);
             //return Task.FromResult(new ResponseBase<string>() { Success = true, Data = model[0].RoomId.ToString(), Count = accountTemp.Count, TempNextRoom = temp, Message = "創建房間成功" });
         }
-
         /// <summary>
         /// JoinRoom
         /// </summary>
@@ -124,13 +122,11 @@ namespace Wolf_Front.Hubs
             //將這個玩家加到指定的room
             await Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
             //將房間資訊給大家
-            await Clients.All.GetAll(_Rooms.Values.SelectMany(x=>x));
-
+            await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x));
             //只在這個房間傳送訊息
             await Clients.Groups(roomId.ToString()).JoinRoom(Account);
             //return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newRoomValue });
         }
-
         /// <summary>
         /// OutToRoom
         /// </summary>
@@ -182,7 +178,6 @@ namespace Wolf_Front.Hubs
             Clients.Groups(roomId.ToString()).aa(Account);
             return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newRoomValue });
         }
-
         /// <summary>
         /// GetAllRoom
         /// </summary>
@@ -190,7 +185,6 @@ namespace Wolf_Front.Hubs
         public async Task/*<ResponseBase<List<RoomInfo>>>*/ GetAllRoom()
         {
             var data = _Rooms.Values.SelectMany(x => x).ToList();
-
             if (data.Count == 0)
             {
                 temp = 1;
@@ -211,7 +205,6 @@ namespace Wolf_Front.Hubs
             await Clients.All.GetAllRoomInfo(data, temp);
             //return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = data, TempNextRoom = temp });
         }
-
         /// <summary>
         /// RemoveRoom
         /// </summary>
@@ -233,7 +226,6 @@ namespace Wolf_Front.Hubs
                     break;
                 }
             }
-
             await Clients.All.AllRemoveRoom(target, temp);
             //return Task.FromResult(new ResponseBase<int>() { Success = true, TempNextRoom = temp });
         }
@@ -288,14 +280,12 @@ namespace Wolf_Front.Hubs
                                 newVotePlayers[index] = temp;
                             }
                         };
-
                         newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.User = null; });
                         roomKey.AddRange(newVotePlayers.Take(1));
                     }
                 }
             }
         }
-
         /// <summary>
         /// VoteResult
         /// </summary>
@@ -332,7 +322,6 @@ namespace Wolf_Front.Hubs
         public Task<List<GameRoom>> PeopleResurrection(IEnumerable<GameRoom> data)
         {
             _GameRoom.TryGetValue(data.ToList()[0].RoomId, out List<GameRoom> result);
-
             var rrr = _GameRoom.Values.FirstOrDefault(x =>
             {
                 var t = x.FirstOrDefault(p => p.RoomId == data.ToList()[0].RoomId && p.Account == data.ToList()[0].Account);
@@ -346,7 +335,6 @@ namespace Wolf_Front.Hubs
             _GameRoom.AddOrUpdate(rrr.ToList()[0].RoomId, new List<GameRoom>(), (k, v) => rrr);
             return Task.FromResult(rrr);
         }
-
         /// <summary>
         /// 連線時自動加入玩家ID
         /// </summary>
@@ -366,6 +354,5 @@ namespace Wolf_Front.Hubs
             UserHandler.ConnectionIds.Remove(Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
         }
-
     }
 }
