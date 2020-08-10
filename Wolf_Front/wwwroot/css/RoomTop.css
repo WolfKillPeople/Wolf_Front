@@ -21,6 +21,7 @@
     -webkit-perspective: 450px;
     border-radius: 3px;
     box-sizing: border-box;
+    user-select: none;
 }
 
 .thumb {
@@ -531,6 +532,7 @@ input {
     margin-top: -45px;
     margin-left: auto;
     margin-right: auto;
+    user-select: none;
 }
 
     .trigger-button:hover {
