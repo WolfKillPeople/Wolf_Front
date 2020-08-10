@@ -74,13 +74,13 @@ $('body').append(`<div class="sky_all">
         <label for="toggle" class="exit">&times;</label>
         <div class="imgcontainer mx-auto d-flex justify-content-center user_img">
             <div class="btn user_img_btn" data-toggle="tooltip" data-placement="right" id="user_img" title="選擇更換頭像">
-                <img id="avatat" class="avatat" src="https://i.imgur.com/9Pbvhnk.png" alt="user" v-model="item.PicUrl" onclick="change_Userimg(this)">
+                <img id="avatat" class="avatat" src="" alt="user" v-model="item.PicUrl" onclick="change_Userimg(this)">
             </div>
         </div>
         <button class="btn btn-primary confirmBtn d-flex align-items-center">修改圖片</button>
         <ul class="member_info justify-content-start my-5">
             <li>
-                <p class=ml-1>會員帳號:</p>
+                <span class=ml-1>會員帳號 :</span> <span class="Account_email ml-2"> </span>
             </li>
         </ul>        
     </aside>

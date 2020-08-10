@@ -21,6 +21,7 @@
     -webkit-perspective: 450px;
     border-radius: 3px;
     box-sizing: border-box;
+    user-select:none;
 }
 
 .thumb {
@@ -517,6 +518,7 @@ input {
 }
 
 .trigger-button {
+    user-select:none;
     font-size: 17px;
     top: 100px;
     display: block;
