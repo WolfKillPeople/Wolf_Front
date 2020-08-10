@@ -10,6 +10,10 @@
     "mssql2": {
       "type": "mssql",
       "connectionId": "Wolf_FrontContextConnection"
+    },
+    "signalr1": {
+      "type": "signalr",
+      "connectionId": "Azure__SignalR__ConnectionString"
     }
   }
 }

@@ -106,7 +106,7 @@ function nightAudio() {
 //背景夜晚白天轉換
 let toggle = document.getElementById('toggleDark');
 toggle.addEventListener('click', toggleScheme, true);
-let image = document.querySelector('.image');
+let image = document.querySelector('.image'); 
 function closeMessage() {
     document.getElementById("PeopleuserInput").hidden = true;
     document.getElementById("PeoplemessageInput").hidden = true;
@@ -330,7 +330,6 @@ async function BindingPlayers() {
         array = [];
     }
 }
-
 //雜物生成
 async function BindingThings() {
     //滑鼠移到職業圖片顯示該職業描述
@@ -369,7 +368,6 @@ async function BindingThings() {
         $('.img-spin').css("animation-duration", " 1s")
         var tt = document.styleSheets[0];
         tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
-
     });
     $('#closebtn').click(function () {
         $('.img-spin').css("animation-name", " spin")
@@ -377,11 +375,8 @@ async function BindingThings() {
         $('.img-spin').css("animation-duration", " 1s")
         var tt = document.styleSheets[0];
         tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
-
     });
-
 }
-
 //玩家資料
 var myName = 'dfghjkhgfrtyu@yuiknhuiol';
 var myAlive;
@@ -423,7 +418,6 @@ async function Binding() {
         data: { items: ary[0] },
     });
 }
-
 //投票
 var voteResult;
 function vote(a, b, c, d, e, f, g, h, i, j) {
@@ -450,7 +444,6 @@ function voteBack() {
     }];
     connection.invoke("Vote", backVoteResult);
 }
-
 //取投票結果
 var prepareDead;
 function getVoteResult() {
@@ -458,7 +451,6 @@ function getVoteResult() {
         prepareDead = res.data[0].vote;
     });
 }
-
 //確認死亡
 function deadConfirm(die) {
     let deadMan = players[die - 1];
@@ -495,7 +487,6 @@ function GetPersonInroom() {
         }
     })
 }
-
 //離開房間
 function LeaveRoom() {
     PersonInroom = 0;
@@ -715,7 +706,6 @@ BindingThings();
 closeMessage();
 game();
 
-
 //let _array;
 //async function DeadUpdate() {
 //    let _obj = [
@@ -777,10 +767,8 @@ game();
 //            'Content-type': 'application/json'
 //        },
 //        success: function (response) {
-
 //            _array = response;
 //            console.log(_array);
-
 //            Binding();
 //        }
 //    });

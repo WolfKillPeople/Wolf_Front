@@ -41,8 +41,9 @@ namespace Wolf_Front
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
             });
-            services.AddMvc();
             services.AddAutoMapper(typeof(MappingProfile));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSignalR().AddAzureSignalR();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -56,7 +57,6 @@ namespace Wolf_Front
             services.AddScoped<IChatHubService, ChatHubService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +89,8 @@ namespace Wolf_Front
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseFileServer();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -169,8 +169,6 @@ namespace Wolf_Front.Hubs
             //只在這個房間傳送訊息
             await Clients.Groups(roomId.ToString()).JoinRoom(account);
         }
-
-
         /// <summary>
         /// OutToRoom
         /// </summary>
@@ -193,7 +191,6 @@ namespace Wolf_Front.Hubs
                 i++;
             }
             _Rooms.TryGetValue(roomId, out var target);
-
             var acc = target[0].Account;
             var tempList = acc.ToList();
 
@@ -215,18 +212,13 @@ namespace Wolf_Front.Hubs
             newgameRooms.Remove(a);
             _GameRoom.TryRemove(roomId, out _);
             _GameRoom.TryAdd(roomId, newgameRooms);
-
             //將這個玩家加到指定的room
             Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
-
             //只在這個房間傳送訊息
             Clients.Groups(roomId.ToString()).aa(Account);
 
             return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newRoomValue });
         }
-
-
-
         /// <summary>
         /// GetAllRoom
         /// </summary>

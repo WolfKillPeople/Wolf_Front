@@ -7,8 +7,6 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAuto
 document.getElementById("sendButton").disabled = true;
 document.getElementById("sendButton2").disabled = true;
 
-
-
 function ChangeDay() {
     var Day = document.getElementById("Day").value;
     if (Day == "白天") {
@@ -20,7 +18,7 @@ function ChangeDay() {
     }
 }
 
-connection.on("ReceiveMessage", function (user, message, roomId) {
+connection.on("ReceiveMessage", function (user, message) {
     var Day = document.getElementById("Day").value;
     if (user == "人類" && Day == "白天") {
         document.getElementById("PeoplemessagesList").hidden = false;
