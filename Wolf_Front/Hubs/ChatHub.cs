@@ -233,7 +233,8 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public async Task GetAllRoom()
         {
-            var data = _Rooms.Values.SelectMany(x => x).ToList();
+            //var data = _Rooms.Values.SelectMany(x => x).ToList();
+            var data = _Rooms.SelectMany(x => x.Value).ToList();
 
             if (data.Count == 0)
             {
