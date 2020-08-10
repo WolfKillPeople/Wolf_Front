@@ -10,6 +10,7 @@ using Wolf_Front.Hubs;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Wolf_Front.Services;
 using System.Configuration;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Wolf_Front
 {
@@ -37,7 +38,8 @@ namespace Wolf_Front
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
             });
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSignalR().AddAzureSignalR();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -50,7 +52,6 @@ namespace Wolf_Front
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,7 +84,8 @@ namespace Wolf_Front
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseFileServer();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
