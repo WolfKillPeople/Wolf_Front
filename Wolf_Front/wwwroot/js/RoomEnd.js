@@ -203,7 +203,7 @@ connection.on("NewRoom", function (model, temp) {
 });
 
 $(".add_room_btn").on("click", addDoor);
-var account = "登凱";
+var account = localStorage.getItem('myName');
 
 function addDoor() {    
     connection.invoke("CreateRoom", nextRoom, account);
