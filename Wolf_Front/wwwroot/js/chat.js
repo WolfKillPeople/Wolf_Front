@@ -4,8 +4,10 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAuto
 
 
 //Disable send button until connection is established
-document.getElementById("sendButton").disabled = true;
-document.getElementById("sendButton2").disabled = true;
+document.getElementById("PeoplesendButton").disabled = true;
+document.getElementById("WolfsendButton").disabled = true;
+
+
 
 function ChangeDay() {
     var Day = document.getElementById("Day").value;
@@ -18,7 +20,7 @@ function ChangeDay() {
     }
 }
 
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("ReceiveMessage", function (user, message, roomId) {
     var Day = document.getElementById("Day").value;
     if (user == "人類" && Day == "白天") {
         document.getElementById("PeoplemessagesList").hidden = false;
@@ -46,15 +48,15 @@ connection.on("ReceiveMessage", function (user, message) {
 });
 
 connection.start().then(function () {
-    document.getElementById("sendButton").disabled = false;
-    document.getElementById("sendButton2").disabled = false;
+    document.getElementById("PeoplesendButton").disabled = false;
+    document.getElementById("WolfsendButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
 
 
 
-document.getElementById("sendButton").addEventListener("click", function (event) {
+document.getElementById("PeoplesendButton").addEventListener("click", function (event) {
     //var user = document.getElementById('userInput').value;
     var message = document.getElementById('PeoplemessageInput').value;
     var user;
@@ -67,7 +69,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     }
 });
 
-document.getElementById("sendButton2").addEventListener("click", function (event) {
+document.getElementById("WolfsendButton").addEventListener("click", function (event) {
     var user;
     var message2 = document.getElementById("WolfmessageInput").value;
     if (message2 != "") {

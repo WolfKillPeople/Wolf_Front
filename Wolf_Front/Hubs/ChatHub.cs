@@ -181,7 +181,7 @@ namespace Wolf_Front.Hubs
         {
             if (!_Rooms.ContainsKey(roomId))
             {
-                await Clients.Caller.Exception(exce);
+                await Clients.Caller.Exception(Exce);
             }
 
             foreach (var item in _Rooms.Values)
@@ -189,7 +189,7 @@ namespace Wolf_Front.Hubs
                 var _target = item.Find(x => x.RoomId == roomId);
                 if (_target != null && _target.Count.Equals(10))
                 {
-                    await Clients.Caller.Exception(exce);
+                    await Clients.Caller.Exception(Exce);
                 }
                 else
                 {
@@ -221,7 +221,7 @@ namespace Wolf_Front.Hubs
             //value assign to gamerooom
 
             _GameRoom.TryGetValue(roomId, out var newgameRooms);
-            newgameRooms.Remove(new GameRoom { RoomId = roomId, Account = Account, isAlive = true });
+            newgameRooms.Remove(new GameRoom { RoomId = roomId, Account = Account, IsAlive = true });
             _GameRoom.TryRemove(roomId, out _);
             _GameRoom.TryAdd(roomId, newgameRooms);
 
@@ -372,12 +372,7 @@ namespace Wolf_Front.Hubs
 
             var newResult = new List<GameRoom>();
             newResult = result;
-            //var target = newResult.Find(x => x.RoomId == data.ToList()[0].RoomId && x.Account == data.ToList()[0].Account);
-            foreach (var o in newResult)
-            {
-                o.IsAlive = false;
-            }
-            //target.IsAlive = false;
+            newResult.ForEach(o => o.IsAlive = false);
 
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
