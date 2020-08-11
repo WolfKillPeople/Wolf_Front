@@ -1243,3 +1243,7 @@ path, polygon {
     filter: alpha(Opacity=100);
     border-radius: 20%;
 }*/
+.Character{
+    text-align:center;
+    font-size:36px;
+}

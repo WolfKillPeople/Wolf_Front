@@ -629,7 +629,7 @@ function wolfKing() {
 //以下遊戲主體
 async function game() {
     //----------顯示規則---------
-    //$('#staticBackdrop').modal('show');
+    $('#staticBackdrop').modal('show');
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     await timeOn(1);
