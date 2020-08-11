@@ -26,7 +26,7 @@ namespace Wolf_Front.Services
 
         public Task Execute(string sendGridKey, string subject, string htmlMessage, string email)
         {
-            var client = new SendGridClient("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");
+            var client = new SendGridClient("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");
             var msg = new SendGridMessage()
             {
                 From = new EmailAddress("bswolfkill@gmail.com", Options.SendGridUser),
