@@ -581,7 +581,7 @@ $('.confirmBtn').click(function () {
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(picData),
         success: function (msg) {
-            alert('Data Saved: ' + msg);
+            //alert('Data Saved: ' + msg);
         }
     });
 })
