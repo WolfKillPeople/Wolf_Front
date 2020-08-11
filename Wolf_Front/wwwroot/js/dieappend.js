@@ -274,11 +274,11 @@ $('body').append(`
 
 
 
-        $(document).ready(function () {
-            gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
-            gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
-            // 速度
-            setTimeout(function () {
-                $("#ketchup").css({ "pointer-events": "all" });
-            }, 4000);
-        });
+        //$(document).ready(function () {
+        //    gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
+        //    gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
+        //    // 速度
+        //    setTimeout(function () {
+        //        $("#ketchup").css({ "pointer-events": "all" });
+        //    }, 4000);
+        //});

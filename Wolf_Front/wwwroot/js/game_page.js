@@ -1,6 +1,8 @@
 //signalr監聽
+$('.diepage').hide();
 var deadLis = '';
 var deadNum = [];
+
 function signalrListener() {
     //玩家死亡
     connection.on("PeopleDie", function (message) {
@@ -13,10 +15,28 @@ function signalrListener() {
                 players[i].isAlive = false;
                 //死掉特效+這裡
 
+                $('.diepage').show();
+                $('.image').hide();
+                //血的特效
+                    gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
+                    gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
+                    // 速度
+                    setTimeout(function () {
+                        $("#ketchup").css({ "pointer-events": "all" });
+                    }, 6000).then(function () {
+                        $('.diepage').hide();
+                        $('.image').show();
+                        $("#ketchup").css({ "display": "none" });
+                        alert('i die')
+                    });
+                
             }
         }
+
     });
+  
 }
+
 
 //測試建房按鈕
 var id;
@@ -629,6 +649,7 @@ function wolfKing() {
 async function game() {
     //----------顯示規則---------
     $('#staticBackdrop').modal('show');
+  
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     await timeOn(1);
@@ -675,7 +696,8 @@ async function game() {
         $('#toggleDark').click();
         document.getElementById("PeoplesendButton").hidden = true;
         if (prepareDead != null && prepareDead != 'null') { await deadConfirm(prepareDead); }
-        if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1;}
+        if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1; }
+
         
 
         //判斷輸贏
