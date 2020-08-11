@@ -58,7 +58,7 @@ namespace Wolf_Front.Hubs
         /// <param name="account"></param>
         /// <param name="connectionId"></param>
         /// <returns></returns>
-        public async Task CreateRoom(int roomId, string account, string connectionId)
+        public async Task CreateRoom(int roomId, string account)
         {
             if (_Rooms.ContainsKey(roomId))
             {
@@ -102,7 +102,7 @@ namespace Wolf_Front.Hubs
             //將玩家加入到GameRoom
             var gameModel = new List<GameRoom>
             {
-                new GameRoom() { RoomId = roomId, Account = account, IsAlive = true, ConnectionId = connectionId  }
+                new GameRoom() { RoomId = roomId, Account = account, IsAlive = true  }
             };
             _GameRoom.TryAdd(roomId, gameModel);
             //將roomId傳給每個玩家
@@ -155,7 +155,7 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryGetValue(roomId, out var newgameRooms);
             if (newgameRooms != null)
             {
-                newgameRooms.Add(new GameRoom { RoomId = roomId, Account = account, IsAlive = true, ConnectionId = connectionId });
+                newgameRooms.Add(new GameRoom { RoomId = roomId, Account = account, IsAlive = true });
                 _GameRoom.TryRemove(roomId, out _);
                 _GameRoom.TryAdd(roomId, newgameRooms);
             }
@@ -225,7 +225,7 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryRemove(roomId, out _);
             _GameRoom.TryAdd(roomId, newgameRooms);
 
-            //將這個玩家加到指定的room
+            //將這個玩家從指定的room移除
             await Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
             //只在這個房間傳送訊息
@@ -275,13 +275,21 @@ namespace Wolf_Front.Hubs
             await Clients.Groups(roomId.ToString()).GroupRemoveRoom(roomisClose);
             _Rooms.TryRemove(roomId, out _);
             _GameRoom.TryRemove(roomId, out _);
-            var target = _Rooms.Values.SelectMany(x => x);
+            IEnumerable<RoomInfo> target;
+
+            if (_Rooms.IsEmpty == true)
+            {
+                _temp = 1;
+                target = null;
+                await Clients.All.AllRemoveRoom(target, _temp);
+            }
+
+            target = _Rooms.Values.SelectMany(x => x);
 
             for (var i = 0; i < target.ToList().Count; i++)
             {
                 if (_Rooms.Keys.ToList()[i] != i + 1)
                 {
-                    _temp = 0;
                     _temp = i + 1;
                     break;
                 }
@@ -423,27 +431,15 @@ namespace Wolf_Front.Hubs
         }
 
         /// <summary>
-        /// 遊戲開始時分配玩家職業,針對connectionId去傳
+        /// 遊戲開始時分配玩家職業
         /// </summary>
         /// <param name="roomId"></param>
-        /// <param name="connectionId"></param>
         /// <returns></returns>
-        public async Task GetRole(int roomId, string connectionId)
+        public async Task GetRole(int roomId)
         {
-            _GameRoom.TryGetValue(roomId, out var usersList);
-            var result = _service.GetRole(usersList, connectionId);
-            await Clients.Client(connectionId).GetRole(result);
-        }
-
-        /// <summary>
-        /// 進房後遊戲開始前讀取玩家頭像
-        /// </summary>
-        /// <param name="roomId"></param>
-        /// <param name="account"></param>
-        /// <returns>string ImgUrl</returns>
-        public async Task GetPlayerPic(int roomId, string account)
-        {
-            await Clients.Groups(roomId.ToString()).ReceiveAccountPic(_service.GetPlayerPic(account));
+            _GameRoom.TryGetValue(roomId, out var userList);
+            var result = _service.GetRole(userList);
+            await Clients.Group(roomId.ToString()).GetRole(result);
         }
     }
 }

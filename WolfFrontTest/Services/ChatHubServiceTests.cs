@@ -13,19 +13,33 @@ namespace Wolf_Front.Services.Tests
         [TestMethod()]
         public void GetRoleTest()
         {
-            int o = 0;
+            int _o = 0;
             var data = new List<GameRoom>()
             {
-                new GameRoom(){RoomId = 1, Account = "aa", ConnectionId = "123", IsAlive = true},
-                new GameRoom(){RoomId = 1, Account = "bb", ConnectionId = "234", IsAlive = true},
-                new GameRoom(){RoomId = 1, Account = "cc", ConnectionId = "456", IsAlive = true},
-                new GameRoom(){RoomId = 1, Account = "dd", ConnectionId = "789", IsAlive = true},
-                new GameRoom(){RoomId = 1, Account = "ee", ConnectionId = "asdad", IsAlive = true},
-                new GameRoom(){RoomId = 1, Account = "ff", ConnectionId = "zxcew123", IsAlive = true},
-                new GameRoom(){RoomId = 1, Account = "gg", ConnectionId = "1d1", IsAlive = true},
-                new GameRoom(){RoomId = 1, Account = "hh", ConnectionId = "frvwq", IsAlive = true},
-                new GameRoom(){RoomId = 1, Account = "ii", ConnectionId = "bqd", IsAlive = true},
-                new GameRoom(){RoomId = 1, Account = "jj", ConnectionId = "12v1v13", IsAlive = true},
+                new GameRoom(){RoomId = 1, Account = "aa", IsAlive = true,PlayerPic = null},
+                new GameRoom(){RoomId = 1, Account = "bb", IsAlive = true,PlayerPic = null},
+                new GameRoom(){RoomId = 1, Account = "cc", IsAlive = true,PlayerPic =null},
+                new GameRoom(){RoomId = 1, Account = "dd", IsAlive = true,PlayerPic = null},
+                new GameRoom(){RoomId = 1, Account = "ee", IsAlive = true,PlayerPic =null},
+                new GameRoom(){RoomId = 1, Account = "ff", IsAlive = true,PlayerPic = null},
+                new GameRoom(){RoomId = 1, Account = "gg", IsAlive = true,PlayerPic = null},
+                new GameRoom(){RoomId = 1, Account = "hh", IsAlive = true,PlayerPic =null},
+                new GameRoom(){RoomId = 1, Account = "ii", IsAlive = true,PlayerPic = null},
+                new GameRoom(){RoomId = 1, Account = "jj", IsAlive = true,PlayerPic = null},
+            };
+
+            var GetPicList = new List<GameRoom>()
+            {
+                new GameRoom(){RoomId = 1, Account = "aa", IsAlive = true,PlayerPic = "213.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "bb", IsAlive = true,PlayerPic = "321.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "cc", IsAlive = true,PlayerPic = "wdfwf.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "dd", IsAlive = true,PlayerPic = "dsadac.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "ee", IsAlive = true,PlayerPic = "zxcv.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "ff", IsAlive = true,PlayerPic = "123ds.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "gg", IsAlive = true,PlayerPic = "43f.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "hh", IsAlive = true,PlayerPic = "3eds.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "ii", IsAlive = true,PlayerPic = "5tgb.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "jj", IsAlive = true,PlayerPic = "zxcd.imgur.com"},
             };
 
             var _list = new List<GameRoom>()
@@ -41,8 +55,6 @@ namespace Wolf_Front.Services.Tests
                 new GameRoom{OccupationId=9,Name="村民",ImgUrl="https://imgur.com/4eJqZgk",Description="村民",IsGood=true},
                 new GameRoom{OccupationId=10,Name="村民",ImgUrl="https://imgur.com/D2o6MV6",Description="村民",IsGood=true}
             };
-            string connectionId = "123";
-            var result = new List<GameRoom>();
 
             var random = new Random();
             for (var i = 0; i < _list.Count; i++)
@@ -56,20 +68,18 @@ namespace Wolf_Front.Services.Tests
                 }
             };
 
-            foreach (var d in data)
+            foreach (var d in GetPicList)
             {
-                d.Name = _list[o].Name;
-                d.OccupationId = _list[o].OccupationId;
-                d.ImgUrl = _list[o].ImgUrl;
-                d.IsGood = _list[o].IsGood;
-                d.Description = _list[o].Description;
-                o++;
+                d.Name = _list[_o].Name;
+                d.OccupationId = _list[_o].OccupationId;
+                d.ImgUrl = _list[_o].ImgUrl;
+                d.IsGood = _list[_o].IsGood;
+                d.Description = _list[_o].Description;
+                _o++;
             }
 
-            var t = data.Find(x => x.ConnectionId == connectionId);
-            result.Add(t);
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1,result.Count);
+
+            Assert.IsNotNull(GetPicList);
         }
     }
 }

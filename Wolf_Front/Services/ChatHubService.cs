@@ -15,15 +15,10 @@ namespace Wolf_Front.Services
             _o = o;
         }
 
-        public string GetPlayerPic(string account)
-        {
-            return _repo.GetPlayerPic(account);
-        }
-
-        public List<GameRoom> GetRole(List<GameRoom> data, string connectionId)
+        public List<GameRoom> GetRole(List<GameRoom> data)
         {
             var _list = _repo.GetRoles();
-            var result = new List<GameRoom>();
+            var GetPicList = _repo.GetPlayerPic(data);
 
             var random = new Random();
             for (var i = 0; i < _list.Count; i++)
@@ -37,7 +32,7 @@ namespace Wolf_Front.Services
                 }
             };
 
-            foreach (var d in data)
+            foreach (var d in GetPicList)
             {
                 d.Name = _list[_o].Name;
                 d.OccupationId = _list[_o].OccupationId;
@@ -46,10 +41,8 @@ namespace Wolf_Front.Services
                 d.Description = _list[_o].Description;
                 _o++;
             }
-
-            var t = data.Find(x => x.ConnectionId == connectionId);
-            result.Add(t);
-            return result;
+            
+            return GetPicList;
         }
     }
 }

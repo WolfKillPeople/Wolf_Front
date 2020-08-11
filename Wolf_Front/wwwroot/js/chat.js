@@ -82,19 +82,19 @@ document.getElementById("WolfsendButton").addEventListener("click", function (ev
 });
 
 //-----------------SAMPLE----------------------
-//var roomId = 1;
-//var id;
+var roomId = 1;
+var id;
 
 
-//$('#Test').click(function () {
-//    var account = "Text009@gmail.com";
-//    connection.invoke("GetPlayerPic", roomId, account);
-//});
+$('#Test').click(function () {
+    
+    connection.invoke("GetRole", roomId);
+});
 
-//connection.on("ReceiveAccountPic",
-//    function (response) {
-//        alert(response);
-//    });
+connection.on("GetRole",
+    function (response) {
+        alert(response);
+    });
 
 
 

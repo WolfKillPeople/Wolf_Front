@@ -19,13 +19,20 @@ namespace Wolf_Front.Repository
             _mapper = mapper;
         }
 
-        public string GetPlayerPic(string account)
+        public List<GameRoom> GetPlayerPic(List<GameRoom> data)
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                var sql = @"select Pic from AspNetUsers where UserName = @UserName";
-                var total = conn.Query<AspNetUsers>(sql, new { UserName = account}).ToList();
-                return total[0].Pic;
+                var sql = @"select Pic from AspNetUsers where UserName = @Name";
+                var target = new List<GameRoom>();
+                for (int i = 0; i < data.Count; i++)
+                {
+                    var total = conn.Query<AspNetUsers>(sql, data[i]).ToList();
+                    total.ForEach(x => data[i].PlayerPic = x.Pic);
+                }
+                //var total = conn.Query<AspNetUsers>(sql, data).ToList();
+                //return total[0].Pic;
+                return data;
             }
         }
 

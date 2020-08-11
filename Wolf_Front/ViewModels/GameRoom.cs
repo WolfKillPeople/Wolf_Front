@@ -13,12 +13,6 @@
         public string Account { get; set; }
 
         /// <summary>
-        /// 玩家連線Id
-        /// </summary>
-        public string ConnectionId { get; set; }
-
-
-        /// <summary>
         /// 角色名稱
         /// </summary>
         public string Name { get; set; }
@@ -47,5 +41,10 @@
         /// 玩家存活狀態
         /// </summary>
         public bool IsAlive { get; set; }
+
+        /// <summary>
+        /// 玩家照片
+        /// </summary>
+        public string PlayerPic { get; set; }
     }
 }
