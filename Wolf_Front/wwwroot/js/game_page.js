@@ -599,7 +599,7 @@ async function game() {
         Speak('預言家請選擇玩家查身分');
         prophet();
         await timeOn(5);
-        $('.findperson').css("display", "none")
+        $('.findperson').remove();
         $('.circleImg').css("pointer-events", "none");
         $('.on').css("box-shadow", "none")
         $('#rightgamerecordli li').remove();

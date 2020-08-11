@@ -258,7 +258,6 @@ namespace Wolf_Front.Hubs
                 var index = votePlayers.IndexOf(data.ToList()[0]);
                 votePlayers.InsertRange(index, data);
             }
-
             for (int i = 0; i < votePlayers.Count; i++)
             {
                 for (int o = 0; o < votePlayers.Count; o++)
@@ -272,7 +271,6 @@ namespace Wolf_Front.Hubs
 
             var ran = new Random();
             var newVotePlayers = votePlayers.OrderByDescending(x => x.VoteTickets).ToList();
-
             for (int i = 0; i < newVotePlayers.Count; i++)
             {
                 for (int o = 0; o < newVotePlayers.Count; o++)
