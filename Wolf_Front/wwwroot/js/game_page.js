@@ -23,7 +23,7 @@ $('#addd').click(function () {
     connection.invoke("CreateRoom", 1, "dfghjkhgfrtyu@yuiknhuiol").then(function (response) {
         if (response.success) {
             id = response.data;
-            console.log(`roomID=${myroomid}`);
+            alert(`roomID=${myroomid}`);
         }
     });
 })
@@ -155,7 +155,7 @@ function toggleScheme() {
 //AJAX玩家職業資料
 var players = [
     {
-        "name": "狼王",
+        "name": "女巫",
         "imgUrl": "https://i.imgur.com/4eJqZgk.png",
         "occupationId": 8,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
@@ -188,7 +188,7 @@ var players = [
         "playerPic": null
     },
     {
-        "name": "女巫",
+        "name": "狼王",
         "imgUrl": "https://i.imgur.com/i9eRyug.png",
         "occupationId": 5,
         "description": "神職。擁有一瓶解藥和一瓶毒藥。解藥未使用時可以得知狼人的殺害對象，並決定是否救這一位玩家。然而，解藥全程不能用於解救自己。女巫也可以利用白天所得資訊，將懷疑的對象毒殺，該對象死後不能發動技能。解藥和毒藥不可以在同一夜使用。",
@@ -621,12 +621,11 @@ async function game() {
         document.getElementById("PeoplesendButton").hidden = true;
         if (prepareDead != null && prepareDead != 'null') { await deadConfirm(prepareDead); }
         if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1;}
-        if (voteResult != null) { Speak(`${voteResult}號玩家死亡`);}
+        
 
         //判斷輸贏
         Speak('天亮請睜眼');
         await timeOn(1);
-
         if (deadNum.length > 0) {
             Speak(`昨晚${deadLis}玩家死了`);
             await timeOn(1);
