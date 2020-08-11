@@ -6,6 +6,5 @@ namespace Wolf_Front.Interface
     public interface IChatHubService
     {
         public List<GameRoom> GetRole(List<GameRoom> data);
-        //public string GetPlayerPic(string account);
     }
 }

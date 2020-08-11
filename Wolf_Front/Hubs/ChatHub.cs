@@ -56,7 +56,6 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="roomId"></param>
         /// <param name="account"></param>
-        /// <param name="connectionId"></param>
         /// <returns></returns>
         public async Task CreateRoom(int roomId, string account)
         {
@@ -114,9 +113,8 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="roomId"></param>
         /// <param name="account"></param>
-        /// <param name="connectionId"></param>
         /// <returns></returns>
-        public async Task JoinRoom(int roomId, string account, string connectionId)
+        public async Task JoinRoom(int roomId, string account)
         {
             if (!_Rooms.ContainsKey(roomId))
             {
@@ -219,7 +217,6 @@ namespace Wolf_Front.Hubs
             _Rooms.TryUpdate(roomId, newRoomValue, target);
 
             //value assign to gamerooom
-
             _GameRoom.TryGetValue(roomId, out var newgameRooms);
             newgameRooms.Remove(new GameRoom { RoomId = roomId, Account = Account, IsAlive = true });
             _GameRoom.TryRemove(roomId, out _);

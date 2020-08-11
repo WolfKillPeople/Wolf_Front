@@ -7,6 +7,5 @@ namespace Wolf_Front.Interface
     {
         public List<GameRoom> GetPlayerPic(List<GameRoom> data);
         public List<GameRoom> GetRoles();
-
     }
 }
