@@ -25,9 +25,11 @@ namespace Wolf_Front.Hubs
         Task VoteResult(List<VotePlayers> data);
 
         Task PeopleDie(string Account);
+        Task PeopleResurrection(string Account);
 
-        Task aa(string Account);
-
+        
         Task Exception(string exce);
+        Task OutToRoom(string Account);
+
     }
 }
