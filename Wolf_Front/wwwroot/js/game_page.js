@@ -762,6 +762,7 @@ async function game() {
 
 signalrListener();
 //AJAX玩家資料
+console.log('body load done!!!');
 BindingPlayers();
 playerHead();
 BindingThings();
