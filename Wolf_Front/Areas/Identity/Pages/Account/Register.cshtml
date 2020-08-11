@@ -1,0 +1,120 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "註冊";
+}
+@section topCSS{
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="~/css/registered.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+}
+<button id="music_btn" class="btn active" onclick="play()" value=1>
+    ▶
+</button>
+<audio autoplay="autoplay" loop="loop" id="Bgm_music">
+    <source src="~/music/homePage.mp3" type="audio/mp3" />
+</audio>
+
+<!-- registered Modal -->
+<button id="music_btn" class="btn active" onclick="play()" value=1>
+    ▶
+</button>
+<audio autoplay="autoplay" loop="loop" id="Bgm_music">
+    <source src="~/music/homePage.mp3" type="audio/mp3" />
+</audio>
+<div class="registered_modal" id="registered_modal" tabindex="-1" role="dialog"
+     aria-labelledby="registered_modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bgc_account">
+            <div class="modal-header border-bottom-0 justify-content-center">
+                <h5 class="modal-title" id="registered_modal" style="color: #fff;">註冊帳號</h5>
+            </div>
+
+            <div class="modal-body">
+                <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="imgcontainer mx-auto d-flex justify-content-center">
+                        <div class="btn user_img_btn" data-toggle="tooltip" data-placement="right" id="user_img"
+                             title="選擇更換頭像">
+                            <img id="avatat" class="avatat" src="https://i.imgur.com/FMfI2fM.png" alt="user" v-model="item.PicUrl">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email">帳號</label>
+                        <input asp-for="Input.Email" class="form-control" id="Email_ID" placeholder="Enter email" type="email" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password">密碼</label>
+                        <input asp-for="Input.Password" class="form-control" id="USer_password" placeholder="Enter password" type="password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.ConfirmPassword">確認密碼</label>
+                        <input asp-for="Input.ConfirmPassword" class="form-control" id="USer_password"
+                               placeholder="Checked password" type="password" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-control mt-4 justify-content-center registered_Account">註冊</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- userImg Modal -->
+<div class="modal fade " id="user_pic" tabindex="-1" role="dialog" aria-labelledby="userImgModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content user_Choiceimg">
+            <div class="modal-header border-bottom-0 user_btn">
+                <h5 class="modal-title" id="userImgModalLabel">頭像選擇</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="d-flex row">
+                <!-- onclick="changePICS(this)" -->
+                <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/9Pbvhnk.png"
+                     alt="girl1" onclick="changePICS(this)">
+                <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/ayhI3DJ.png"
+                     alt="girl2" onclick="changePICS(this)">
+                <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/XFglbZc.png"
+                     alt="girl3" onclick="changePICS(this)">
+            </div>
+            <div class="d-flex row">
+                <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/HBcZ8nk.png" alt="boy2"
+                     onclick="changePICS(this)">
+                <img aria-label="Close" data-dismiss="modal" class="btn users_pic" src="https://i.imgur.com/vRjQfJc.png" alt="boy3"
+                     onclick="changePICS(this)">
+                <!-- <button   class="btn users_pic user_picws plus mt-5 ml-4 " onclick="changePICS(this)"><b>+</b></button> -->
+                <div class="upLoadImg btn" id="upLoadImg">
+                    <span class="upload_icon" id="upload_icon">+</span>
+                    <input type="file" id="update" class="btn users_pic plus" v-on:change="load">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}
+@section endJS{
+    <script src="~/js/register.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+}

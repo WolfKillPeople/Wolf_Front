@@ -1,0 +1,70 @@
+.body {
+  background-size: cover;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.bgm-pic {
+    background-image: url(https://i.imgur.com/mF8XJ9t.png);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.avatat {
+  border-radius: 50%;
+  width: 30%;
+}
+
+.user_img_btn {
+  border-radius: 50%;
+  outline: none;
+}
+
+.user_img_btn:active {
+  outline: none;
+}
+
+.user_img_btn:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline: none;
+}
+
+.bgc_account {
+  background-color: #0f0502;
+}
+
+.modal-body label {
+  color: #fff;
+}
+
+.user_img {
+  background-color: transparent;
+}
+
+.user_Choiceimg {
+  background-color: #d4feff;
+}
+
+.users_pic {
+  width: 30%;
+  height: auto;
+}
+
+.upLoadImg {
+  height: 6rem;
+  width: 6rem;
+  border: 2px #000 dashed;
+  font-size: 50px;
+  margin-top: 60px;
+  margin-left: 40px;
+}
+
+.plus {
+  display: none;
+}
+#music_btn {
+    display: none;
+}
+/*# sourceMappingURL=registered.css.map */

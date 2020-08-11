@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/start.css">
+
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <script async src="../js/jsbat.js"></script>
+    <script src="./js/sound.js"></script>
+    <title>BS狼人殺</title>
+</head>
+<body class="BG_img">
+
+
+    <button id="music_btn" class="btn active" onclick="play()" value=1>
+        ▶
+    </button>
+    <audio autoplay="autoplay" loop="loop"  id="Bgm_music">
+        <source src="./music/homePage.mp3" type="audio/mp3" />
+    </audio>
+
+    <div class="wrap col-md-12 col-12">
+        <div class="container d-flex justify-content-center">
+            <div class="title text-center">
+                <link href="https://fonts.googleapis.com/css?family=Raleway:300,500,700,900" rel="stylesheet">
+
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width: 0;height: 0;">
+                    <defs>
+                        <filter id="goo">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                                           result="goo" />
+                            <feBlend in="SourceGraphic" in2="goo" />
+                        </filter>
+                    </defs>
+                </svg>
+
+                <h2 class="title">
+                    B S 狼 人 殺
+                    <span class="drop"></span>
+                    <span class="drop"></span>
+                    <span class="drop"></span>
+                    <span class="drop"></span>
+                    <span class="drop"></span>
+                </h2>
+                
+                
+                <button class="btn Start_Game_Btn mt-5 col-md-12 col-12 " id="Start_Game_Btn" onclick="location.href='https://werewolfkill.azurewebsites.net/Identity/Account/Login'">遊戲開始</button>
+                <!--<button class="btn Start_Game_Btn mt-5 col-md-12 col-12 " id="Start_Game_Btn" onclick="location.href='https://localhost:12701/Identity/Account/login'">遊戲開始</button>-->
+                <img class="wolf_yell col-md-12 col-12 col-sm-12" src="https://i.imgur.com/zkKlDeY.png" alt="wolf">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+</body>
+</html>

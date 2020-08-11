@@ -1,0 +1,93 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "登入";
+}
+@section topCSS{
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="~/css/signin.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+    <script async src="~/js/jsbat.js"></script>
+}
+
+<button id="music_btn" class="btn active" onclick="play()" value=1>
+    ▶
+</button>
+<audio autoplay="autoplay" loop="loop" id="Bgm_music">
+    <source src="~/music/homePage.mp3" type="audio/mp3" />
+</audio>
+<div class="wrap col-md-12 col-12">
+    <div class="container d-flex justify-content-center">
+        <div class="title text-center">
+            <img src="https://i.imgur.com/g4rDyId.png" alt="BS 狼人殺" />
+            <br />
+        </div>
+    </div>
+</div>
+
+<div class="ShowSign_in" id="login" tabindex="-1" role="dialog" aria-labelledby="loginModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bgc">
+            <div class="modal-header border-bottom-0 justify-content-center">
+                <h5 class="modal-title" id="loginModal" style="color: #fff;">帳號登入</h5>
+            </div>
+
+            <div class="modal-body pt-0">
+                <form id="account" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email">帳號</label>
+                        <input asp-for="Input.Email" class="form-control" id="Email_ID" placeholder="Enter email" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password">密碼</label>
+                        <input asp-for="Input.Password" class="form-control" id="USer_password" placeholder="Enter password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                記住密碼
+                            </label>
+                        </div>
+                    </div>
+                    @*<input type="button" class="btnClass" value="點擊">*@
+                    <div class="form-group">
+                        <button type="submit" class="btnClass btn btn-primary form-control Sign_in">登入</button>
+                    </div>
+                    <div class="form-group modal-footer justify-content-center" style="border-top-width: 0px;">
+                        <button type="button" class="btn btn-danger registered" id="registered" onclick="location.href='https://werewolfkill.azurewebsites.net/Identity/Account/Register'">註冊</button>
+                        @*<button type="button" class="btn btn-danger registered" id="registered" onclick="location.href='https://localhost:12701/Identity/Account/Register'">註冊</button>*@
+                        <span class="forgetPSW"><a id="forgot-password" asp-page="./ForgotPassword">忘記密碼?</a> </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+@section endJS{
+    <script src="~/js/BGM.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+}

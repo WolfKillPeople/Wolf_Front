@@ -1,0 +1,43 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register confirmation";
+}
+@section topCSS{
+    <link href="~/css/background_img.css" rel="stylesheet" />
+}
+
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+        <div class="wrap col-md-12 col-12">
+            <div class="container d-flex justify-content-center">
+                <div class="title text-center">
+                    <img src="https://i.imgur.com/g4rDyId.png" alt="BS 狼人殺" />
+                    <br />
+                </div>
+            </div>
+        </div>
+        <h5>BS狼人殺</h5>
+        <p>
+            This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
+            Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
+        </p>
+    }
+    else
+    {
+        <div class="wrap col-md-12 col-12">
+            <div class="container d-flex justify-content-center">
+                <div class="title text-center">
+                    <img src="https://i.imgur.com/g4rDyId.png" alt="BS 狼人殺" />
+                    <br />
+                </div>
+            </div>
+        </div>
+        <h3 class="mx-auto text-center mt-5">請到信箱中點選確認信。<br>如未收到請稍等約5~10分鐘<br />BS狼人殺<br><a class="btn btn-dark mt-4" href="~/Startpage.html">回首頁</a></h3>
+        
+    }
+}
+@section endJs{
+    <script src="~/js/background_img.js"></script>
+}
