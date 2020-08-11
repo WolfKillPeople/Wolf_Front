@@ -2,7 +2,7 @@
     overflow: hidden;
 }*/
 
-#transition {
+#dietransition {
     transform: scale(.5);
     position: absolute;
 }
@@ -36,7 +36,7 @@
     opacity: 0;
 }
 
-#transition {
+#dietransition {
     transform: scale(1);
     position: absolute;
     top: -3050px;
@@ -96,7 +96,8 @@
 }
 
 /* 墳墓的css */
-/*body {
+.diepage {
+    width:100%;
     display: flex;
     flex-direction: column;
     background-repeat: no-repeat;
@@ -110,48 +111,31 @@
     padding-bottom: 65px;
     font-size: 20px;
     background-color: black;
-}*/
-
-/*a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}*/
-#dietitle h1,
-h2 {
-    /* margin: 0;*/
-    color: white;
-    /* text-align: center;*/
-    /*    margin-top: 5%;*/
 }
 
-#dietitle h1 {
+
+
+
+#dietitle {
     font-size: 50px;
+    color: white;
 }
 
-    #dietitle h1 span {
+ #dietitle span {
         color: #B2FF59;
     }
 
-#die h2 {
-    font-size: 30px;
-}
+
 
 #die {
     height: 45vh;
 }
 
-svg:hover {
+/*svg:hover {
     cursor: pointer;
 }
+*/
 
-a {
-    text-decoration: none;
-    /*  color: #FF6F00; */
-}
 
 footer {
     background: rgba(0, 0, 0, 0.8);

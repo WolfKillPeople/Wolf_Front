@@ -1,5 +1,7 @@
-$('body').append(`  <!-- 血 -->
-<svg version="1.1" id="transition" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+$('body').append(`
+<div class="diepage">
+<!-- 血 -->
+<svg version="1.1" id="dietransition" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
     x="0px" y="0px" width="1920px" height="3000px" viewBox="0 0 1920 3000" enable-background="new 0 0 1920 3000"
     xml:space="preserve">
     <g>
@@ -265,15 +267,16 @@ $('body').append(`  <!-- 血 -->
             d="M338,573a31.63,31.63,0,0,0-30,21.7,42.8,42.8,0,0,0-19.2-4.6,41.66,41.66,0,0,0-22.7,6.6,52,52,0,1,0-7.3,65.5,42.36,42.36,0,0,0,72.3-26.9,31.94,31.94,0,0,0,7,.8A31.55,31.55,0,1,0,338,573Z"
             transform="translate(-124 -276.25)" />
     </g>
-    </svg>`)
+    </svg>
+</div>`)
 
 
 
 
 
         $(document).ready(function () {
-            gsap.to("#transition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
-            gsap.to("#transition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
+            gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
+            gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
             // 速度
             setTimeout(function () {
                 $("#ketchup").css({ "pointer-events": "all" });

@@ -1263,44 +1263,44 @@ body {
   }
 }
 
-a {
-  color: #fff;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  text-decoration: none;
-  z-index: 9;
-  font-family: 'Nunito', sans-serif;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+.Numberpeopleddiv a {
+    color: #fff;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-decoration: none;
+    z-index: 9;
+    font-family: 'Nunito', sans-serif;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
 }
 
-a span {
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.3);
-  -webkit-transition: .3s;
-  transition: .3s;
-}
+    .Numberpeopleddiv a span {
+        font-size: 10px;
+        letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.3);
+        -webkit-transition: .3s;
+        transition: .3s;
+    }
 
-a span:last-child {
-  margin-top: 4px;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: normal;
-}
+        .Numberpeopleddiv a span:last-child {
+            margin-top: 4px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: normal;
+        }
 
-a:hover span:last-child {
-  color: rgba(255, 255, 255, 0.8);
-}
+    .Numberpeopleddiv a:hover span:last-child {
+        color: rgba(255, 255, 255, 0.8);
+    }
 /*# sourceMappingURL=wait.css.map */
 
 

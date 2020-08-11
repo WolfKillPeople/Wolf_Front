@@ -52,7 +52,7 @@ li {
     box-shadow: none !important;
 }
 
-svg {
+.image image-light svg {
     width: 100%;
     height: 100%;
 }
@@ -305,6 +305,7 @@ path, polygon {
     top: 0px;
     left: 5px;
     color: #ffffff;
+/*    z-index:10;*/
 }
 
 .image-dark {
@@ -1215,7 +1216,7 @@ path, polygon {
     width: 200px;
     height: 180px;
     /* padding-top: 30px;
-                padding-bottom: 30px; */
+       padding-bottom: 30px; */
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -1245,5 +1246,5 @@ path, polygon {
 }*/
 .Character{
     text-align:center;
-    font-size:36px;
+    font-size:24px;
 }

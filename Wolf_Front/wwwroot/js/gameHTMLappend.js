@@ -200,15 +200,18 @@
             <div class="col-md-4 col-sm-12 rightcontent">
                 <div class="role d-flex" style="margin-top: 4%; margin-bottom:7%" id="describe">
                     <div id="depict" data-toggle="tooltip" data-placement="right" v-bind:title="items.description">
+ <h1 class="Character">{{items.name}}</h1>
         <div id="box" class="box viewport-flip " >
             <div class="list flip out  ">
                 <img v-bind:src="items.imgUrl" alt="纸牌正面" />
             </div>
              <div class="list flip">
                 <img src="https://i.imgur.com/2djHCEl.jpg" alt="纸牌背面" />
+     
             </div>
+      
         </div>
-             <h1 class="Character">{{items.name}}</h1>
+ 
                       
                     </div>
 
