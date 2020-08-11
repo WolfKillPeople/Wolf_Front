@@ -357,8 +357,12 @@ namespace Wolf_Front.Hubs
 
             var newResult = new List<GameRoom>();
             newResult = result;
-            var target = newResult.Find(x => x.RoomId == data.ToList()[0].RoomId && x.Account == data.ToList()[0].Account);
-            target.IsAlive = false;
+            //var target = newResult.Find(x => x.RoomId == data.ToList()[0].RoomId && x.Account == data.ToList()[0].Account);
+            foreach (var o in newResult)
+            {
+                o.IsAlive = false;
+            }
+            //target.IsAlive = false;
 
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
