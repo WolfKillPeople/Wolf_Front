@@ -258,7 +258,6 @@ namespace Wolf_Front.Hubs
                 var index = votePlayers.IndexOf(data.ToList()[0]);
                 votePlayers.InsertRange(index, data);
             }
-
             for (int i = 0; i < votePlayers.Count; i++)
             {
                 for (int o = 0; o < votePlayers.Count; o++)
@@ -272,7 +271,6 @@ namespace Wolf_Front.Hubs
 
             var ran = new Random();
             var newVotePlayers = votePlayers.OrderByDescending(x => x.VoteTickets).ToList();
-
             for (int i = 0; i < newVotePlayers.Count; i++)
             {
                 for (int o = 0; o < newVotePlayers.Count; o++)
@@ -325,8 +323,12 @@ namespace Wolf_Front.Hubs
 
             List<GameRoom> newResult = new List<GameRoom>();
             newResult = result;
-            var target = newResult.Find(x => x.RoomId == data.ToList()[0].RoomId && x.Account == data.ToList()[0].Account);
-            target.isAlive = false;
+            //var target = newResult.Find(x => x.RoomId == data.ToList()[0].RoomId && x.Account == data.ToList()[0].Account);
+            //target.isAlive = false;
+            foreach (var o in newResult)
+            {
+                o.isAlive = false;
+            }
 
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 

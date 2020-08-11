@@ -25,8 +25,7 @@ $('#addd').click(function () {
     connection.invoke("CreateRoom", 1, "dfghjkhgfrtyu@yuiknhuiol").then(function (response) {
         if (response.success) {
             id = response.data;
-            console.log(`roomID=${myroomid}`);
-            alert('add ok')
+            alert(`roomID=${myroomid}`);
         }
     });
 })
@@ -159,7 +158,7 @@ function toggleScheme() {
 //AJAX玩家職業資料
 var players = [
     {
-        "name": "狼王",
+        "name": "女巫",
         "imgUrl": "https://i.imgur.com/4eJqZgk.png",
         "occupationId": 8,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
@@ -192,7 +191,7 @@ var players = [
         "playerPic": null
     },
     {
-        "name": "女巫",
+        "name": "狼王",
         "imgUrl": "https://i.imgur.com/i9eRyug.png",
         "occupationId": 5,
         "description": "神職。擁有一瓶解藥和一瓶毒藥。解藥未使用時可以得知狼人的殺害對象，並決定是否救這一位玩家。然而，解藥全程不能用於解救自己。女巫也可以利用白天所得資訊，將懷疑的對象毒殺，該對象死後不能發動技能。解藥和毒藥不可以在同一夜使用。",
@@ -430,7 +429,7 @@ function BindingThings() {
 //玩家資料
 var myName = 'dfghjkhgfrtyu@yuiknhuiol';
 var myAlive;
-var myJob = '狼王';
+var myJob = '女巫';
 var myroomid = 1;
 let ary;
 function playerHead() {
@@ -454,9 +453,8 @@ function playerHead() {
     });
 }
 
-function Binding()
-{
-    myName = localStorage.getItem("myName");
+async function Binding() {
+    //myName = localStorage.getItem("myName");
     players.forEach(element => {
         if (element.player == myName) {
             myAlive = this.isAlive;
@@ -594,7 +592,7 @@ function witch() {
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
     if (witchSave != 1) { $('#rightgamerecordli').append(`<li>特殊能力已使用</li>`); }
-    else if (prepareDead == '') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
+    else if (prepareDead == null || prepareDead == 'null') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
     else {
         $('#rightgamerecordli').append(`
      <li>${prepareDead}號被殺死了你要救他們嗎?
@@ -608,7 +606,7 @@ function witch() {
   </div>
   </li>`);
     }
-    $('#saveDead').click(function () { prepareDead = ''; witchSave = witchSave - 1; });
+    $('#saveDead').click(function () { prepareDead = null; witchSave = witchSave - 1; });
     $('#noSaveDead').click(function () { prepareDead = saveOrDead; });
 }
 function hunter() {
@@ -642,7 +640,7 @@ async function game() {
     for (let round = 0; round < 100; round++) {
         //----------狼人---------
         voteResult = null;
-        prepareDead = '';
+        prepareDead = null;
         $('#toggleDark').click();
         Speak('天黑請閉眼，狼人請殺人');
         wolf();
@@ -656,7 +654,7 @@ async function game() {
         Speak('預言家請選擇玩家查身分');
         prophet();
         await timeOn(5);
-        $('.findperson').css("display", "none")
+        $('.findperson').remove();
         $('.circleImg').css("pointer-events", "none");
         $('.on').css("box-shadow", "none")
         $('#rightgamerecordli li').remove();
@@ -676,14 +674,13 @@ async function game() {
         $("body").css("cursor", "default");
         $('#toggleDark').click();
         document.getElementById("PeoplesendButton").hidden = true;
-        if (prepareDead != '') { await deadConfirm(prepareDead); }
-        if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1; }
-        if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
+        if (prepareDead != null && prepareDead != 'null') { await deadConfirm(prepareDead); }
+        if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1;}
+        
 
         //判斷輸贏
         Speak('天亮請睜眼');
         await timeOn(1);
-
         if (deadNum.length > 0) {
             Speak(`昨晚${deadLis}玩家死了`);
             await timeOn(1);
@@ -691,7 +688,7 @@ async function game() {
                 if (players[deadNum[i]].name == '獵人') {
                     Speak('發動角色技能');
                     voteResult = null;
-                    prepareDead = '';
+                    prepareDead = null;
                     await timeOn(1);
                     hunter();
                     await timeOn(15);
@@ -705,7 +702,7 @@ async function game() {
                 if (players[deadNum[i]].name == '狼王') {
                     Speak('發動角色技能');
                     voteResult = null;
-                    prepareDead = '';
+                    prepareDead = null;
                     await timeOn(1);
                     wolfKing();
                     await timeOn(15);
@@ -735,7 +732,7 @@ async function game() {
 
         //----------投票---------
         voteResult = null;
-        prepareDead = '';
+        prepareDead = null;
         await timeOn(1);
         Speak('所有玩家投票，得票最高者將出局');
         $('.circleImg').css("pointer-events", "auto");
@@ -765,15 +762,11 @@ async function game() {
 
 signalrListener();
 //AJAX玩家資料
-document.body.onload = () => {
-    console.log('body load done!!!');
-    BindingPlayers();
-    playerHead();
-    BindingThings();
-    closeMessage();
-    game();
-};
-
+BindingPlayers();
+playerHead();
+BindingThings();
+closeMessage();
+game();
 
 
 //let _array;
