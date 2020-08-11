@@ -60,7 +60,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     var user;
     if (message != "") {
         user = "人類";
-        connection.invoke("SendMessage", user, message).catch(function (err) {
+        connection.invoke("SendMessage", user, message, roomId).catch(function (err) {
             return console.error(err.toString());
         });
         document.getElementById('PeoplemessageInput').value = "";
@@ -72,7 +72,7 @@ document.getElementById("sendButton2").addEventListener("click", function (event
     var message2 = document.getElementById("WolfmessageInput").value;
     if (message2 != "") {
         user = "狼人";
-        connection.invoke("SendMessage", user, message2).catch(function (err) {
+        connection.invoke("SendMessage", user, message2, roomId).catch(function (err) {
             return console.error(err.toString());
         });
         document.getElementById('WolfmessageInput').value = "";

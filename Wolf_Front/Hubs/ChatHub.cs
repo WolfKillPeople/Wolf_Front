@@ -175,49 +175,64 @@ namespace Wolf_Front.Hubs
         /// <param name="roomId"></param>
         /// <param name="Account"></param>
         /// <returns></returns>
-        public Task<ResponseBase<List<RoomInfo>>> OutToRoom(int roomId, string Account)
+        /// 
+
+        public async Task OutToRoom(int roomId, string Account)
         {
-            int i = 0;
             if (!_Rooms.ContainsKey(roomId))
             {
-                return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
+                await Clients.Caller.Exception(exce);
             }
+
             foreach (var item in _Rooms.Values)
             {
-                if (item[i].RoomId == roomId && item[i].Count.Equals(10))
+                var _target = item.Find(x => x.RoomId == roomId);
+                if (_target != null && _target.Count.Equals(10))
                 {
-                    return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = false });
+                    await Clients.Caller.Exception(exce);
                 }
-                i++;
+                else
+                {
+                    break;
+                }
             }
-            _Rooms.TryGetValue(roomId, out var target);
-            var acc = target[0].Account;
-            var tempList = acc.ToList();
 
+            _Rooms.TryGetValue(roomId, out var target);
+
+            var acc = target[0].Account;
+            var tempList = new List<string>();
             //assign old value and new value to new List
+            foreach (var item in acc)
+            {
+                tempList.Add(item);
+            }
             tempList.Remove(Account);
 
-            var newRoomValue = (target.Select(t => new RoomInfo
-            {
-                RoomId = roomId,
-                Account = tempList.ToArray(),
-                Count = tempList.Count,
-            })).ToList();
+            var newRoomValue = (from t in target
+                                select new RoomInfo
+                                {
+                                    RoomId = roomId,
+                                    Account = tempList.ToArray(),
+                                    Count = tempList.Count,
+                                }).ToList();
 
             _Rooms.TryUpdate(roomId, newRoomValue, target);
 
+            //value assign to gamerooom
 
             _GameRoom.TryGetValue(roomId, out var newgameRooms);
-            var a = newgameRooms.FirstOrDefault(x => x.Account == Account);
-            newgameRooms.Remove(a);
+            newgameRooms.Remove(new GameRoom { RoomId = roomId, Account = Account, isAlive = true });
             _GameRoom.TryRemove(roomId, out _);
             _GameRoom.TryAdd(roomId, newgameRooms);
-            //將這個玩家加到指定的room
-            Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
-            //只在這個房間傳送訊息
-            Clients.Groups(roomId.ToString()).aa(Account);
 
-            return Task.FromResult(new ResponseBase<List<RoomInfo>>() { Success = true, Data = newRoomValue });
+            //將這個玩家加到指定的room
+            await Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
+
+            //只在這個房間傳送訊息
+             await Clients.Groups(roomId.ToString()).OutToRoom(Account);
+
+            //將房間資訊給大家
+            await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
         }
         /// <summary>
         /// GetAllRoom
@@ -374,7 +389,7 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Task<List<GameRoom>> PeopleResurrection(IEnumerable<GameRoom> data)
+        public async Task PeopleResurrection(IEnumerable<GameRoom> data)
         {
             _GameRoom.TryGetValue(data.ToList()[0].RoomId, out List<GameRoom> result);
 
@@ -389,7 +404,7 @@ namespace Wolf_Front.Hubs
                 return false;
             });
             _GameRoom.AddOrUpdate(rrr.ToList()[0].RoomId, new List<GameRoom>(), (k, v) => rrr);
-            return Task.FromResult(rrr);
+            await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleResurrection(data.ToList()[0].Account);
         }
 
         /// <summary>
