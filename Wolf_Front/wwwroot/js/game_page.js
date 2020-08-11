@@ -12,6 +12,7 @@ function signalrListener() {
                 deadNum.push(i);
                 players[i].isAlive = false;
                 //死掉特效+這裡
+
             }
         }
     });
