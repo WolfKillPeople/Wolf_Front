@@ -1,8 +1,14 @@
 //signalr監聽
-$('.diepage').hide();
+//$('.diepage').hide();
 var deadLis = '';
 var deadNum = [];
-
+function fdf() {
+    console.log('sdfsfs')
+    $('.diepage').remove();
+    $('.image').show();
+    //$("#ketchup").css({ "display": "none" });
+    //alert('i die')
+}
 function signalrListener() {
     //玩家死亡
     connection.on("PeopleDie", function (message) {
@@ -15,26 +21,24 @@ function signalrListener() {
                 players[i].isAlive = false;
                 //死掉特效+這裡
 
-                $('.diepage').show();
+                //$('.diepage').show();
                 $('.image').hide();
+                bloodAppend();
                 //血的特效
                     gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
                     gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
                     // 速度
-                    setTimeout(function () {
-                        $("#ketchup").css({ "pointer-events": "all" });
-                    }, 6000).then(function () {
-                        $('.diepage').hide();
-                        $('.image').show();
-                        $("#ketchup").css({ "display": "none" });
-                        alert('i die')
-                    });
+                setTimeout(function () {
+                    $("#ketchup").css({ "pointer-events": "all" });
+                }, 6000);
                 
             }
         }
+        fdf()
 
     });
-  
+
+   
 }
 
 
@@ -541,7 +545,8 @@ function deadConfirm(die) {
         "isAlive": false,
         "Account": deadMan.player
     }];
-    connection.invoke("PeopleDie", backDeadResult);
+    connection.invoke("PeopleDie", backDeadResult)
+
 }
 
 

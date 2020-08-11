@@ -1,4 +1,5 @@
-$('body').append(`
+function bloodAppend() {
+    $('body').append(`
 <div class="diepage">
 <!-- 血 -->
 <svg version="1.1" id="dietransition" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -269,6 +270,9 @@ $('body').append(`
     </g>
     </svg>
 </div>`)
+    
+}
+
 
 
 
