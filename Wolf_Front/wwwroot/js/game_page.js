@@ -143,6 +143,7 @@ function toggleScheme() {
         document.getElementById("PeoplemessageInput").hidden = true;
         document.getElementById("WolfsendButton").hidden = false;
         document.getElementById("PeoplesendButton").hidden = true;
+
         let figure = document.createElement('figure');
         let clouddiv = document.createElement('div');
         figure.setAttribute('class', 'absolute-bg');
@@ -333,7 +334,18 @@ async function BindingPlayers() {
 }
 
 //雜物生成
-async function BindingThings() {
+var eleBack = null, eleFront = null;
+var eleList = null;
+var funBackOrFront = function () {
+    eleList.each(function () {
+        if ($(this).hasClass("out")) {
+            eleFront = $(this);
+        } else {
+            eleBack = $(this);
+        }
+    });
+};
+function BindingThings() {
     //滑鼠移到職業圖片顯示該職業描述
     $('#depict').hover(tool);
     function tool() {
@@ -363,14 +375,45 @@ async function BindingThings() {
             $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
+    // 在前面显示的元素，隐藏在后面的元素
+    //eleBack = null;
+    //eleFront = null;
+    //eleList = null; //$(".list");// 纸牌元素们 
+
+    
+    //debugger;
+    // 确定前面与后面元素
+
+
     //< !--當我按下x時要去加入css動畫 -->
     $('#close').click(function () {
-        $('.img-spin').css("animation-name", " spin")
-        $('.img-spin').css("animation-timing-function", " linear")
-        $('.img-spin').css("animation-duration", " 1s")
-        var tt = document.styleSheets[0];
-        tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+        funBackOrFront();
+        console.log("eleList: ", eleList);
 
+        var tt = document.styleSheets[0];
+        tt.insertRule("@keyframes spin { 0% { transform: rotateY(0deg); } 25% { transform: rotateY(360deg); } 50% { transform: rotateY(0deg); } 75% { transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+        $('.box').css("animation-name", " spin");
+        $('.box').css("animation-timing-function", " linear")
+        $('.box').css("animation-duration", " 1s")
+        $('.box').css("animation-fill-mode", "forwards")
+        //切换的顺序如下
+        // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
+        // 2. 结束后，之前显示在后面的元素逆向90度翻转显示在前 
+        // 3. 完成翻面效果
+
+        //eleFront.removeClass("out").addClass("in");
+        //eleBack.removeClass("in").addClass("out");
+        eleFront.removeClass("out").addClass("in");
+
+        setTimeout(function () {
+
+            eleBack.removeClass("in").addClass("out");
+            console.log(eleBack, eleFront);
+
+            // 重新确定正反元素
+            //funBackOrFront();
+        }, 100);
     });
     $('#closebtn').click(function () {
         $('.img-spin').css("animation-name", " spin")
@@ -389,7 +432,7 @@ var myAlive;
 var myJob = '狼王';
 var myroomid = 1;
 let ary;
-async function playerHead() {
+function playerHead() {
     roomid = localStorage.getItem("roomid");
     let obj = [{
         //"roomId": roomid,
@@ -410,8 +453,9 @@ async function playerHead() {
     });
 }
 
-async function Binding() {
-    //myName = localStorage.getItem("myName");
+function Binding()
+{
+    myName = localStorage.getItem("myName");
     players.forEach(element => {
         if (element.player == myName) {
             myAlive = this.isAlive;
@@ -422,6 +466,16 @@ async function Binding() {
     var profession = new Vue({
         el: "#describe",
         data: { items: ary[0] },
+        mounted: function () {
+            alert('generate Done!!!');
+            eleList = $(".list");// 纸牌元素们 
+            console.log(eleList);
+        },
+        updated: function () {
+            console.log("vue updated");
+            eleList = $(".list");// 纸牌元素们 
+            console.log(eleList);
+        }
     });
 }
 
@@ -710,11 +764,15 @@ async function game() {
 
 signalrListener();
 //AJAX玩家資料
-BindingPlayers();
-playerHead();
-BindingThings();
-closeMessage();
-game();
+document.body.onload = () => {
+    console.log('body load done!!!');
+    BindingPlayers();
+    playerHead();
+    BindingThings();
+    closeMessage();
+    game();
+};
+
 
 
 //let _array;
