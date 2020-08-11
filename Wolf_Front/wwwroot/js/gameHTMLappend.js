@@ -208,6 +208,7 @@
                 <img src="https://i.imgur.com/2djHCEl.jpg" alt="纸牌背面" />
             </div>
         </div>
+             <h1>{{items.name}}</h1>
                       
                     </div>
 
