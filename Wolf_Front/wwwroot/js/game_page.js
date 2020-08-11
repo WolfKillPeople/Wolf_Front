@@ -26,6 +26,7 @@ $('#addd').click(function () {
         if (response.success) {
             id = response.data;
             console.log(`roomID=${myroomid}`);
+            alert('add ok')
         }
     });
 })
