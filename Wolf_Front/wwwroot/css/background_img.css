@@ -1,0 +1,13 @@
+﻿.bgm-pic {
+    background-image: url(https://i.imgur.com/mF8XJ9t.png);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+a {
+    text-decoration: none;
+    color: #1B3C52;
+}
+    a:hover {
+        text-decoration: none;
+        color: #C6161D;
+    }
