@@ -2,10 +2,13 @@
 //$('.diepage').hide();
 var deadLis = '';
 var deadNum = [];
-function fdf() {
+async function fdf() {
     console.log('sdfsfs')
+    await timeOn(2);
     $('.diepage').remove();
     $('.image').show();
+    await timeOn(12);
+
     //$("#ketchup").css({ "display": "none" });
     //alert('i die')
 }
@@ -19,23 +22,21 @@ function signalrListener() {
                 deadLis = deadLis + `${i + 1}號`;
                 deadNum.push(i);
                 players[i].isAlive = false;
+
+
                 //死掉特效+這裡
-
                 //$('.diepage').show();
+                //timeOn(4);
                 $('.image').hide();
-                bloodAppend();
+                bloodAppend(deadLis);
                 //血的特效
-                    gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
-                    gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
-                    // 速度
-                setTimeout(function () {
-                    $("#ketchup").css({ "pointer-events": "all" });
-                }, 6000);
-                
-            }
-        }
-        fdf()
+                gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
+                console.log('0313131321')
+                gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
 
+            }
+
+        }
     });
 
     connection.on("NewRoom", function (message,temp) {
@@ -702,11 +703,12 @@ async function game() {
         if (prepareDead != null && prepareDead != 'null') { await deadConfirm(prepareDead); }
         if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1; }
 
-        
-
+        await timeOn(4);
+        $('.diepage').remove();
+        $('.image').show();
         //判斷輸贏
         Speak('天亮請睜眼');
-        await timeOn(1);
+        
         if (deadNum.length > 0) {
             Speak(`昨晚${deadLis}玩家死了`);
             await timeOn(1);

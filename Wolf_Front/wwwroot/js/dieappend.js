@@ -1,4 +1,4 @@
-function bloodAppend() {
+function bloodAppend(deadLis) {
     $('body').append(`
 <div class="diepage">
 <!-- 血 -->
@@ -65,7 +65,7 @@ function bloodAppend() {
     <rect fill="#C7120E" width="1920" height="2710.882" />
 </svg>
 <!-- 血 尾-->
-<h1 id="dietitle">玩家<span>4號</span>死亡</h1>
+<h1 id="dietitle">玩家<span>${deadLis}</span>死亡</h1>
 <svg id="die" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 521.99 411.15">
     <defs>
     </defs>
