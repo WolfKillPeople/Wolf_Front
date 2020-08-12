@@ -1,5 +1,6 @@
-var a=1;
-$('body').append(`
+var a = 1;
+function wait() {
+    $('body').append(`
 <div class="container id="waitappendId"">
 
    <h1 class="ml3">等待玩家中......</h1>
@@ -313,7 +314,8 @@ $('body').append(`
      
     </a>
     
-`)   
+`)
+}
 
 
 //字動畫
@@ -321,34 +323,17 @@ $('body').append(`
 var textWrapper = document.querySelector('.ml3');
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
-anime.timeline({loop: true})
-  .add({
-    targets: '.ml3 .letter',
-    opacity: [0,1],
-    easing: "easeInOutQuad",
-    duration: 2250,
-    delay: (el, i) => 150 * (i+1)
-  }).add({
-    targets: '.ml3',
-    opacity: 0,
-    duration: 500,
-    easing: "easeOutExpo",
-    delay: 500
-  });
-// function bind(){
-//   var app = new Vue({
-//     el: '#app',
-//     data:  json
-       
-// });
-// }
-//     function setupclock()
-//     {
-//         json.x=40;
-//         setTimeout(setupclock,1000);
-//     };
-// $('#button').click(function (e) { 
-//     setupclock();
-    
-// });
- 
+anime.timeline({ loop: true })
+    .add({
+        targets: '.ml3 .letter',
+        opacity: [0, 1],
+        easing: "easeInOutQuad",
+        duration: 2250,
+        delay: (el, i) => 150 * (i + 1)
+    }).add({
+        targets: '.ml3',
+        opacity: 0,
+        duration: 500,
+        easing: "easeOutExpo",
+        delay: 500
+    });

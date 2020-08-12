@@ -712,7 +712,9 @@ async function game() {
                     $('.on').css("box-shadow", "none");
                     if (voteResult != null) { await deadConfirm(voteResult); }
                     if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
-                    await timeOn(1);
+                    await timeOn(4);
+                    $('.diepage').remove();
+                    $('.image').show();
                 }
                 if (players[deadNum[i]].name == '狼王') {
                     Speak('發動角色技能');
@@ -726,7 +728,9 @@ async function game() {
                     $('.on').css("box-shadow", "none");
                     if (voteResult != null) { await deadConfirm(voteResult); }
                     if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
-                    await timeOn(1);
+                    await timeOn(4);
+                    $('.diepage').remove();
+                    $('.image').show();
                 }
             }
         } else { Speak('昨晚是平安夜'); await timeOn(1); }
@@ -759,6 +763,9 @@ async function game() {
         await deadConfirm(prepareDead);
         await timeOn(1);
         Speak(`${prepareDead}號玩家最高票`);
+        await timeOn(4);
+        $('.diepage').remove();
+        $('.image').show();
 
         //判斷輸贏
 
