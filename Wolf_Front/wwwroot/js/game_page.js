@@ -690,7 +690,7 @@ async function game() {
         if (prepareDead != null && prepareDead != 'null') { await deadConfirm(prepareDead); }
         if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1; }
 
-        await timeOn(4);
+        await timeOn(3);
         $('.diepage').remove();
         $('.image').show();
         //判斷輸贏
@@ -712,7 +712,7 @@ async function game() {
                     $('.on').css("box-shadow", "none");
                     if (voteResult != null) { await deadConfirm(voteResult); }
                     if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
-                    await timeOn(4);
+                    await timeOn(3);
                     $('.diepage').remove();
                     $('.image').show();
                 }
@@ -728,7 +728,7 @@ async function game() {
                     $('.on').css("box-shadow", "none");
                     if (voteResult != null) { await deadConfirm(voteResult); }
                     if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
-                    await timeOn(4);
+                    await timeOn(3);
                     $('.diepage').remove();
                     $('.image').show();
                 }
@@ -763,7 +763,7 @@ async function game() {
         await deadConfirm(prepareDead);
         await timeOn(1);
         Speak(`${prepareDead}號玩家最高票`);
-        await timeOn(4);
+        await timeOn(3);
         $('.diepage').remove();
         $('.image').show();
 
