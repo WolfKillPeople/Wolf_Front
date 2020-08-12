@@ -1,0 +1,87 @@
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.title {
+    text-align: center;
+    margin: 1.2em 0;
+    font-size: 2em;
+    color: #FBFFFE;
+    text-transform: uppercase;
+}
+
+.container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 700px;
+    margin: 20px auto;
+}
+
+.square {
+    border: 1px solid lightpink;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 200px;
+    flex: 0 0 200px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 200px;
+    width: 200px;
+    background: #FFFFCC;
+    font-family: Microsoft JhengHei;
+}
+
+    .square.square:not(:nth-child(3n)) {
+        margin-right: 10px;
+    }
+
+    .square.square:not(:nth-child(n+7)) {
+        margin-bottom: 10px;
+    }
+
+    .square.is-active {
+        border: 10px solid #990033;
+    }
+
+.square__content {
+    font-size: 2.8em;
+}
+
+.square__start-btn {
+    background: #990033;
+    color: #ffffff;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+    .square__start-btn:hover {
+        background: #ffeb80;
+        color: #000000;
+    }
+
+.score {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.swal-text{
+    font-size: 30px;
+}
+
+.swal-title {
+    font-size:35px;
+}

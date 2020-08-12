@@ -1,0 +1,129 @@
+* {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  
+  .search {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5%;
+    height: 10%;
+    background-color: #eecdae;
+    overflow: hidden;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  
+  .search:before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 100%;
+    background-color: #af470a;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  
+  .search.open {
+    width: 30%;
+  }
+  
+  .search.open:before {
+    height: 60%;
+    margin: 20px 0 20px 30px;
+    position: absolute;
+  }
+  
+  .search-box {
+    width: 100%;
+    height: 100%;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    border: none;
+    background: transparent;
+    color: #fff;
+    padding: 20px 100px 20px 45px;
+    font-size: 40px;
+  }
+  
+  .search-box:focus {
+    outline: none;
+  }
+  
+  .search-button {
+    width: 10%;
+    height: 10%;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-right: 50px;
+    cursor: pointer;
+  }
+  
+  .search-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    border: 3px solid #af470a;
+    display: block;
+    position: relative;
+    margin: 0;
+    margin-top: 3px;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  
+  .search-icon:before {
+    content: '';
+    width: 3px;
+    height: 15px;
+    position: absolute;
+    right: -2px;
+    top: 30px;
+    display: block;
+    background-color: #af470a;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  
+  .search-icon:after {
+    content: '';
+    width: 3px;
+    height: 15px;
+    position: absolute;
+    right: -12px;
+    top: 40px;
+    display: block;
+    background-color: #af470a;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  
+  .open .search-icon {
+    margin: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+  }
+  
+  .open .search-icon:before {
+    -webkit-transform: rotate(52deg);
+            transform: rotate(52deg);
+    right: 22px;
+    top: 23px;
+    height: 18px;
+  }
+  
+  .open .search-icon:after {
+    -webkit-transform: rotate(-230deg);
+            transform: rotate(-230deg);
+    right: 22px;
+    top: 13px;
+    height: 18px;
+  }

@@ -27,15 +27,15 @@
 }
 
 .title {
-    font-weight: 600;
-    font-size: 5vw;
-    margin: 0;
-    -webkit-filter: url(#goo);
-    filter: url(#goo);
-    position: relative;
-    letter-spacing: -.12em;
-    color: #C6161D;
-    text-transform: uppercase;
+  font-weight: 600;
+  font-size: 5vw;
+  margin: 0;
+  -webkit-filter: url(#goo);
+          filter: url(#goo);
+  position: relative;
+  letter-spacing: -.12em;
+  color: #C6161D;
+  text-transform: uppercase;
 }
 
 .drop {
@@ -116,9 +116,9 @@
 }
 
 .BG_img {
-    background-image: url(https://i.imgur.com/mF8XJ9t.png);
-    overflow-x: hidden;
-    overflow-y: hidden;
+  background-image: url(https://i.imgur.com/mF8XJ9t.png);
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .wrap {
@@ -130,7 +130,7 @@
 }
 
 .title {
-    color: #C6161D;
+  color: #C6161D;
 }
 
 .title h1 {

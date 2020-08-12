@@ -1,15 +1,15 @@
 .body {
-    font-family: 'Noto Sans TC';
-    background-size: cover;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    font-family: 'Ubuntu', sans-serif;
+  font-family: 'Noto Sans TC';
+  background-size: cover;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .bgm-pic {
-    background-image: url(https://i.imgur.com/mF8XJ9t.png);
-    overflow-x: hidden;
-    overflow-y: hidden;
+  background-image: url(https://i.imgur.com/mF8XJ9t.png);
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .bgm-pic .wrap {
