@@ -30,7 +30,7 @@ $(document).ready(function () {
     //從註冊抓
     $.ajax({
         type: 'Post',
-        url: 'https://localhost:5001/api/UserRegister/LoingPostpic',//'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/LoingPostpic',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/LoingPostpic',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(picData),
