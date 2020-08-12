@@ -265,7 +265,7 @@
                     <!-- 身體尾 -->
                 </div>
                 <div class="leave">
-                    <button class="glow-on-hover" type="button" style="margin-left:80%;margin-top: 10%;" onclick="LeaveRoom()">離開</button>
+                    <button class="glow-on-hover" id="leave" type="button" style="margin-left:80%;margin-top: 10%;" onclick="">離開</button>
                 </div>
             </div>
         </div>
@@ -322,6 +322,7 @@
                                 夜晚被殺沒有遺言
                             </p>
                             <p> 屠邊局(民死或神死)</p>
+                             <p style="color: red;">投票、狼人殺人、預言家查驗、女巫毒人，都直接點玩家圖像</p>
                             <p style="color: red;"> 如果對自己角色還有不清楚，可以觸碰自己角色圖片(右上角)</p>
                         </div>
                    

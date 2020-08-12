@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolf_Front", "Wolf_Front\Wolf_Front.csproj", "{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wolf_Front", "Wolf_Front\Wolf_Front.csproj", "{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolfFrontTest", "WolfFrontTest\WolfFrontTest.csproj", "{6D6FF93D-A825-483B-B9E9-4936A859BD12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC11B0CA-0F03-4EE2-BDDB-7AD7D9482A5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D6FF93D-A825-483B-B9E9-4936A859BD12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D6FF93D-A825-483B-B9E9-4936A859BD12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D6FF93D-A825-483B-B9E9-4936A859BD12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D6FF93D-A825-483B-B9E9-4936A859BD12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

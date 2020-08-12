@@ -1,6 +1,6 @@
 ﻿body {
     margin: 0;
-    /* overflow: hidden; */
+     overflow: hidden; 
     /*cursor: url('/Images/paw.jpg') 45 45, auto;*/
 }
 
@@ -284,6 +284,7 @@ path, polygon {
     background-color: rgba(104, 157, 186, 0.6);
     margin-left: 5%;
     margin-top: 2%;
+    overflow:hidden;
 }
 
 .rightgamerecord {
@@ -291,6 +292,7 @@ path, polygon {
     background-color: rgba(104, 157, 186, 0.6);
     margin-left: 5%;
     margin-top: 2%;
+    overflow: hidden;
 }
 
 .number {
@@ -314,6 +316,7 @@ path, polygon {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index:10;
 }
 
 
@@ -432,13 +435,13 @@ path, polygon {
 
 .on {
     margin: 5px;
-    box-shadow: 0px 0px 25px rgba(0, 255, 178, 1);
+    box-shadow: 0px 0px 25px red;
+    /*   box-shadow:red;*/
     filter: alpha(Opacity=100)
 }
 
 .off {
     margin: 5px;
-    ;
     filter: alpha(Opacity=20)
 }
 #toggleDark {
@@ -1061,3 +1064,63 @@ path, polygon {
         animation-fill-mode: forwards;
     }
 }*/
+
+/*//雲*/
+
+.absolute-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+
+
+.fog__img {
+    position: absolute;
+    height: 100vh;
+    width: 300vw;
+}
+
+.fog__img--first {
+    background: url("https://res.cloudinary.com/dkr52htco/image/upload/v1536173269/fog-1.png") repeat-x;
+    background-size: contain;
+    background-position: center;
+    -webkit-animation: marquee 60s linear infinite;
+    animation: marquee 60s linear infinite;
+}
+
+
+@-webkit-keyframes marquee {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        -webkit-transform: translate3d(-200vw, 0, 0);
+        transform: translate3d(-200vw, 0, 0);
+    }
+}
+
+@keyframes marquee {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        -webkit-transform: translate3d(-200vw, 0, 0);
+        transform: translate3d(-200vw, 0, 0);
+    }
+}
+
+.figure {
+    z-index: 1;
+}

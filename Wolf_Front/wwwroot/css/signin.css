@@ -36,4 +36,7 @@
 .modal-body label {
   color: #fff;
 }
+#music_btn {
+    display: none;
+}
 /*# sourceMappingURL=signin.css.map */
