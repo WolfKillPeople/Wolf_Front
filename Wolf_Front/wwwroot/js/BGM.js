@@ -20,18 +20,7 @@ function addpic() {
         pic: localStorage.getItem('Register_pic')
     }
 
-    //從註冊抓
-    //$.ajax({
-    //    type: 'Get',
-    //    url: 'https://localhost:5001/api/UserRegister/postpic',
-    //    dataType: 'json',
-    //    contentType: 'application/json;charset=UTF-8',
-    //    data: JSON.stringify(picData),
-    //    success: function (msg) {
-    //        alert('Data Saved: ' + msg);
-    //    }
-    //});
-    //post回資料庫
+    
     $.ajax({
         type: 'POST',
         url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/postpic',
