@@ -1,12 +1,8 @@
-﻿using Wolf_Front.Hubs;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Wolf_Front.ViewModels;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Concurrent;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Linq;
+using Wolf_Front.ViewModels;
 
 namespace Wolf_Front.Hubs.Tests
 {
@@ -59,9 +55,13 @@ namespace Wolf_Front.Hubs.Tests
             int roomId = 1;
             string account = "oo";
             List<RoomInfo> _list = new List<RoomInfo>();
-            string[] ary = new string[] { account};
+            var list = new List<GameRoom>();
+            string[] ary = new string[] { account };
             _list.Add(new RoomInfo { RoomId = 1, Account = ary, Count = 1 });
+            list.Add(new GameRoom() { RoomId = 1, Account = account, IsAlive = true });
+
             _Rooms.TryAdd(roomId, _list);
+            _GameRoom.TryAdd(roomId, list);
             foreach (var item in _Rooms.Values)
             {
                 var _target = item.Find(x => x.RoomId == roomId);
@@ -100,7 +100,7 @@ namespace Wolf_Front.Hubs.Tests
             //value assign to gamerooom
 
             _GameRoom.TryGetValue(roomId, out var newgameRooms);
-            newgameRooms.Add(new GameRoom { RoomId = roomId, Account = account, isAlive = true });
+            newgameRooms.Add(new GameRoom { RoomId = roomId, Account = account, IsAlive = true });
             _GameRoom.TryRemove(roomId, out _);
             _GameRoom.TryAdd(roomId, newgameRooms);
 
@@ -112,10 +112,30 @@ namespace Wolf_Front.Hubs.Tests
         public void RemoveRoomTest()
         {
             int roomId = 1;
+            string account = "oo";
+            List<RoomInfo> _list = new List<RoomInfo>();
+            var list = new List<GameRoom>();
+            string[] ary = new string[] { account };
+            _list.Add(new RoomInfo { RoomId = 1, Account = ary, Count = 1 });
+            list.Add(new GameRoom() { RoomId = 1, Account = account, IsAlive = true });
+
+            _Rooms.TryAdd(roomId, _list);
+            _GameRoom.TryAdd(roomId, list);
+
             int temp = 0;
             _Rooms.TryRemove(roomId, out _);
             _GameRoom.TryRemove(roomId, out _);
-            var target = _Rooms.Values.SelectMany(x => x);
+
+            IEnumerable<RoomInfo> target;
+
+            if (_Rooms.IsEmpty == true)
+            {
+                temp = 1;
+                target = null;
+                Assert.IsTrue(target == null && temp == 1);
+            }
+
+            target = _Rooms.Values.SelectMany(x => x);
 
             for (int i = 0; i < target.ToList().Count; i++)
             {
@@ -127,7 +147,7 @@ namespace Wolf_Front.Hubs.Tests
                 }
             }
 
-            Assert.AreEqual(1,temp);
+            Assert.AreEqual(1, temp);
         }
     }
 }

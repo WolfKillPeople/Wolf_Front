@@ -84,48 +84,18 @@ document.getElementById("WolfsendButton").addEventListener("click", function (ev
 //-----------------SAMPLE----------------------
 var roomId = 1;
 var id;
-var account = "oo";
 
-$('#Create').click(function () {
-    debugger;
-    connection.invoke("CreateRoom", roomId, account).then(function (response) {
-        if (response.success) {
-            id = response.data;
-            alert(response.data);
-        }
-    });
+
+$('#Test').click(function () {
+    
+    connection.invoke("GetRole", roomId);
 });
 
-$('#Delete').click(function () {
-    debugger;
-    connection.invoke("RemoveRoom", roomId).then(function (response) {
-        if (response.success) {
-            alert(response.success);
-        }
+connection.on("GetRole",
+    function (response) {
+        alert(response);
     });
-});
 
-$('#GetAll').click(function () {
-    debugger;
-    connection.invoke("GetAllRoom").then(function (response) {
-        if (response.success) {
-            response.data.forEach(item => {
-                console.log(item);
-            });
-        }
-    })
-})
-
-$('#JoinRoom').click(function () {
-    debugger;
-    connection.invoke("JoinRoom").then(function (response) {
-        if (response.success) {
-            response.data.forEach(item => {
-                console.log(item);
-            });
-        }
-    })
-})
 
 
 
