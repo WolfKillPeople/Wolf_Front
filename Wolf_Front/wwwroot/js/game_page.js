@@ -1,17 +1,6 @@
 //signalr監聽
-//$('.diepage').hide();
 var deadLis = '';
 var deadNum = [];
-async function fdf() {
-    console.log('sdfsfs')
-    await timeOn(2);
-    $('.diepage').remove();
-    $('.image').show();
-    await timeOn(12);
-
-    //$("#ketchup").css({ "display": "none" });
-    //alert('i die')
-}
 function signalrListener() {
     //玩家死亡
     connection.on("PeopleDie", function (message) {
@@ -25,8 +14,6 @@ function signalrListener() {
 
 
                 //死掉特效+這裡
-                //$('.diepage').show();
-                //timeOn(4);
                 $('.image').hide();
                 bloodAppend(deadLis);
                 //血的特效
