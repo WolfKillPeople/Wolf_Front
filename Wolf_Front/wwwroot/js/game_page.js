@@ -11,13 +11,9 @@ var account = "oo";
 var PersonInroom;
 
 $('#addd').click(function () {
-    connection.invoke("CreateRoom", roomId, account).then(function (response) {
-        if (response.success) {
-            id = response.data;
-            console.log(`roomID=${myroomid}`);
-        }
+    connection.invoke("CreateRoom", roomId, account)
     });
-});
+
 
 var data = [{
     "RoomId": 1,

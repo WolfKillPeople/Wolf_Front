@@ -220,6 +220,7 @@ namespace Wolf_Front.Hubs
 
             //將房間資訊給大家
             await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
+            //if()
         }
 
 
