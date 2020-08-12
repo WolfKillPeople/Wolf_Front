@@ -38,7 +38,13 @@ function signalrListener() {
 
     });
 
-   
+    connection.on("NewRoom", function (message,temp) {
+        console.log(message);
+    });
+
+    connection.on("VoteResult", function (message) {
+        prepareDead = message[0].vote;
+    });
 }
 
 
@@ -46,12 +52,7 @@ function signalrListener() {
 var id;
 var PersonInroom;
 $('#addd').click(function () {
-    connection.invoke("CreateRoom", 1, "dfghjkhgfrtyu@yuiknhuiol").then(function (response) {
-        if (response.success) {
-            id = response.data;
-            alert(`roomID=${myroomid}`);
-        }
-    });
+    connection.invoke("CreateRoom", 1, "dfghjkhgfrtyu@yuiknhuiol");
 })
 
 var synth = window.speechSynthesis;
@@ -532,9 +533,7 @@ function voteBack() {
 //取投票結果
 var prepareDead;
 function getVoteResult() {
-    return connection.invoke("VoteResult", myroomid).then(function (res) {
-        prepareDead = res.data[0].vote;
-    });
+    return connection.invoke("VoteResult", myroomid);
 }
 
 //確認死亡
