@@ -228,6 +228,10 @@ namespace Wolf_Front.Hubs
             //只在這個房間傳送訊息
              await Clients.Groups(roomId.ToString()).OutToRoom(Account);
 
+            if(newRoomValue.Any(x => x.RoomId == roomId && x.Count == 0))
+            {
+                await RemoveRoom(roomId);
+            }
             //將房間資訊給大家
             await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
             //if()

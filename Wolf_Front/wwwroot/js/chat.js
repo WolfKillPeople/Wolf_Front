@@ -83,6 +83,7 @@ document.getElementById("WolfsendButton").addEventListener("click", function (ev
 
 //-----------------SAMPLE----------------------
 var roomId = 1;
+var account = "oo";
 var id;
 
 

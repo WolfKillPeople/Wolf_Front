@@ -39,23 +39,15 @@ $('#People_Die').click(function () {
 })
 $('#JoinRoom').click(function () {
     debugger;
-    connection.invoke("JoinRoom",1,"AAA").then(function (response) {
-        if (response.success) {
-            response.data.forEach(item => {
-                console.log(item);
-            });
-        }
-    })
+    connection.invoke("JoinRoom",1,"AAA")
 })
 $('#OutToRoom').click(function () {
     debugger;
-    connection.invoke("OutToRoom", 1, "AAA").then(function (response) {
-        if (response.success) {
-            response.data.forEach(item => {
-                console.log(item);
-            });
-        }
-    })
+    connection.invoke("OutToRoom", 1, "AAA")
+})
+$('#OutToRoom2').click(function () {
+    debugger;
+    connection.invoke("OutToRoom", 1, "oo")
 })
 
 var synth = window.speechSynthesis;
