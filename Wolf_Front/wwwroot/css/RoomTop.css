@@ -700,19 +700,24 @@ input {
 }
 
 .confirmBtn {
-    background-color: #CCEEFF;
     border: 0;
     display: flex;
-    margin-left: 0;
-    float: right;
-    color:#000;
-    margin-right:5%;
+    float:right;
+    margin-right: 0;    
 }
-    .confirmBtn:hover {
-        background-color: #4e5f72;
-    }
+.confirmBtn:hover {
+    background-color: #4e5f72;
 }
+
 .deleteBtn {
     margin-top:100px;
     z-index:6;
+}
+.Shopping_btn {
+    background-color: #CCEEFF;
+    color: #000;
+    margin-left: 3%;
+}
+.Shopping_btn:hover {
+    background-color: #4e5f72;
 }
