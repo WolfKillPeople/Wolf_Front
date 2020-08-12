@@ -1,13 +1,18 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Wolf_Front.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Wolf_Front.Data;
 using Wolf_Front.Hubs;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using Wolf_Front.Interface;
+using Wolf_Front.Mapping;
+using Wolf_Front.Repository;
 using Wolf_Front.Services;
 using System.Configuration;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +44,7 @@ namespace Wolf_Front
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
             });
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSignalR().AddAzureSignalR();
             services.AddSingleton<IConfiguration>(Configuration);
@@ -51,7 +57,8 @@ namespace Wolf_Front
                 o.TokenLifespan = TimeSpan.FromHours(3));
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-
+            services.AddScoped<IChatRepo, DapperChatHubRepo>();
+            services.AddScoped<IChatHubService, ChatHubService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

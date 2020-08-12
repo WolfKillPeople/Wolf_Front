@@ -34,12 +34,12 @@ function addpic() {
     //post¦^¸ê®Æ®w
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:5001/api/UserRegister/postpic',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/postpic',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(picData),
         success: function (msg) {
-            alert('Data Saved: ' + msg);
+            //alert('Data Saved: ' + msg);
         }
     });
 }
