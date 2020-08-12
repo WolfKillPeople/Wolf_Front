@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wolf_Front.ViewModels;
 
@@ -12,7 +10,7 @@ namespace Wolf_Front.Hubs
 
         Task NewRoom(List<RoomInfo> model,int temp);
 
-        Task GetAll(IEnumerable<RoomInfo> allInfo);
+        Task GetAll(IEnumerable<RoomInfo> all);
 
         Task JoinRoom(string Account);
 
@@ -23,8 +21,16 @@ namespace Wolf_Front.Hubs
         Task AllRemoveRoom(IEnumerable<RoomInfo> newList ,int temp);
 
         Task VoteResult(List<VotePlayers> data);
-
         Task PeopleDie(string Account);
-        Task aa(string Account);
+
+        Task PeopleResurrection(string Account);
+        
+        Task Exception(string exce);
+
+        Task ReceiveAccountPic(string ImgUrl);
+
+        Task GetRole(List<GameRoom> data);
+        Task OutToRoom(string Account);
+
     }
 }
