@@ -14,6 +14,8 @@ var data;
 var arry;
 var GEmail;
 var GetPic;
+var GSocre;
+var G_ID;
 //page
 $(document).ready(function () {
     var getOriPic = $('#avatat').attr('src');
@@ -28,7 +30,7 @@ $(document).ready(function () {
     //從註冊抓
     $.ajax({
         type: 'Post',
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/LoingPostpic',
+        url: 'https://localhost:5001/api/UserRegister/LoingPostpic',//'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/LoingPostpic',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(picData),
@@ -36,14 +38,21 @@ $(document).ready(function () {
             arry = gpic;
             GEmail = arry[0].email;
             GetPic = arry[0].pic;
+            GSocre = arry[0].win;
+            G_ID = arry[0].id;
+            document.cookie = `GUID =${G_ID}`;
+            //document.cookie = `${G_ID}`;
             //alert(GEmail);
             //alert(GetPic);
             $('.avatat').attr('src', `${GetPic}`);
             $('.Account_email').text(`${GEmail}`);
+            $('.Account_Score').text(`${GSocre}`);
             //alert('Data Saved: ' + arry);
             //alert(arry);
         }
     });
+   
+
     connection.start().then(function () {
         connection.invoke("GetAllRoom");//.then(function (response) {
 
