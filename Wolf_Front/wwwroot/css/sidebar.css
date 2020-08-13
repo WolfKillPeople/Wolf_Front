@@ -1,19 +1,17 @@
 body {
     padding: 0;
     margin: 0;
-    height: 600px ;
-    overflow-x: hidden;
-    overflow-y: hidden;
+/*    height: 600px ;*/
 }
-
+/*
 .header{
   background: rgb(2,0,36);
   background: linear-gradient(143deg, rgba(2,0,36,1) 0%, rgba(207,97,77,1) 70%, rgba(220,53,69,1) 100%);
   padding:8px;
   height:12%;
-}
+}*/
 
-.bars{
+/*.bars{
   position:relative;
   width:50px;
   height:50px;
@@ -33,9 +31,9 @@ body {
   height:7px;
   border-radius:5px;
   background-color:#fff;
-}
+}*/
 
-.check{
+/*.check{
   position:absolute;
   width:55px;
   height:55px;
@@ -90,7 +88,6 @@ body {
     margin: auto;
     outline: none;
     border: none;
-}
 h5{
   font-family: Microsoft JhengHei;
   font-weight:bold;
@@ -99,6 +96,8 @@ p{
   font-family: Microsoft JhengHei;
   font-size: 18px;
 }
+
+}*/
 
 
 /* card */
@@ -137,35 +136,72 @@ p{
   right:5px;
 }
 
-.cartBtn i{
-  color: #ffffff;
+
+.cartBtn i {
+    color: #000;
 }
 
 .cartBtn:hover{
   width:200px;
   height:40px;
   border-radius:40px;
-  background-color:#990033;
+  background-color:#990033;  
 }
-.cartText
-{
-  width:70%;
-  padding-right: 10px;
-  float:right;
-  line-height:25px;
-  color:#ffffff;
-  font-family:'Roboto';
-  font-weight:300;
-  font-size:18px;
+   
+.cartText {
+    width: 70%;
+    padding-right: 10px;
+    float: right;
+    line-height: 25px;
+    color: #ffffff;
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 18px;
 }
-
 
 .card-body {
-    height: 215px;
+     background-color: #FFFFCC;
+}
+.card-body .card-body {
+        height: 215px;
+}
+.btn:focus{
+    box-shadow:none;
+
 }
 .price {
     position: absolute;
-    bottom:0;
-    font-weight:bolder;
-    font-family:fantasy;
+    bottom: 0;
+    font-weight: bolder;
+    font-family: fantasy;
+}
+.CardmainPart {
+    background-color:#fff;      
+}
+.card {
+    border:none;
+}
+.back_room {
+    float: right;
+    height: 150px;
+    width: 5%;
+    writing-mode: vertical-lr;
+    background-color: #eba928;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+.back_room a {    
+    margin-top:10px;
+    font-size:26px;
+    color:#fff;
+    text-decoration:none;
+    
+}
+#accordionExample {
+    width: 93.5%;
+}
+#roleBtn {
+border:none;
 }
