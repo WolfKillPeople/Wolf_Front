@@ -18,7 +18,6 @@ function signalrListener() {
                 bloodAppend(deadLis);
                 //血的特效
                 gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
-                console.log('0313131321')
                 gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
 
             }
@@ -27,7 +26,6 @@ function signalrListener() {
     });
 
     connection.on("NewRoom", function (message,temp) {
-        console.log(message);
     });
 
     connection.on("VoteResult", function (message) {
@@ -401,7 +399,6 @@ function BindingThings() {
     //< !--當我按下x時要去加入css動畫 -->
     $('#close').click(function () {
         funBackOrFront();
-        console.log("eleList: ", eleList);
 
         var tt = document.styleSheets[0];
         tt.insertRule("@keyframes spin { 0% { transform: rotateY(0deg); } 25% { transform: rotateY(360deg); } 50% { transform: rotateY(0deg); } 75% { transform: rotateY(360deg); }}", 9);//寫入樣式      
@@ -422,7 +419,6 @@ function BindingThings() {
         setTimeout(function () {
 
             eleBack.removeClass("in").addClass("out");
-            console.log(eleBack, eleFront);
 
             // 重新确定正反元素
             //funBackOrFront();
@@ -482,12 +478,9 @@ async function Binding() {
             //alert('generate Done!!!');
             $("#close").attr("disabled", false);
             eleList = $(".list");// 纸牌元素们 
-            console.log(eleList);
         },
         updated: function () {
-            console.log("vue updated");
             eleList = $(".list");// 纸牌元素们 
-            console.log(eleList);
         }
     });
 }
@@ -786,14 +779,17 @@ async function game() {
 }
 
 signalrListener();
+$('.image').hide();
+document.querySelector('#show').addEventListener('click', function () { $('.image').show(); startGame(); })
+//startGame();
+function startGame() { 
 //AJAX玩家資料
-console.log('body load done!!!');
 BindingPlayers();
 playerHead();
 BindingThings();
 closeMessage();
 game();
-
+}
 
 //let _array;
 //async function DeadUpdate() {
