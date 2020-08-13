@@ -181,6 +181,7 @@
                     <div class="gamerecord">
                         <div class="leftgamerecord">
                             <ul id='leftgamerecordli'>
+                                <li></li>
                             </ul>
                         </div>
                         <div class="rightgamerecord">
@@ -200,7 +201,19 @@
             <div class="col-md-4 col-sm-12 rightcontent">
                 <div class="role d-flex" style="margin-top: 4%; margin-bottom:7%" id="describe">
                     <div id="depict" data-toggle="tooltip" data-placement="right" v-bind:title="items.description">
-                        <img class="_picture img-spin" id="_picture" alt="職業" style="width:200px;height:180px" v-bind:src="items.imgUrl">
+ <h1 class="Character">{{items.name}}</h1>
+        <div id="box" class="box viewport-flip " >
+            <div class="list flip out  ">
+                <img v-bind:src="items.imgUrl" alt="纸牌正面" />
+            </div>
+             <div class="list flip">
+                <img src="https://i.imgur.com/2djHCEl.jpg" alt="纸牌背面" />
+     
+            </div>
+      
+        </div>
+ 
+                      
                     </div>
 
                     <div class="pie degree">
@@ -278,7 +291,7 @@
             <div class="modal-content " style="width: 70em; height: 35em;   overflow:hidden;      ">
                 <div class="modal-header ">
                     <h5 class="modal-title" id="staticBackdropLabel"></h5>
-                    <button type="button" onclick="/*Speak('')*/" class="close" data-dismiss="modal" aria-label="Close" id="close">
+                    <button type="button" onclick="/*Speak('')*/" class="close" data-dismiss="modal" aria-label="Close" id="close"  disabled="true" >
                         <span aria-hidden="true" style="color:white;">&times;</span>
                     </button>
                 </div>

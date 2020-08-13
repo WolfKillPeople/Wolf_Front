@@ -11,43 +11,34 @@ function signalrListener() {
                 deadLis = deadLis + `${i + 1}號`;
                 deadNum.push(i);
                 players[i].isAlive = false;
+
+
                 //死掉特效+這裡
+                $('.image').hide();
+                bloodAppend(deadLis);
+                //血的特效
+                gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
+                gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
+
             }
+
         }
     });
+
+    connection.on("NewRoom", function (message, temp) {
+    });
+
+    connection.on("VoteResult", function (message) {
+        prepareDead = message[0].vote;
+    });
 }
+
 
 //測試建房按鈕
 var id;
 var PersonInroom;
 $('#addd').click(function () {
-    connection.invoke("CreateRoom", roomId, account)
-    });
-
-
-var data = [{
-    "RoomId": 1,
-    "Account": "oo",
-    "isAlive": true
-}]
-
-$('#People_Die').click(function () {
-    connection.invoke("PeopleResurrection", data).then(function (res) {
-        debugger;
-        alert(res)
-    })
-})
-$('#JoinRoom').click(function () {
-    debugger;
-    connection.invoke("JoinRoom",1,"AAA")
-})
-$('#OutToRoom').click(function () {
-    debugger;
-    connection.invoke("OutToRoom", 1, "AAA")
-})
-$('#OutToRoom2').click(function () {
-    debugger;
-    connection.invoke("OutToRoom", 1, "oo")
+    connection.invoke("CreateRoom", 1, "dfghjkhgfrtyu@yuiknhuiol");
 })
 
 var synth = window.speechSynthesis;
@@ -63,9 +54,9 @@ function Speak(txtInput) {
     });
     synth.speak(toSpeak);
     //將陣列的最後一個打到li裡
-    var li = document.createElement('li');
-    li.innerText = txtInput;
-    document.querySelector('#leftgamerecordli').appendChild(li);
+    document.querySelector('#leftgamerecordli li').innerHTML = txtInput;
+    $('#leftgamerecordli li').animate({ "opacity": 1 }, 2000).siblings().animate({ opacity: 0 }, 2000);
+    $('#leftgamerecordli li').animate({ "opacity": 0 }, 2000).siblings().animate({ opacity: 1 }, 2000);
     //保持滾動條一直在最底部
     var leftgamerecordli = document.getElementById("leftgamerecordli").parentNode;
     leftgamerecordli.scrollTop = leftgamerecordli.scrollHeight;
@@ -127,7 +118,7 @@ function nightAudio() {
 //背景夜晚白天轉換
 let toggle = document.getElementById('toggleDark');
 toggle.addEventListener('click', toggleScheme, true);
-let image = document.querySelector('.image'); 
+let image = document.querySelector('.image');
 function closeMessage() {
     document.getElementById("PeopleuserInput").hidden = true;
     document.getElementById("PeoplemessageInput").hidden = true;
@@ -163,6 +154,7 @@ function toggleScheme() {
         document.getElementById("PeoplemessageInput").hidden = true;
         document.getElementById("WolfsendButton").hidden = false;
         document.getElementById("PeoplesendButton").hidden = true;
+
         let figure = document.createElement('figure');
         let clouddiv = document.createElement('div');
         figure.setAttribute('class', 'absolute-bg');
@@ -177,7 +169,7 @@ function toggleScheme() {
 //AJAX玩家職業資料
 var players = [
     {
-        "name": "狼王",
+        "name": "女巫",
         "imgUrl": "https://i.imgur.com/4eJqZgk.png",
         "occupationId": 8,
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
@@ -210,7 +202,7 @@ var players = [
         "playerPic": null
     },
     {
-        "name": "女巫",
+        "name": "狼王",
         "imgUrl": "https://i.imgur.com/i9eRyug.png",
         "occupationId": 5,
         "description": "神職。擁有一瓶解藥和一瓶毒藥。解藥未使用時可以得知狼人的殺害對象，並決定是否救這一位玩家。然而，解藥全程不能用於解救自己。女巫也可以利用白天所得資訊，將懷疑的對象毒殺，該對象死後不能發動技能。解藥和毒藥不可以在同一夜使用。",
@@ -351,8 +343,20 @@ async function BindingPlayers() {
         array = [];
     }
 }
+
 //雜物生成
-async function BindingThings() {
+var eleBack = null, eleFront = null;
+var eleList = null;
+var funBackOrFront = function () {
+    eleList.each(function () {
+        if ($(this).hasClass("out")) {
+            eleFront = $(this);
+        } else {
+            eleBack = $(this);
+        }
+    });
+};
+function BindingThings() {
     //滑鼠移到職業圖片顯示該職業描述
     $('#depict').hover(tool);
     function tool() {
@@ -382,13 +386,43 @@ async function BindingThings() {
             $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
+    // 在前面显示的元素，隐藏在后面的元素
+    //eleBack = null;
+    //eleFront = null;
+    //eleList = null; //$(".list");// 纸牌元素们 
+
+
+    //debugger;
+    // 确定前面与后面元素
+
+
     //< !--當我按下x時要去加入css動畫 -->
     $('#close').click(function () {
-        $('.img-spin').css("animation-name", " spin")
-        $('.img-spin').css("animation-timing-function", " linear")
-        $('.img-spin').css("animation-duration", " 1s")
+        funBackOrFront();
+
         var tt = document.styleSheets[0];
-        tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+        tt.insertRule("@keyframes spin { 0% { transform: rotateY(0deg); } 25% { transform: rotateY(360deg); } 50% { transform: rotateY(0deg); } 75% { transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+        $('.box').css("animation-name", " spin");
+        $('.box').css("animation-timing-function", " linear")
+        $('.box').css("animation-duration", " 1s")
+        $('.box').css("animation-fill-mode", "forwards")
+        //切换的顺序如下
+        // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
+        // 2. 结束后，之前显示在后面的元素逆向90度翻转显示在前 
+        // 3. 完成翻面效果
+
+        //eleFront.removeClass("out").addClass("in");
+        //eleBack.removeClass("in").addClass("out");
+        eleFront.removeClass("out").addClass("in");
+
+        setTimeout(function () {
+
+            eleBack.removeClass("in").addClass("out");
+
+            // 重新确定正反元素
+            //funBackOrFront();
+        }, 100);
     });
     $('#closebtn').click(function () {
         $('.img-spin').css("animation-name", " spin")
@@ -396,15 +430,18 @@ async function BindingThings() {
         $('.img-spin').css("animation-duration", " 1s")
         var tt = document.styleSheets[0];
         tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+
     });
+
 }
+
 //玩家資料
 var myName = 'dfghjkhgfrtyu@yuiknhuiol';
 var myAlive;
-var myJob = '狼王';
+var myJob = '女巫';
 var myroomid = 1;
 let ary;
-async function playerHead() {
+function playerHead() {
     roomid = localStorage.getItem("roomid");
     let obj = [{
         //"roomId": roomid,
@@ -437,8 +474,17 @@ async function Binding() {
     var profession = new Vue({
         el: "#describe",
         data: { items: ary[0] },
+        mounted: function () {
+            //alert('generate Done!!!');
+            $("#close").attr("disabled", false);
+            eleList = $(".list");// 纸牌元素们 
+        },
+        updated: function () {
+            eleList = $(".list");// 纸牌元素们 
+        }
     });
 }
+
 //投票
 var voteResult;
 function vote(a, b, c, d, e, f, g, h, i, j) {
@@ -465,13 +511,13 @@ function voteBack() {
     }];
     connection.invoke("Vote", backVoteResult);
 }
+
 //取投票結果
 var prepareDead;
 function getVoteResult() {
-    return connection.invoke("VoteResult", myroomid).then(function (res) {
-        prepareDead = res.data[0].vote;
-    });
+    return connection.invoke("VoteResult", myroomid);
 }
+
 //確認死亡
 function deadConfirm(die) {
     let deadMan = players[die - 1];
@@ -480,7 +526,8 @@ function deadConfirm(die) {
         "isAlive": false,
         "Account": deadMan.player
     }];
-    connection.invoke("PeopleDie", backDeadResult);
+    connection.invoke("PeopleDie", backDeadResult)
+
 }
 
 
@@ -508,6 +555,7 @@ function GetPersonInroom() {
         }
     })
 }
+
 //離開房間
 function LeaveRoom() {
     PersonInroom = 0;
@@ -550,7 +598,7 @@ function witch() {
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
     if (witchSave != 1) { $('#rightgamerecordli').append(`<li>特殊能力已使用</li>`); }
-    else if (prepareDead == '') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
+    else if (prepareDead == null || prepareDead == 'null') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
     else {
         $('#rightgamerecordli').append(`
      <li>${prepareDead}號被殺死了你要救他們嗎?
@@ -564,7 +612,7 @@ function witch() {
   </div>
   </li>`);
     }
-    $('#saveDead').click(function () { prepareDead = ''; witchSave = witchSave - 1; });
+    $('#saveDead').click(function () { prepareDead = null; witchSave = witchSave - 1; });
     $('#noSaveDead').click(function () { prepareDead = saveOrDead; });
 }
 function hunter() {
@@ -586,7 +634,8 @@ function wolfKing() {
 //以下遊戲主體
 async function game() {
     //----------顯示規則---------
-    //$('#staticBackdrop').modal('show');
+    $('#staticBackdrop').modal('show');
+
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     await timeOn(1);
@@ -597,8 +646,10 @@ async function game() {
 
     for (let round = 0; round < 100; round++) {
         //----------狼人---------
+        deadLis = ''
+        deadNum = [];
         voteResult = null;
-        prepareDead = '';
+        prepareDead = null;
         $('#toggleDark').click();
         Speak('天黑請閉眼，狼人請殺人');
         wolf();
@@ -612,7 +663,7 @@ async function game() {
         Speak('預言家請選擇玩家查身分');
         prophet();
         await timeOn(5);
-        $('.findperson').css("display", "none")
+        $('.findperson').remove();
         $('.circleImg').css("pointer-events", "none");
         $('.on').css("box-shadow", "none")
         $('#rightgamerecordli li').remove();
@@ -622,9 +673,9 @@ async function game() {
         Speak('此玩家死亡，女巫是否救人');
         witch();
         await timeOn(3);
+        $('#rightgamerecordli li').remove();
         Speak('女巫是否殺人');
         await timeOn(3);
-        $('#rightgamerecordli li').remove();
         $('.circleImg').css("pointer-events", "none");
         $('.on').css("box-shadow", "none");
 
@@ -632,13 +683,14 @@ async function game() {
         $("body").css("cursor", "default");
         $('#toggleDark').click();
         document.getElementById("PeoplesendButton").hidden = true;
-        if (prepareDead != '') { await deadConfirm(prepareDead); }
+        if (prepareDead != null && prepareDead != 'null') { await deadConfirm(prepareDead); }
         if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1; }
-        if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
 
+        await timeOn(3);
+        $('.diepage').remove();
+        $('.image').show();
         //判斷輸贏
         Speak('天亮請睜眼');
-        await timeOn(1);
 
         if (deadNum.length > 0) {
             Speak(`昨晚${deadLis}玩家死了`);
@@ -647,7 +699,7 @@ async function game() {
                 if (players[deadNum[i]].name == '獵人') {
                     Speak('發動角色技能');
                     voteResult = null;
-                    prepareDead = '';
+                    prepareDead = null;
                     await timeOn(1);
                     hunter();
                     await timeOn(15);
@@ -656,12 +708,14 @@ async function game() {
                     $('.on').css("box-shadow", "none");
                     if (voteResult != null) { await deadConfirm(voteResult); }
                     if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
-                    await timeOn(1);
+                    await timeOn(3);
+                    $('.diepage').remove();
+                    $('.image').show();
                 }
                 if (players[deadNum[i]].name == '狼王') {
                     Speak('發動角色技能');
                     voteResult = null;
-                    prepareDead = '';
+                    prepareDead = null;
                     await timeOn(1);
                     wolfKing();
                     await timeOn(15);
@@ -670,11 +724,15 @@ async function game() {
                     $('.on').css("box-shadow", "none");
                     if (voteResult != null) { await deadConfirm(voteResult); }
                     if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
-                    await timeOn(1);
+                    await timeOn(3);
+                    $('.diepage').remove();
+                    $('.image').show();
                 }
             }
         } else { Speak('昨晚是平安夜'); await timeOn(1); }
-
+        await timeOn(1);
+        await timeOn(1);
+        await timeOn(1);
         //----------討論---------
         Speak('輪流發言時間');
         for (let i = 0; i < players.length; i++) {
@@ -691,7 +749,7 @@ async function game() {
 
         //----------投票---------
         voteResult = null;
-        prepareDead = '';
+        prepareDead = null;
         await timeOn(1);
         Speak('所有玩家投票，得票最高者將出局');
         $('.circleImg').css("pointer-events", "auto");
@@ -703,6 +761,9 @@ async function game() {
         await deadConfirm(prepareDead);
         await timeOn(1);
         Speak(`${prepareDead}號玩家最高票`);
+        await timeOn(3);
+        $('.diepage').remove();
+        $('.image').show();
 
         //判斷輸贏
 
@@ -720,77 +781,55 @@ async function game() {
 }
 
 signalrListener();
-//AJAX玩家資料
-BindingPlayers();
-playerHead();
-BindingThings();
-closeMessage();
-game();
+$('.image').hide();
+wait();
+document.querySelector('#again').addEventListener('click', function () {
+    waitPeople = waitPeople + 1;
+    document.querySelector('#app').innerHTML = `${waitPeople}/10`
+    if (waitPeople > 9) {
+        $('#waitappendId').hide();
+        $('.image').show();
+        startGame();
+    }
+})
 
-//let _array;
-//async function DeadUpdate() {
-//    let _obj = [
-//        {
-//            "roomId": 10,
-//            "player": "AQ1234@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "Text002@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "ttt@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "test001@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "Text001@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "AQ123@gmail.com",
-//            "isAlive": true,
-//        }, {
-//            "roomId": 10,
-//            "player": "Aaaaassss@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "wolf@gmail.com",
-//            "isAlive": true,
-//        }, {
-//            "roomId": 10,
-//            "player": "jou@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "Aaaaassss2@gmail.com",
-//            "isAlive": true,
-//        },
-//    ]
-//    $.ajax({
-//        type: "patch",
-//        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/PatchCurrentPlayer",
-//        data: JSON.stringify(_obj),
-//        dataType: 'JSON',
-//        headers: {
-//            'Content-type': 'application/json'
-//        },
-//        success: function (response) {
-//            _array = response;
-//            console.log(_array);
-//            Binding();
-//        }
-//    });
-//}
+
+function startGame() {
+    //AJAX玩家資料
+    BindingPlayers();
+    playerHead();
+    BindingThings();
+    closeMessage();
+    game();
+}
+
+
+function DeadUpdate() {
+    let isWin = [];
+    for (let i = 0; i < players.length; i++) {
+        if (players[i].isAlive) {
+            let list = {
+                "roomId": players[i].roomId,
+                "player": players[i].player,
+                "isGood": players[i].isGood
+            }
+            isWin.push(list)
+        }
+    }
+    $.ajax({
+        type: "patch",
+        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/PatchCurrentPlayer",
+        data: JSON.stringify(isWin),
+        dataType: 'JSON',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        success: function (response) {
+
+            _array = response;
+            console.log(_array);
+
+            Binding();
+        }
+    });
+}
