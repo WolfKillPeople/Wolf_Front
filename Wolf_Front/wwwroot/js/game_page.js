@@ -652,6 +652,8 @@ async function game() {
 
     for (let round = 0; round < 100; round++) {
         //----------狼人---------
+        deadLis = ''
+        deadNum = [];
         voteResult = null;
         prepareDead = null;
         $('#toggleDark').click();
