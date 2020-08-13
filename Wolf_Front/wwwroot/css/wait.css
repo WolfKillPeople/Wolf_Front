@@ -1298,9 +1298,9 @@ body {
             letter-spacing: normal;
         }
 
-    .Numberpeopleddiv a:hover span:last-child {
+/*    .Numberpeopleddiv a:hover span:last-child {
         color: rgba(255, 255, 255, 0.8);
-    }
+    }*/
 /*# sourceMappingURL=wait.css.map */
 
 
@@ -1358,21 +1358,24 @@ text-decoration: none;
 .btn-reveal:hover .show {
 transform: translateY(150px);
 }
+.btn:hover{
+    color:aliceblue;
+}
 
 .btn-reveal .reveal {
-display: block;
-position: absolute;
-top: 0;
-left: 0;
-font-family: '微軟正黑體';
-font-weight: bold;
-font-size: 1.5em;
-height: auto;
-width: 100%;
-color: wheat;
-padding: 20px 0px; 
-transition: all .3s ease-in-out;
-transform: translateY(-110px);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: '微軟正黑體';
+    font-weight: bold;
+    font-size: 1.5em;
+    height: auto;
+    width: 100%;
+    color: wheat;
+    padding: 20px 0px;
+    transition: all .3s ease-in-out;
+    transform: translateY(-110px);
 }
 
 .btn-reveal:hover .reveal {
@@ -1514,3 +1517,7 @@ height: 50%;
 transition-delay: 0s;
 }
 
+.again{
+    color:aliceblue;
+    z-index:5;
+}

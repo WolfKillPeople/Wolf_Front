@@ -310,12 +310,12 @@ function wait() {
         <div class="border-bottom"></div>
         <div class="border-bottom-left"></div>
         <div class="border-top-left"></div>
-        <span class="show ">離開</span><span class="reveal">遊戲</span>
+      離開遊戲
      
     </a>
     </div>
 `)
-}
+
 
 
 //字動畫
@@ -337,3 +337,4 @@ anime.timeline({ loop: true })
         easing: "easeOutExpo",
         delay: 500
     });
+}
