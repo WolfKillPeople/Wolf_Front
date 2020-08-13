@@ -25,7 +25,7 @@ function signalrListener() {
         }
     });
 
-    connection.on("NewRoom", function (message,temp) {
+    connection.on("NewRoom", function (message, temp) {
     });
 
     connection.on("VoteResult", function (message) {
@@ -391,7 +391,7 @@ function BindingThings() {
     //eleFront = null;
     //eleList = null; //$(".list");// 纸牌元素们 
 
-    
+
     //debugger;
     // 确定前面与后面元素
 
@@ -635,7 +635,7 @@ function wolfKing() {
 async function game() {
     //----------顯示規則---------
     $('#staticBackdrop').modal('show');
-  
+
     $('.circleImg').css("pointer-events", "none");
     $('.on').css("box-shadow", "none")
     await timeOn(1);
@@ -691,7 +691,7 @@ async function game() {
         $('.image').show();
         //判斷輸贏
         Speak('天亮請睜眼');
-        
+
         if (deadNum.length > 0) {
             Speak(`昨晚${deadLis}玩家死了`);
             await timeOn(1);
@@ -793,83 +793,43 @@ document.querySelector('#again').addEventListener('click', function () {
     }
 })
 
-//document.querySelector('#show').addEventListener('click', function () { $('.image').show(); startGame(); })
-//startGame();
-function startGame() { 
-//AJAX玩家資料
-BindingPlayers();
-playerHead();
-BindingThings();
-closeMessage();
-game();
+
+function startGame() {
+    //AJAX玩家資料
+    BindingPlayers();
+    playerHead();
+    BindingThings();
+    closeMessage();
+    game();
 }
 
-//let _array;
-//async function DeadUpdate() {
-//    let _obj = [
-//        {
-//            "roomId": 10,
-//            "player": "AQ1234@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "Text002@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "ttt@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "test001@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "Text001@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "AQ123@gmail.com",
-//            "isAlive": true,
-//        }, {
-//            "roomId": 10,
-//            "player": "Aaaaassss@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "wolf@gmail.com",
-//            "isAlive": true,
-//        }, {
-//            "roomId": 10,
-//            "player": "jou@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "Aaaaassss2@gmail.com",
-//            "isAlive": true,
-//        },
-//    ]
-//    $.ajax({
-//        type: "patch",
-//        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/PatchCurrentPlayer",
-//        data: JSON.stringify(_obj),
-//        dataType: 'JSON',
-//        headers: {
-//            'Content-type': 'application/json'
-//        },
-//        success: function (response) {
 
-//            _array = response;
-//            console.log(_array);
+function DeadUpdate() {
+    let isWin = [];
+    for (let i = 0; i < players.length; i++) {
+        if (players[i].isAlive) {
+            let list = {
+                "roomId": players[i].roomId,
+                "player": players[i].player,
+                "isGood": players[i].isGood
+            }
+            isWin.push(list)
+        }
+    }
+    $.ajax({
+        type: "patch",
+        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/PatchCurrentPlayer",
+        data: JSON.stringify(isWin),
+        dataType: 'JSON',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        success: function (response) {
 
-//            Binding();
-//        }
-//    });
-//}
+            _array = response;
+            console.log(_array);
+
+            Binding();
+        }
+    });
+}
