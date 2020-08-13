@@ -83,8 +83,7 @@ document.getElementById("WolfsendButton").addEventListener("click", function (ev
 
 //-----------------SAMPLE----------------------
 var roomId = 1;
-var account = "oo";
-var id;
+
 
 
 $('#Test').click(function () {
@@ -94,7 +93,7 @@ $('#Test').click(function () {
 
 connection.on("GetRole",
     function (response) {
-        alert(response);
+        console.log(response);
     });
 
 

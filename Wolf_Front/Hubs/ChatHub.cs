@@ -36,7 +36,6 @@ namespace Wolf_Front.Hubs
         {
             _service = service;
             _temp = temp;
-
         }
 
         /// <summary>
@@ -200,10 +199,9 @@ namespace Wolf_Front.Hubs
             var acc = target[0].Account;
             var tempList = new List<string>();
             //assign old value and new value to new List
-            foreach (var item in acc)
-            {
-                tempList.Add(item);
-            }
+            
+            acc.ToList().ForEach(o => tempList.Add(o));
+
             tempList.Remove(Account);
 
             var newRoomValue = (from t in target
@@ -439,9 +437,25 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public async Task GetRole(int roomId)
         {
-            _GameRoom.TryGetValue(roomId, out var userList);
+            //_GameRoom.TryGetValue(roomId, out var userList);
+            //預設_GameRoom滿人
+            var userList = new List<GameRoom>()
+            {
+                new GameRoom() {RoomId = 1, Account = "wdqdw@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "judy870131@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "sadasd@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "test009@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "lovemark2413@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "asddsa@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true},
+            };
+
             var result = _service.GetRole(userList);
-            await Clients.Group(roomId.ToString()).GetRole(result);
+            //await Clients.Group(roomId.ToString()).GetRole(result);
+            await Clients.All.GetRole(result);
         }
     }
 }
