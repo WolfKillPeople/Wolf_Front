@@ -25,7 +25,7 @@ let prize = -1;
 var email = "a1256963@gmail.com";
 function runCircle() {
     $(`[data-order="${current_index}"]`).removeClass('is-active');
-
+   
     current_index += 1;
 
     if (current_index > total_items - 1) {
@@ -33,6 +33,12 @@ function runCircle() {
     }
 
     $(`[data-order="${current_index}"]`).addClass('is-active');
+    //增加抽獎音效
+    $("#lottery_music").append(`    
+        <audio autoplay>
+            <source src="../music/lottery.mp3" type="audio/ogg">
+        </audio>`
+    );
 }
 
 function generatePrizeNumber() {
@@ -47,14 +53,10 @@ function controllSpeed() {
     jumps += 1;
     runCircle();
     
-    // 1. 抽到獎品停止遊戲
+    // 1.抽到獎品停止遊戲
     if (jumps > minimum_jumps + 10 && prize === current_index) {
         clearTimeout(timer);
-        let emailData =
-        {
-            email: email,
-            win: postwin
-        }
+        var postemail;
         if (current_index == 7) {
             postwin = getwin;
             swal({
@@ -62,9 +64,9 @@ function controllSpeed() {
                 text: `${prizes[current_index]}`,
                 icon: 'error',
                 button: "返回房間列表",
-            })/*.then(function () {
+            }).then(function () {
             window.location.href = "http://werewolfkill.azurewebsites.net/Html/Room.html"
-            })*/;
+            });
         }
         else {
             postwin = parseInt(prizes[current_index]) + getwin;
@@ -73,39 +75,43 @@ function controllSpeed() {
                 text: `得到 ${prizes[current_index]} 積分${prizes[current_index + 8]}`,
                 icon: 'success',
                 button: "返回房間列表",
-            })/*.then(function () {
+            }).then(function () {
                 window.location.href = "http://werewolfkill.azurewebsites.net/Html/Room.html"
-            })*/;
+            });
+        }
+        postemail =
+        {
+            email: email,
+            win: postwin
         }
         $.ajax({
             type: 'POST',
             url: 'https://localhost:44386/api/UserRegister/postwin',
             dataType: 'json',
             contentType: 'application/json;charset=UTF-8',
-            data: JSON.stringify(emailData),
+            data: JSON.stringify(postemail),
             success: function (msg) {
                 obj = msg;
-                alert(postwin);           
-                //alert('Data Saved: ' + msg);
+                //alert(postwin);           
             }
         });
-        
+        $('.title').empty();
+        $('.title').append(`目前總積分: ${postwin}`)
         
         
         prize = -1;
         jumps = 0;
-        // 2. 還沒抽繼續跑
     }
     else {
         // 還沒進入關鍵抽獎階段前的速度 (前菜轉特效)
         if (jumps < minimum_jumps) {
             speed -= 5; // 加快
-            // 決定獎品的位置
+            //決定獎品的位置
         } else if (jumps === minimum_jumps) {
             const random_number = generatePrizeNumber();
             prize = random_number;
         } else {
-            // 下一個就是獎品時放慢鈍一下
+            //下一個就是獎品時放慢鈍一下
             if ((jumps > minimum_jumps + 10) && prize === (current_index + 1)) {
                 speed += 600;
             } else {
@@ -125,9 +131,9 @@ function init() {
     speed = 100;
     prize = -1;
     controllSpeed();
-    //$('#js-start').off('click');
-    //$('#js-start').css({ "background": "#CCCC99" });
-    //$('#js-start').css({ "color": "#000" });
+    $('#js-start').off('click');//第二次不能在按抽獎
+    $('#js-start').css({ "background": "#CCCC99" });
+    $('#js-start').css({ "color": "#000000" });
 }
 
 var arry;
@@ -145,9 +151,9 @@ $(document).ready(() => {
         data: JSON.stringify(emailData),
         success: function (msg) {
             arry = msg;
-            alert(arry[0].win);
+            //alert(arry[0].win);
             getwin = arry[0].win;
-            //alert('Data Saved: ' + msg);
+            $('.title').append(`目前總積分: ${getwin}`);
         }
     });
 });
@@ -162,11 +168,6 @@ var colors = new Array(
     [255, 128, 0]);
 
 var step = 0;
-//color table indices for: 
-// current color left
-// next color left
-// current color right
-// next color right
 var colorIndices = [0, 1, 2, 3];
 
 //transition speed
@@ -192,11 +193,6 @@ function updateGradient() {
     var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
     var color2 = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
 
-    // $('#gradient').css({
-    //     background: "-webkit-gradient(linear, left top, right top, from(" + color1 + "), to(" + color2 + "))"
-    // }).css({
-    //     background: "-moz-linear-gradient(left, " + color1 + " 0%, " + color2 + " 100%)"
-    // });
 
     $('body').css({
         background: "-webkit-gradient(linear, left top, right top, from(" + color1 + "), to(" + color2 + "))"
