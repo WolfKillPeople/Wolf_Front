@@ -673,9 +673,9 @@ async function game() {
         Speak('此玩家死亡，女巫是否救人');
         witch();
         await timeOn(3);
+        $('#rightgamerecordli li').remove();
         Speak('女巫是否殺人');
         await timeOn(3);
-        $('#rightgamerecordli li').remove();
         $('.circleImg').css("pointer-events", "none");
         $('.on').css("box-shadow", "none");
 
