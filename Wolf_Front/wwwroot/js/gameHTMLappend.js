@@ -181,6 +181,7 @@
                     <div class="gamerecord">
                         <div class="leftgamerecord">
                             <ul id='leftgamerecordli'>
+                                <li></li>
                             </ul>
                         </div>
                         <div class="rightgamerecord">

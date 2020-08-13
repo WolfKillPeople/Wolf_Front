@@ -54,9 +54,9 @@ function Speak(txtInput) {
     });
     synth.speak(toSpeak);
     //將陣列的最後一個打到li裡
-    var li = document.createElement('li');
-    li.innerText = txtInput;
-    document.querySelector('#leftgamerecordli').appendChild(li);
+    document.querySelector('#leftgamerecordli li').innerHTML = txtInput;
+    $('#leftgamerecordli li').animate({ "opacity": 1 }, 2000).siblings().animate({ opacity: 0 }, 2000);
+    $('#leftgamerecordli li').animate({ "opacity": 0 }, 2000).siblings().animate({ opacity: 1 }, 2000);
     //保持滾動條一直在最底部
     var leftgamerecordli = document.getElementById("leftgamerecordli").parentNode;
     leftgamerecordli.scrollTop = leftgamerecordli.scrollHeight;

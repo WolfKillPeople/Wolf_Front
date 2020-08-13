@@ -1248,3 +1248,8 @@ path, polygon {
     text-align:center;
     font-size:24px;
 }
+
+#leftgamerecordli li {
+    cursor: pointer;
+    opacity: 0;
+}
