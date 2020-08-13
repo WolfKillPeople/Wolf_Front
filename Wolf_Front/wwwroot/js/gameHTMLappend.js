@@ -290,7 +290,7 @@
             <div class="modal-content " style="width: 70em; height: 35em;   overflow:hidden;      ">
                 <div class="modal-header ">
                     <h5 class="modal-title" id="staticBackdropLabel"></h5>
-                    <button type="button" onclick="/*Speak('')*/" class="close" data-dismiss="modal" aria-label="Close" id="close">
+                    <button type="button" onclick="/*Speak('')*/" class="close" data-dismiss="modal" aria-label="Close" id="close"  disabled="true" >
                         <span aria-hidden="true" style="color:white;">&times;</span>
                     </button>
                 </div>

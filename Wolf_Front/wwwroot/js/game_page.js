@@ -479,7 +479,8 @@ async function Binding() {
         el: "#describe",
         data: { items: ary[0] },
         mounted: function () {
-            alert('generate Done!!!');
+            //alert('generate Done!!!');
+            $("#close").attr("disabled", false);
             eleList = $(".list");// 纸牌元素们 
             console.log(eleList);
         },
