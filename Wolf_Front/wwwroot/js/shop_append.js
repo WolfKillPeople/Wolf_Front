@@ -13,7 +13,7 @@ $('body').append(`
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row no-gutters">
                             <div class="col-md-4 ">
-                                <img src="../pic/civilian.jpg" class="card-img-top " alt="civilian">
+                                <img src="https://i.imgur.com/knEt3u8.png" class="card-img-top " alt="civilian">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -35,7 +35,7 @@ $('body').append(`
                     <div class="card mb-3" style="max-width:540px;">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="../pic/hunter.jpg" class="card-img-top " alt="hunter">
+                                <img src="https://i.imgur.com/xeKFrDb.png" class="card-img-top " alt="hunter">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -56,7 +56,7 @@ $('body').append(`
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="../pic/prophet.jpg" class="card-img-top " alt="prophet">
+                                <img src="https://i.imgur.com/Q1yWIiU.png" class="card-img-top " alt="prophet">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -77,7 +77,7 @@ $('body').append(`
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="../pic/wolf.jpg" class="card-img-top " alt="wolf">
+                                <img src="https://i.imgur.com/x6SQfU4.png" class="card-img-top " alt="wolf">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -98,7 +98,7 @@ $('body').append(`
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="../pic/wolf_king.jpg" class="card-img-top " alt="wolf_king">
+                                <img src="https://i.imgur.com/W0DoEeE.png" class="card-img-top " alt="wolf_king">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -119,7 +119,7 @@ $('body').append(`
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="../pic/witch.jpg" class="card-img-top " alt="witch">
+                                <img src="https://i.imgur.com/Qc2tpsC.png" class="card-img-top " alt="witch">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">

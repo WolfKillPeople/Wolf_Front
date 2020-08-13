@@ -1,13 +1,19 @@
 const prizes = {
-    0: "30 積分👛",
-    1: "100 積分💰",
-    2: "1 積分💲",
-    3: "50 積分🤑",
-    4: "1 積分💲",
-    5: "30 積分👛",
-    6: "1 積分💲",
+    0: "30",
+    1: "100",
+    2: "1",
+    3: "50",
+    4: "1",
+    5: "30",
+    6: "1",
     7: "下次再來💸",
-
+    8: "👛",
+    9: "💰",
+    10: "💲",
+    11: "🤑",
+    12: "💲",
+    13: "👛",
+    14: "💲",
 };
 const total_items = 8;
 const minimum_jumps = 30; // 超過這數字開始進入抽獎
@@ -16,7 +22,7 @@ let jumps = 0;
 let speed = 30;
 let timer = 0;
 let prize = -1;
-
+var email = "a1256963@gmail.com";
 function runCircle() {
     $(`[data-order="${current_index}"]`).removeClass('is-active');
 
@@ -34,33 +40,56 @@ function generatePrizeNumber() {
 }
 
 
-
+var postwin;
+var getwin;
+var obj;
 function controllSpeed() {
     jumps += 1;
     runCircle();
+    
     // 1. 抽到獎品停止遊戲
     if (jumps > minimum_jumps + 10 && prize === current_index) {
         clearTimeout(timer);
+        let emailData =
+        {
+            email: email,
+            win: postwin
+        }
         if (current_index == 7) {
+            postwin = getwin;
             swal({
                 title: '真可惜QQ',
                 text: `${prizes[current_index]}`,
                 icon: 'error',
                 button: "返回房間列表",
-            }).then(function () {
-                window.location.href = "http://werewolfkill.azurewebsites.net/Html/Room.html"
-            });;
+            })/*.then(function () {
+            window.location.href = "http://werewolfkill.azurewebsites.net/Html/Room.html"
+            })*/;
         }
         else {
+            postwin = parseInt(prizes[current_index]) + getwin;
             swal({
                 title: '恭喜你!!',
-                text: `得到 ${prizes[current_index]}`,
+                text: `得到 ${prizes[current_index]} 積分${prizes[current_index + 8]}`,
                 icon: 'success',
                 button: "返回房間列表",
-            }).then(function () {
+            })/*.then(function () {
                 window.location.href = "http://werewolfkill.azurewebsites.net/Html/Room.html"
-            });
+            })*/;
         }
+        $.ajax({
+            type: 'POST',
+            url: 'https://localhost:44386/api/UserRegister/postwin',
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify(emailData),
+            success: function (msg) {
+                obj = msg;
+                alert(postwin);           
+                //alert('Data Saved: ' + msg);
+            }
+        });
+        
         
         
         prize = -1;
@@ -96,13 +125,31 @@ function init() {
     speed = 100;
     prize = -1;
     controllSpeed();
-    $('#js-start').off('click');
-    $('#js-start').css({ "background": "#CCCC99" });
-    $('#js-start').css({ "color": "#000" });
+    //$('#js-start').off('click');
+    //$('#js-start').css({ "background": "#CCCC99" });
+    //$('#js-start').css({ "color": "#000" });
 }
 
+var arry;
 $(document).ready(() => {
     $('#js-start').on('click', init);
+    let emailData =
+    {
+        email: email
+    }
+    $.ajax({
+        type: 'POST',
+        url: 'https://localhost:44386/api/UserRegister/GetWin',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify(emailData),
+        success: function (msg) {
+            arry = msg;
+            alert(arry[0].win);
+            getwin = arry[0].win;
+            //alert('Data Saved: ' + msg);
+        }
+    });
 });
 
 // background
