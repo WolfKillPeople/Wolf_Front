@@ -445,7 +445,6 @@ let ary;
 connection.on("GetRole",
     function (response) {
         ary = response;
-        debugger;
         Binding();
     });
 
@@ -530,6 +529,7 @@ function getVoteResult() {
 
 //確認死亡
 function deadConfirm(die) {
+    debugger;
     let deadMan = players[die - 1];
     var backDeadResult = [{
         "RoomId": deadMan.roomId,
