@@ -226,10 +226,15 @@ namespace Wolf_Front.Hubs
             await Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
             //只在這個房間傳送訊息
-             await Clients.Groups(roomId.ToString()).OutToRoom(Account);
+            await Clients.Groups(roomId.ToString()).OutToRoom(Account);
 
+            if (newRoomValue.Any(x => x.RoomId == roomId && x.Count == 0))
+            {
+                await RemoveRoom(roomId);
+            }
             //將房間資訊給大家
             await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
+            //if()
         }
         /// <summary>
         /// GetAllRoom
@@ -300,7 +305,7 @@ namespace Wolf_Front.Hubs
         /// <param name="data"></param>
         public void Vote(IEnumerable<VotePlayers> data)
         {
-            
+
             _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
             var roomKey = _votePlayers[data.ToList()[0].RoomID];
 
