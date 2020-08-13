@@ -441,25 +441,35 @@ var myAlive;
 var myJob = '女巫';
 var myroomid = 1;
 let ary;
+
+connection.on("GetRole",
+    function (response) {
+        ary = response;
+        debugger;
+        Binding();
+    });
+
 function playerHead() {
     roomid = localStorage.getItem("roomid");
     let obj = [{
         //"roomId": roomid,
         "roomId": 3,
     }]
-    $.ajax({
-        type: "post",
-        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/GetRole",
-        data: JSON.stringify(obj),
-        dataType: 'JSON',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        success: function (response) {
-            ary = response;
-            Binding();
-        }
-    });
+    let id = 1;
+    connection.invoke("GetRole", id);
+    //$.ajax({
+    //    type: "post",
+    //    url: "https://wolfpeoplekill.azurewebsites.net/api/Game/GetRole",
+    //    data: JSON.stringify(obj),
+    //    dataType: 'JSON',
+    //    headers: {
+    //        'Content-type': 'application/json'
+    //    },
+    //    success: function (response) {
+    //        ary = response;
+    //        Binding();
+    //    }
+    //});
 }
 
 async function Binding() {
