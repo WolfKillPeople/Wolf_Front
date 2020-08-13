@@ -730,7 +730,9 @@ async function game() {
                 }
             }
         } else { Speak('昨晚是平安夜'); await timeOn(1); }
-
+        await timeOn(1);
+        await timeOn(1);
+        await timeOn(1);
         //----------討論---------
         Speak('輪流發言時間');
         for (let i = 0; i < players.length; i++) {
@@ -780,7 +782,18 @@ async function game() {
 
 signalrListener();
 $('.image').hide();
-document.querySelector('#show').addEventListener('click', function () { $('.image').show(); startGame(); })
+wait();
+document.querySelector('#again').addEventListener('click', function () {
+    waitPeople = waitPeople + 1;
+    document.querySelector('#app').innerHTML = `${waitPeople}/10`
+    if (waitPeople > 9) {
+        $('#waitappendId').hide();
+        $('.image').show();
+        startGame();
+    }
+})
+
+//document.querySelector('#show').addEventListener('click', function () { $('.image').show(); startGame(); })
 //startGame();
 function startGame() { 
 //AJAX玩家資料

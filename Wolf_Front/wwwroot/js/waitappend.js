@@ -1,12 +1,12 @@
-var a = 1;
+var waitPeople = 1;
 function wait() {
     $('body').append(`
-<div class="container id="waitappendId"">
+<div class="container" id="waitappendId">
 
    <h1 class="ml3">等待玩家中......</h1>
 <div class="Numberpeopleddiv" >
 
-    <h1  class="Numberpeople" id="app">${a}/10</h1></div>
+    <h1  class="Numberpeople" id="app">1/10</h1></div>
     <div class="moon">
         <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
     </div>
@@ -313,7 +313,7 @@ function wait() {
         <span class="show ">離開</span><span class="reveal">遊戲</span>
      
     </a>
-    
+    </div>
 `)
 }
 
