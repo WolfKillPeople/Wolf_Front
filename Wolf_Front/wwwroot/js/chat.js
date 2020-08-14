@@ -87,14 +87,13 @@ var roomId = 1;
 
 
 $('#Test').click(function () {
-    
     connection.invoke("GetRole", roomId);
 });
 
-connection.on("GetRole",
-    function (response) {
-        console.log(response);
-    });
+//connection.on("GetRole",
+//    function (response) {
+//        console.log(response);
+//    });
 
 
 

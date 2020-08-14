@@ -31,6 +31,16 @@ function signalrListener() {
     connection.on("VoteResult", function (message) {
         prepareDead = message[0].vote;
     });
+
+
+    connection.on("GetRole",
+        function (response) {
+            console.log(response);
+            ary = response;
+            Binding();
+        });
+
+
 }
 
 
@@ -38,7 +48,7 @@ function signalrListener() {
 var id;
 var PersonInroom;
 $('#addd').click(function () {
-    connection.invoke("CreateRoom", 1, "dfghjkhgfrtyu@yuiknhuiol");
+    connection.invoke("CreateRoom", 1, "wdqdw@gmail.com");
 })
 
 var synth = window.speechSynthesis;
@@ -175,7 +185,7 @@ var players = [
         "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
         "isGood": true,
         "roomId": 1,
-        "player": "dfghjkhgfrtyu@yuiknhuiol",
+        "player": "wdqdw@gmail.com",
         "isAlive": true,
         "playerPic": null
     },
@@ -392,7 +402,6 @@ function BindingThings() {
     //eleList = null; //$(".list");// 纸牌元素们 
 
 
-    //debugger;
     // 确定前面与后面元素
 
 
@@ -436,39 +445,15 @@ function BindingThings() {
 }
 
 //玩家資料
-var myName = 'dfghjkhgfrtyu@yuiknhuiol';
+var myName = 'wdqdw@gmail.com';
 var myAlive;
 var myJob = '女巫';
 var myroomid = 1;
 let ary;
-
-connection.on("GetRole",
-    function (response) {
-        ary = response;
-        Binding();
-    });
-
 function playerHead() {
-    roomid = localStorage.getItem("roomid");
-    let obj = [{
-        //"roomId": roomid,
-        "roomId": 3,
-    }]
-    let id = 1;
-    connection.invoke("GetRole", id);
-    //$.ajax({
-    //    type: "post",
-    //    url: "https://wolfpeoplekill.azurewebsites.net/api/Game/GetRole",
-    //    data: JSON.stringify(obj),
-    //    dataType: 'JSON',
-    //    headers: {
-    //        'Content-type': 'application/json'
-    //    },
-    //    success: function (response) {
-    //        ary = response;
-    //        Binding();
-    //    }
-    //});
+    //myroomid = localStorage.getItem("roomid");
+    connection.invoke("GetRole", myroomid);
+
 }
 
 async function Binding() {
@@ -529,7 +514,6 @@ function getVoteResult() {
 
 //確認死亡
 function deadConfirm(die) {
-    debugger;
     let deadMan = players[die - 1];
     var backDeadResult = [{
         "RoomId": deadMan.roomId,
@@ -837,7 +821,7 @@ function DeadUpdate() {
         success: function (response) {
 
             _array = response;
-            console.log(_array);
+            //console.log(_array);
 
             Binding();
         }
