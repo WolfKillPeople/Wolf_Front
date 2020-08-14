@@ -1,6 +1,7 @@
 //signalr監聽
 var deadLis = '';
 var deadNum = [];
+var players;
 function signalrListener() {
     //玩家死亡
     connection.on("PeopleDie", function (message) {
@@ -32,12 +33,13 @@ function signalrListener() {
         prepareDead = message[0].vote;
     });
 
-
     connection.on("GetRole",
         function (response) {
-            console.log(response);
+            players = response;
+            console.log(players);
+            BindingPlayers();
             ary = response;
-            Binding();
+            //Binding();
         });
 
 
@@ -176,122 +178,9 @@ function toggleScheme() {
     image.classList.toggle('image-light')
 }
 
-//AJAX玩家職業資料
-var players = [
-    {
-        "name": "女巫",
-        "imgUrl": "https://i.imgur.com/4eJqZgk.png",
-        "occupationId": 8,
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "wdqdw@gmail.com",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/D2o6MV6.png",
-        "occupationId": 9,
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "預言家",
-        "imgUrl": "https://i.imgur.com/8tiIFAB.png",
-        "occupationId": 4,
-        "description": "神職。每夜可以查驗一位存活玩家的所屬陣營，並在白天透過發言向好人報出資訊。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "狼王",
-        "imgUrl": "https://i.imgur.com/i9eRyug.png",
-        "occupationId": 5,
-        "description": "神職。擁有一瓶解藥和一瓶毒藥。解藥未使用時可以得知狼人的殺害對象，並決定是否救這一位玩家。然而，解藥全程不能用於解救自己。女巫也可以利用白天所得資訊，將懷疑的對象毒殺，該對象死後不能發動技能。解藥和毒藥不可以在同一夜使用。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "獵人",
-        "imgUrl": "https://i.imgur.com/fVQQgnM.png",
-        "occupationId": 1,
-        "description": "又稱「狼槍」、「毒狼」。除殉情或被毒殺外，以任何其他方式被淘汰時可以發動技能帶走任何一位玩家。狼王在場時，獵人和黑狼王淘汰啟動技能均不公布角色牌。部分局式中，黑狼王自爆不能發動技能。",
-        "isGood": false,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "狼人",
-        "imgUrl": "https://i.imgur.com/n7knadr.png",
-        "occupationId": 2,
-        "description": "黑夜可以睜眼與隊友見面並討論戰術與選擇殺害對象。狼人可以選擇當夜不殺害任何玩家（空刀）或自殺（自刀）。白天混入村落中混淆好人。狼人可以在白天任何時候選擇公布角色牌自我淘汰（自爆）強制進入黑夜階段，並在黑夜階段結束時離場。",
-        "isGood": false,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/TIvcUG5.png",
-        "occupationId": 6,
-        "description": "神職。除殉情或被毒殺外，以任何其他方式被淘汰時可以公布角色牌發動技能開槍帶走一位玩家，亦可以選擇壓槍不發動技能。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/D2o6MV6.png",
-        "occupationId": 10,
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/4eJqZgk.png",
-        "occupationId": 7,
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "狼人",
-        "imgUrl": "https://i.imgur.com/n7knadr.png",
-        "occupationId": 3,
-        "description": "黑夜可以睜眼與隊友見面並討論戰術與選擇殺害對象。狼人可以選擇當夜不殺害任何玩家（空刀）或自殺（自刀）。白天混入村落中混淆好人。狼人可以在白天任何時候選擇公布角色牌自我淘汰（自爆）強制進入黑夜階段，並在黑夜階段結束時離場。",
-        "isGood": false,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    }
-]
-
 //玩家頭像生成
 async function BindingPlayers() {
+    console.log('123')
     var array = [];
     for (let i = 0; i < players.length / 2; i++) {
         array.push(i + 1);
@@ -307,7 +196,7 @@ async function BindingPlayers() {
         num.setAttribute('class', 'number');
         aplayer.setAttribute('class', 'playerimg')
         aplayer.setAttribute('href', '#');
-        playerImg.setAttribute('src', players[i].imgUrl);
+        playerImg.setAttribute('src', players[i].playerPic);
         playerImg.setAttribute('class', 'playerphoto');
         dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
         dead.setAttribute('class', 'deadimg');
@@ -337,7 +226,7 @@ async function BindingPlayers() {
         num.setAttribute('class', 'number');
         aplayer.setAttribute('class', 'playerimg')
         aplayer.setAttribute('href', '#');
-        playerImg.setAttribute('src', players[i].imgUrl);
+        playerImg.setAttribute('src', players[i].playerPic);
         playerImg.setAttribute('class', 'playerphoto')
         dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
         dead.setAttribute('class', 'deadimg');
@@ -380,14 +269,14 @@ function BindingThings() {
             $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
-    //滾輪
-    $(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
-        if (event.type == "mouseenter") {
-            $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
-        } else {
-            $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
-        }
-    });
+    ////滾輪
+    //$(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+    //    if (event.type == "mouseenter") {
+    //        $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
+    //    } else {
+    //        $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
+    //    }
+    //});
     //滾輪
     $(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
         if (event.type == "mouseenter") {
@@ -450,11 +339,7 @@ var myAlive;
 var myJob = '女巫';
 var myroomid = 1;
 let ary;
-function playerHead() {
-    //myroomid = localStorage.getItem("roomid");
-    connection.invoke("GetRole", myroomid);
 
-}
 
 async function Binding() {
     //myName = localStorage.getItem("myName");
@@ -783,6 +668,7 @@ document.querySelector('#again').addEventListener('click', function () {
     if (waitPeople > 9) {
         $('#waitappendId').hide();
         $('.image').show();
+        connection.invoke("GetRole", myroomid);
         startGame();
     }
 })
@@ -790,8 +676,6 @@ document.querySelector('#again').addEventListener('click', function () {
 
 function startGame() {
     //AJAX玩家資料
-    BindingPlayers();
-    playerHead();
     BindingThings();
     closeMessage();
     game();
