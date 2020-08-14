@@ -2,27 +2,29 @@
 var deadLis = '';
 var deadNum = [];
 var players;
+//玩家資料
+var myName = 'wdqdw@gmail.com';
+var myAlive;
+var myJob;
+var myroomid = 1;
+var myJobInfo;
 function signalrListener() {
     //玩家死亡
     connection.on("PeopleDie", function (message) {
         let allHead = document.querySelectorAll('.deadimg');
         for (let i = 0; i < players.length; i++) {
-            if (players[i].player == message) {
+            if (players[i].account == message) {
                 allHead[i].setAttribute('style', 'display:flex');
                 deadLis = deadLis + `${i + 1}號`;
                 deadNum.push(i);
                 players[i].isAlive = false;
-
-
-                //死掉特效+這裡
+                //死掉特效
                 $('.image').hide();
                 bloodAppend(deadLis);
                 //血的特效
                 gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
                 gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
-
             }
-
         }
     });
 
@@ -36,17 +38,20 @@ function signalrListener() {
     connection.on("GetRole",
         function (response) {
             players = response;
-            console.log(players);
-            BindingPlayers();
-            ary = response;
+            //myName = localStorage.getItem("myName");
+            players.forEach(element => {
+                if (element.account == myName) {
+                    myAlive = element.isAlive;
+                    myJob = element.name;
+                    myJobInfo = element;
+                }
+            });
             Binding();
+            BindingPlayers();
             BindingThings();
             closeMessage();
         });
-
-
 }
-
 
 //測試建房按鈕
 var id;
@@ -182,7 +187,6 @@ function toggleScheme() {
 
 //玩家頭像生成
 async function BindingPlayers() {
-    console.log('123')
     var array = [];
     for (let i = 0; i < players.length / 2; i++) {
         array.push(i + 1);
@@ -335,28 +339,13 @@ function BindingThings() {
 
 }
 
-//玩家資料
-var myName = 'wdqdw@gmail.com';
-var myAlive;
-var myJob = '女巫';
-var myroomid = 1;
-let ary;
 
-
-async function Binding() {
-    //myName = localStorage.getItem("myName");
-    players.forEach(element => {
-        if (element.player == myName) {
-            myAlive = this.isAlive;
-            //myJob = this.name;
-            let jobPhoto = this.imgUrl;
-        }
-    });
+function Binding() {
+    console.log(myJobInfo);
     var profession = new Vue({
         el: "#describe",
-        data: { items: ary[0] },
+        data: { items: myJobInfo },
         mounted: function () {
-            //alert('generate Done!!!');
             $("#close").attr("disabled", false);
             eleList = $(".list");// 纸牌元素们 
         },
@@ -405,12 +394,11 @@ function deadConfirm(die) {
     var backDeadResult = [{
         "RoomId": deadMan.roomId,
         "isAlive": false,
-        "Account": deadMan.player
+        "Account": deadMan.account
     }];
     connection.invoke("PeopleDie", backDeadResult)
 
 }
-
 
 //查詢是哪個玩家及好或壞人
 function PlayerIsGood(e) {
@@ -619,7 +607,7 @@ async function game() {
         for (let i = 0; i < players.length; i++) {
             document.getElementById("PeoplesendButton").hidden = true;
             if (players[i].isAlive) {
-                if (players[i].player == myName) {
+                if (players[i].account == myName) {
                     document.getElementById("PeoplesendButton").hidden = false;
                 }
                 Speak(`${i + 1}號玩家發言`);
@@ -631,6 +619,8 @@ async function game() {
         //----------投票---------
         voteResult = null;
         prepareDead = null;
+        deadLis = ''
+        deadNum = [];
         await timeOn(1);
         Speak('所有玩家投票，得票最高者將出局');
         $('.circleImg').css("pointer-events", "auto");
@@ -652,7 +642,7 @@ async function game() {
         for (let i = 0; i < deadNum.length; i++) {
             Speak(`${deadNum[i] + 1}號玩家請發表遺言`);
             await timeOn(1);
-            if (players[deadNum[i]].player == myName) {
+            if (players[deadNum[i]].account == myName) {
                 document.getElementById("PeoplesendButton").hidden = false;
             }
             await timeOn(5);
@@ -682,7 +672,7 @@ function DeadUpdate() {
         if (players[i].isAlive) {
             let list = {
                 "roomId": players[i].roomId,
-                "player": players[i].player,
+                "player": players[i].account,
                 "isGood": players[i].isGood
             }
             isWin.push(list)
