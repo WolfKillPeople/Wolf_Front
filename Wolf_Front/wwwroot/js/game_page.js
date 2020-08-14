@@ -39,7 +39,9 @@ function signalrListener() {
             console.log(players);
             BindingPlayers();
             ary = response;
-            //Binding();
+            Binding();
+            BindingThings();
+            closeMessage();
         });
 
 
@@ -669,17 +671,9 @@ document.querySelector('#again').addEventListener('click', function () {
         $('#waitappendId').hide();
         $('.image').show();
         connection.invoke("GetRole", myroomid);
-        startGame();
+        game();
     }
 })
-
-
-function startGame() {
-    //AJAX玩家資料
-    BindingThings();
-    closeMessage();
-    game();
-}
 
 
 function DeadUpdate() {

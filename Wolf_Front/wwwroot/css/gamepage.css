@@ -1,7 +1,12 @@
 ﻿body {
-     margin: 0;
-     overflow: hidden; 
+    margin: 0;
+    overflow: hidden;
     /*cursor: url('/Images/paw.jpg') 45 45, auto;*/
+    -webkit-user-select: none; /* for Chrome */
+}
+
+input {
+    outline: none
 }
 
 .image {
@@ -12,23 +17,27 @@
     grid-template-rows: 72vh 1fr;
     background-color: var(--trees);
 }
-#leftgamerecordli{
-    padding:0px;
+
+#leftgamerecordli {
+    padding: 0px;
 }
 
 #rightgamerecordli {
     padding: 0px;
 }
+
 li {
     color: #ffffff;
     list-style-type: none;
 }
+
 [class*="section_"] {
     grid-column: 1 / -1;
     grid-row: 1;
     height: 100%;
     width: 100%;
 }
+
 .btn-secondary {
     background-color: #4F7086;
     outline: none !important;
@@ -37,16 +46,19 @@ li {
     margin-left: 5px;
     border-width: 0px;
 }
+
 .active {
- /*   background-color: #76B3D7 !important;*/
+    /*   background-color: #76B3D7 !important;*/
     outline: none !important;
     border: none;
     box-shadow: none !important;
 }
+
 .btn-secondary:focus {
     border: none !important;
     box-shadow: none !important;
 }
+
 .active:active {
     border: none !important;
     box-shadow: none !important;
@@ -219,7 +231,7 @@ path, polygon {
 
 .top-playerimg {
     display: flex;
-    margin-top: 4%;
+    /*  margin-top: 4%;*/
     margin-left: 4%;
 }
 
@@ -244,7 +256,7 @@ path, polygon {
 .deadimg {
     position: absolute;
     z-index: 6;
-    display:none;
+    display: none;
 }
 
 .playerphoto {
@@ -270,30 +282,38 @@ path, polygon {
 .gamerecord {
     display: flex;
     height: 320px;
+    background-color: rgba(104, 157, 186, 0.6);
 }
 
-    .gamerecord li {
-        margin: 5Px 10px 0 10px;
-        background-color: #253641;
-        color: #ffffff;
-        padding: 2px 15px;
-        border-radius:15px;
-    }
+.rightgamerecord li {
+    margin: 5Px 10px 0 10px;
+    background-color: #253641;
+    color: #ffffff;
+    padding: 2px 15px;
+    border-radius: 15px;
+}
 
 .leftgamerecord {
-    width: 55%;
-    background-color: rgba(104, 157, 186, 0.6);
+    width: 80%;
+    /*    background-color: rgba(104, 157, 186, 0.6);*/
     margin-left: 5%;
-    margin-top: 2%;
-    overflow:hidden;
+    margin-top: 1%;
+    overflow: hidden;
 }
 
+    .leftgamerecord li {
+        color: black;
+        font-size: 30px;
+        -23px
+    }
+
 .rightgamerecord {
-    width: 25%;
-    background-color: rgba(104, 157, 186, 0.6);
-    margin-left: 5%;
-    margin-top: 2%;
+    /*   width: 25%;*/
+    /*   background-color: rgba(104, 157, 186, 0.6);*/
+    height: 174px;
     overflow: hidden;
+    background-color: #253641;
+    margin-left: 4%;
 }
 
 .number {
@@ -303,9 +323,9 @@ path, polygon {
     font-family: "Work Sans";
     position: absolute;
     top: 0px;
-    left: 5px;
+    left: -23px;
     color: #ffffff;
-/*    z-index:10;*/
+    /*    z-index:10;*/
 }
 
 .image-dark {
@@ -318,7 +338,7 @@ path, polygon {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index:10;
+    z-index: 10;
 }
 
 
@@ -446,6 +466,7 @@ path, polygon {
     margin: 5px;
     filter: alpha(Opacity=20)
 }
+
 #toggleDark {
     top: -10000px;
     left: -10000px;
@@ -1132,7 +1153,6 @@ path, polygon {
     -webkit-animation-duration: 350ms;
     animation-timing-function: ease-out;
     animation-duration: 350ms;
-
 }
 
 .out {
@@ -1244,9 +1264,9 @@ path, polygon {
     filter: alpha(Opacity=100);
     border-radius: 20%;
 }*/
-.Character{
-    text-align:center;
-    font-size:24px;
+.Character {
+    text-align: center;
+    font-size: 24px;
 }
 
 #leftgamerecordli li {
