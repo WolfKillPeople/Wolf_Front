@@ -82,19 +82,32 @@ document.getElementById("WolfsendButton").addEventListener("click", function (ev
 });
 
 //-----------------SAMPLE----------------------
-var roomId = 1;
+var backVoteResult = [{
+    "RoomID": 1,
+    "Account": "oo",
+    "Vote": "2",
+    "voteResult": null
+}];
 
-
+connection.on("VoteResult",
+    function(data) {
+        console.log(data);
+    });
 
 $('#Test').click(function () {
-    
-    connection.invoke("GetRole", roomId);
+
+    connection.invoke("Vote", backVoteResult);
 });
 
-connection.on("GetRole",
-    function (response) {
-        console.log(response);
-    });
+$('#Check').click(function() {
+    connection.invoke("VoteResult", 1);
+})
+
+
+//connection.on("GetRole",
+//    function (response) {
+//        console.log(response);
+//    });
 
 
 

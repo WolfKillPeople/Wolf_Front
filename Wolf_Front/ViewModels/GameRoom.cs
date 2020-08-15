@@ -45,6 +45,6 @@
         /// <summary>
         /// 玩家照片
         /// </summary>
-        public string PlayerPic { get; set; }
+        public string UserPic { get; set; }
     }
 }

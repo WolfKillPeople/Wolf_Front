@@ -21,15 +21,13 @@ namespace Wolf_Front.Hubs
         Task AllRemoveRoom(IEnumerable<RoomInfo> newList ,int temp);
 
         Task VoteResult(List<VotePlayers> data);
+
         Task PeopleDie(string Account);
 
         Task PeopleResurrection(string Account);
-        
-        Task Exception(string exce);
-
-        Task ReceiveAccountPic(string ImgUrl);
 
         Task GetRole(List<GameRoom> data);
+
         Task OutToRoom(string Account);
 
     }

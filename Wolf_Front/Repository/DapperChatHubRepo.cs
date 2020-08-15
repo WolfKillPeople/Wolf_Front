@@ -28,10 +28,8 @@ namespace Wolf_Front.Repository
                 for (int i = 0; i < data.Count; i++)
                 {
                     var total = conn.Query<AspNetUsers>(sql, new{ Name = data[i].Account}).ToList();
-                    total.ForEach(x => data[i].PlayerPic = x.Pic);
+                    total.ForEach(x => data[i].UserPic = x.Pic);
                 }
-                //var total = conn.Query<AspNetUsers>(sql, data).ToList();
-                //return total[0].Pic;
                 return data;
             }
         }

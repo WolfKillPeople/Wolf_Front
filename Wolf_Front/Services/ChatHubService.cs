@@ -41,7 +41,7 @@ namespace Wolf_Front.Services
                 d.Description = _list[_o].Description;
                 _o++;
             }
-            
+
             return GetPicList;
         }
     }

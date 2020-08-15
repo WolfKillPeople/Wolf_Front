@@ -13,7 +13,7 @@ namespace Wolf_Front.ViewModels
         /// 玩家帳號
         /// </summary>
         [Required]
-        public string User { get; set; }
+        public string Account { get; set; }
 
         /// <summary>
         /// 投票對象號碼
