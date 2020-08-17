@@ -635,11 +635,15 @@ async function game() {
         if (gameResult == '好人獲勝') {
             /*這裡加好人獲勝MODEL;*/
 
+
+            Speak('遊戲結束，好人獲勝');
             break;
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
 
+
+            Speak('遊戲結束，好人獲勝');
             break;
         }
 
@@ -686,11 +690,15 @@ async function game() {
         if (gameResult == '好人獲勝') {
             /*這裡加好人獲勝MODEL;*/
 
+
+            Speak('遊戲結束，好人獲勝');
             break;
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
 
+
+            Speak('遊戲結束，好人獲勝');
             break;
         }
 
