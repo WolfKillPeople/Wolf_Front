@@ -359,6 +359,7 @@ function Binding() {
 var voteResult;
 function vote(a, b, c, d, e, f, g, h, i, j) {
     document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].className = "circleImg on";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].setAttribute('style', 'margin: 5px;box - shadow: 0px 0px 25px red;filter: alpha(Opacity = 100);');
     document.getElementById("touxiang").getElementsByClassName('circleImg')[b - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[c - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[d - 1].className = "circleImg off";
@@ -409,7 +410,7 @@ function PlayerIsGood(e) {
     $('#rightgamerecordli').append(`<li>${Player}號是${IsGood}</li>`);
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none")
+    $('.circleImg').attr('className', 'circleImg off');
 }
 
 //抓房間人數
@@ -498,6 +499,8 @@ function wolfKing() {
         $('#rightgamerecordli').append(`<li>請選擇帶走玩家</li>`);
     }
 }
+ $('.circleImg').attr('className', 'circleImg off');
+
 
 
 //以下遊戲主體
@@ -506,7 +509,8 @@ async function game() {
     $('#staticBackdrop').modal('show');
 
     $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none");
+    $('.circleImg').attr('className', 'circleImg off');
+    $('.on').css('box-shadow', 'none');
     await timeOn(1);
 
     //----------準備時間---------
@@ -519,13 +523,13 @@ async function game() {
         deadNum = [];
         voteResult = null;
         prepareDead = null;
-        $('.on').css("box-shadow", "auto");
         $('#toggleDark').click();
         Speak('天黑請閉眼，狼人請殺人');
         wolf();
         await timeOn(10);
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none")
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
         voteBack();
         await getVoteResult();
 
@@ -535,20 +539,21 @@ async function game() {
         await timeOn(5);
         $('.findperson').remove();
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none");
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
         $('#rightgamerecordli li').remove();
 
         //----------女巫---------
         voteResult = null;
-        $('.on').css("box-shadow", "auto");
         Speak('此玩家死亡，女巫是否救人');
         witch();
         await timeOn(3);
         $('#rightgamerecordli li').remove();
         Speak('女巫是否殺人');
-        await timeOn(3);
+        await timeOn(5);
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none");
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
 
         //----------天亮遺言---------
         $("body").css("cursor", "default");
@@ -565,7 +570,8 @@ async function game() {
         await winOrLose();
 
         Speak('天亮請睜眼');
-        $('.on').css("box-shadow", "auto");
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
         if (deadNum.length > 0) {
             Speak(`昨晚${deadLis}玩家死了`);
             await timeOn(1);
@@ -579,7 +585,7 @@ async function game() {
                     await timeOn(15);
                     $('#rightgamerecordli li').remove();
                     $('.circleImg').css("pointer-events", "none");
-                    $('.on').css("box-shadow", "none");
+                    $('.circleImg').attr('className', 'circleImg off');
                     if (voteResult != null) { await deadConfirm(voteResult); }
                     if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
                     await timeOn(3);
@@ -595,7 +601,7 @@ async function game() {
                     await timeOn(15);
                     $('#rightgamerecordli li').remove();
                     $('.circleImg').css("pointer-events", "none");
-                    $('.on').css("box-shadow", "none");
+                    $('.circleImg').attr('className', 'circleImg off');
                     if (voteResult != null) { await deadConfirm(voteResult); }
                     if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
                     await timeOn(3);
@@ -626,13 +632,14 @@ async function game() {
         prepareDead = null;
         deadLis = ''
         deadNum = [];
-        $('.on').css("box-shadow", "auto");
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
         await timeOn(1);
         Speak('所有玩家投票，得票最高者將出局');
         $('.circleImg').css("pointer-events", "auto");
         await timeOn(10);
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none");
+        $('.circleImg').attr('className', 'circleImg off');
         voteBack();
         await getVoteResult();
         await deadConfirm(prepareDead);
