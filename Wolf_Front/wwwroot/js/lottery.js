@@ -61,9 +61,9 @@ function controllSpeed() {
             postwin = getwin;
             swal({
                 title: '真可惜QQ',
-                text: `${prizes[current_index]}`,
+                text: `0 積分💸`,
                 icon: 'error',
-                button: "返回房間列表",
+                button: "前往房間列表",
             }).then(function () {
             window.location.href = "http://werewolfkill.azurewebsites.net/Html/Room.html"
             });
@@ -74,7 +74,7 @@ function controllSpeed() {
                 title: '恭喜你!!',
                 text: `得到 ${prizes[current_index]} 積分${prizes[current_index + 8]}`,
                 icon: 'success',
-                button: "返回房間列表",
+                button: "前往房間列表",
             }).then(function () {
                 window.location.href = "http://werewolfkill.azurewebsites.net/Html/Room.html"
             });
@@ -86,7 +86,7 @@ function controllSpeed() {
         }
         $.ajax({
             type: 'POST',
-            url: 'https://localhost:44386/api/UserRegister/postwin',
+            url: 'https://localhost:5001/api/UserRegister/postwin',
             dataType: 'json',
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify(postemail),
@@ -145,7 +145,7 @@ $(document).ready(() => {
     }
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:44386/api/UserRegister/GetWin',
+        url: 'https://localhost:5001/api/UserRegister/GetWin',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(emailData),
@@ -215,3 +215,4 @@ function updateGradient() {
 }
 
 setInterval(updateGradient, 10);
+
