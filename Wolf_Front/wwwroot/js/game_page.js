@@ -459,14 +459,14 @@ function prophet() {
         element.setAttribute('value', index + 1);
     });
 }
-var witchSave = 1;
-var witchKill = 1;
+var witchSave = true;
+var witchKill = true;
 function witch() {
     let saveOrDead = prepareDead;
     //if (myJob == "女巫" && myAlive == true) { }
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
-    if (witchSave != 1) { $('#rightgamerecordli').append(`<li>特殊能力已使用</li>`); }
+    if (witchSave != true) { $('#rightgamerecordli').append(`<li>特殊能力已使用</li>`); }
     else if (prepareDead == null || prepareDead == 'null') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
     else {
         $('#rightgamerecordli').append(`
@@ -481,8 +481,8 @@ function witch() {
   </div>
   </li>`);
     }
-    $('#saveDead').click(function () { prepareDead = null; witchSave = witchSave - 1; });
-    $('#noSaveDead').click(function () { prepareDead = saveOrDead; });
+    $('#saveDead').click(function () { prepareDead = null; witchSave = false; });
+    $('#noSaveDead').click(function () { prepareDead = saveOrDead; witchSave = true; });
 }
 function hunter() {
     if (myJob == "獵人") {
@@ -506,7 +506,7 @@ async function game() {
     $('#staticBackdrop').modal('show');
 
     $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none")
+    $('.on').css("box-shadow", "none");
     await timeOn(1);
 
     //----------準備時間---------
@@ -519,6 +519,7 @@ async function game() {
         deadNum = [];
         voteResult = null;
         prepareDead = null;
+        $('.on').css("box-shadow", "auto");
         $('#toggleDark').click();
         Speak('天黑請閉眼，狼人請殺人');
         wolf();
@@ -534,11 +535,12 @@ async function game() {
         await timeOn(5);
         $('.findperson').remove();
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none")
+        $('.on').css("box-shadow", "none");
         $('#rightgamerecordli li').remove();
 
         //----------女巫---------
         voteResult = null;
+        $('.on').css("box-shadow", "auto");
         Speak('此玩家死亡，女巫是否救人');
         witch();
         await timeOn(3);
@@ -553,14 +555,17 @@ async function game() {
         $('#toggleDark').click();
         document.getElementById("PeoplesendButton").hidden = true;
         if (prepareDead != null && prepareDead != 'null') { await deadConfirm(prepareDead); }
-        if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1; }
+        if (voteResult != null && witchKill == true && myJob == '女巫') { await deadConfirm(voteResult); witchKill = false; }
 
         await timeOn(3);
         $('.diepage').remove();
         $('.image').show();
-        //判斷輸贏
-        Speak('天亮請睜眼');
 
+        //判斷輸贏
+        await winOrLose();
+
+        Speak('天亮請睜眼');
+        $('.on').css("box-shadow", "auto");
         if (deadNum.length > 0) {
             Speak(`昨晚${deadLis}玩家死了`);
             await timeOn(1);
@@ -621,12 +626,13 @@ async function game() {
         prepareDead = null;
         deadLis = ''
         deadNum = [];
+        $('.on').css("box-shadow", "auto");
         await timeOn(1);
         Speak('所有玩家投票，得票最高者將出局');
         $('.circleImg').css("pointer-events", "auto");
         await timeOn(10);
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none")
+        $('.on').css("box-shadow", "none");
         voteBack();
         await getVoteResult();
         await deadConfirm(prepareDead);
@@ -637,6 +643,7 @@ async function game() {
         $('.image').show();
 
         //判斷輸贏
+        await winOrLose();
 
         //----------遺言---------
         for (let i = 0; i < deadNum.length; i++) {
@@ -666,32 +673,30 @@ document.querySelector('#again').addEventListener('click', function () {
 })
 
 
-function DeadUpdate() {
+function winOrLose() {
     let isWin = [];
     for (let i = 0; i < players.length; i++) {
         if (players[i].isAlive) {
             let list = {
-                "roomId": players[i].roomId,
-                "player": players[i].account,
+                "name": players[i].name,
                 "isGood": players[i].isGood
             }
             isWin.push(list)
         }
     }
     $.ajax({
-        type: "patch",
-        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/PatchCurrentPlayer",
+        type: "post",
+        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/WinOrLose",
         data: JSON.stringify(isWin),
         dataType: 'JSON',
         headers: {
             'Content-type': 'application/json'
         },
         success: function (response) {
-
-            _array = response;
-            //console.log(_array);
-
-            Binding();
+            console.log(response);
+        },
+        error: function () {
+            console.log('fail');
         }
     });
 }
