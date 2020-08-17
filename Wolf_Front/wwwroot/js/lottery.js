@@ -134,6 +134,7 @@ function init() {
     $('#js-start').off('click');//第二次不能在按抽獎
     $('#js-start').css({ "background": "#CCCC99" });
     $('#js-start').css({ "color": "#000000" });
+    $('.wolf').addClass('blackwolf');
 }
 
 var arry;
