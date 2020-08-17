@@ -8,6 +8,8 @@ var myAlive;
 var myJob;
 var myroomid = 1;
 var myJobInfo;
+
+var gameResult;
 function signalrListener() {
     //玩家死亡
     connection.on("PeopleDie", function (message) {
@@ -38,6 +40,7 @@ function signalrListener() {
     connection.on("GetRole",
         function (response) {
             players = response;
+            console.log(players);
             //myName = localStorage.getItem("myName");
             players.forEach(element => {
                 if (element.account == myName) {
@@ -341,7 +344,6 @@ function BindingThings() {
 
 
 function Binding() {
-    console.log(myJobInfo);
     var profession = new Vue({
         el: "#describe",
         data: { items: myJobInfo },
@@ -566,12 +568,28 @@ async function game() {
         $('.diepage').remove();
         $('.image').show();
 
-        //判斷輸贏
-        await winOrLose();
 
         Speak('天亮請睜眼');
         $('.circleImg').attr('className', 'circleImg off');
         $('.on').css('box-shadow', 'none');
+
+        //判斷輸贏
+        await winOrLose();
+        if (gameResult == '好人獲勝') {
+            /*這裡加好人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            break;
+        }
+        else if (gameResult == '狼人獲勝') {
+            /*這裡加狼人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            break;
+        }
+
         if (deadNum.length > 0) {
             Speak(`昨晚${deadLis}玩家死了`);
             await timeOn(1);
@@ -587,7 +605,7 @@ async function game() {
                     $('.circleImg').css("pointer-events", "none");
                     $('.circleImg').attr('className', 'circleImg off');
                     if (voteResult != null) { await deadConfirm(voteResult); }
-                    if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
+                    if (voteResult != null) { Speak(`${voteResult}號玩家死亡`); }
                     await timeOn(3);
                     $('.diepage').remove();
                     $('.image').show();
@@ -603,7 +621,7 @@ async function game() {
                     $('.circleImg').css("pointer-events", "none");
                     $('.circleImg').attr('className', 'circleImg off');
                     if (voteResult != null) { await deadConfirm(voteResult); }
-                    if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
+                    if (voteResult != null) { Speak(`${voteResult}號玩家死亡`); }
                     await timeOn(3);
                     $('.diepage').remove();
                     $('.image').show();
@@ -611,6 +629,20 @@ async function game() {
             }
         } else { Speak('昨晚是平安夜'); await timeOn(1); }
         await timeOn(1);
+
+        //判斷輸贏
+        await winOrLose();
+        if (gameResult == '好人獲勝') {
+            /*這裡加好人獲勝MODEL;*/
+
+            break;
+        }
+        else if (gameResult == '狼人獲勝') {
+            /*這裡加狼人獲勝MODEL;*/
+
+            break;
+        }
+
         await timeOn(1);
         await timeOn(1);
         //----------討論---------
@@ -651,6 +683,16 @@ async function game() {
 
         //判斷輸贏
         await winOrLose();
+        if (gameResult == '好人獲勝') {
+            /*這裡加好人獲勝MODEL;*/
+
+            break;
+        }
+        else if (gameResult == '狼人獲勝') {
+            /*這裡加狼人獲勝MODEL;*/
+
+            break;
+        }
 
         //----------遺言---------
         for (let i = 0; i < deadNum.length; i++) {
@@ -700,10 +742,8 @@ function winOrLose() {
             'Content-type': 'application/json'
         },
         success: function (response) {
-            console.log(response);
-        },
-        error: function () {
-            console.log('fail');
+            gameResult = response[0].gameResult;
+            console.log(gameResult);
         }
     });
 }
