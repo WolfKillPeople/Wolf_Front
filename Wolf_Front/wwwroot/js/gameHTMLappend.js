@@ -235,7 +235,7 @@
                                 <img v-bind:src="items.imgUrl" alt="纸牌正面" />
                             </div>
                             <div class="list flip">
-                                <img src="https://i.imgur.com/2djHCEl.jpg" alt="纸牌背面" />
+                                <img src="https://i.imgur.com/VXs87w5.jpg" alt="纸牌背面" />
 
                             </div>
 
