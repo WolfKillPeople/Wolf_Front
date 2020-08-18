@@ -309,28 +309,28 @@ function AddOneDoor() {
         $('.scroll_ul').append(`<li data-target="${door_page}" class="nav-btn nav-page${door_page}"></li>`)
     }
 }
-//connection.on("GetAll", function (data, i) {
-//    $('.page').remove();
-//    $('.nav-btn').remove();
-//    clicks = 0;
-//    door_page = 1;
-//    i = 0;
-//    for (i = 0; i < data.length; i++) {
-//        clicks++;
-//        if (data[i].count == 10) {
-//            doorImg = close_img;
-//            altImg = 'close';
-//        }
-//        else {
-//            doorImg = open_img;
-//            altImg = 'open';
-//        }
-//        displayDoor(data, i);
-//        if (data[i].count == 10) {
-//            document.querySelectorAll('.perspective')[i].removeAttribute("onclick");
-//        }
-//    }
-//});
+connection.on("GetAll", function (data, i) {
+    $('.page').remove();
+    $('.nav-btn').remove();
+    clicks = 0;
+    door_page = 1;
+    i = 0;
+    for (i = 0; i < data.length; i++) {
+        clicks++;
+        if (data[i].count == 10) {
+            doorImg = close_img;
+            altImg = 'close';
+        }
+        else {
+            doorImg = open_img;
+            altImg = 'open';
+        }
+        displayDoor(data, i);
+        if (data[i].count == 10) {
+            document.querySelectorAll('.perspective')[i].removeAttribute("onclick");
+        }
+    }
+});
 //People
 function addPeople(member) {
     var strRoomId = $(member).attr('class').substring(9);
