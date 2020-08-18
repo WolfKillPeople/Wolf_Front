@@ -5,7 +5,7 @@
     -webkit-user-select: none; /* for Chrome */
 }
 
-input {
+#WolfmessageInput {
     outline: none
 }
 
@@ -305,7 +305,7 @@ path, polygon {
 
     .leftgamerecord li {
         color: black;
-        font-size: 45px;
+        font-size: 25px;
         font-weight: 900;
         font-family: 微軟正黑體;
         text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F, 0 0 0.2em #87F;
@@ -314,13 +314,13 @@ path, polygon {
 .rightgamerecord {
     /*   width: 25%;*/
     /*   background-color: rgba(104, 157, 186, 0.6);*/
-    height: 174px;
+    height: 229px;
     overflow: hidden;
     background-color: #253641;
     margin-left: 4%;
 }
 
-.number {
+.gamenumber {
     background-color: #ffa396;
     padding: 6px 11px;
     font-size: 12px;
@@ -1280,4 +1280,7 @@ path, polygon {
     cursor: pointer;
     opacity: 0;
 }
- 
+#close{
+    background-color:transparent;
+    border:none;
+}
