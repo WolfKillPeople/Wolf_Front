@@ -680,7 +680,6 @@ function Speak(txtInput) {
         }
     });
     synth.speak(toSpeak);
-    //將陣列的最後一個打到li裡
     document.querySelector('#leftgamerecordli li').innerHTML = txtInput;
     $('#leftgamerecordli li').animate({ "opacity": 1 }, 2000).siblings().animate({ opacity: 0 }, 2000);
     $('#leftgamerecordli li').animate({ "opacity": 0 }, 2000).siblings().animate({ opacity: 1 }, 2000);
@@ -1118,11 +1117,11 @@ async function game() {
     $('.circleImg').css("pointer-events", "none");
     $('.circleImg').attr('className', 'circleImg off');
     $('.on').css('box-shadow', 'none');
-    await timeOn(1);
+    await timeOn(10);
 
     //----------準備時間---------
     Speak('請確認你的身分，遊戲將於倒數完後開始');
-    await timeOn(5);
+    await timeOn(10);
 
     for (let round = 0; round < 100; round++) {
         //----------狼人---------
