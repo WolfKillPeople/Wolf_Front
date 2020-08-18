@@ -39,22 +39,15 @@ $(document).ready(function () {
             GSocre = arry[0].win;
             G_ID = arry[0].id;
             document.cookie = `GUID =${G_ID}`;
-            //document.cookie = `${G_ID}`;
-            //alert(GEmail);
-            //alert(GetPic);
             $('.avatat').attr('src', `${GetPic}`);
             $('.Account_email').text(`${GEmail}`);
             $('.Account_Score').text(`${GSocre}`);
-            //alert('Data Saved: ' + arry);
-            //alert(arry);
         }
     });
 
 
     connection.start().then(function () {
-        connection.invoke("GetAllRoom");//.then(function (response) {
-
-        //})
+        connection.invoke("GetAllRoom");
     }).catch(function (err) {
         return console.error(err.toString());
     });
@@ -171,7 +164,7 @@ function displayDoor(data, i) {
                                             </div>
                                            <div class="number">
                                            <p class="door_number">${data[i].roomId.toString().padStart(3, '0')}</p>
-                                          <a href="http://werewolfkill.azurewebsites.net/Html/Room.html?room=${data[i].roomId}"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${data[i].roomId}" onclick="addPeople(this)"/></a>
+                                          <img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${data[i].roomId}" onclick="addPeople(this)"/>
                                            <p class="people">人數: ${data[i].count}/10</p>
                                           </div>          
                                               </div>
@@ -187,7 +180,7 @@ function displayDoor(data, i) {
                                     </div>
                                     <div class="number">
                                         <p class="door_number">${data[i].roomId.toString().padStart(3, '0')}</p>
-                                        <a href="http://werewolfkill.azurewebsites.net/Html/Room.html?room=${data[i].roomId}"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${data[i].roomId}" onclick="addPeople(this)"/></a>
+                                        <img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${data[i].roomId}" onclick="addPeople(this)"/>
                                         <p class="people">人數: ${data[i].count}/10</p>
                                     </div>          
                                 </div>`);
@@ -199,7 +192,7 @@ function displayDoor(data, i) {
                                 </div>
                                 <div class="number">
                                     <p class="door_number">${data[i].roomId.toString().padStart(3, '0')}</p>
-                                    <a href="http://werewolfkill.azurewebsites.net/Html/Room.html?room=${data[i].roomId}"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${data[i].roomId}" onclick="addPeople(this)"/></a>
+                                    <img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${data[i].roomId}" onclick="addPeople(this)"/>
                                     <p class="people">人數: ${data[i].count}/10</p>
                                 </div>          
                             </div>`);
@@ -215,7 +208,7 @@ function displayDoor(data, i) {
                                             </div>
                                             <div class="number">
                                                 <p class="door_number">${data[i].roomId.toString().padStart(3, '0')}</p>
-                                                <a href="http://werewolfkill.azurewebsites.net/Html/Room.html?room=${data[i].roomId}"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${data[i].roomId}" onclick="addPeople(this)"/></a>
+                                                <img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${data[i].roomId}" onclick="addPeople(this)"/>
                                                 <p class="people">人數: ${data[i].count}/10</p>
                                             </div>          
                                         </div>
@@ -238,7 +231,6 @@ function addDoor() {
     prepare();
 }
 function AddOneDoor() {
-    //play1 = localStorage.getItem('myName');
     if (clicks == 1) {
         $(`.door_all`).append(`<div class="page page-${door_page} active">
             <div class="half left">
@@ -264,7 +256,7 @@ function AddOneDoor() {
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
-                        <a href="http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${nextRoom}" onclick="addPeople(this)"/></a>
+                        <img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${nextRoom}" onclick="addPeople(this)"/>
                         <p class="people">人數: 1/10</p>
                     </div>          
                 </div>`);
@@ -276,7 +268,7 @@ function AddOneDoor() {
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
-                        <a href="http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${nextRoom}" onclick="addPeople(this)" /></a>
+                        <img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${nextRoom}" onclick="addPeople(this)" />
                         <p class="people">人數: 1/10</p>
                     </div>          
                 </div>`);
@@ -292,7 +284,7 @@ function AddOneDoor() {
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
-                        <a href="http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${nextRoom}" onclick="addPeople(this)" /></a>
+                        <img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${nextRoom}" onclick="addPeople(this)" />
                         <p class="people">人數: 1/10</p>
                     </div>          
                 </div>
@@ -303,6 +295,8 @@ function AddOneDoor() {
     }
 }
 connection.on("GetAll", function (data, i) {
+    //console.log(data);
+    //console.log(i);
     $('.page').remove();
     $('.nav-btn').remove();
     clicks = 0;
@@ -386,13 +380,13 @@ function drawing() {
 drawing();
 
 //search
-const input = document.getElementById("search-input");
-const searchBtn = document.getElementById("search-btn");
-const expand = () => {
-    searchBtn.classList.toggle("close");
-    input.classList.toggle("square");
-};
-searchBtn.addEventListener("click", expand);
+//const input = document.getElementById("search-input");
+//const searchBtn = document.getElementById("search-btn");
+//const expand = () => {
+//    searchBtn.classList.toggle("close");
+//    input.classList.toggle("square");
+//};
+//searchBtn.addEventListener("click", expand);
 
 //modal
 // Create an immediately invoked functional expression to wrap our code
@@ -874,15 +868,6 @@ function BindingThings() {
             $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
-    ////滾輪
-    //$(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
-    //    if (event.type == "mouseenter") {
-    //        $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
-    //    } else {
-    //        $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
-    //    }
-    //});
-    //滾輪
     $(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
         if (event.type == "mouseenter") {
             $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
@@ -890,13 +875,6 @@ function BindingThings() {
             $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
-    // 在前面显示的元素，隐藏在后面的元素
-    //eleBack = null;
-    //eleFront = null;
-    //eleList = null; //$(".list");// 纸牌元素们 
-
-
-    // 确定前面与后面元素
 
 
     //< !--當我按下x時要去加入css動畫 -->
@@ -1106,11 +1084,11 @@ async function game() {
     $('#staticBackdrop').modal('show');
     $('.circleImg').attr('className', 'circleImg off');
     $('.on').css('box-shadow', 'none');
-    await timeOn(10);
+    await timeOn(5);
 
     //----------準備時間---------
     Speak('請確認你的身分，遊戲將於倒數完後開始');
-    await timeOn(10);
+    await timeOn(5);
     $('.circleImg').css("pointer-events", "none");
 
     for (let round = 0; round < 100; round++) {
@@ -1143,7 +1121,7 @@ async function game() {
         voteResult = null;
         Speak('此玩家死亡，女巫是否救人');
         witch();
-        await timeOn(3);
+        await timeOn(5);
         $('#rightgamerecordli li').remove();
         Speak('女巫是否殺人');
         await timeOn(5);
@@ -1256,7 +1234,7 @@ async function game() {
                     document.getElementById("PeoplesendButton").hidden = false;
                 }
                 Speak(`${i + 1}號玩家發言`);
-                await timeOn(3);
+                await timeOn(4);
                 document.getElementById("PeoplesendButton").hidden = true;
             }
         }
