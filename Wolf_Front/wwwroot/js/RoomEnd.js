@@ -1104,8 +1104,6 @@ function wolfKing() {
 async function game() {
     //----------顯示規則---------
     $('#staticBackdrop').modal('show');
-
-    $('.circleImg').css("pointer-events", "none");
     $('.circleImg').attr('className', 'circleImg off');
     $('.on').css('box-shadow', 'none');
     await timeOn(10);
