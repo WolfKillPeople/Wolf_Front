@@ -51,7 +51,7 @@ $(document).ready(function () {
             //alert(arry);
         }
     });
-   
+
 
     connection.start().then(function () {
         connection.invoke("GetAllRoom");//.then(function (response) {
@@ -332,7 +332,7 @@ connection.on("GetAll", function (data, i) {
 function addPeople(member) {
     var strRoomId = $(member).attr('class').substring(9);
     var roomId = parseInt(strRoomId);
-    account = "oo";
+    account = "TYRFTY@gmail.com";
     $('.all').remove();
 
     connection.invoke("JoinRoom", roomId, account);
@@ -665,6 +665,8 @@ function signalrListener() {
             closeMessage();
         });
 }
+
+
 
 var synth = window.speechSynthesis;
 var voices = [];
@@ -1320,18 +1322,18 @@ async function game() {
 
 function prepare() {
     $('.all').remove();
-signalrListener();
-wait();
-document.querySelector('#again').addEventListener('click', function () {
-    waitPeople = waitPeople + 1;
-    document.querySelector('#app').innerHTML = `${waitPeople}/10`
-    if (waitPeople > 9) {
-        $('#waitappendId').hide();
-        $('.image').show();
-        connection.invoke("GetRole", myroomid);
-        game();
-    }
-})
+    signalrListener();
+    wait();
+    document.querySelector('#again').addEventListener('click', function () {
+        waitPeople = waitPeople + 1;
+        document.querySelector('#app').innerHTML = `${waitPeople}/10`
+        if (waitPeople > 9) {
+            $('#waitappendId').hide();
+            $('.image').show();
+            connection.invoke("GetRole", myroomid);
+            game();
+        }
+    })
 }
 
 function winOrLose() {
