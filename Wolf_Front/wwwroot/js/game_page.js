@@ -718,7 +718,6 @@ async function game() {
 }
 
 signalrListener();
-$('.image').hide();
 wait();
 document.querySelector('#again').addEventListener('click', function () {
     waitPeople = waitPeople + 1;
