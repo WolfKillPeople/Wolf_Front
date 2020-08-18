@@ -9,46 +9,48 @@
     left: 0;
     right: 0;
     margin: auto;
-   
-  }
-  .user_img_btn {
+    z-index: 20;
+}
+
+.user_img_btn {
     border-radius: 30%;
     outline: none;
-  }
+}
 
-  #mainPart{
-    height: 300px;    
+#mainPart {
+    height: 300px;
     width: 300px;
     position: relative;
-    left:40%;
-    margin-top: 2%;
-    margin-bottom: 4%;
+    left: 40%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     background-color: transparent;
+}
 
-  }
-  .user_img_btn:active {
+.user_img_btn:active {
     outline: none;
-  }
-  
-  .user_img_btn:focus {
+}
+
+.user_img_btn:focus {
     -webkit-box-shadow: none;
-            box-shadow: none;
+    box-shadow: none;
     outline: none;
-  }
-  .user_img {
+}
+
+.user_img {
     background-color: transparent;
-  }
-  
-  .user_Choiceimg {
+}
+
+.user_Choiceimg {
     background-color: #ffdab9;
-  }
-  
-  .users_pic {
+}
+
+.users_pic {
     width: 30%;
     height: auto;
-  }
-  
-  .upLoadImg {
+}
+
+.upLoadImg {
     height: 6rem;
     width: 6rem;
     border: 2px #000 dashed;
@@ -56,13 +58,30 @@
     margin-top: 60px;
     margin-left: 40px;
     margin: auto;
-  }
-  
-  .plus {
-    display: none;
-  }
-  #userImgModalLabel{
-     display: flex;
-     align-content: center;
+}
 
-  }
+.plus {
+    display: none;
+}
+
+#userImgModalLabel {
+    display: flex;
+    align-content: center;
+}
+
+.header-score {
+    margin-top: -78px;
+    font-size: 30px;
+    margin-left: 19%;
+    width: 178px;
+    height: 50px;
+    line-height: 50px;
+    padding: 10px;
+    background: #cd853f;
+    color: #fff;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Microsoft JhengHei;
+}

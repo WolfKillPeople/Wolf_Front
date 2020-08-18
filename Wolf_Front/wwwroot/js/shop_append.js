@@ -30,7 +30,7 @@ $('body').append(`
                                                 <h5 class="card-title">角色:平民</h5>
                                                 <p class="card-text">描述:沒有任何技能，僅白天可以公投出心中的狼人。</p>
                                                 <p class="card-text price"><small
-                                                        class="text-muted">價錢:&emsp;$250</small></p>
+                                                        class="text-muted">積分:&emsp;250</small></p>
                                                 <div class="cartBtn">
                                                     <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         <span class="cartText">直接購買</span></a>
@@ -53,7 +53,7 @@ $('body').append(`
                                                 <h5 class="card-title">角色:獵人</h5>
                                                 <p class="card-text">描述:在死亡時可帶走一名玩家，在被毒死時不可以開槍。(也可以壓槍不帶人走)</p>
                                                 <p class="card-text price"><small
-                                                        class="text-muted">價錢:&emsp;$290</small></p>
+                                                        class="text-muted">積分:&emsp;290</small></p>
                                                 <div class="cartBtn">
                                                     <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         <span class="cartText">直接購買</span></a>
@@ -76,7 +76,7 @@ $('body').append(`
                                                 <h5 class="card-title">角色:預言家</h5>
                                                 <p class="card-text">描述:每晚可以驗證一名玩家身分，只能得知其身分為好人或狼人，無法確切得知其身分。</p>
                                                 <p class="card-text price"><small
-                                                        class="text-muted">價錢:&emsp;$340</small></p>
+                                                        class="text-muted">積分:&emsp;340</small></p>
                                                 <div class="cartBtn">
                                                     <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         <span class="cartText">直接購買</span></a>
@@ -98,7 +98,7 @@ $('body').append(`
                                                 <h5 class="card-title">角色:狼人</h5>
                                                 <p class="card-text">描述:夜間可以溝通，共同決定將殺害哪名玩家並商討戰術。</p>
                                                 <p class="card-text price"><small
-                                                        class="text-muted">價錢:&emsp;$490</small></p>
+                                                        class="text-muted">積分:&emsp;490</small></p>
                                                 <div class="cartBtn">
                                                     <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         <span class="cartText">直接購買</span></a>
@@ -122,7 +122,7 @@ $('body').append(`
                                                 <h5 class="card-title">角色:狼王</h5>
                                                 <p class="card-text">描述:死亡後可以開槍殺死一名玩家，被毒則不可以開槍。</p>
                                                 <p class="card-text price"><small
-                                                        class="text-muted">價錢:&emsp;$500</small></p>
+                                                        class="text-muted">積分:&emsp;500</small></p>
                                                 <div class="cartBtn">
                                                     <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         <span class="cartText">直接購買</span></a>
@@ -145,7 +145,7 @@ $('body').append(`
                                                 <h5 class="card-title">角色:女巫</h5>
                                                 <p class="card-text">描述:有一瓶解藥與一瓶毒藥，一晚只能使用一瓶藥，可以自救。</p>
                                                 <p class="card-text price"><small
-                                                        class="text-muted">價錢:&emsp;$390</small></p>
+                                                        class="text-muted">積分:&emsp;390</small></p>
                                                 <div class="cartBtn">
                                                     <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         <span class="cartText">直接購買</span></a>
@@ -170,7 +170,18 @@ $('body').append(`
                 </h2>
             </div>
             <div id="avatarChange" class="collapse" aria-labelledby="AvatarBtn" data-parent="#accordionExample">
+                 <!-- bg -->   
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                   
+                <!-- bg -->
                 <div class="card-body CardmainPart" id="mainPart">
+                   
+                     <p class="header-score">積分:5</p>
                     <div class="imgcontainer mx-auto d-flex justify-content-center">
                         <div class="btn user_img_btn" id="user_img" title="選擇更換頭像">
                             <img id="avatat" class="avatat" src="https://i.imgur.com/FMfI2fM.png" alt="user">
@@ -180,6 +191,7 @@ $('body').append(`
             </div>
         </div>
 
+        <!-- userImg Modal -->
         <div class="modal fade " id="user_pic" tabindex="-1" role="dialog" aria-labelledby="userImgModal"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -200,5 +212,6 @@ $('body').append(`
             </div>
         </div>
     </div>
+
 
 `)

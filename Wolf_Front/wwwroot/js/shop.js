@@ -57,6 +57,7 @@ const upload = new Vue({
             $.ajax(settings).done(function (res) {
                 var img = JSON.parse(res).data.link;
                 document.querySelector('#avatat').setAttribute('src', img);
+                alert(res.data.link)
                 // $('#user_pic').modal('hide')
             });
         }
