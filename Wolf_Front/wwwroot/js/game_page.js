@@ -15,6 +15,8 @@ function signalrListener() {
     connection.on("PeopleDie", function (message) {
         let allHead = document.querySelectorAll('.deadimg');
         for (let i = 0; i < players.length; i++) {
+            if (myName == message) {
+                myAlive = false;}
             if (players[i].account == message) {
                 allHead[i].setAttribute('style', 'display:flex');
                 deadLis = deadLis + `${i + 1}號`;
