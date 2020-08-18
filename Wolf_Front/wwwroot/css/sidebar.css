@@ -1,112 +1,15 @@
 body {
     padding: 0;
     margin: 0;
-/*    height: 600px ;*/
+    background-color: #8b0000;
 }
-/*
-.header{
-  background: rgb(2,0,36);
-  background: linear-gradient(143deg, rgba(2,0,36,1) 0%, rgba(207,97,77,1) 70%, rgba(220,53,69,1) 100%);
-  padding:8px;
-  height:12%;
-}*/
-
-/*.bars{
-  position:relative;
-  width:50px;
-  height:50px;
-  background-color:#b61b00;
-  border-radius:10px;
-  display:flex;
-  flex-flow:column;
-  justify-content:space-around;
-  align-items:center;
-  cursor:pointer;
-  margin:5px 0 0 5px;
-}
-
-.bars span{
-  display:block;
-  width:70%;
-  height:7px;
-  border-radius:5px;
-  background-color:#fff;
-}*/
-
-/*.check{
-  position:absolute;
-  width:55px;
-  height:55px;
-  top:8px;
-  left:8px;
-  cursor:pointer;
-  z-index:9;
-  opacity:0
-}
-
-.check:checked ~ .side-bar{
-  transform: translateX(0)
-}
-
-.side-bar {
-    width: 200px;
-    height: 120vh;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    text-align: center;
-    text-transform: uppercase;
-    box-shadow: 0 5px 10px #ccc;
-    background: rgb(2,0,36);
-    background: linear-gradient(143deg, rgba(2,0,36,1) 0%, rgba(207,97,77,1) 70%, rgba(220,53,69,1) 100%);
-    transition: all .5s ease-out;
-    transform: translateX(-250%)
-}
-
-
-.side-bar ul{
-    padding: 0;
-    margin: 0;
-    list-style:none
-}
-.side-bar ul li{
-    border-bottom: 1px solid #ccc
-}
-.side-bar ul li a{
-    text-decoration:none;
-    display:block;
-    padding: 15px;
-    font-weight: bold;
-    color: #fff
-}
-.side-bar ul li .ChooseBtn{
-    display:block;
-    padding: 5%;
-    font-weight: bold;
-    color: #fff;    
-    background-color: transparent;
-    margin: auto;
-    outline: none;
-    border: none;
-h5{
-  font-family: Microsoft JhengHei;
-  font-weight:bold;
-}
-p{
-  font-family: Microsoft JhengHei;
-  font-size: 18px;
-}
-
-}*/
-
-
 /* card */
 .container {
     margin-top: 1%;
 }
 
 .card {
-    background-color: #FFFFCC;
+    background-color: #ffdead;
 }
 
 .col-md-4 {
@@ -116,38 +19,35 @@ p{
 .col-md-8 {
     position: relative;
 }
-
-
 /*cartBtn */
-.cartBtn{
-  width:40px;
-  height:40px;
-  padding:10px;
-  border-radius:40px;
-  background-color:#FF9900;
-  overflow:hidden;
-  -webkit-transition:all 0.2s ease-in;
-  -moz-transition:all 0.2s ease-in;
-  -ms-transition:all 0.2s ease-in;
-  -o-transition:all 0.2s ease-in;
-  transition:all 0.2s ease-in;
-  position: absolute;
-  bottom: 10px;
-  right:5px;
+.cartBtn {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 40px;
+    background-color: #ff6347;
+    overflow: hidden;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -ms-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
 }
-
 
 .cartBtn i {
     color: #000;
 }
 
-.cartBtn:hover{
-  width:200px;
-  height:40px;
-  border-radius:40px;
-  background-color:#990033;  
-}
-   
+.cartBtn:hover {
+    width: 200px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: #990033;
+ }
+
 .cartText {
     width: 70%;
     padding-right: 10px;
@@ -160,27 +60,32 @@ p{
 }
 
 .card-body {
-     background-color: #FFFFCC;
+    background-color: #ffdead;
 }
-.card-body .card-body {
-        height: 215px;
-}
-.btn:focus{
-    box-shadow:none;
 
+    .card-body .card-body {
+        height: 215px;
+    }
+
+.btn:focus {
+    box-shadow: none;
 }
+
 .price {
     position: absolute;
     bottom: 0;
     font-weight: bolder;
     font-family: fantasy;
 }
+
 .CardmainPart {
-    background-color:#fff;      
+    background-color: #FFECEC;
 }
+
 .card {
-    border:none;
+    border: none;
 }
+
 .back_room {
     float: right;
     height: 150px;
@@ -192,16 +97,17 @@ p{
     align-items: center;
     border-radius: 10px;
 }
-.back_room a {    
-    margin-top:10px;
-    font-size:26px;
-    color:#fff;
-    text-decoration:none;
-    
+.back_room a {
+    margin-top: 10px;
+    font-size: 26px;
+    color: #fff;
+    text-decoration: none;
 }
+
 #accordionExample {
     width: 93.5%;
 }
+
 #roleBtn {
-border:none;
+    border: none;
 }

@@ -85,7 +85,7 @@ $('body').append(`<div class="sky_all">
                 <span class=ml-1>目前積分 :</span> <span class="Account_Score ml-2"> </span>
             </li>
             <li class="mt-3 text-left" >
-                <a class="btn Shopping_btn" style="color:#000;" href="#">前往商城</a>
+                <a class="btn Shopping_btn" style="color:#000;" href="https://localhost:12701/Shop/shop_page.html">前往商城</a>
             </li>
             
         </ul>        

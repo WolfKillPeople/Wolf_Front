@@ -1,0 +1,68 @@
+.avatat {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+   
+  }
+  .user_img_btn {
+    border-radius: 30%;
+    outline: none;
+  }
+
+  #mainPart{
+    height: 300px;    
+    width: 300px;
+    position: relative;
+    left:40%;
+    margin-top: 2%;
+    margin-bottom: 4%;
+    background-color: transparent;
+
+  }
+  .user_img_btn:active {
+    outline: none;
+  }
+  
+  .user_img_btn:focus {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    outline: none;
+  }
+  .user_img {
+    background-color: transparent;
+  }
+  
+  .user_Choiceimg {
+    background-color: #ffdab9;
+  }
+  
+  .users_pic {
+    width: 30%;
+    height: auto;
+  }
+  
+  .upLoadImg {
+    height: 6rem;
+    width: 6rem;
+    border: 2px #000 dashed;
+    font-size: 50px;
+    margin-top: 60px;
+    margin-left: 40px;
+    margin: auto;
+  }
+  
+  .plus {
+    display: none;
+  }
+  #userImgModalLabel{
+     display: flex;
+     align-content: center;
+
+  }
