@@ -8,15 +8,14 @@ namespace Wolf_Front.Services
     public class ChatHubService : IChatHubService
     {
         private readonly IChatRepo _repo;
-        private int _o;
-        public ChatHubService(IChatRepo repo, int o = 0)
+        public ChatHubService(IChatRepo repo)
         {
             _repo = repo;
-            _o = o;
         }
 
         public List<GameRoom> GetRole(List<GameRoom> data)
         {
+            int _o = 0;
             var _list = _repo.GetRoles();
             var GetPicList = _repo.GetPlayerPic(data);
 
