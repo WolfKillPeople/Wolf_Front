@@ -1,8 +1,7 @@
-﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAutomaticReconnect([0, 0, 10000]).build();
 var no = 1;
 var door_page = 1;
 var people;
-// var countper = $(".perspective").length;
 var close_img = 'https://i.imgur.com/TGuCa7L.png';
 var open_img = 'https://i.imgur.com/582RIlF.png';
 var doorImg;
@@ -333,7 +332,6 @@ function addPeople(member) {
     var roomId = parseInt(strRoomId);
     account = "TYRFTY@gmail.com";
     $('.all').remove();
-
     connection.invoke("JoinRoom", roomId, account);
 
 }
@@ -981,7 +979,7 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
 function voteBack() {
     var backVoteResult = [{
         "RoomID": myroomid,
-        "User": myName,
+        "Account": myName,
         "Vote": `${voteResult}`,
         "voteResult": null
     }];
