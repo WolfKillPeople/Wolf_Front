@@ -27,7 +27,7 @@ namespace Wolf_Front.Repository
                 var target = new List<GameRoom>();
                 for (int i = 0; i < data.Count; i++)
                 {
-                    var total = conn.Query<AspNetUsers>(sql, data[i]).ToList();
+                    var total = conn.Query<AspNetUsers>(sql, new{ Name = data[i].Account}).ToList();
                     total.ForEach(x => data[i].PlayerPic = x.Pic);
                 }
                 //var total = conn.Query<AspNetUsers>(sql, data).ToList();

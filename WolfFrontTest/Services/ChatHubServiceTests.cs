@@ -14,20 +14,6 @@ namespace Wolf_Front.Services.Tests
         public void GetRoleTest()
         {
             int _o = 0;
-            var data = new List<GameRoom>()
-            {
-                new GameRoom(){RoomId = 1, Account = "aa", IsAlive = true,PlayerPic = null},
-                new GameRoom(){RoomId = 1, Account = "bb", IsAlive = true,PlayerPic = null},
-                new GameRoom(){RoomId = 1, Account = "cc", IsAlive = true,PlayerPic =null},
-                new GameRoom(){RoomId = 1, Account = "dd", IsAlive = true,PlayerPic = null},
-                new GameRoom(){RoomId = 1, Account = "ee", IsAlive = true,PlayerPic =null},
-                new GameRoom(){RoomId = 1, Account = "ff", IsAlive = true,PlayerPic = null},
-                new GameRoom(){RoomId = 1, Account = "gg", IsAlive = true,PlayerPic = null},
-                new GameRoom(){RoomId = 1, Account = "hh", IsAlive = true,PlayerPic =null},
-                new GameRoom(){RoomId = 1, Account = "ii", IsAlive = true,PlayerPic = null},
-                new GameRoom(){RoomId = 1, Account = "jj", IsAlive = true,PlayerPic = null},
-            };
-
             var GetPicList = new List<GameRoom>()
             {
                 new GameRoom(){RoomId = 1, Account = "aa", IsAlive = true,PlayerPic = "213.imgur.com"},
@@ -77,7 +63,6 @@ namespace Wolf_Front.Services.Tests
                 d.Description = _list[_o].Description;
                 _o++;
             }
-
 
             Assert.IsNotNull(GetPicList);
         }

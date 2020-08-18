@@ -1,53 +1,68 @@
 //signalr監聽
 var deadLis = '';
 var deadNum = [];
+var players;
+//玩家資料
+var myName = 'wdqdw@gmail.com';
+var myAlive;
+var myJob;
+var myroomid = 1;
+var myJobInfo;
+
+var gameResult;
 function signalrListener() {
     //玩家死亡
     connection.on("PeopleDie", function (message) {
         let allHead = document.querySelectorAll('.deadimg');
         for (let i = 0; i < players.length; i++) {
-            if (players[i].player == message) {
+            if (myName == message) {
+                myAlive = false;}
+            if (players[i].account == message) {
                 allHead[i].setAttribute('style', 'display:flex');
                 deadLis = deadLis + `${i + 1}號`;
                 deadNum.push(i);
                 players[i].isAlive = false;
-                //死掉特效+這裡
+                //死掉特效
+                $('.image').hide();
+                bloodAppend(deadLis);
+                //血的特效
+                gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
+                gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
             }
         }
     });
+
+    connection.on("NewRoom", function (message, temp) {
+    });
+
+    connection.on("VoteResult", function (message) {
+        prepareDead = message[0].vote;
+    });
+
+    connection.on("GetRole",
+        function (response) {
+            players = response;
+            console.log(players);
+            //myName = localStorage.getItem("myName");
+            players.forEach(element => {
+                if (element.account == myName) {
+                    myAlive = element.isAlive;
+                    myJob = element.name;
+                    myJobInfo = element;
+                }
+            });
+            Binding();
+            BindingPlayers();
+            BindingThings();
+            closeMessage();
+        });
 }
 
 //測試建房按鈕
 var id;
 var PersonInroom;
 $('#addd').click(function () {
-    connection.invoke("CreateRoom", roomId, account)
-    });
-
-
-var data = [{
-    "RoomId": 1,
-    "Account": "oo",
-    "isAlive": true
-}]
-
-$('#People_Die').click(function () {
-    connection.invoke("PeopleResurrection", data).then(function (res) {
-        debugger;
-        alert(res)
-    })
-})
-$('#JoinRoom').click(function () {
-    debugger;
-    connection.invoke("JoinRoom",1,"AAA")
-})
-$('#OutToRoom').click(function () {
-    debugger;
-    connection.invoke("OutToRoom", 1, "AAA")
-})
-$('#OutToRoom2').click(function () {
-    debugger;
-    connection.invoke("OutToRoom", 1, "oo")
+    connection.invoke("CreateRoom", 1, "wdqdw@gmail.com");
 })
 
 var synth = window.speechSynthesis;
@@ -63,9 +78,9 @@ function Speak(txtInput) {
     });
     synth.speak(toSpeak);
     //將陣列的最後一個打到li裡
-    var li = document.createElement('li');
-    li.innerText = txtInput;
-    document.querySelector('#leftgamerecordli').appendChild(li);
+    document.querySelector('#leftgamerecordli li').innerHTML = txtInput;
+    $('#leftgamerecordli li').animate({ "opacity": 1 }, 2000).siblings().animate({ opacity: 0 }, 2000);
+    $('#leftgamerecordli li').animate({ "opacity": 0 }, 2000).siblings().animate({ opacity: 1 }, 2000);
     //保持滾動條一直在最底部
     var leftgamerecordli = document.getElementById("leftgamerecordli").parentNode;
     leftgamerecordli.scrollTop = leftgamerecordli.scrollHeight;
@@ -127,7 +142,7 @@ function nightAudio() {
 //背景夜晚白天轉換
 let toggle = document.getElementById('toggleDark');
 toggle.addEventListener('click', toggleScheme, true);
-let image = document.querySelector('.image'); 
+let image = document.querySelector('.image');
 function closeMessage() {
     document.getElementById("PeopleuserInput").hidden = true;
     document.getElementById("PeoplemessageInput").hidden = true;
@@ -163,6 +178,7 @@ function toggleScheme() {
         document.getElementById("PeoplemessageInput").hidden = true;
         document.getElementById("WolfsendButton").hidden = false;
         document.getElementById("PeoplesendButton").hidden = true;
+
         let figure = document.createElement('figure');
         let clouddiv = document.createElement('div');
         figure.setAttribute('class', 'absolute-bg');
@@ -173,120 +189,6 @@ function toggleScheme() {
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')
 }
-
-//AJAX玩家職業資料
-var players = [
-    {
-        "name": "狼王",
-        "imgUrl": "https://i.imgur.com/4eJqZgk.png",
-        "occupationId": 8,
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "dfghjkhgfrtyu@yuiknhuiol",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/D2o6MV6.png",
-        "occupationId": 9,
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "預言家",
-        "imgUrl": "https://i.imgur.com/8tiIFAB.png",
-        "occupationId": 4,
-        "description": "神職。每夜可以查驗一位存活玩家的所屬陣營，並在白天透過發言向好人報出資訊。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "女巫",
-        "imgUrl": "https://i.imgur.com/i9eRyug.png",
-        "occupationId": 5,
-        "description": "神職。擁有一瓶解藥和一瓶毒藥。解藥未使用時可以得知狼人的殺害對象，並決定是否救這一位玩家。然而，解藥全程不能用於解救自己。女巫也可以利用白天所得資訊，將懷疑的對象毒殺，該對象死後不能發動技能。解藥和毒藥不可以在同一夜使用。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "獵人",
-        "imgUrl": "https://i.imgur.com/fVQQgnM.png",
-        "occupationId": 1,
-        "description": "又稱「狼槍」、「毒狼」。除殉情或被毒殺外，以任何其他方式被淘汰時可以發動技能帶走任何一位玩家。狼王在場時，獵人和黑狼王淘汰啟動技能均不公布角色牌。部分局式中，黑狼王自爆不能發動技能。",
-        "isGood": false,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "狼人",
-        "imgUrl": "https://i.imgur.com/n7knadr.png",
-        "occupationId": 2,
-        "description": "黑夜可以睜眼與隊友見面並討論戰術與選擇殺害對象。狼人可以選擇當夜不殺害任何玩家（空刀）或自殺（自刀）。白天混入村落中混淆好人。狼人可以在白天任何時候選擇公布角色牌自我淘汰（自爆）強制進入黑夜階段，並在黑夜階段結束時離場。",
-        "isGood": false,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/TIvcUG5.png",
-        "occupationId": 6,
-        "description": "神職。除殉情或被毒殺外，以任何其他方式被淘汰時可以公布角色牌發動技能開槍帶走一位玩家，亦可以選擇壓槍不發動技能。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/D2o6MV6.png",
-        "occupationId": 10,
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "村民",
-        "imgUrl": "https://i.imgur.com/4eJqZgk.png",
-        "occupationId": 7,
-        "description": "沒有特殊技能，黑夜階段全程閉眼，透過白天階段所得資訊投票放逐疑似狼人的玩家。",
-        "isGood": true,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    },
-    {
-        "name": "狼人",
-        "imgUrl": "https://i.imgur.com/n7knadr.png",
-        "occupationId": 3,
-        "description": "黑夜可以睜眼與隊友見面並討論戰術與選擇殺害對象。狼人可以選擇當夜不殺害任何玩家（空刀）或自殺（自刀）。白天混入村落中混淆好人。狼人可以在白天任何時候選擇公布角色牌自我淘汰（自爆）強制進入黑夜階段，並在黑夜階段結束時離場。",
-        "isGood": false,
-        "roomId": 1,
-        "player": "",
-        "isAlive": true,
-        "playerPic": null
-    }
-]
 
 //玩家頭像生成
 async function BindingPlayers() {
@@ -305,7 +207,7 @@ async function BindingPlayers() {
         num.setAttribute('class', 'number');
         aplayer.setAttribute('class', 'playerimg')
         aplayer.setAttribute('href', '#');
-        playerImg.setAttribute('src', players[i].imgUrl);
+        playerImg.setAttribute('src', players[i].playerPic);
         playerImg.setAttribute('class', 'playerphoto');
         dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
         dead.setAttribute('class', 'deadimg');
@@ -335,7 +237,7 @@ async function BindingPlayers() {
         num.setAttribute('class', 'number');
         aplayer.setAttribute('class', 'playerimg')
         aplayer.setAttribute('href', '#');
-        playerImg.setAttribute('src', players[i].imgUrl);
+        playerImg.setAttribute('src', players[i].playerPic);
         playerImg.setAttribute('class', 'playerphoto')
         dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
         dead.setAttribute('class', 'deadimg');
@@ -351,8 +253,20 @@ async function BindingPlayers() {
         array = [];
     }
 }
+
 //雜物生成
-async function BindingThings() {
+var eleBack = null, eleFront = null;
+var eleList = null;
+var funBackOrFront = function () {
+    eleList.each(function () {
+        if ($(this).hasClass("out")) {
+            eleFront = $(this);
+        } else {
+            eleBack = $(this);
+        }
+    });
+};
+function BindingThings() {
     //滑鼠移到職業圖片顯示該職業描述
     $('#depict').hover(tool);
     function tool() {
@@ -366,14 +280,14 @@ async function BindingThings() {
             $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
-    //滾輪
-    $(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
-        if (event.type == "mouseenter") {
-            $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
-        } else {
-            $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
-        }
-    });
+    ////滾輪
+    //$(".leftgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+    //    if (event.type == "mouseenter") {
+    //        $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
+    //    } else {
+    //        $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
+    //    }
+    //});
     //滾輪
     $(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
         if (event.type == "mouseenter") {
@@ -382,13 +296,42 @@ async function BindingThings() {
             $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
+    // 在前面显示的元素，隐藏在后面的元素
+    //eleBack = null;
+    //eleFront = null;
+    //eleList = null; //$(".list");// 纸牌元素们 
+
+
+    // 确定前面与后面元素
+
+
     //< !--當我按下x時要去加入css動畫 -->
     $('#close').click(function () {
-        $('.img-spin').css("animation-name", " spin")
-        $('.img-spin').css("animation-timing-function", " linear")
-        $('.img-spin').css("animation-duration", " 1s")
+        funBackOrFront();
+
         var tt = document.styleSheets[0];
-        tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+        tt.insertRule("@keyframes spin { 0% { transform: rotateY(0deg); } 25% { transform: rotateY(360deg); } 50% { transform: rotateY(0deg); } 75% { transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+        $('.box').css("animation-name", " spin");
+        $('.box').css("animation-timing-function", " linear")
+        $('.box').css("animation-duration", " 1s")
+        $('.box').css("animation-fill-mode", "forwards")
+        //切换的顺序如下
+        // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
+        // 2. 结束后，之前显示在后面的元素逆向90度翻转显示在前 
+        // 3. 完成翻面效果
+
+        //eleFront.removeClass("out").addClass("in");
+        //eleBack.removeClass("in").addClass("out");
+        eleFront.removeClass("out").addClass("in");
+
+        setTimeout(function () {
+
+            eleBack.removeClass("in").addClass("out");
+
+            // 重新确定正反元素
+            //funBackOrFront();
+        }, 100);
     });
     $('#closebtn').click(function () {
         $('.img-spin').css("animation-name", " spin")
@@ -396,53 +339,31 @@ async function BindingThings() {
         $('.img-spin').css("animation-duration", " 1s")
         var tt = document.styleSheets[0];
         tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+
     });
+
 }
-//玩家資料
-var myName = 'dfghjkhgfrtyu@yuiknhuiol';
-var myAlive;
-var myJob = '狼王';
-var myroomid = 1;
-let ary;
-async function playerHead() {
-    roomid = localStorage.getItem("roomid");
-    let obj = [{
-        //"roomId": roomid,
-        "roomId": 3,
-    }]
-    $.ajax({
-        type: "post",
-        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/GetRole",
-        data: JSON.stringify(obj),
-        dataType: 'JSON',
-        headers: {
-            'Content-type': 'application/json'
+
+
+function Binding() {
+    var profession = new Vue({
+        el: "#describe",
+        data: { items: myJobInfo },
+        mounted: function () {
+            $("#close").attr("disabled", false);
+            eleList = $(".list");// 纸牌元素们 
         },
-        success: function (response) {
-            ary = response;
-            Binding();
+        updated: function () {
+            eleList = $(".list");// 纸牌元素们 
         }
     });
 }
 
-async function Binding() {
-    //myName = localStorage.getItem("myName");
-    players.forEach(element => {
-        if (element.player == myName) {
-            myAlive = this.isAlive;
-            //myJob = this.name;
-            let jobPhoto = this.imgUrl;
-        }
-    });
-    var profession = new Vue({
-        el: "#describe",
-        data: { items: ary[0] },
-    });
-}
 //投票
 var voteResult;
 function vote(a, b, c, d, e, f, g, h, i, j) {
     document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].className = "circleImg on";
+    document.getElementById("touxiang").getElementsByClassName('circleImg')[a - 1].setAttribute('style', 'margin: 5px;box - shadow: 0px 0px 25px red;filter: alpha(Opacity = 100);');
     document.getElementById("touxiang").getElementsByClassName('circleImg')[b - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[c - 1].className = "circleImg off";
     document.getElementById("touxiang").getElementsByClassName('circleImg')[d - 1].className = "circleImg off";
@@ -465,24 +386,24 @@ function voteBack() {
     }];
     connection.invoke("Vote", backVoteResult);
 }
+
 //取投票結果
 var prepareDead;
 function getVoteResult() {
-    return connection.invoke("VoteResult", myroomid).then(function (res) {
-        prepareDead = res.data[0].vote;
-    });
+    return connection.invoke("VoteResult", myroomid);
 }
+
 //確認死亡
 function deadConfirm(die) {
     let deadMan = players[die - 1];
     var backDeadResult = [{
         "RoomId": deadMan.roomId,
         "isAlive": false,
-        "Account": deadMan.player
+        "Account": deadMan.account
     }];
-    connection.invoke("PeopleDie", backDeadResult);
-}
+    connection.invoke("PeopleDie", backDeadResult)
 
+}
 
 //查詢是哪個玩家及好或壞人
 function PlayerIsGood(e) {
@@ -493,7 +414,7 @@ function PlayerIsGood(e) {
     $('#rightgamerecordli').append(`<li>${Player}號是${IsGood}</li>`);
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none")
+    $('.circleImg').attr('className', 'circleImg off');
 }
 
 //抓房間人數
@@ -508,6 +429,7 @@ function GetPersonInroom() {
         }
     })
 }
+
 //離開房間
 function LeaveRoom() {
     PersonInroom = 0;
@@ -542,15 +464,15 @@ function prophet() {
         element.setAttribute('value', index + 1);
     });
 }
-var witchSave = 1;
-var witchKill = 1;
+var witchSave = true;
+var witchKill = true;
 function witch() {
     let saveOrDead = prepareDead;
     //if (myJob == "女巫" && myAlive == true) { }
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
-    if (witchSave != 1) { $('#rightgamerecordli').append(`<li>特殊能力已使用</li>`); }
-    else if (prepareDead == '') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
+    if (witchSave != true) { $('#rightgamerecordli').append(`<li>特殊能力已使用</li>`); }
+    else if (prepareDead == null || prepareDead == 'null') { $('#rightgamerecordli').append(`<li>無人死亡</li>`); }
     else {
         $('#rightgamerecordli').append(`
      <li>${prepareDead}號被殺死了你要救他們嗎?
@@ -564,8 +486,8 @@ function witch() {
   </div>
   </li>`);
     }
-    $('#saveDead').click(function () { prepareDead = ''; witchSave = witchSave - 1; });
-    $('#noSaveDead').click(function () { prepareDead = saveOrDead; });
+    $('#saveDead').click(function () { prepareDead = null; witchSave = false; });
+    $('#noSaveDead').click(function () { prepareDead = saveOrDead; witchSave = true; });
 }
 function hunter() {
     if (myJob == "獵人") {
@@ -581,14 +503,18 @@ function wolfKing() {
         $('#rightgamerecordli').append(`<li>請選擇帶走玩家</li>`);
     }
 }
+ $('.circleImg').attr('className', 'circleImg off');
+
 
 
 //以下遊戲主體
 async function game() {
     //----------顯示規則---------
-    //$('#staticBackdrop').modal('show');
+    $('#staticBackdrop').modal('show');
+
     $('.circleImg').css("pointer-events", "none");
-    $('.on').css("box-shadow", "none")
+    $('.circleImg').attr('className', 'circleImg off');
+    $('.on').css('box-shadow', 'none');
     await timeOn(1);
 
     //----------準備時間---------
@@ -597,14 +523,17 @@ async function game() {
 
     for (let round = 0; round < 100; round++) {
         //----------狼人---------
+        deadLis = ''
+        deadNum = [];
         voteResult = null;
-        prepareDead = '';
+        prepareDead = null;
         $('#toggleDark').click();
         Speak('天黑請閉眼，狼人請殺人');
         wolf();
         await timeOn(10);
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none")
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
         voteBack();
         await getVoteResult();
 
@@ -612,9 +541,10 @@ async function game() {
         Speak('預言家請選擇玩家查身分');
         prophet();
         await timeOn(5);
-        $('.findperson').css("display", "none")
+        $('.findperson').remove();
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none")
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
         $('#rightgamerecordli li').remove();
 
         //----------女巫---------
@@ -622,23 +552,45 @@ async function game() {
         Speak('此玩家死亡，女巫是否救人');
         witch();
         await timeOn(3);
-        Speak('女巫是否殺人');
-        await timeOn(3);
         $('#rightgamerecordli li').remove();
+        Speak('女巫是否殺人');
+        await timeOn(5);
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none");
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
 
         //----------天亮遺言---------
         $("body").css("cursor", "default");
         $('#toggleDark').click();
         document.getElementById("PeoplesendButton").hidden = true;
-        if (prepareDead != '') { await deadConfirm(prepareDead); }
-        if (voteResult != null && witchKill == 1 && myJob == '女巫') { await deadConfirm(voteResult); witchKill = witchKill - 1; }
-        if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
+        if (prepareDead != null && prepareDead != 'null') { await deadConfirm(prepareDead); }
+        if (voteResult != null && witchKill == true && myJob == '女巫') { await deadConfirm(voteResult); witchKill = false; }
+
+        await timeOn(3);
+        $('.diepage').remove();
+        $('.image').show();
+
+
+        Speak('天亮請睜眼');
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
 
         //判斷輸贏
-        Speak('天亮請睜眼');
-        await timeOn(1);
+        await winOrLose();
+        if (gameResult == '好人獲勝') {
+            /*這裡加好人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            break;
+        }
+        else if (gameResult == '狼人獲勝') {
+            /*這裡加狼人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            break;
+        }
 
         if (deadNum.length > 0) {
             Speak(`昨晚${deadLis}玩家死了`);
@@ -647,40 +599,64 @@ async function game() {
                 if (players[deadNum[i]].name == '獵人') {
                     Speak('發動角色技能');
                     voteResult = null;
-                    prepareDead = '';
+                    prepareDead = null;
                     await timeOn(1);
                     hunter();
                     await timeOn(15);
                     $('#rightgamerecordli li').remove();
                     $('.circleImg').css("pointer-events", "none");
-                    $('.on').css("box-shadow", "none");
+                    $('.circleImg').attr('className', 'circleImg off');
                     if (voteResult != null) { await deadConfirm(voteResult); }
-                    if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
-                    await timeOn(1);
+                    if (voteResult != null) { Speak(`${voteResult}號玩家死亡`); }
+                    await timeOn(3);
+                    $('.diepage').remove();
+                    $('.image').show();
                 }
                 if (players[deadNum[i]].name == '狼王') {
                     Speak('發動角色技能');
                     voteResult = null;
-                    prepareDead = '';
+                    prepareDead = null;
                     await timeOn(1);
                     wolfKing();
                     await timeOn(15);
                     $('#rightgamerecordli li').remove();
                     $('.circleImg').css("pointer-events", "none");
-                    $('.on').css("box-shadow", "none");
+                    $('.circleImg').attr('className', 'circleImg off');
                     if (voteResult != null) { await deadConfirm(voteResult); }
-                    if (voteResult != null) { Speak(`${voteResult + 1}號玩家死亡`); }
-                    await timeOn(1);
+                    if (voteResult != null) { Speak(`${voteResult}號玩家死亡`); }
+                    await timeOn(3);
+                    $('.diepage').remove();
+                    $('.image').show();
                 }
             }
         } else { Speak('昨晚是平安夜'); await timeOn(1); }
+        await timeOn(1);
 
+        //判斷輸贏
+        await winOrLose();
+        if (gameResult == '好人獲勝') {
+            /*這裡加好人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            break;
+        }
+        else if (gameResult == '狼人獲勝') {
+            /*這裡加狼人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            break;
+        }
+
+        await timeOn(1);
+        await timeOn(1);
         //----------討論---------
         Speak('輪流發言時間');
         for (let i = 0; i < players.length; i++) {
             document.getElementById("PeoplesendButton").hidden = true;
             if (players[i].isAlive) {
-                if (players[i].player == myName) {
+                if (players[i].account == myName) {
                     document.getElementById("PeoplesendButton").hidden = false;
                 }
                 Speak(`${i + 1}號玩家發言`);
@@ -691,26 +667,48 @@ async function game() {
 
         //----------投票---------
         voteResult = null;
-        prepareDead = '';
+        prepareDead = null;
+        deadLis = ''
+        deadNum = [];
+        $('.circleImg').attr('className', 'circleImg off');
+        $('.on').css('box-shadow', 'none');
         await timeOn(1);
         Speak('所有玩家投票，得票最高者將出局');
         $('.circleImg').css("pointer-events", "auto");
         await timeOn(10);
         $('.circleImg').css("pointer-events", "none");
-        $('.on').css("box-shadow", "none")
+        $('.circleImg').attr('className', 'circleImg off');
         voteBack();
         await getVoteResult();
         await deadConfirm(prepareDead);
         await timeOn(1);
         Speak(`${prepareDead}號玩家最高票`);
+        await timeOn(3);
+        $('.diepage').remove();
+        $('.image').show();
 
         //判斷輸贏
+        await winOrLose();
+        if (gameResult == '好人獲勝') {
+            /*這裡加好人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            break;
+        }
+        else if (gameResult == '狼人獲勝') {
+            /*這裡加狼人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            break;
+        }
 
         //----------遺言---------
         for (let i = 0; i < deadNum.length; i++) {
             Speak(`${deadNum[i] + 1}號玩家請發表遺言`);
             await timeOn(1);
-            if (players[deadNum[i]].player == myName) {
+            if (players[deadNum[i]].account == myName) {
                 document.getElementById("PeoplesendButton").hidden = false;
             }
             await timeOn(5);
@@ -720,77 +718,42 @@ async function game() {
 }
 
 signalrListener();
-//AJAX玩家資料
-BindingPlayers();
-playerHead();
-BindingThings();
-closeMessage();
-game();
+$('.image').hide();
+wait();
+document.querySelector('#again').addEventListener('click', function () {
+    waitPeople = waitPeople + 1;
+    document.querySelector('#app').innerHTML = `${waitPeople}/10`
+    if (waitPeople > 9) {
+        $('#waitappendId').hide();
+        $('.image').show();
+        connection.invoke("GetRole", myroomid);
+        game();
+    }
+})
 
-//let _array;
-//async function DeadUpdate() {
-//    let _obj = [
-//        {
-//            "roomId": 10,
-//            "player": "AQ1234@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "Text002@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "ttt@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "test001@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "Text001@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "AQ123@gmail.com",
-//            "isAlive": true,
-//        }, {
-//            "roomId": 10,
-//            "player": "Aaaaassss@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "wolf@gmail.com",
-//            "isAlive": true,
-//        }, {
-//            "roomId": 10,
-//            "player": "jou@gmail.com",
-//            "isAlive": true,
-//        },
-//        {
-//            "roomId": 10,
-//            "player": "Aaaaassss2@gmail.com",
-//            "isAlive": true,
-//        },
-//    ]
-//    $.ajax({
-//        type: "patch",
-//        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/PatchCurrentPlayer",
-//        data: JSON.stringify(_obj),
-//        dataType: 'JSON',
-//        headers: {
-//            'Content-type': 'application/json'
-//        },
-//        success: function (response) {
-//            _array = response;
-//            console.log(_array);
-//            Binding();
-//        }
-//    });
-//}
+
+function winOrLose() {
+    let isWin = [];
+    for (let i = 0; i < players.length; i++) {
+        if (players[i].isAlive) {
+            let list = {
+                "name": players[i].name,
+                "isGood": players[i].isGood
+            }
+            isWin.push(list)
+        }
+    }
+    $.ajax({
+        type: "post",
+        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/WinOrLose",
+        data: JSON.stringify(isWin),
+        dataType: 'JSON',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        success: function (response) {
+            gameResult = response[0].gameResult;
+            console.log(gameResult);
+        }
+    });
+}

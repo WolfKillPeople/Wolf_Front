@@ -37,6 +37,21 @@ namespace Wolf_Front.Hubs
             _service = service;
             _temp = temp;
 
+            //預設滿房
+            var userList = new List<GameRoom>()
+            {
+                new GameRoom() {RoomId = 1, Account = "wdqdw@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "judy870131@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "sadasd@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "test009@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "lovemark2413@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "asddsa@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true},
+            };
+            _GameRoom.TryAdd(1, userList);
         }
 
         /// <summary>
@@ -173,8 +188,6 @@ namespace Wolf_Front.Hubs
         /// <param name="roomId"></param>
         /// <param name="Account"></param>
         /// <returns></returns>
-        /// 
-
         public async Task OutToRoom(int roomId, string Account)
         {
             if (!_Rooms.ContainsKey(roomId))
@@ -200,10 +213,9 @@ namespace Wolf_Front.Hubs
             var acc = target[0].Account;
             var tempList = new List<string>();
             //assign old value and new value to new List
-            foreach (var item in acc)
-            {
-                tempList.Add(item);
-            }
+            
+            acc.ToList().ForEach(o => tempList.Add(o));
+
             tempList.Remove(Account);
 
             var newRoomValue = (from t in target
@@ -226,7 +238,7 @@ namespace Wolf_Front.Hubs
             await Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
             //只在這個房間傳送訊息
-             await Clients.Groups(roomId.ToString()).OutToRoom(Account);
+            await Clients.Groups(roomId.ToString()).OutToRoom(Account);
 
             if(newRoomValue.Any(x => x.RoomId == roomId && x.Count == 0))
             {
@@ -305,7 +317,7 @@ namespace Wolf_Front.Hubs
         /// <param name="data"></param>
         public void Vote(IEnumerable<VotePlayers> data)
         {
-            
+
             _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
             var roomKey = _votePlayers[data.ToList()[0].RoomID];
 
@@ -369,7 +381,8 @@ namespace Wolf_Front.Hubs
             var data = _votePlayers[roomId].ToList();
             _svotePlayer.Clear();
             _votePlayers.TryRemove(data.ToList()[0].RoomID, out _);
-            await Clients.Groups(roomId.ToString()).VoteResult(data);
+            //await Clients.Groups(roomId.ToString()).VoteResult(data);
+            await Clients.All.VoteResult(data);
         }
         /// <summary>
         /// PeopleDie
@@ -382,11 +395,20 @@ namespace Wolf_Front.Hubs
 
             var newResult = new List<GameRoom>();
             newResult = result;
-            newResult.ForEach(o => o.IsAlive = false);
+            var target = new GameRoom();
+            target = newResult.Find(o => data.ToList()[0].Account == o.Account);
+            target.IsAlive = false;
+            
+            if (data.Count() == 2)
+            {
+                var target2 = newResult.Find(o => data.ToList()[1].Account == o.Account);
+                target2.IsAlive = false;
+            }
 
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
-            await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
+            //await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
+            await Clients.All.PeopleDie(data.ToList()[0].Account);
         }
 
         /// <summary>
@@ -409,7 +431,8 @@ namespace Wolf_Front.Hubs
                 return false;
             });
             _GameRoom.AddOrUpdate(rrr.ToList()[0].RoomId, new List<GameRoom>(), (k, v) => rrr);
-            await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleResurrection(data.ToList()[0].Account);
+            //await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleResurrection(data.ToList()[0].Account);
+            await Clients.All.PeopleResurrection(data.ToList()[0].Account);
         }
 
         /// <summary>
@@ -441,7 +464,10 @@ namespace Wolf_Front.Hubs
         {
             _GameRoom.TryGetValue(roomId, out var userList);
             var result = _service.GetRole(userList);
-            await Clients.Group(roomId.ToString()).GetRole(result);
+            _GameRoom.TryRemove(roomId, out _);
+            _GameRoom.TryAdd(roomId, result);
+            //await Clients.Group(roomId.ToString()).GetRole(result);
+            await Clients.All.GetRole(result);
         }
     }
 }
