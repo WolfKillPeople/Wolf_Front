@@ -146,7 +146,7 @@ namespace Wolf_Front.Hubs
             await Clients.All.JoinRoom(account);
 
             //將房間資訊給大家
-            //await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
+            await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
 
            
         }

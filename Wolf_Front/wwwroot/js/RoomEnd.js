@@ -240,7 +240,8 @@ $(".add_room_btn").on("click", addDoor);
 var account = localStorage.getItem('myName');
 function addDoor() {
     connection.invoke("CreateRoom", nextRoom, account);
-    location.replace(`http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}`);
+    //location.replace(`http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}`);
+
     //$('.add_room_href').attr("href", `http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}`);
     //window.open(`http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}`);
 }
@@ -255,7 +256,7 @@ function AddOneDoor() {
                     </div>
                     <div class="number">
                         <p class="door_number">${nextRoom.toString().padStart(3, '0')}</p>
-                        <a href="http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}"><img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${nextRoom}" onclick="addPeople(this)" /></a>
+                        <img src="https://i.imgur.com/V5A0Z92.gif" alt="wolf" class="wolf wolf${nextRoom}" onclick="addPeople(this)" />
                         <p class="people">人數: 1/10</p>
                     </div>          
                 </div>
@@ -335,7 +336,11 @@ connection.on("GetAll", function (data, i) {
 function addPeople(member) {
     var strRoomId = $(member).attr('class').substring(9);
     var roomId = parseInt(strRoomId);
+    account = "oo";
+    $('.all').remove();
+
     connection.invoke("JoinRoom", roomId, account);
+
 }
 //var delroom = 1;
 //function deleteRoom() {
