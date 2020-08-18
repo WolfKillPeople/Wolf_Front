@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Wolf_Front.Hubs;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,20 +113,19 @@ namespace Wolf_Front.Hubs.Tests
         [TestMethod()]
         public void RemoveRoomTest()
         {
-            int roomId = 1;
-            string account = "oo";
-            List<RoomInfo> _list = new List<RoomInfo>();
+            var account = "oo";
+            var _list = new List<RoomInfo>();
             var list = new List<GameRoom>();
-            string[] ary = new string[] { account };
+            string[] ary = { account };
             _list.Add(new RoomInfo { RoomId = 1, Account = ary, Count = 1 });
             list.Add(new GameRoom() { RoomId = 1, Account = account, IsAlive = true });
 
-            _Rooms.TryAdd(roomId, _list);
-            _GameRoom.TryAdd(roomId, list);
+            _Rooms.TryAdd(1, _list);
+            _GameRoom.TryAdd(1, list);
 
             int temp = 0;
-            _Rooms.TryRemove(roomId, out _);
-            _GameRoom.TryRemove(roomId, out _);
+            _Rooms.TryRemove(1, out _);
+            _GameRoom.TryRemove(1, out _);
 
             IEnumerable<RoomInfo> target;
 
@@ -148,6 +149,78 @@ namespace Wolf_Front.Hubs.Tests
             }
 
             Assert.AreEqual(1, temp);
+        }
+
+        [TestMethod()]
+        public void GetAllRoomTest()
+        {
+            var account = "oo";
+            var _list = new List<RoomInfo>();
+            string[] ary = { account };
+            _list.Add(new RoomInfo { RoomId = 1, Account = ary, Count = 1 });
+            _Rooms.TryAdd(1, _list);
+
+            var _temp = 0;
+            var data = _Rooms.SelectMany(x => x.Value).ToList();
+
+            if (data.Count == 0) _temp = 1;
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                if (data[i].RoomId != i + 1)
+                {
+                    _temp = 0;
+                    _temp = i + 1;
+                    break;
+                }
+                else
+                {
+                    _temp = Enumerable.LastOrDefault(data).RoomId + 1;
+                }
+
+            }
+
+            Assert.AreEqual(2, _temp);
+            Assert.AreEqual(1, data.Count);
+        }
+
+        [TestMethod()]
+        public void VoteResultTest()
+        {
+            var data = new List<VotePlayers>()
+            {
+                new VotePlayers{RoomID = 1, Account="Text001@gmail.com", Vote="1",voteResult = null},
+                new VotePlayers{RoomID = 1, Account="Text002@gmail.com", Vote="2",voteResult = null},
+                new VotePlayers{RoomID = 1, Account="Text003@gmail.com", Vote="2",voteResult = null},
+                new VotePlayers{RoomID = 1, Account="Text004@gmail.com", Vote="2",voteResult = null},
+                new VotePlayers{RoomID = 1, Account="Text005@gmail.com", Vote="4",voteResult = null},
+                new VotePlayers{RoomID = 1, Account="Text006@gmail.com", Vote="3",voteResult = null},
+                new VotePlayers{RoomID = 1, Account="Text007@gmail.com", Vote="8",voteResult = null},
+                new VotePlayers{RoomID = 1, Account="Text008@gmail.com", Vote="2",voteResult = null},
+                new VotePlayers{RoomID = 1, Account="Text009@gmail.com", Vote="1",voteResult = null},
+                new VotePlayers{RoomID = 1, Account="Text0010@gmail.com", Vote="9",voteResult = null},
+            };
+
+            var newData = data.ToList().FindAll(x => x.Vote != null).ToList();
+            newData.ForEach(i => data[Convert.ToInt32(i.Vote) - 1].VoteTickets++);
+
+            var ran = new Random();
+            var newVotePlayers = data.OrderByDescending(x => x.VoteTickets).ToList();
+            newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.Account = null; });
+
+            if (newVotePlayers.Count > 1 && newVotePlayers[0].VoteTickets == newVotePlayers[1].VoteTickets)
+            {
+                for (var r = 0; r < newVotePlayers.Count; r++)
+                {
+                    var index = ran.Next(0, newVotePlayers.Count - 1);
+                    if (index == r) continue;
+                    var temp = newVotePlayers[r];
+                    newVotePlayers[r] = newVotePlayers[index];
+                    newVotePlayers[index] = temp;
+                };
+            }
+
+            Assert.AreEqual(4, newVotePlayers.Take(1).ToList()[0].VoteTickets);
         }
     }
 }

@@ -16,16 +16,16 @@ namespace Wolf_Front.Services.Tests
             int _o = 0;
             var GetPicList = new List<GameRoom>()
             {
-                new GameRoom(){RoomId = 1, Account = "aa", IsAlive = true,PlayerPic = "213.imgur.com"},
-                new GameRoom(){RoomId = 1, Account = "bb", IsAlive = true,PlayerPic = "321.imgur.com"},
-                new GameRoom(){RoomId = 1, Account = "cc", IsAlive = true,PlayerPic = "wdfwf.imgur.com"},
-                new GameRoom(){RoomId = 1, Account = "dd", IsAlive = true,PlayerPic = "dsadac.imgur.com"},
-                new GameRoom(){RoomId = 1, Account = "ee", IsAlive = true,PlayerPic = "zxcv.imgur.com"},
-                new GameRoom(){RoomId = 1, Account = "ff", IsAlive = true,PlayerPic = "123ds.imgur.com"},
-                new GameRoom(){RoomId = 1, Account = "gg", IsAlive = true,PlayerPic = "43f.imgur.com"},
-                new GameRoom(){RoomId = 1, Account = "hh", IsAlive = true,PlayerPic = "3eds.imgur.com"},
-                new GameRoom(){RoomId = 1, Account = "ii", IsAlive = true,PlayerPic = "5tgb.imgur.com"},
-                new GameRoom(){RoomId = 1, Account = "jj", IsAlive = true,PlayerPic = "zxcd.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "aa", IsAlive = true, UserPic = "213.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "bb", IsAlive = true,UserPic = "321.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "cc", IsAlive = true,UserPic = "wdfwf.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "dd", IsAlive = true,UserPic = "dsadac.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "ee", IsAlive = true,UserPic = "zxcv.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "ff", IsAlive = true,UserPic = "123ds.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "gg", IsAlive = true,UserPic = "43f.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "hh", IsAlive = true,UserPic = "3eds.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "ii", IsAlive = true,UserPic = "5tgb.imgur.com"},
+                new GameRoom(){RoomId = 1, Account = "jj", IsAlive = true,UserPic = "zxcd.imgur.com"},
             };
 
             var _list = new List<GameRoom>()

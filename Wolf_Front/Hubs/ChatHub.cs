@@ -27,11 +27,6 @@ namespace Wolf_Front.Hubs
         /// </summary>
         private static int _temp;
 
-        /// <summary>
-        /// 錯誤訊息
-        /// </summary>
-        private const string Exce = "Fail";
-
         public ChatHub(IChatHubService service, int temp = 0)
         {
             _service = service;
@@ -74,50 +69,31 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public async Task CreateRoom(int roomId, string account)
         {
-            if (_Rooms.ContainsKey(roomId))
-            {
-                await Clients.Caller.Exception(Exce);
-            }
+            if (_Rooms.ContainsKey(roomId)) return;
 
-            var accountTemp = new List<string>
-            {
-                account
-            };
+            var accountTemp = new List<string> { account };
 
-            var model = new List<RoomInfo>
-            {
-                new RoomInfo { RoomId = roomId, Count = accountTemp.Count, Account = accountTemp.ToArray() }
-            };
+            var model = new List<RoomInfo> { new RoomInfo { RoomId = roomId, Count = accountTemp.Count, Account = accountTemp.ToArray() } };
 
             _Rooms.TryAdd(model[0].RoomId, model);
             _votePlayers.TryAdd(model[0].RoomId, new List<VotePlayers>());
 
-            await Groups.AddToGroupAsync(base.Context.ConnectionId, model[0].RoomId.ToString());
+            await Groups.AddToGroupAsync(Context.ConnectionId, model[0].RoomId.ToString());
 
-            var RoomList = _Rooms.Values.SelectMany(o => o).ToList();
-            if (RoomList.Count == 0)
-            {
-                _temp = 1;
-            }
+            var roomList = _Rooms.Values.SelectMany(o => o).ToList();
+            if (roomList.Count == 0) _temp = 1;
 
-            for (int i = 0; i < RoomList.Count; i++)
+            for (var i = 0; i < roomList.Count; i++)
             {
-                if (RoomList[i].RoomId != i + 1)
+                if (roomList[i].RoomId != i + 1)
                 {
-                    _temp = 0;
                     _temp = i + 1;
                     break;
                 }
-                else
-                {
-                    _temp = RoomList.Last().RoomId + 1;
-                }
+                else if (i == roomList.Count - 1) _temp = roomList.LastOrDefault().RoomId + 1;
             }
             //將玩家加入到GameRoom
-            var gameModel = new List<GameRoom>
-            {
-                new GameRoom() { RoomId = roomId, Account = account, IsAlive = true  }
-            };
+            var gameModel = new List<GameRoom> { new GameRoom() { RoomId = roomId, Account = account, IsAlive = true } };
             _GameRoom.TryAdd(roomId, gameModel);
             //將roomId傳給每個玩家
             await Clients.All.NewRoom(model, _temp);
@@ -131,23 +107,11 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public async Task JoinRoom(int roomId, string account)
         {
-            if (!_Rooms.ContainsKey(roomId))
-            {
-                await Clients.Caller.Exception(Exce);
-            }
-            foreach (var item in _Rooms.Values)
-            {
-                var _target = item.Find(x => x.RoomId == roomId);
-                if (_target != null && _target.Count.Equals(10))
-                {
-                    await Clients.Caller.Exception(Exce);
-                }
-                else
-                {
-                    break;
-                }
-            }
+            if (!_Rooms.ContainsKey(roomId) && !_GameRoom.ContainsKey(roomId)) return;
+
             _Rooms.TryGetValue(roomId, out var target);
+            if (target == null || target.Count.Equals(10)) return;
+
             var acc = target[0].Account;
             var tempList = acc.ToList();
 
@@ -161,6 +125,7 @@ namespace Wolf_Front.Hubs
                                     Account = tempList.ToArray(),
                                     Count = tempList.Count,
                                 }).ToList();
+
             _Rooms.TryUpdate(roomId, newRoomValue, target);
 
             //value assign to gameroom
@@ -190,30 +155,16 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public async Task OutToRoom(int roomId, string Account)
         {
-            if (!_Rooms.ContainsKey(roomId))
-            {
-                await Clients.Caller.Exception(Exce);
-            }
+            if (!_Rooms.ContainsKey(roomId)) return;
 
-            foreach (var item in _Rooms.Values)
-            {
-                var _target = item.Find(x => x.RoomId == roomId);
-                if (_target != null && _target.Count.Equals(10))
-                {
-                    await Clients.Caller.Exception(Exce);
-                }
-                else
-                {
-                    break;
-                }
-            }
+            if (_Rooms.Values.Select(item => item.Find(x => x.RoomId == roomId)).Any(_target => _target != null && _target.Count.Equals(10))) return;
 
             _Rooms.TryGetValue(roomId, out var target);
 
             var acc = target[0].Account;
             var tempList = new List<string>();
             //assign old value and new value to new List
-            
+
             acc.ToList().ForEach(o => tempList.Add(o));
 
             tempList.Remove(Account);
@@ -240,40 +191,32 @@ namespace Wolf_Front.Hubs
             //只在這個房間傳送訊息
             await Clients.Groups(roomId.ToString()).OutToRoom(Account);
 
-            if(newRoomValue.Any(x => x.RoomId == roomId && x.Count == 0))
+            if (newRoomValue.Any(x => x.RoomId == roomId && x.Count == 0))
             {
                 await RemoveRoom(roomId);
             }
             //將房間資訊給大家
             await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
-            //if()
         }
+
         /// <summary>
         /// GetAllRoom
         /// </summary>
         /// <returns></returns>
         public async Task GetAllRoom()
         {
-            //var data = _Rooms.Values.SelectMany(x => x).ToList();
             var data = _Rooms.SelectMany(x => x.Value).ToList();
 
-            if (data.Count == 0)
-            {
-                _temp = 1;
-            }
-            for (int i = 0; i < data.Count; i++)
+            if (data.Count == 0) _temp = 1;
+
+            for (var i = 0; i < data.Count; i++)
             {
                 if (data[i].RoomId != i + 1)
                 {
-                    _temp = 0;
                     _temp = i + 1;
                     break;
                 }
-                else
-                {
-                    _temp = Enumerable.LastOrDefault(data).RoomId + 1;
-                }
-
+                else if (i == data.Count - 1) _temp = data.LastOrDefault().RoomId + 1;
             }
             await Clients.All.GetAllRoomInfo(data, _temp);
         }
@@ -285,20 +228,21 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public async Task RemoveRoom(int roomId)
         {
-            var roomisClose = "This room is closed";
-            await Clients.Groups(roomId.ToString()).GroupRemoveRoom(roomisClose);
+            var roomIsClose = "This room is closed";
+            await Clients.Groups(roomId.ToString()).GroupRemoveRoom(roomIsClose);
             _Rooms.TryRemove(roomId, out _);
             _GameRoom.TryRemove(roomId, out _);
-            IEnumerable<RoomInfo> target;
+            List<RoomInfo> target;
 
-            if (_Rooms.IsEmpty == true)
+            if (_Rooms.IsEmpty)
             {
                 _temp = 1;
                 target = null;
                 await Clients.All.AllRemoveRoom(target, _temp);
+                return;
             }
 
-            target = _Rooms.Values.SelectMany(x => x);
+            target = _Rooms.Values.SelectMany(x => x).ToList();
 
             for (var i = 0; i < target.ToList().Count; i++)
             {
@@ -307,68 +251,32 @@ namespace Wolf_Front.Hubs
                     _temp = i + 1;
                     break;
                 }
+                else if (i == _Rooms.Keys.ToList().Count - 1) _temp = _Rooms.Keys.Max() + 1;
             }
-
             await Clients.All.AllRemoveRoom(target, _temp);
         }
+
         /// <summary>
         /// Vote
         /// </summary>
         /// <param name="data"></param>
-        public void Vote(IEnumerable<VotePlayers> data)
+        public async Task Vote(IEnumerable<VotePlayers> data)
         {
-
             _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
-            var roomKey = _votePlayers[data.ToList()[0].RoomID];
+            _svotePlayer.AddRange(data);
+            //if (!_svotePlayer.Exists(x => data.ToList()[0].Account == x.Account))
+            //{
+            //    _svotePlayer.AddRange(data);
+            //}
+            //else
+            //{
+            //    var index = _svotePlayer.IndexOf(data.ToList()[0]);
+            //    _svotePlayer.InsertRange(index, data);
+            //}
+            await Task.Delay(1);
 
-            _svotePlayer.ForEach(x => x.VoteTickets = 0);
-
-            if (_svotePlayer.Exists(x => data.ToList()[0].User == x.User) == false)
-            {
-                _svotePlayer.AddRange(data);
-            }
-            else
-            {
-                var index = _svotePlayer.IndexOf(data.ToList()[0]);
-                _svotePlayer.InsertRange(index, data);
-            }
-
-            for (int i = 0; i < _svotePlayer.Count; i++)
-            {
-                for (int o = 0; o < _svotePlayer.Count; o++)
-                {
-                    if (_svotePlayer[i].Vote == _svotePlayer[o].Vote)
-                    {
-                        _svotePlayer[i].VoteTickets++;
-                    }
-                }
-            }
-            var ran = new Random();
-            var newVotePlayers = _svotePlayer.OrderByDescending(x => x.VoteTickets).ToList();
-
-            for (var i = 0; i < newVotePlayers.Count; i++)
-            {
-                for (var o = 0; o < newVotePlayers.Count; o++)
-                {
-                    if (newVotePlayers[i].VoteTickets == newVotePlayers[o].VoteTickets)
-                    {
-                        for (var r = 0; r < newVotePlayers.Count; r++)
-                        {
-                            var index = ran.Next(0, newVotePlayers.Count - 1);
-                            if (index != r)
-                            {
-                                dynamic temp = newVotePlayers[r];
-                                newVotePlayers[r] = newVotePlayers[index];
-                                newVotePlayers[index] = temp;
-                            }
-                        };
-
-                        newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.User = null; });
-                        roomKey.AddRange(newVotePlayers.Take(1));
-                        break;
-                    }
-                }
-            }
+            _votePlayers.TryGetValue(data.ToList()[0].RoomID, out var target);
+            _votePlayers.TryUpdate(data.ToList()[0].RoomID, _svotePlayer, target);
         }
 
         /// <summary>
@@ -378,11 +286,31 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public async Task VoteResult(int roomId)
         {
-            var data = _votePlayers[roomId].ToList();
-            _svotePlayer.Clear();
-            _votePlayers.TryRemove(data.ToList()[0].RoomID, out _);
+            _votePlayers.TryGetValue(roomId, out var data);
+            var newData = data.ToList().FindAll(x => x.Vote != null).ToList();
+            newData.ForEach(i => _svotePlayer[Convert.ToInt32(i.Vote) - 1].VoteTickets++);
+
+            var ran = new Random();
+            var newVotePlayers = _svotePlayer.OrderByDescending(x => x.VoteTickets).ToList();
+
+            if (newVotePlayers[0].VoteTickets == newVotePlayers[1].VoteTickets)
+            {
+                for (var r = 0; r < newVotePlayers.Count; r++)
+                {
+                    var index = ran.Next(0, newVotePlayers.Count - 1);
+                    if (index == r) continue;
+                    var temp = newVotePlayers[r];
+                    newVotePlayers[r] = newVotePlayers[index];
+                    newVotePlayers[index] = temp;
+                };
+            }
+            newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.Account = null; });
+            _votePlayers.TryUpdate(newData[0].RoomID, newVotePlayers, data);
             //await Clients.Groups(roomId.ToString()).VoteResult(data);
-            await Clients.All.VoteResult(data);
+            await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
+
+            _svotePlayer.Clear();
+            _votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomID, out _);
         }
         /// <summary>
         /// PeopleDie
@@ -398,7 +326,7 @@ namespace Wolf_Front.Hubs
             var target = new GameRoom();
             target = newResult.Find(o => data.ToList()[0].Account == o.Account);
             target.IsAlive = false;
-            
+
             if (data.Count() == 2)
             {
                 var target2 = newResult.Find(o => data.ToList()[1].Account == o.Account);
@@ -436,26 +364,6 @@ namespace Wolf_Front.Hubs
         }
 
         /// <summary>
-        /// 連線時自動加入玩家ID
-        /// </summary>
-        /// <returns></returns>
-        public override Task OnConnectedAsync()
-        {
-            UserHandler.ConnectionIds.Add(Context.ConnectionId);
-            return base.OnConnectedAsync();
-        }
-        /// <summary>
-        /// 離現時自動減少該玩家ID
-        /// </summary>
-        /// <param name="exception"></param>
-        /// <returns></returns>
-        public override Task OnDisconnectedAsync(Exception exception)
-        {
-            UserHandler.ConnectionIds.Remove(Context.ConnectionId);
-            return base.OnDisconnectedAsync(exception);
-        }
-
-        /// <summary>
         /// 遊戲開始時分配玩家職業
         /// </summary>
         /// <param name="roomId"></param>
@@ -464,8 +372,7 @@ namespace Wolf_Front.Hubs
         {
             _GameRoom.TryGetValue(roomId, out var userList);
             var result = _service.GetRole(userList);
-            _GameRoom.TryRemove(roomId, out _);
-            _GameRoom.TryAdd(roomId, result);
+            _GameRoom.TryUpdate(roomId, result, userList);
             //await Clients.Group(roomId.ToString()).GetRole(result);
             await Clients.All.GetRole(result);
         }
