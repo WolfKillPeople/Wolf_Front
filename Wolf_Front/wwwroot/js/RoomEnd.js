@@ -138,6 +138,10 @@ $(document).ready(function () {
         pagination(+$(this).attr("data-target"));
     });
 });
+connection.on("JoinRoom", function (message) {
+    console.log(message);
+    $('.all').remove();
+});
 connection.on("GetAllRoomInfo", function (data, temp) {
     $('.page').remove();
     $('.nav-btn').remove();
