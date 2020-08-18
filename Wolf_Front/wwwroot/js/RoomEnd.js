@@ -139,7 +139,7 @@ $(document).ready(function () {
     });
 });
 connection.on("JoinRoom", function (message) {
-    console.log(message);
+    console.log('123');
     $('.all').remove();
 });
 connection.on("GetAllRoomInfo", function (data, temp) {
