@@ -231,13 +231,11 @@ connection.on("NewRoom", function (model, temp) {
     nextRoom = temp;
 });
 $(".add_room_btn").on("click", addDoor);
-var account = localStorage.getItem('myName');
+//var myaccount = localStorage.getItem('myName');
+var myaccount = "wdqdw@gmail.com";
 function addDoor() {
-    connection.invoke("CreateRoom", nextRoom, account);
-    //location.replace(`http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}`);
-
-    //$('.add_room_href').attr("href", `http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}`);
-    //window.open(`http://werewolfkill.azurewebsites.net/Html/Room.html?room=${nextRoom}`);
+    connection.invoke("CreateRoom", nextRoom, myaccount);
+    prepare();
 }
 function AddOneDoor() {
     //play1 = localStorage.getItem('myName');
@@ -330,10 +328,8 @@ connection.on("GetAll", function (data, i) {
 function addPeople(member) {
     var strRoomId = $(member).attr('class').substring(9);
     var roomId = parseInt(strRoomId);
-    account = "TYRFTY@gmail.com";
-    $('.all').remove();
-    connection.invoke("JoinRoom", roomId, account);
-
+    myaccount = "wdqdw@gmail.com";
+    connection.invoke("JoinRoom", roomId, myaccount);
 }
 //var delroom = 1;
 //function deleteRoom() {
@@ -607,7 +603,7 @@ var deadLis = '';
 var deadNum = [];
 var players;
 //玩家資料
-var myName = 'wdqdw@gmail.com';
+var myaccount = 'wdqdw@gmail.com';
 var myAlive;
 var myJob;
 var myroomid = 1;
@@ -619,7 +615,7 @@ function signalrListener() {
     connection.on("PeopleDie", function (message) {
         let allHead = document.querySelectorAll('.deadimg');
         for (let i = 0; i < players.length; i++) {
-            if (myName == message) {
+            if (myaccount == message) {
                 myAlive = false;
             }
             if (players[i].account == message) {
@@ -648,9 +644,8 @@ function signalrListener() {
         function (response) {
             players = response;
             console.log(players);
-            //myName = localStorage.getItem("myName");
             players.forEach(element => {
-                if (element.account == myName) {
+                if (element.account == myaccount) {
                     myAlive = element.isAlive;
                     myJob = element.name;
                     myJobInfo = element;
@@ -803,7 +798,7 @@ async function BindingPlayers() {
         let num = document.createElement('span');
         let Circle = document.createElement('div');
         num.innerHTML = i + 1;
-        num.setAttribute('class', 'number');
+        num.setAttribute('class', 'gamenumber');
         aplayer.setAttribute('class', 'playerimg')
         aplayer.setAttribute('href', '#');
         playerImg.setAttribute('src', players[i].userPic);
@@ -833,7 +828,7 @@ async function BindingPlayers() {
         let num = document.createElement('span');
         let Circle = document.createElement('div');
         num.innerHTML = i + 1;
-        num.setAttribute('class', 'number');
+        num.setAttribute('class', 'gamenumber');
         aplayer.setAttribute('class', 'playerimg')
         aplayer.setAttribute('href', '#');
         playerImg.setAttribute('src', players[i].userPic);
@@ -979,7 +974,7 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
 function voteBack() {
     var backVoteResult = [{
         "RoomID": myroomid,
-        "Account": myName,
+        "Account": myaccount,
         "Vote": `${voteResult}`,
         "voteResult": null
     }];
@@ -1102,7 +1097,6 @@ function wolfKing() {
         $('#rightgamerecordli').append(`<li>請選擇帶走玩家</li>`);
     }
 }
-$('.circleImg').attr('className', 'circleImg off');
 
 
 
@@ -1119,6 +1113,7 @@ async function game() {
     //----------準備時間---------
     Speak('請確認你的身分，遊戲將於倒數完後開始');
     await timeOn(10);
+    $('.circleImg').css("pointer-events", "none");
 
     for (let round = 0; round < 100; round++) {
         //----------狼人---------
@@ -1133,7 +1128,7 @@ async function game() {
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
         $('.on').css('box-shadow', 'none');
-        voteBack();
+        await voteBack();
         await getVoteResult();
 
         //----------預言家---------
@@ -1196,6 +1191,8 @@ async function game() {
             await timeOn(1);
             for (let i = 0; i < deadNum.length; i++) {
                 if (players[deadNum[i]].name == '獵人') {
+                    deadLis = ''
+                    deadNum = [];
                     Speak('發動角色技能');
                     voteResult = null;
                     prepareDead = null;
@@ -1212,6 +1209,8 @@ async function game() {
                     $('.image').show();
                 }
                 if (players[deadNum[i]].name == '狼王') {
+                    deadLis = ''
+                    deadNum = [];
                     Speak('發動角色技能');
                     voteResult = null;
                     prepareDead = null;
@@ -1255,7 +1254,7 @@ async function game() {
         for (let i = 0; i < players.length; i++) {
             document.getElementById("PeoplesendButton").hidden = true;
             if (players[i].isAlive) {
-                if (players[i].account == myName) {
+                if (players[i].account == myaccount) {
                     document.getElementById("PeoplesendButton").hidden = false;
                 }
                 Speak(`${i + 1}號玩家發言`);
@@ -1277,7 +1276,7 @@ async function game() {
         await timeOn(10);
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
-        voteBack();
+        await voteBack();
         await getVoteResult();
         await deadConfirm(prepareDead);
         await timeOn(1);
@@ -1307,7 +1306,7 @@ async function game() {
         for (let i = 0; i < deadNum.length; i++) {
             Speak(`${deadNum[i] + 1}號玩家請發表遺言`);
             await timeOn(1);
-            if (players[deadNum[i]].account == myName) {
+            if (players[deadNum[i]].account == myaccount) {
                 document.getElementById("PeoplesendButton").hidden = false;
             }
             await timeOn(5);
