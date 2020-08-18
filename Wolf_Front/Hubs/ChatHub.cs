@@ -141,12 +141,14 @@ namespace Wolf_Front.Hubs
             //將這個玩家加到指定的room
             await Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
-            //將房間資訊給大家
-            await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
-
             //只在這個房間傳送訊息
             //await Clients.Groups(roomId.ToString()).JoinRoom(account);
             await Clients.All.JoinRoom(account);
+
+            //將房間資訊給大家
+            await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
+
+           
         }
         /// <summary>
         /// OutToRoom
