@@ -139,8 +139,11 @@ $(document).ready(function () {
     });
 });
 connection.on("JoinRoom", function (message) {
+    debugger
     console.log('123');
+    debugger
     $('.all').remove();
+    debugger
 });
 connection.on("GetAllRoomInfo", function (data, temp) {
     $('.page').remove();
