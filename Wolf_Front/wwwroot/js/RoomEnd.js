@@ -1,5 +1,4 @@
-﻿"use strict";
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 var no = 1;
 var door_page = 1;
 var people;

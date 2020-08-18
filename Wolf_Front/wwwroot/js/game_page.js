@@ -84,7 +84,7 @@ function timeOn(time) {
     return new Promise((resolve, reject) => {
         var count = time;
         var totaltime = time;
-        myCounter = setInterval(function () {
+        let myCounter = setInterval(function () {
             count--;
             $('#time').html(padLeft(count.toString(), 2));
             update(count, totaltime);
