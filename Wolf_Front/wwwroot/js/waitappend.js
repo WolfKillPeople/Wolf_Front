@@ -1,7 +1,7 @@
 var waitPeople = 1;
 function wait() {
     $('body').append(`
-<div class="container" id="waitappendId">
+<div class="waitcontainer" id="waitappendId">
 
    <h1 class="ml3">等待玩家中......</h1>
 <div class="Numberpeopleddiv" >
