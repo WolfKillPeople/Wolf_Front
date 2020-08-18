@@ -315,7 +315,9 @@ namespace Wolf_Front.Hubs
 
             //await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
             await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
-
+            var newTarget = targetRoom;
+            newTarget.ForEach(o => { o.Voteticket = 0; o.Vote = ""; });
+            _GameRoom.TryUpdate(roomId, newTarget, targetRoom);
             _svotePlayer.Clear();
             _votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomId, out _);
 
@@ -408,14 +410,5 @@ namespace Wolf_Front.Hubs
             await Clients.All.GetRole(result);
         }
 
-        /// <summary>
-        /// 狼人殺
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public async Task WolfKill(IEnumerable<VotePlayers> data)
-        {
-            _svotePlayer.AddRange(data);
-        }
     }
 }
