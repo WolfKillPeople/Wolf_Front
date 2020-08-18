@@ -8,7 +8,7 @@ var myAlive;
 var myJob;
 var myroomid = 1;
 var myJobInfo;
-
+var PersonInroom;
 var gameResult;
 function signalrListener() {
     //玩家死亡
@@ -57,13 +57,6 @@ function signalrListener() {
             closeMessage();
         });
 }
-
-//測試建房按鈕
-var id;
-var PersonInroom;
-$('#addd').click(function () {
-    connection.invoke("CreateRoom", 1, "wdqdw@gmail.com");
-})
 
 var synth = window.speechSynthesis;
 var voices = [];
