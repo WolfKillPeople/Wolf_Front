@@ -20,7 +20,7 @@ namespace Wolf_Front.Hubs
 
         Task AllRemoveRoom(IEnumerable<RoomInfo> newList ,int temp);
 
-        Task VoteResult(List<VotePlayers> data);
+        Task VoteResult(List<GameRoom> data);
 
         Task PeopleDie(string Account);
 

@@ -38,6 +38,7 @@ namespace Wolf_Front.Services
                 d.ImgUrl = _list[_o].ImgUrl;
                 d.IsGood = _list[_o].IsGood;
                 d.Description = _list[_o].Description;
+                d.Vote = (_o+1).ToString();
                 _o++;
             }
 

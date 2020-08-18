@@ -46,5 +46,15 @@
         /// 玩家照片
         /// </summary>
         public string UserPic { get; set; }
+
+        /// <summary>
+        /// 投票數
+        /// </summary>
+        public int Voteticket { get; set; }
+
+        /// <summary>
+        /// 投票對象
+        /// </summary>
+        public string Vote { get; set; }
     }
 }

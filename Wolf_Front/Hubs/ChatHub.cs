@@ -44,7 +44,7 @@ namespace Wolf_Front.Hubs
                 new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
                 new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
                 new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
-                //new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true},
             };
             _GameRoom.TryAdd(1, userList);
         }
@@ -97,6 +97,8 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryAdd(roomId, gameModel);
             //將roomId傳給每個玩家
             await Clients.All.NewRoom(model, _temp);
+
+            //await Clients.Group(roomId.ToString()).JoinRoom(account);
         }
 
         /// <summary>
@@ -291,12 +293,13 @@ namespace Wolf_Front.Hubs
         {
             _votePlayers.TryGetValue(roomId, out var data);
             var newData = data.ToList().FindAll(x => x.Vote != null).ToList();
-            newData.ForEach(i => _svotePlayer[Convert.ToInt32(i.Vote) - 1].VoteTickets++);
+            _GameRoom.TryGetValue(roomId, out var targetRoom);
+
+            newData.ForEach(o => targetRoom[Convert.ToInt32(o.Vote) - 1].Voteticket++);
 
             var ran = new Random();
-            var newVotePlayers = _svotePlayer.OrderByDescending(x => x.VoteTickets).ToList();
-
-            if (newVotePlayers[0].VoteTickets == newVotePlayers[1].VoteTickets)
+            var newVotePlayers = targetRoom.OrderByDescending(x => x.Voteticket).ToList();
+            if (newVotePlayers[0].Voteticket == newVotePlayers[1].Voteticket)
             {
                 for (var r = 0; r < newVotePlayers.Count; r++)
                 {
@@ -307,13 +310,38 @@ namespace Wolf_Front.Hubs
                     newVotePlayers[index] = temp;
                 };
             }
-            newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.Account = null; });
-            _votePlayers.TryUpdate(newData[0].RoomID, newVotePlayers, data);
-            //await Clients.Groups(roomId.ToString()).VoteResult(data);
+
+
+
+            //await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
             await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
 
             _svotePlayer.Clear();
-            _votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomID, out _);
+            _votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomId, out _);
+
+            //newData.ForEach(i => _svotePlayer[Convert.ToInt32(i.Vote) - 1].VoteTickets++);
+
+            //var ran = new Random();
+            //var newVotePlayers = _svotePlayer.OrderByDescending(x => x.VoteTickets).ToList();
+
+            //if (newVotePlayers[0].VoteTickets == newVotePlayers[1].VoteTickets)
+            //{
+            //    for (var r = 0; r < newVotePlayers.Count; r++)
+            //    {
+            //        var index = ran.Next(0, newVotePlayers.Count - 1);
+            //        if (index == r) continue;
+            //        var temp = newVotePlayers[r];
+            //        newVotePlayers[r] = newVotePlayers[index];
+            //        newVotePlayers[index] = temp;
+            //    };
+            //}
+            //newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.Account = null; });
+            //_votePlayers.TryUpdate(newData[0].RoomID, newVotePlayers, data);
+            //await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
+            //await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
+
+            //_svotePlayer.Clear();
+            //_votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomID, out _);
         }
         /// <summary>
         /// PeopleDie
@@ -378,6 +406,16 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryUpdate(roomId, result, userList);
             //await Clients.Group(roomId.ToString()).GetRole(result);
             await Clients.All.GetRole(result);
+        }
+
+        /// <summary>
+        /// 狼人殺
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public async Task WolfKill(IEnumerable<VotePlayers> data)
+        {
+            _svotePlayer.AddRange(data);
         }
     }
 }
