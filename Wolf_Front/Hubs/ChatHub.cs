@@ -314,7 +314,7 @@ namespace Wolf_Front.Hubs
             //await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
             await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
             var newTarget = targetRoom;
-            newTarget.ForEach(o => { o.Voteticket = 0; o.Vote = ""; });
+            newTarget.ForEach(o => o.Voteticket = 0);
             _GameRoom.TryUpdate(roomId, newTarget, targetRoom);
             _svotePlayer.Clear();
             _votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomId, out _);
