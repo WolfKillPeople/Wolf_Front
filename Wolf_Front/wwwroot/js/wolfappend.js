@@ -1,25 +1,6 @@
-﻿<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/wolf.css">
-</head>
-<body>
-
-    <!-- Extra large modal -->
-    <button type="button" onclick="test()" class="btn btn-primary" data-toggle="modal"
-            data-target=".bd-example-modal-xl">
-        Extra large
-        modal
-    </button>
-
-    <div class="modal fade bd-example-modal-xl show" id="wolfmodal" tabindex="-1" role="dialog"
-         aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+﻿function wolfwin() {
+    $('body').append(`
+  <div class="modal fade bd-example-modal-xl show" id="wolfmodal" tabindex="-1" role="dialog"aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -27,7 +8,7 @@
             <div class="modal-content" style="width: 1138px; height: 565px; background-color:#002142; ">
 
                 <div class="all_wolf">
-
+                   
                     <div class="frame">
                         <div class="titlecontainer">
                             <div class="boys">
@@ -94,9 +75,9 @@
                         <div class="moon"></div>
                         <div class="wolf"></div>
                     </div>
-                    <!-- //返回遊戲大廳 -->
-                    <!-- //返回遊戲大廳 -->
-                    <div class="backgame">
+                     <!-- //返回遊戲大廳 -->
+                      <!-- //返回遊戲大廳 -->
+                      <div class="backgame">
                         <a class="btn-reveal-wolfwin again btn" href="#" id="again">
                             <div class="border-left-wolfwin">
                                 <span class="arrow-top-wolfwin"></span>
@@ -107,22 +88,15 @@
                             <div class="border-bottom-wolfwin"></div>
                             <div class="border-bottom-left-wolfwin"></div>
                             <div class="border-top-left-wolfwin"></div>
-                            來去抽獎囉!
+                          來去抽獎囉!
                         </a>
-                    </div>
-
-
                 </div>
+
+
             </div>
         </div>
     </div>
 
-        <!--<script src="../js/wolfwin.js"></script>-->
-        <script src="../js/jsbat.js"></script>
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</body>
-</html>
+`)
+    $('#"wolfmodal').modal('show');
+}

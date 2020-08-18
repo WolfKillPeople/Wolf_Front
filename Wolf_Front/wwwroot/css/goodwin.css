@@ -2,11 +2,8 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    font-family:微軟正黑體;
 }
-
-
-
-
 
 .backgame {
     display: flex;
@@ -20,53 +17,53 @@
 
 
 
-.btn-reveal {
-    color: black;
-    background-color: rgba(104, 157, 186);
+.btn-reveal-goodwin {
+    color: white;
+    background-color: rgba(104, 157, 186,0);
     /* text-decoration: none; */
     text-transform: uppercase;
     text-align: center;
-    padding: 20px 100px;
+    padding: 20px 90px;
     font-size: 18px;
     width: 300px;
     margin: 50px 0;
     display: block;
-    border-radius: 0;        
+    border-radius: 0;
     position: relative;
     transition: all .3s .15s ease-in-out;
     overflow: hidden;
 }
 
-.btn-reveal .show {
-    display: block;
-    transition: all .5s ease;
-    transform: translateY(0);
-    color: white;
-}
+   /* .btn-reveal-goodwin .show-goodwin {
+        display: block;
+        transition: all .5s ease;
+        transform: translateY(0);
+        color: white;
+    }
 
-.btn-reveal:hover .show {
-    transform: translateY(150px);
-}
+    .btn-reveal-goodwin :hover .show-goodwin {
+        transform: translateY(150px);
+    }
 
-.btn-reveal .reveal {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: auto;
-    width: 100%;
-    color: white;
-    background-color: #253641;
-    padding: 20px 100px;
-    text-shadow: 2px 3px 5px rgba(0, 0, 0, .5);
-    transition: all .3s ease-in-out;
-    transform: translateY(-110px);
-}
+    .btn-reveal-goodwin .reveal-goodwin {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: auto;
+        width: 100%;
+        color: white;
+        background-color: #253641;
+        padding: 20px 100px;
+        text-shadow: 2px 3px 5px rgba(0, 0, 0, .5);
+        transition: all .3s ease-in-out;
+        transform: translateY(-110px);
+    }
 
-.btn-reveal:hover .reveal {
-    transform: translateY(0);
-}
-
+    .btn-reveal-goodwin :hover .reveal-goodwin {
+        transform: translateY(0);
+    }
+*/
 
 
 .titlecontainer {
@@ -347,41 +344,41 @@ filter: brightness(1.6);
     }
 }
 
-.border-left{
-position: absolute;
-height: 2px;
-width: 50%;
-left: -35%;
-background-color: white;
-top: 50%;
-z-index: 6;
-animation: moveLeft 1.5s forwards infinite ease-in-out;
+.border-left-goodwin {
+    position: absolute;
+    height: 2px;
+    width: 50%;
+    left: -35%;
+    background-color: white;
+    top: 50%;
+    z-index: 6;
+    animation: moveLeft 1.5s forwards infinite ease-in-out;
 }
 
-.arrow-top{
-height: 3px;
-width: 10px;
-transform: rotate(45deg);
-position: absolute;
-display: block;
-right: 0;
-top: -4px;
-background-color: white
+.arrow-top-goodwin {
+    height: 3px;
+    width: 10px;
+    transform: rotate(45deg);
+    position: absolute;
+    display: block;
+    right: 0;
+    top: -4px;
+    background-color: white
 }
 
-.arrow-bottom{
-height: 3px;
-width: 10px;
-transform: rotate(-45deg);
-position: absolute;
-display: block;
-right: 0;
-bottom: -4px;
-background-color: white
+.arrow-bottom-goodwin {
+    height: 3px;
+    width: 10px;
+    transform: rotate(-45deg);
+    position: absolute;
+    display: block;
+    right: 0;
+    bottom: -4px;
+    background-color: white
 }
 
-.border-left, .arrow-top, .arrow-bottom{
-transition-delay: .2s;
+.border-left-goodwin, .arrow-top-goodwin, .arrow-bottom-goodwin {
+    transition-delay: .2s;
 }
 
 @keyframes moveLeft{
@@ -396,86 +393,85 @@ transform: translateX(0px);
 }
 }
 
-.btn:hover .border-left, .btn:hover .arrow-top, .btn:hover .arrow-bottom{
-transition-delay: 1s;
-background-color: white;
-animation: none;
+.btn:hover .border-left-goodwin, .btn:hover .arrow-top-goodwin, .btn:hover .arrow-bottom-goodwin {
+    transition-delay: 1s;
+    background-color: white;
+    animation: none;
 }
 
-.border-top, .border-right, .border-bottom, .border-bottom-left, .border-top-left{
-position: absolute;
-transition: all .2s ease-in-out;
-background-color: white;
-z-index: 5;
+.border-top-goodwin, .border-right-goodwin, .border-bottom-goodwin, .border-bottom-left-goodwin, .border-top-left-goodwin {
+    position: absolute;
+    transition: all .2s ease-in-out;
+    background-color: white;
+    z-index: 5;
 }
 
-.border-top{
-top: 0;
-left: 0;
-right: 100%;
-height: 2px;
-transition-delay: .6s;
+.border-top-goodwin {
+    top: 0;
+    left: 0;
+    right: 100%;
+    height: 2px;
+    transition-delay: .6s;
 }
 
-.btn:hover .border-top{
-right: 0;
-transition-delay: .2s;
+.btn:hover .border-top-goodwin {
+    right: 0;
+    transition-delay: .2s;
 }
 
-.border-right{
-top: 0;
-right: 0;
-bottom: 100%;
-width: 2px;
-transition-delay: .4s;
+.border-right-goodwin {
+    top: 0;
+    right: 0;
+    bottom: 100%;
+    width: 2px;
+    transition-delay: .4s;
 }
 
-.btn:hover .border-right{
-bottom: 0;
-transition-delay: .4s;
+.btn:hover .border-right-goodwin {
+    bottom: 0;
+    transition-delay: .4s;
 }
 
-.border-bottom{
-bottom: 0;
-right: 0;
-left: 100%;
-height: 2px;
-transition-delay: .2s;
+.border-bottom-goodwin {
+    bottom: 0;
+    right: 0;
+    left: 100%;
+    height: 2px;
+    transition-delay: .2s;
 }
 
-.btn:hover .border-bottom{
-left: 0;
-transition-delay: .6s;
+.btn:hover .border-bottom-goodwin {
+    left: 0;
+    transition-delay: .6s;
 }
 
-.border-bottom-left{
-bottom: 0;
-height: 0;
-width: 2px;
-left: 0;
-transition-delay: 0s;
+.border-bottom-left-goodwin {
+    bottom: 0;
+    height: 0;
+    width: 2px;
+    left: 0;
+    transition-delay: 0s;
 }
 
-.btn:hover .border-bottom-left{
-height: 50%;
-transition-delay: .8s;
+.btn:hover .border-bottom-left-goodwin {
+    height: 50%;
+    transition-delay: .8s;
 }
 
-.border-top-left{
-bottom: 50%;
-left: 0;
-height: 0;
-width: 2px;
-transition-delay: .8s;
+.border-top-left-goodwin {
+    bottom: 50%;
+    left: 0;
+    height: 0;
+    width: 2px;
+    transition-delay: .8s;
 }
 
-.btn:hover .border-top-left{
-height: 50%;
-transition-delay: 0s;
+.btn:hover .border-top-left-goodwin {
+    height: 50%;
+    transition-delay: 0s;
 }
-canvas{
-background-color: #000000;
-position: absolute;
-top: 0px;
-left: 0px;
+canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }

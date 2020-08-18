@@ -579,8 +579,9 @@ async function game() {
         await winOrLose();
         if (gameResult == '好人獲勝') {
             /*這裡加好人獲勝MODEL;*/
-
-
+            $('.image').hide();
+            goodwin();
+  
             Speak('遊戲結束，好人獲勝');
             break;
         }
@@ -635,8 +636,10 @@ async function game() {
         //判斷輸贏
         await winOrLose();
         if (gameResult == '好人獲勝') {
-            /*這裡加好人獲勝MODEL;*/
-
+        /*這裡加好人獲勝MODEL;*/
+            $('.image').hide();
+            goodwin();
+      
 
             Speak('遊戲結束，好人獲勝');
             break;
@@ -690,9 +693,10 @@ async function game() {
         //判斷輸贏
         await winOrLose();
         if (gameResult == '好人獲勝') {
-            /*這裡加好人獲勝MODEL;*/
-
-
+        /*這裡加好人獲勝MODEL;*/
+            $('.image').hide();
+            goodwin();
+         
             Speak('遊戲結束，好人獲勝');
             break;
         }
