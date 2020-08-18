@@ -98,18 +98,3 @@ $('#Test').click(function () {
 
     connection.invoke("Vote", backVoteResult);
 });
-
-$('#Check').click(function() {
-    connection.invoke("VoteResult", 1);
-})
-
-
-//connection.on("GetRole",
-//    function (response) {
-//        console.log(response);
-//    });
-
-
-
-
-
