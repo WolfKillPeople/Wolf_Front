@@ -207,7 +207,7 @@ async function BindingPlayers() {
         num.setAttribute('class', 'number');
         aplayer.setAttribute('class', 'playerimg')
         aplayer.setAttribute('href', '#');
-        playerImg.setAttribute('src', players[i].playerPic);
+        playerImg.setAttribute('src', players[i].userPic);
         playerImg.setAttribute('class', 'playerphoto');
         dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
         dead.setAttribute('class', 'deadimg');
@@ -237,7 +237,7 @@ async function BindingPlayers() {
         num.setAttribute('class', 'number');
         aplayer.setAttribute('class', 'playerimg')
         aplayer.setAttribute('href', '#');
-        playerImg.setAttribute('src', players[i].playerPic);
+        playerImg.setAttribute('src', players[i].userPic);
         playerImg.setAttribute('class', 'playerphoto')
         dead.setAttribute('src', 'https://i.imgur.com/OapUq4K.png');
         dead.setAttribute('class', 'deadimg');
