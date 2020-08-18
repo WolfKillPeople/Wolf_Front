@@ -1176,14 +1176,14 @@ async function game() {
 
 
             Speak('遊戲結束，好人獲勝');
-            break;
+            return;
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
 
 
             Speak('遊戲結束，好人獲勝');
-            break;
+            return;
         }
 
         if (deadNum.length > 0) {
@@ -1237,14 +1237,14 @@ async function game() {
 
 
             Speak('遊戲結束，好人獲勝');
-            break;
+            return;
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
 
 
             Speak('遊戲結束，好人獲勝');
-            break;
+            return;
         }
 
         await timeOn(1);
@@ -1292,14 +1292,71 @@ async function game() {
 
 
             Speak('遊戲結束，好人獲勝');
-            break;
+            return;
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
 
 
             Speak('遊戲結束，好人獲勝');
-            break;
+            return;
+        }
+
+        await timeOn(1);
+        for (let i = 0; i < deadNum.length; i++) {
+            if (players[deadNum[i]].name == '獵人') {
+                deadLis = ''
+                deadNum = [];
+                Speak('發動角色技能');
+                voteResult = null;
+                prepareDead = null;
+                await timeOn(1);
+                hunter();
+                await timeOn(15);
+                $('#rightgamerecordli li').remove();
+                $('.circleImg').css("pointer-events", "none");
+                $('.circleImg').attr('className', 'circleImg off');
+                if (voteResult != null) { await deadConfirm(voteResult); }
+                if (voteResult != null) { Speak(`${voteResult}號玩家死亡`); }
+                await timeOn(3);
+                $('.diepage').remove();
+                $('.image').show();
+            }
+            if (players[deadNum[i]].name == '狼王') {
+                deadLis = ''
+                deadNum = [];
+                Speak('發動角色技能');
+                voteResult = null;
+                prepareDead = null;
+                await timeOn(1);
+                wolfKing();
+                await timeOn(15);
+                $('#rightgamerecordli li').remove();
+                $('.circleImg').css("pointer-events", "none");
+                $('.circleImg').attr('className', 'circleImg off');
+                if (voteResult != null) { await deadConfirm(voteResult); }
+                if (voteResult != null) { Speak(`${voteResult}號玩家死亡`); }
+                await timeOn(3);
+                $('.diepage').remove();
+                $('.image').show();
+            }
+        }
+
+        //判斷輸贏
+        await winOrLose();
+        if (gameResult == '好人獲勝') {
+            /*這裡加好人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            return;
+        }
+        else if (gameResult == '狼人獲勝') {
+            /*這裡加狼人獲勝MODEL;*/
+
+
+            Speak('遊戲結束，好人獲勝');
+            return;
         }
 
         //----------遺言---------

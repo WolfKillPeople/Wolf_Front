@@ -79,10 +79,10 @@ var backVoteResult = [{
     "voteResult": null
 }];
 
-connection.on("VoteResult",
-    function(data) {
-        console.log(data);
-    });
+//connection.on("VoteResult",
+//    function(data) {
+//        console.log(data);
+//    });
 
 $('#Test').click(function () {
 
