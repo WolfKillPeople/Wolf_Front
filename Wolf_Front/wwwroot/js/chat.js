@@ -1,8 +1,5 @@
 ﻿"use strict";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAutomaticReconnect([0, 0, 10000]).build();
-
-
 //Disable send button until connection is established
 document.getElementById("PeoplesendButton").disabled = true;
 document.getElementById("WolfsendButton").disabled = true;
@@ -45,13 +42,6 @@ connection.on("ReceiveMessage", function (user, message, roomId) {
     }
 
 
-});
-
-connection.start().then(function () {
-    document.getElementById("PeoplesendButton").disabled = false;
-    document.getElementById("WolfsendButton").disabled = false;
-}).catch(function (err) {
-    return console.error(err.toString());
 });
 
 
