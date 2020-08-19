@@ -114,7 +114,7 @@ function confirmClick() {
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(ScoreData),
         success: function (msg) {
-            alert('成功!!');
+            //alert('成功!!');
         }
     });
     
