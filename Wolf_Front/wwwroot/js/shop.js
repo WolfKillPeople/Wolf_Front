@@ -75,6 +75,8 @@ $(document).ready(function () {
         $('#update').click();
     });
 
+    $('.confirm').on('click', confirmClick);
+
     //Score
     let emailData =
     {
@@ -82,7 +84,7 @@ $(document).ready(function () {
     }
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:44386/api/UserRegister/GetWin',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/GetWin',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(emailData),
@@ -90,7 +92,7 @@ $(document).ready(function () {
             arry = msg;
             //alert(arry[0].win);
             getwin = arry[0].win;
-            $('.title').append(`目前總積分: ${getwin}`);
+            $('.ScoreTotal').append(`${getwin}`);
         }
     });
 
@@ -117,7 +119,11 @@ $(document).ready(function () {
     //});
 
 
+
 });
+
+
+
 
 
 

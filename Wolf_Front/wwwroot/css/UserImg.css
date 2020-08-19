@@ -101,3 +101,17 @@
     margin-bottom: 3%;
     cursor:pointer;
 }
+.ScoreTotal {
+    margin-top: 15px;
+    font-size: 20px;
+    color:#fff;
+    
+    
+}
+.ScoreTop {
+    background: #cd5c5c;
+    top: 0;
+    float: left;
+    position: sticky;
+    width:150px;
+}

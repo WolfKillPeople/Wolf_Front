@@ -1,10 +1,14 @@
 $('body').append(`
+ <div class="ScoreTop mx-auto">
+        <p class="ScoreTotal">目前總積分:</a>
+    </div>
         <div class="back_room sticky-top mx-auto">
         <a href="https://werewolfkill.azurewebsites.net/Html/Room.html">回到房間頁</a>
     </div>
-
+     
     <div class="accordion" id="accordionExample">
-        <div class="card">
+        <div class="card"> 
+          
             <div class="card-header" id="roleCard">
                 <h2 class="mb-0 text-center">
                     <button class="btn" type="button" data-toggle="collapse" data-target="#roleBtn" aria-expanded="true"
