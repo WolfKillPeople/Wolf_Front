@@ -104,8 +104,7 @@
 .ScoreTotal {
     margin-top: 15px;
     font-size: 20px;
-    color:#fff;
-    
+    color:#fff; 
     
 }
 .ScoreTop {
@@ -113,5 +112,5 @@
     top: 0;
     float: left;
     position: sticky;
-    width:150px;
+    width:15%;
 }
