@@ -64,9 +64,9 @@ body {
     /* background-color:transparent; */
 }
 
-    .card-body .card-body {
-        height: 215px;
-    }
+.card-body .card-body {
+    height: 215px;
+}
 
 .btn:focus {
     box-shadow: none;
@@ -99,15 +99,17 @@ body {
     border-radius: 10px;
 }
 
-    .back_room a {
-        margin-top: 10px;
-        font-size: 26px;
-        color: #fff;
-        text-decoration: none;
-    }
+.back_room a {
+    margin-top: 10px;
+    font-size: 26px;
+    color: #fff;
+    text-decoration: none;
+}
 
-#accordionExample {
-    width: 93.5%;
+#accordionExample {      
+    float:left;
+    left:50%;
+    width: 80%;
     z-index: 1000;
 }
 
