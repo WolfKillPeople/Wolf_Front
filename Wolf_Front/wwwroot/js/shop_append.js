@@ -1,6 +1,6 @@
 $('body').append(`
  <div class="ScoreTop mx-auto">
-        <p class="ScoreTotal">目前總積分:</a>
+        <p class="ScoreTotal"></p>
     </div>
         <div class="back_room sticky-top mx-auto">
         <a href="https://werewolfkill.azurewebsites.net/Html/Room.html">回到房間頁</a>

@@ -20,7 +20,7 @@ function change_Userimg() {
 }
 
 $('#user_img').click(changePICS(this));
-
+var img;
 function changePICS(e) {
     var getChoiceUrl = $(e).attr('src');
     // $('#avatat').attr('src','none');
@@ -55,7 +55,7 @@ const upload = new Vue({
             form.append('description', this.des);
             settings.data = form;
             $.ajax(settings).done(function (res) {
-                var img = JSON.parse(res).data.link;
+                img = JSON.parse(res).data.link;
                 document.querySelector('#avatat').setAttribute('src', img);
                 alert(img);
                 // $('#user_pic').modal('hide')
@@ -66,7 +66,6 @@ const upload = new Vue({
 
 var email = "a1256963@gmail.com";
 var getwin;
-
 $(document).ready(function () {
     // $('#upload_icon').click(function () {
     //     $('#update').click();
@@ -92,36 +91,34 @@ $(document).ready(function () {
             arry = msg;
             //alert(arry[0].win);
             getwin = arry[0].win;
-            $('.ScoreTotal').append(`${getwin}`);
+            $('.ScoreTotal').append(`目前總積分:${getwin}`);
         }
     });
-
-
-
-    //let ScoreData =
-    //{
-    //    "email": "a1256963@gmail.com",
-    //    "win": 1800,
-    //    "pic": "https://i.imgur.com/hHT8W4n.png"
-    //}
-    //$.ajax({
-    //    type: 'POST',
-    //    url: 'https://localhost:5001/api/Store',
-    //    dataType: 'json',
-    //    contentType: 'application/json;charset=UTF-8',
-    //    data: JSON.stringify(ScoreData),
-    //    success: function (msg) {
-    //        arry = msg;
-    //        //alert(arry[0].win);
-    //        getwin = arry[0].win;
-    //        $('.title').append(`�ثe�`�n��: ${getwin}`);
-    //    }
-    //});
-
-
-
 });
 
+//Confirm
+function confirmClick() {
+    getwin = getwin - 5;
+    $('.ScoreTotal').empty();
+    $('.ScoreTotal').append(`目前總積分:${getwin}`);
+    let ScoreData =
+    {
+        "email": email,
+        "win": getwin,
+        "pic": img
+    }
+    $.ajax({
+        type: 'POST',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/Store',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify(ScoreData),
+        success: function (msg) {
+            alert('成功!!');
+        }
+    });
+    
+}
 
 
 
