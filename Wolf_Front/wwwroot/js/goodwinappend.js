@@ -1,6 +1,11 @@
 ﻿function goodwin() {
     $('body').append(`
-
+ < div class="modal fade bd-example-modal-xl show" id = "goodmodal" tabindex = "-1" role = "dialog" aria - labelledby="myExtraLargeModalLabel" aria - hidden="true" >
+            <div class="modal-dialog modal-xl" role="document">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" >&times;</span>
+                </button>
+                <div class="modal-content">
                 <canvas id="screen" style="width:100%;  overflow: hidden;"></canvas>
                 <div class="wrap">
                     <div class="container">
@@ -33,13 +38,8 @@
     </div>
 `)
 
-        //< div class="modal fade bd-example-modal-xl show" id = "goodmodal" tabindex = "-1" role = "dialog" aria - labelledby="myExtraLargeModalLabel" aria - hidden="true" >
-        //    <div class="modal-dialog modal-xl" role="document">
-        //        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        //            <span aria-hidden="true" >&times;</span>
-        //        </button>
-        //        <div class="modal-content">
-    //$('#goodmodal').modal('show');
+       
+    $('#goodmodal').modal('show');
     //煙火
     var screenWidth = window.innerWidth;
     var screenHeight = window.innerHeight;
