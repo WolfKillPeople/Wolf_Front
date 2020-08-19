@@ -295,20 +295,20 @@ function AddOneDoor() {
     }
 }
 connection.on("GetAll", function (data, i) {
-    //data.forEach(element => {
-    //    element.account.forEach(acc => {
-    //        if (acc == myaccount) {
-    //            waitPeople = element.count;
-    //            document.querySelector('#app').innerHTML = `${waitPeople}/10`
-    //            if (waitPeople > 9) {
-    //                $('#waitappendId').hide();
-    //                $('.image').show();
-    //                connection.invoke("GetRole", myroomid);
-    //                game();
-    //            }
-    //        }
-    //    })
-    //});
+    data.forEach(element => {
+        element.account.forEach(acc => {
+            if (acc == myaccount) {
+                waitPeople = element.count;
+                document.querySelector('#app').innerHTML = `${waitPeople}/10`
+                if (waitPeople > 9) {
+                    $('#waitappendId').hide();
+                    $('.image').show();
+                    connection.invoke("GetRole", myroomid);
+                    game();
+                }
+            }
+        })
+    });
 
     $('.page').remove();
     $('.nav-btn').remove();
