@@ -86,7 +86,7 @@ function controllSpeed() {
         }
         $.ajax({
             type: 'POST',
-            url: 'https://localhost:44386/api/UserRegister/postwin',
+            url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/postwin',
             dataType: 'json',
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify(postemail),
@@ -146,7 +146,7 @@ $(document).ready(() => {
     }
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:44386/api/UserRegister/GetWin',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/GetWin',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(emailData),
