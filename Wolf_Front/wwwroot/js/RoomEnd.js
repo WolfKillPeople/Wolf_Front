@@ -224,8 +224,7 @@ connection.on("NewRoom", function (model, temp) {
     nextRoom = temp;
 });
 $(".add_room_btn").on("click", addDoor);
-//var myaccount = localStorage.getItem('myName');
-var myaccount = "wdqdw@gmail.com";
+var myaccount = localStorage.getItem('myName');
 function addDoor() {
     connection.invoke("CreateRoom", nextRoom, myaccount);
     prepare();
@@ -295,20 +294,20 @@ function AddOneDoor() {
     }
 }
 connection.on("GetAll", function (data, i) {
-    //data.forEach(element => {
-    //    element.account.forEach(acc => {
-    //        if (acc == myaccount) {
-    //            waitPeople = element.count;
-    //            document.querySelector('#app').innerHTML = `${waitPeople}/10`
-    //            if (waitPeople > 9) {
-    //                $('#waitappendId').hide();
-    //                $('.image').show();
-    //                connection.invoke("GetRole", myroomid);
-    //                game();
-    //            }
-    //        }
-    //    })
-    //});
+    data.forEach(element => {
+        element.account.forEach(acc => {
+            if (acc == myaccount) {
+                waitPeople = element.count;
+                document.querySelector('#app').innerHTML = `${waitPeople}/10`
+                if (waitPeople > 9) {
+                    $('#waitappendId').hide();
+                    $('.image').show();
+                    connection.invoke("GetRole", myroomid);
+                    game();
+                }
+            }
+        })
+    });
 
     $('.page').remove();
     $('.nav-btn').remove();
@@ -335,7 +334,6 @@ connection.on("GetAll", function (data, i) {
 function addPeople(member) {
     var strRoomId = $(member).attr('class').substring(9);
     var roomId = parseInt(strRoomId);
-    myaccount = "wdqdw@gmail.com";
     connection.invoke("JoinRoom", roomId, myaccount);
 }
 //var delroom = 1;
@@ -610,7 +608,6 @@ var deadLis = '';
 var deadNum = [];
 var players;
 //玩家資料
-var myaccount = 'wdqdw@gmail.com';
 var myAlive;
 var myJob;
 var myroomid = 1;
@@ -1022,24 +1019,24 @@ function DeleteRoom() {
 
 //各職業
 function wolf() {
-    //if (myJob == "狼人" || myJob == "狼王" && myAlive == true) { }
+    if (myJob == "狼人" || myJob == "狼王" && myAlive == true) {
     $("body").css("cursor", "url('/Images/paw.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
-}
+} }
 function prophet() {
-    //if (myJob == "預言家" && myAlive == true) { }
+    if (myJob == "預言家" && myAlive == true) { 
     $("body").css("cursor", "url('/Images/search.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
     $('.circleImg').append(` <div class="findperson" onclick="PlayerIsGood(this)" ></div>`);
     document.querySelectorAll('.findperson').forEach(function (element, index) {
         element.setAttribute('value', index + 1);
     });
-}
+}}
 var witchSave = true;
 var witchKill = true;
 function witch() {
     let saveOrDead = prepareDead;
-    //if (myJob == "女巫" && myAlive == true) { }
+    if (myJob == "女巫" && myAlive == true) { 
     $("body").css("cursor", "url('/Images/poison.jpg') 45 45, auto");
     $('.circleImg').css("pointer-events", "auto");
     if (witchSave != true) { $('#rightgamerecordli').append(`<li>特殊能力已使用</li>`); }
@@ -1059,7 +1056,7 @@ function witch() {
     }
     $('#saveDead').click(function () { prepareDead = null; witchSave = false; });
     $('#noSaveDead').click(function () { prepareDead = saveOrDead; witchSave = true; });
-}
+}}
 function hunter() {
     if (myJob == "獵人") {
         $("body").css("cursor", "url('/Images/gun.jpg') 45 45, auto");
