@@ -32,8 +32,8 @@ $('body').append(`
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;250</small></p>
                                                 <div class="cartBtn">
-                                                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span></a>
+                                                   <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                        <span class="cartText">直接購買</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,8 +55,8 @@ $('body').append(`
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;290</small></p>
                                                 <div class="cartBtn">
-                                                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span></a>
+                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                        <span class="cartText">直接購買</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -78,8 +78,8 @@ $('body').append(`
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;340</small></p>
                                                 <div class="cartBtn">
-                                                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span></a>
+                                                   <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                        <span class="cartText">直接購買</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,8 +100,8 @@ $('body').append(`
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;490</small></p>
                                                 <div class="cartBtn">
-                                                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span></a>
+                                                   <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                        <span class="cartText">直接購買</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -124,8 +124,8 @@ $('body').append(`
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;500</small></p>
                                                 <div class="cartBtn">
-                                                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span></a>
+                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                        <span class="cartText">直接購買</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,8 +147,8 @@ $('body').append(`
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;390</small></p>
                                                 <div class="cartBtn">
-                                                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span></a>
+                                                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                        <span class="cartText">直接購買</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -179,15 +179,19 @@ $('body').append(`
                     <div class="balloon"></div>
                    
                 <!-- bg -->
+
                 <div class="card-body CardmainPart" id="mainPart">
                    
                      <p class="header-score">積分:5</p>
                     <div class="imgcontainer mx-auto d-flex justify-content-center">
                         <div class="btn user_img_btn" id="user_img" title="選擇更換頭像">
                             <img id="avatat" class="avatat" src="https://i.imgur.com/FMfI2fM.png" alt="user">
-                        </div>
-                    </div>
+                        </div>                     
+                    </div>                   
                 </div>
+                 <div class="mr-2 mb-3 confirm_div">
+                     <p class="confirm">確認兌換</p>
+                </div>  
             </div>
         </div>
 

@@ -57,12 +57,15 @@ const upload = new Vue({
             $.ajax(settings).done(function (res) {
                 var img = JSON.parse(res).data.link;
                 document.querySelector('#avatat').setAttribute('src', img);
-                alert(res.data.link)
+                alert(img);
                 // $('#user_pic').modal('hide')
             });
         }
     }
 });
+
+var email = "a1256963@gmail.com";
+var getwin;
 
 $(document).ready(function () {
     // $('#upload_icon').click(function () {
@@ -72,4 +75,50 @@ $(document).ready(function () {
         $('#update').click();
     });
 
+    //Score
+    let emailData =
+    {
+        email: email
+    }
+    $.ajax({
+        type: 'POST',
+        url: 'https://localhost:44386/api/UserRegister/GetWin',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify(emailData),
+        success: function (msg) {
+            arry = msg;
+            //alert(arry[0].win);
+            getwin = arry[0].win;
+            $('.title').append(`目前總積分: ${getwin}`);
+        }
+    });
+
+
+
+    //let ScoreData =
+    //{
+    //    "email": "a1256963@gmail.com",
+    //    "win": 1800,
+    //    "pic": "https://i.imgur.com/hHT8W4n.png"
+    //}
+    //$.ajax({
+    //    type: 'POST',
+    //    url: 'https://localhost:5001/api/Store',
+    //    dataType: 'json',
+    //    contentType: 'application/json;charset=UTF-8',
+    //    data: JSON.stringify(ScoreData),
+    //    success: function (msg) {
+    //        arry = msg;
+    //        //alert(arry[0].win);
+    //        getwin = arry[0].win;
+    //        $('.title').append(`目前總積分: ${getwin}`);
+    //    }
+    //});
+
+
 });
+
+
+
+
