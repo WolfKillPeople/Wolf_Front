@@ -295,8 +295,21 @@ function AddOneDoor() {
     }
 }
 connection.on("GetAll", function (data, i) {
-    //console.log(data);
-    //console.log(i);
+    //data.forEach(element => {
+    //    element.account.forEach(acc => {
+    //        if (acc == myaccount) {
+    //            waitPeople = element.count;
+    //            document.querySelector('#app').innerHTML = `${waitPeople}/10`
+    //            if (waitPeople > 9) {
+    //                $('#waitappendId').hide();
+    //                $('.image').show();
+    //                connection.invoke("GetRole", myroomid);
+    //                game();
+    //            }
+    //        }
+    //    })
+    //});
+
     $('.page').remove();
     $('.nav-btn').remove();
     clicks = 0;
@@ -602,7 +615,6 @@ var myAlive;
 var myJob;
 var myroomid = 1;
 var myJobInfo;
-var PersonInroom;
 var gameResult;
 function signalrListener() {
     //玩家死亡
@@ -987,19 +999,6 @@ function PlayerIsGood(e) {
     $('.findperson').css("display", "none")
     $('.circleImg').css("pointer-events", "none");
     $('.circleImg').attr('className', 'circleImg off');
-}
-
-//抓房間人數
-var PersonInroom;
-function GetPersonInroom() {
-    connection.invoke("GetAllRoom").then(function (response) {
-        if (response.success) {
-            response.data.forEach(item => {
-                if (item.roomId == myroomid) { PersonInroom = item.count; }
-                else { alert('no') }
-            });
-        }
-    })
 }
 
 //離開房間
