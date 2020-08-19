@@ -1233,7 +1233,7 @@ async function game() {
                     document.getElementById("PeoplesendButton").hidden = false;
                 }
                 Speak(`${i + 1}號玩家發言`);
-                await timeOn(4);
+                await timeOn(10);
                 document.getElementById("PeoplesendButton").hidden = true;
             }
         }

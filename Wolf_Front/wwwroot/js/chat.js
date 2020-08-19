@@ -1,8 +1,8 @@
 ﻿"use strict";
 
 //Disable send button until connection is established
-document.getElementById("PeoplesendButton").disabled = true;
-document.getElementById("WolfsendButton").disabled = true;
+document.getElementById("PeoplesendButton").disabled = false;
+document.getElementById("WolfsendButton").disabled = false;
 
 
 
@@ -52,7 +52,7 @@ document.getElementById("PeoplesendButton").addEventListener("click", function (
     var user;
     if (message != "") {
         user = "人類";
-        connection.invoke("SendMessage", user, message, roomId).catch(function (err) {
+        connection.invoke("SendMessage", user, message, myroomid).catch(function (err) {
             return console.error(err.toString());
         });
         document.getElementById('PeoplemessageInput').value = "";
@@ -64,7 +64,7 @@ document.getElementById("WolfsendButton").addEventListener("click", function (ev
     var message2 = document.getElementById("WolfmessageInput").value;
     if (message2 != "") {
         user = "狼人";
-        connection.invoke("SendMessage", user, message2, roomId).catch(function (err) {
+        connection.invoke("SendMessage", user, message2, myroomid).catch(function (err) {
             return console.error(err.toString());
         });
         document.getElementById('WolfmessageInput').value = "";
