@@ -8,7 +8,7 @@ var myAlive;
 var myJob;
 var myroomid = 1;
 var myJobInfo;
-
+var PersonInroom;
 var gameResult;
 function signalrListener() {
     //玩家死亡
@@ -58,13 +58,6 @@ function signalrListener() {
         });
 }
 
-//測試建房按鈕
-var id;
-var PersonInroom;
-$('#addd').click(function () {
-    connection.invoke("CreateRoom", 1, "wdqdw@gmail.com");
-})
-
 var synth = window.speechSynthesis;
 var voices = [];
 //旁白說話
@@ -91,7 +84,7 @@ function timeOn(time) {
     return new Promise((resolve, reject) => {
         var count = time;
         var totaltime = time;
-        myCounter = setInterval(function () {
+        let myCounter = setInterval(function () {
             count--;
             $('#time').html(padLeft(count.toString(), 2));
             update(count, totaltime);
@@ -718,7 +711,6 @@ async function game() {
 }
 
 signalrListener();
-$('.image').hide();
 wait();
 document.querySelector('#again').addEventListener('click', function () {
     waitPeople = waitPeople + 1;

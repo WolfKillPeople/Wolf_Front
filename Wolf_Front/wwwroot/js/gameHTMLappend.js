@@ -227,7 +227,7 @@
 
 
             <div class="col-md-4 col-sm-12 rightcontent">
-                <div class="role d-flex" style="margin-top: 4%; margin-bottom:7%" id="describe">
+                <div class="d-flex" style="margin-top: 4%; margin-bottom:7%" id="describe">
                     <div id="depict" data-toggle="tooltip" data-placement="right" v-bind:title="items.description">
                         <h1 class="Character">{{items.name}}</h1>
                         <div id="box" class="box viewport-flip ">
@@ -254,7 +254,7 @@
                     <!--<input type="button" onclick="ChangeDay()" value="換天"  style="background-color: transparent;"/>-->
                     <!--test push-->
                     <div class="row" id="background"
-                        style="background-color:rgba(104, 157, 186, 0.6);margin-left:3%;padding-top:3%">
+                        style="background-color:rgba(104, 157, 186, 0.6);margin-left:3%;padding-top:3%;">
  <!-- 特殊 -->
                         <div class="col-5 rightgamerecord">
                             <ul id="rightgamerecordli">
@@ -265,23 +265,23 @@
 
                         <div class="col-1"></div>
     <!--郎 -->
-                        <div class="col-5" style="background-color: #253641; margin-bottom: 5%;">
-                            <div class="container">
-                                <div class="row">&nbsp;</div>
-                                <div class="row">
+                        <div class="col-5" style="background-color: #253641; margin-bottom: 5%; padding:0;">
+                            <div class="gamewolfcontainer">
+                                <div class="gamewolfrow">&nbsp;</div>
+                                <div class="gamewolfrow">
                                     <div class="col-4"><input type="text" id="WolfuserInput" value="狼人"
                                             readonly="readonly"
                                             style="border-style:none;background-color: transparent;color:#ffffff" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="gamewolfrow">
                                 <div class="col-12" style="height:150px;overflow:auto;overflow-x:hidden;">
                                     <ul id="WolfmessagesList"></ul>
                                 </div>
                             </div>
-                            <div class="row" style="padding:0">
-                                <div class="col d-flex" style="padding-left:8%">
+                            <div class="gamewolfrow" style="padding:0">
+                                <div class="col d-flex" style="padding:0;">
                                     <input placeholder="請輸入發言" type="text" id="WolfmessageInput"
                                         style="background-color: transparent;color:#ffffff;width:85%;border-color:#ffffff" />
                                     <input class="btn btn-info" type="button" id="WolfsendButton" value="發言"
@@ -290,7 +290,7 @@
                             </div>
                         </div>
                            <!--郎 尾-->
-                        <div class="row" style="width:100%">
+                        <div class="gamewolfrow" style="width:100%">
                             <div class="col-10"></div>
                         </div>
 
@@ -314,8 +314,7 @@
         <div class="modal-content " style="width: 70em; height: 35em;   overflow:hidden;      ">
             <div class="modal-header ">
                 <h5 class="modal-title" id="staticBackdropLabel"></h5>
-                <button type="button" onclick="/*Speak('')*/" class="close" data-dismiss="modal" aria-label="Close"
-                    id="close" disabled="true">
+                <button type="button" onclick="/*Speak('')*/" class="gameclose" data-dismiss="modal" aria-label="Close"id="close" disabled="true" >
                     <span aria-hidden="true" style="color:white;">&times;</span>
                 </button>
             </div>
@@ -370,4 +369,5 @@
             </div>
         </div>
     </div>
-</div>`)
+</div>`);
+$('.image').hide();
