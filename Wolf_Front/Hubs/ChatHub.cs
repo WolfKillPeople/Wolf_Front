@@ -143,6 +143,7 @@ namespace Wolf_Front.Hubs
 
             //只在這個房間傳送訊息
             await Clients.Groups(roomId.ToString()).JoinRoom(account);
+            await Clients.Caller.JoinRoom(account);
             //await Clients.All.JoinRoom(account);
 
             //將房間資訊給大家
