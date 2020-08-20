@@ -1,3 +1,8 @@
+function openWindow(url) {
+    newpage = window.open(url, 'newpage', 'toolbar=no');
+    newpage.focus();
+    self.close();
+}
 const prizes = {
     0: "30",
     1: "100",
@@ -65,7 +70,7 @@ function controllSpeed() {
                 icon: 'error',
                 button: "前往房間列表",
             }).then(function () {
-            window.location.href = "http://werewolfkill.azurewebsites.net/Html/Room.html"
+                window.location.href = "javascript:location.replace('http://werewolfkill.azurewebsites.net/Html/Room.html')"
             });
         }
         else {
@@ -76,7 +81,7 @@ function controllSpeed() {
                 icon: 'success',
                 button: "前往房間列表",
             }).then(function () {
-                window.location.href = "http://werewolfkill.azurewebsites.net/Html/Room.html"
+                window.location.href = "javascript:location.replace('http://werewolfkill.azurewebsites.net/Html/Room.html')"
             });
         }
         postemail =

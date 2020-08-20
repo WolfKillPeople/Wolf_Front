@@ -1,3 +1,6 @@
+* {
+    user-select: none;
+}
 .avatat {
     max-height: 100%;
     max-width: 100%;
@@ -99,7 +102,6 @@
     margin-left: 65%;
     margin-top: -125px;
     margin-bottom: 3%;
-    cursor:pointer;
 }
 .ScoreTotal {
     margin-top: 15px;
@@ -108,7 +110,7 @@
 }
 
 .ScoreTop {
-    background: #cd5c5c;
+    background: #bc8f8f;
     top: 0;
     float: left;
     position: sticky;

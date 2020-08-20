@@ -67,7 +67,9 @@ body {
 .card-body .card-body {
     height: 215px;
 }
-
+.card-img-top{
+    margin-top:10%;
+}
 .btn:focus {
     box-shadow: none;
 }

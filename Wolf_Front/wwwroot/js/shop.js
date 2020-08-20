@@ -58,6 +58,10 @@ const upload = new Vue({
                 img = JSON.parse(res).data.link;
                 document.querySelector('#avatat').setAttribute('src', img);
                 alert(img);
+                $('.confirm').on('click', confirmClick);
+                $('.confirm').css({ "background": "#cd5c5c" });
+                $('.confirm').css({ "color": "#fff" });
+                $('.confirm').css({ "cursor": "pointer" });
                 // $('#user_pic').modal('hide')
             });
         }
@@ -66,6 +70,7 @@ const upload = new Vue({
 
 var email = "a1256963@gmail.com";
 var getwin;
+var pic;
 $(document).ready(function () {
     // $('#upload_icon').click(function () {
     //     $('#update').click();
@@ -74,7 +79,7 @@ $(document).ready(function () {
         $('#update').click();
     });
 
-    $('.confirm').on('click', confirmClick);
+    
 
     //Score
     let emailData =
@@ -83,7 +88,7 @@ $(document).ready(function () {
     }
     $.ajax({
         type: 'POST',
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/GetWin',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/LoingPostpic',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(emailData),
@@ -91,9 +96,14 @@ $(document).ready(function () {
             arry = msg;
             //alert(arry[0].win);
             getwin = arry[0].win;
+            pic = arry[0].pic;
             $('.ScoreTotal').append(`目前總積分:${getwin}`);
+            $('.avatat').attr('src', `${pic}`);
         }
     });
+    $('.confirm').css({ "background": "#CCCC99" });
+    $('.confirm').css({ "color": "#000" });
+    $('.confirm').css({ "cursor": "not-allowed" });
 });
 
 //Confirm
@@ -114,7 +124,11 @@ function confirmClick() {
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(ScoreData),
         success: function (msg) {
-            //alert('成功!!');
+            alert('兌換成功!!');
+            $('.confirm').off('click');
+            $('.confirm').css({ "background": "#CCCC99" });
+            $('.confirm').css({ "color": "#000000" });
+            $('.confirm').css({ "cursor": "not-allowed" });
         }
     });
     
