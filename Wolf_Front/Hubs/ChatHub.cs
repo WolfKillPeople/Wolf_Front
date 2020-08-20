@@ -44,7 +44,7 @@ namespace Wolf_Front.Hubs
             //    new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
             //    new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
             //    new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
-                //new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true}
+            //    new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true}
             //};
             //_GameRoom.TryAdd(1, userList);
         }
@@ -149,6 +149,7 @@ namespace Wolf_Front.Hubs
             //將房間資訊給大家
             await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
 
+            
            
         }
         /// <summary>
