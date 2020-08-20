@@ -41,8 +41,8 @@ namespace Wolf_Front.Services
                 d.Vote = (_o + 1).ToString();
                 _o++;
                 //測
-                d.IsAlive = true;
-                d.RoomId = d.RoomId;
+                //d.IsAlive = true;
+                //d.RoomId = d.RoomId;
             }
 
             return GetPicList;

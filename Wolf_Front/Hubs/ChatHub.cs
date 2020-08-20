@@ -33,20 +33,20 @@ namespace Wolf_Front.Hubs
             _temp = temp;
 
             //預設滿房
-            var userList = new List<GameRoom>()
-            {
-                new GameRoom() {RoomId = 1, Account = "wdqdw@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "judy870131@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "sadasd@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "test009@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "lovemark2413@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "asddsa@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true}
-            };
-            _GameRoom.TryAdd(1, userList);
+            //var userList = new List<GameRoom>()
+            //{
+            //    new GameRoom() {RoomId = 1, Account = "wdqdw@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "judy870131@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "sadasd@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "test009@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "lovemark2413@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "asddsa@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true}
+            //};
+            //_GameRoom.TryAdd(1, userList);
         }
 
         /// <summary>
