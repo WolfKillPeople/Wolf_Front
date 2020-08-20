@@ -305,8 +305,8 @@ namespace Wolf_Front.Hubs
 
 
 
-            //await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
-            await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
+            await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
+            //await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
 
             var newTarget = targetRoom;
             newTarget.ForEach(o => o.Voteticket = 0);
@@ -337,8 +337,8 @@ namespace Wolf_Front.Hubs
 
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
-            //await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
-            await Clients.All.PeopleDie(data.ToList()[0].Account);
+            await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
+            //await Clients.All.PeopleDie(data.ToList()[0].Account);
         }
 
         /// <summary>
@@ -375,10 +375,8 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryGetValue(roomId, out var userList);
             var result = _service.GetRole(userList);
             _GameRoom.TryUpdate(roomId, result, userList);
-            await Clients.Group(roomId.ToString()).GetRole(result);
             await Clients.Caller.GetRole(result);
-            
-            
+            await Clients.Group(roomId.ToString()).GetRole(result);
         }
     }
 }
