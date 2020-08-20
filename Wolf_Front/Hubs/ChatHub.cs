@@ -370,13 +370,14 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="roomId"></param>
         /// <returns></returns>
-        public async Task GetRole(int roomId)
+        public async Task<List<GameRoom>> GetRole(int roomId)
         {
             _GameRoom.TryGetValue(roomId, out var userList);
             var result = _service.GetRole(userList);
             _GameRoom.TryUpdate(roomId, result, userList);
-            await Clients.Caller.GetRole(result);
-            await Clients.Group(roomId.ToString()).GetRole(result);
+            //await Clients.Caller.GetRole(result);
+            //await Clients.Group(roomId.ToString()).GetRole(result);
+            return result;
         }
     }
 }
