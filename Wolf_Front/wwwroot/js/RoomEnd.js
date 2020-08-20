@@ -302,9 +302,9 @@ connection.on("GetAll", function (data, i) {
                 if (waitPeople > 9) {
                     $('#waitappendId').hide();
                     $('.image').show();
-                    if (myaccount == 'lovemark2413@gmail.com') { 
-                    connection.invoke("GetRole", myroomid); }
-                    //game();
+                    
+                    connection.invoke("GetRole", myroomid); 
+                    game();
                 }
             }
         })
@@ -659,7 +659,7 @@ function signalrListener() {
             BindingPlayers();
             BindingThings();
             closeMessage();
-            game();
+            //game();
         });
 }
 
