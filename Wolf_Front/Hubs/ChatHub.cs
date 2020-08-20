@@ -375,8 +375,7 @@ namespace Wolf_Front.Hubs
             var result = _service.GetRole(userList);
             _GameRoom.TryUpdate(roomId, result, userList);
             await Clients.Caller.GetRole(result);
-            //await Clients.Group(roomId.ToString()).GetRole(result);
-            //await Clients.All.GetRole(result);
+            await Clients.Group(roomId.ToString()).GetRole(result);
         }
     }
 }
