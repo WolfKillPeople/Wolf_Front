@@ -302,8 +302,9 @@ connection.on("GetAll", function (data, i) {
                 if (waitPeople > 9) {
                     $('#waitappendId').hide();
                     $('.image').show();
-                    
-                    connection.invoke("GetRole", myroomid); 
+                    if (myaccount == 'lovemark2413@gmail.com') { 
+                        debugger
+                    connection.invoke("GetRole", myroomid); }
                     game();
                 }
             }
@@ -646,6 +647,8 @@ function signalrListener() {
 
     connection.on("GetRole",
         function (response) {
+            console.log('fuck')
+            debugger
             players = response;
             console.log(players);
             players.forEach(element => {
