@@ -33,20 +33,20 @@ namespace Wolf_Front.Hubs
             _temp = temp;
 
             //預設滿房
-            var userList = new List<GameRoom>()
-            {
-                new GameRoom() {RoomId = 1, Account = "wdqdw@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "judy870131@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "sadasd@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "test009@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "lovemark2413@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "asddsa@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
-                new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true}
-            };
-            _GameRoom.TryAdd(1, userList);
+            //var userList = new List<GameRoom>()
+            //{
+            //    new GameRoom() {RoomId = 1, Account = "wdqdw@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "judy870131@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "sadasd@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "test009@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "lovemark2413@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "asddsa@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
+            //    new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true}
+            //};
+            //_GameRoom.TryAdd(1, userList);
         }
 
         /// <summary>
@@ -142,12 +142,14 @@ namespace Wolf_Front.Hubs
             await Groups.AddToGroupAsync(base.Context.ConnectionId, roomId.ToString());
 
             //只在這個房間傳送訊息
-            //await Clients.Groups(roomId.ToString()).JoinRoom(account);
-            await Clients.All.JoinRoom(account);
+            await Clients.Groups(roomId.ToString()).JoinRoom(account);
+            await Clients.Caller.JoinRoom(account);
+            //await Clients.All.JoinRoom(account);
 
             //將房間資訊給大家
             await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
 
+            
            
         }
         /// <summary>
@@ -359,8 +361,8 @@ namespace Wolf_Front.Hubs
                 return false;
             });
             _GameRoom.AddOrUpdate(rrr.ToList()[0].RoomId, new List<GameRoom>(), (k, v) => rrr);
-            //await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleResurrection(data.ToList()[0].Account);
-            await Clients.All.PeopleResurrection(data.ToList()[0].Account);
+            await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleResurrection(data.ToList()[0].Account);
+            //await Clients.All.PeopleResurrection(data.ToList()[0].Account);
         }
 
         /// <summary>
@@ -373,8 +375,10 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryGetValue(roomId, out var userList);
             var result = _service.GetRole(userList);
             _GameRoom.TryUpdate(roomId, result, userList);
-            //await Clients.Group(roomId.ToString()).GetRole(result);
-            await Clients.All.GetRole(result);
+            await Clients.Group(roomId.ToString()).GetRole(result);
+            await Clients.Caller.GetRole(result);
+            
+            
         }
     }
 }
