@@ -1080,11 +1080,11 @@ async function game() {
     $('#staticBackdrop').modal('show');
     $('.circleImg').attr('className', 'circleImg off');
     $('.on').css('box-shadow', 'none');
-    await timeOn(5);
+    await timeOn(15);
 
     //----------準備時間---------
     Speak('請確認你的身分，遊戲將於倒數完後開始');
-    await timeOn(10);
+    await timeOn(15);
     $('.circleImg').css("pointer-events", "none");
 
     for (let round = 0; round < 100; round++) {
@@ -1096,7 +1096,7 @@ async function game() {
         $('#toggleDark').click();
         Speak('天黑請閉眼，狼人請殺人');
         wolf();
-        await timeOn(20);
+        await timeOn(60);
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
         $('.on').css('box-shadow', 'none');
@@ -1106,7 +1106,7 @@ async function game() {
         //----------預言家---------
         Speak('預言家請選擇玩家查身分');
         prophet();
-        await timeOn(10);
+        await timeOn(30);
         $('.findperson').remove();
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
@@ -1117,10 +1117,10 @@ async function game() {
         voteResult = null;
         Speak('此玩家死亡，女巫是否救人');
         witch();
-        await timeOn(10);
+        await timeOn(20);
         $('#rightgamerecordli li').remove();
         Speak('女巫是否殺人');
-        await timeOn(10);
+        await timeOn(20);
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
         $('.on').css('box-shadow', 'none');
@@ -1170,7 +1170,7 @@ async function game() {
                     prepareDead = null;
                     await timeOn(1);
                     hunter();
-                    await timeOn(15);
+                    await timeOn(20);
                     $('#rightgamerecordli li').remove();
                     $('.circleImg').css("pointer-events", "none");
                     $('.circleImg').attr('className', 'circleImg off');
@@ -1188,7 +1188,7 @@ async function game() {
                     prepareDead = null;
                     await timeOn(1);
                     wolfKing();
-                    await timeOn(15);
+                    await timeOn(20);
                     $('#rightgamerecordli li').remove();
                     $('.circleImg').css("pointer-events", "none");
                     $('.circleImg').attr('className', 'circleImg off');
@@ -1230,7 +1230,7 @@ async function game() {
                     document.getElementById("PeoplesendButton").hidden = false;
                 }
                 Speak(`${i + 1}號玩家發言`);
-                await timeOn(20);
+                await timeOn(30);
                 document.getElementById("PeoplesendButton").hidden = true;
             }
         }
@@ -1245,7 +1245,7 @@ async function game() {
         await timeOn(1);
         Speak('所有玩家投票，得票最高者將出局');
         $('.circleImg').css("pointer-events", "auto");
-        await timeOn(20);
+        await timeOn(60);
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
         await voteBack();
@@ -1284,7 +1284,7 @@ async function game() {
                 prepareDead = null;
                 await timeOn(1);
                 hunter();
-                await timeOn(15);
+                await timeOn(20);
                 $('#rightgamerecordli li').remove();
                 $('.circleImg').css("pointer-events", "none");
                 $('.circleImg').attr('className', 'circleImg off');
@@ -1302,7 +1302,7 @@ async function game() {
                 prepareDead = null;
                 await timeOn(1);
                 wolfKing();
-                await timeOn(15);
+                await timeOn(20);
                 $('#rightgamerecordli li').remove();
                 $('.circleImg').css("pointer-events", "none");
                 $('.circleImg').attr('className', 'circleImg off');
@@ -1338,7 +1338,7 @@ async function game() {
             if (players[deadNum[i]].account == myaccount) {
                 document.getElementById("PeoplesendButton").hidden = false;
             }
-            await timeOn(5);
+            await timeOn(20);
             document.getElementById("PeoplesendButton").hidden = true;
         }
     }
