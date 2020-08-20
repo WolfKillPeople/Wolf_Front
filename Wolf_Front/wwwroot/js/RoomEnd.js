@@ -302,9 +302,22 @@ connection.on("GetAll", function (data, i) {
                 if (waitPeople > 9) {
                     $('#waitappendId').hide();
                     $('.image').show();
-                    if (myaccount == 'lovemark2413@gmail.com') { 
-                        debugger
-                    connection.invoke("GetRole", myroomid); }
+
+                    connection.invoke("GetRole", myroomid).then((res) => {
+                        players = res;
+                        console.log(players);
+                        players.forEach(element => {
+                            if (element.account == myaccount) {
+                                myAlive = element.isAlive;
+                                myJob = element.name;
+                                myJobInfo = element;
+                            }
+                        });
+                        Binding();
+                        BindingPlayers();
+                        BindingThings();
+                        closeMessage();
+                    })
                     game();
                 }
             }
@@ -642,28 +655,29 @@ function signalrListener() {
     });
 
     connection.on("VoteResult", function (message) {
+        console.log('in VoteResult');
         prepareDead = message[0].vote;
     });
 
-    connection.on("GetRole",
-        function (response) {
-            console.log('fuck')
-            debugger
-            players = response;
-            console.log(players);
-            players.forEach(element => {
-                if (element.account == myaccount) {
-                    myAlive = element.isAlive;
-                    myJob = element.name;
-                    myJobInfo = element;
-                }
-            });
-            Binding();
-            BindingPlayers();
-            BindingThings();
-            closeMessage();
-            //game();
-        });
+    //connection.on("GetRole",
+    //    function (response) {
+    //        console.log('fuck')
+    //        debugger
+    //        players = response;
+    //        console.log(players);
+    //        players.forEach(element => {
+    //            if (element.account == myaccount) {
+    //                myAlive = element.isAlive;
+    //                myJob = element.name;
+    //                myJobInfo = element;
+    //            }
+    //        });
+    //        Binding();
+    //        BindingPlayers();
+    //        BindingThings();
+    //        closeMessage();
+    //        //game();
+    //    });
 }
 
 
@@ -971,6 +985,7 @@ function voteBack() {
         "voteResult": null
     }];
     connection.invoke("Vote", backVoteResult);
+    console.log(`i vote ${voteResult}`);
 }
 
 //取投票結果
