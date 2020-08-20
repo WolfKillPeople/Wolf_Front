@@ -32,21 +32,21 @@ namespace Wolf_Front.Hubs
             _service = service;
             _temp = temp;
 
-            ////預設滿房
-            //var userList = new List<GameRoom>()
-            //{
-            //    new GameRoom() {RoomId = 1, Account = "wdqdw@gmail.com", IsAlive = true},
-            //    new GameRoom() {RoomId = 1, Account = "judy870131@gmail.com", IsAlive = true},
-            //    new GameRoom() {RoomId = 1, Account = "sadasd@gmail.com", IsAlive = true},
-            //    new GameRoom() {RoomId = 1, Account = "test009@gmail.com", IsAlive = true},
-            //    new GameRoom() {RoomId = 1, Account = "lovemark2413@gmail.com", IsAlive = true},
-            //    new GameRoom() {RoomId = 1, Account = "asddsa@gmail.com", IsAlive = true},
-            //    new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
-            //    new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
-            //    new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
-            //    new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true}
-            //};
-            //_GameRoom.TryAdd(1, userList);
+            //預設滿房
+            var userList = new List<GameRoom>()
+            {
+                new GameRoom() {RoomId = 1, Account = "wdqdw@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "judy870131@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "sadasd@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "test009@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "lovemark2413@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "asddsa@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "a1256963@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "a0912870178@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "99tjjh11535@gmail.com", IsAlive = true},
+                new GameRoom() {RoomId = 1, Account = "TYRFTY@gmail.com", IsAlive = true}
+            };
+            _GameRoom.TryAdd(1, userList);
         }
 
         /// <summary>
@@ -267,15 +267,7 @@ namespace Wolf_Front.Hubs
         {
             _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
             _svotePlayer.AddRange(data);
-            //if (!_svotePlayer.Exists(x => data.ToList()[0].Account == x.Account))
-            //{
-            //    _svotePlayer.AddRange(data);
-            //}
-            //else
-            //{
-            //    var index = _svotePlayer.IndexOf(data.ToList()[0]);
-            //    _svotePlayer.InsertRange(index, data);
-            //}
+            
             await Task.Delay(1);
 
             _votePlayers.TryGetValue(data.ToList()[0].RoomID, out var target);
@@ -313,35 +305,12 @@ namespace Wolf_Front.Hubs
 
             //await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
             await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
+
             var newTarget = targetRoom;
             newTarget.ForEach(o => o.Voteticket = 0);
             _GameRoom.TryUpdate(roomId, newTarget, targetRoom);
             _svotePlayer.Clear();
             _votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomId, out _);
-
-            //newData.ForEach(i => _svotePlayer[Convert.ToInt32(i.Vote) - 1].VoteTickets++);
-
-            //var ran = new Random();
-            //var newVotePlayers = _svotePlayer.OrderByDescending(x => x.VoteTickets).ToList();
-
-            //if (newVotePlayers[0].VoteTickets == newVotePlayers[1].VoteTickets)
-            //{
-            //    for (var r = 0; r < newVotePlayers.Count; r++)
-            //    {
-            //        var index = ran.Next(0, newVotePlayers.Count - 1);
-            //        if (index == r) continue;
-            //        var temp = newVotePlayers[r];
-            //        newVotePlayers[r] = newVotePlayers[index];
-            //        newVotePlayers[index] = temp;
-            //    };
-            //}
-            //newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.Account = null; });
-            //_votePlayers.TryUpdate(newData[0].RoomID, newVotePlayers, data);
-            //await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
-            //await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
-
-            //_svotePlayer.Clear();
-            //_votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomID, out _);
         }
         /// <summary>
         /// PeopleDie

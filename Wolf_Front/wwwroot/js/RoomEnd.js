@@ -1348,16 +1348,16 @@ function prepare() {
     $('.all').remove();
     signalrListener();
     wait();
-    document.querySelector('#again').addEventListener('click', function () {
-        waitPeople = waitPeople + 1;
-        document.querySelector('#app').innerHTML = `${waitPeople}/10`
-        if (waitPeople > 9) {
-            $('#waitappendId').hide();
-            $('.image').show();
-            connection.invoke("GetRole", myroomid);
-            game();
-        }
-    })
+    //document.querySelector('#again').addEventListener('click', function () {
+    //    waitPeople = waitPeople + 1;
+    //    document.querySelector('#app').innerHTML = `${waitPeople}/10`
+    //    if (waitPeople > 9) {
+    //        $('#waitappendId').hide();
+    //        $('.image').show();
+    //        connection.invoke("GetRole", myroomid);
+    //        game();
+    //    }
+    //})
 }
 
 function winOrLose() {
