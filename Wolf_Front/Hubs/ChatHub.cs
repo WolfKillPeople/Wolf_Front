@@ -16,7 +16,7 @@ namespace Wolf_Front.Hubs
 
         private static ConcurrentDictionary<int, List<VotePlayers>> _votePlayers = new ConcurrentDictionary<int, List<VotePlayers>>();
 
-        private static List<VotePlayers> _svotePlayer = new List<VotePlayers>();
+        private ConcurrentQueue<VotePlayers> _svotePlayer = new ConcurrentQueue<VotePlayers>();
 
         private static ConcurrentDictionary<int, List<GameRoom>> _GameRoom = new ConcurrentDictionary<int, List<GameRoom>>();
 
@@ -149,8 +149,8 @@ namespace Wolf_Front.Hubs
             //將房間資訊給大家
             await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
 
-            
-           
+
+
         }
         /// <summary>
         /// OutToRoom
@@ -192,7 +192,7 @@ namespace Wolf_Front.Hubs
 
             //將這個玩家從指定的room移除
             await Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
-            
+
             //只在這個房間傳送訊息
             await Clients.Groups(roomId.ToString()).OutToRoom(Account);
             await Clients.Caller.OutToRoom(Account);
@@ -267,16 +267,33 @@ namespace Wolf_Front.Hubs
         /// Vote
         /// </summary>
         /// <param name="data"></param>
-        public async Task Vote(IEnumerable<VotePlayers> data)
+        static List<VotePlayers> li = new List<VotePlayers>();
+        public void Vote(VotePlayers data)
         {
-            _votePlayers.TryAdd(data.ToList()[0].RoomID, new List<VotePlayers>());
-            _svotePlayer.AddRange(data);
-            
-            await Task.Delay(1);
+            lock (li)
+            {
+                _votePlayers.TryGetValue(data.RoomID, out var temp);
+                if (temp == null)
+                {
+                    _votePlayers.TryAdd(data.RoomID, new List<VotePlayers>());
+                    _svotePlayer.Enqueue(data);
+                }
+                else
+                {
+                    _svotePlayer.Enqueue(data);
+                }
 
-            _votePlayers.TryGetValue(data.ToList()[0].RoomID, out var target);
-            _votePlayers.TryUpdate(data.ToList()[0].RoomID, _svotePlayer, target);
+                //_votePlayers.TryGetValue(data.ToList()[0].RoomID, out var target);
+                _svotePlayer.TryDequeue(out var res);
+                li.Add(res);
+                int i = 0;
+                //_votePlayers.TryUpdate(data.RoomID, li, temp);
+                //await Task.Delay(1000);
+            }
+
         }
+
+
 
         /// <summary>
         /// VoteResult
@@ -285,12 +302,11 @@ namespace Wolf_Front.Hubs
         /// <returns></returns>
         public async Task VoteResult(int roomId)
         {
-            _votePlayers.TryGetValue(roomId, out var data);
-            var newData = data.ToList().FindAll(x => x.Vote != null).ToList();
+            //_votePlayers.TryGetValue(roomId, out var data);
+            var newData = li.FindAll(x => x.Vote != "null").ToList();
             _GameRoom.TryGetValue(roomId, out var targetRoom);
 
             newData.ForEach(o => targetRoom[Convert.ToInt32(o.Vote) - 1].Voteticket++);
-
             var ran = new Random();
             var newVotePlayers = targetRoom.OrderByDescending(x => x.Voteticket).ToList();
             if (newVotePlayers[0].Voteticket == newVotePlayers[1].Voteticket)
@@ -306,7 +322,6 @@ namespace Wolf_Front.Hubs
             }
 
 
-
             await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
             await Clients.Caller.VoteResult(newVotePlayers.Take(1).ToList());
 
@@ -315,6 +330,7 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryUpdate(roomId, newTarget, targetRoom);
             _svotePlayer.Clear();
             _votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomId, out _);
+            li.Clear();
         }
         /// <summary>
         /// PeopleDie

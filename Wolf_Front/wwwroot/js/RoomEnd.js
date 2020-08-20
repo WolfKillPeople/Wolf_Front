@@ -300,7 +300,7 @@ connection.on("GetAll", function (data, i) {
                 waitPeople = element.count;
                 document.querySelector('#app').innerHTML = `${waitPeople}/10`
                 if (waitPeople > 9) {
-                    $('#waitappendId').hide();
+                    $('#waitappendId').remove();
                     $('.image').show();
 
                     connection.invoke("GetRole", myroomid).then((res) => {
@@ -641,12 +641,12 @@ function signalrListener() {
                 deadLis = deadLis + `${i + 1}號`;
                 deadNum.push(i);
                 players[i].isAlive = false;
-                //死掉特效
-                $('.image').hide();
-                bloodAppend(deadLis);
-                //血的特效
-                gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
-                gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
+                ////死掉特效
+                //$('.image').hide();
+                //bloodAppend(deadLis);
+                ////血的特效
+                //gsap.to("#dietransition", 1, { opacity: 1, y: 200, ease: Elastic.easeOut });
+                //gsap.to("#dietransition", 1, { delay: 2, y: 1500, ease: Power3.easeInOut });
             }
         }
     });
@@ -978,12 +978,12 @@ function vote(a, b, c, d, e, f, g, h, i, j) {
 
 //投票回傳
 function voteBack() {
-    var backVoteResult = [{
+    var backVoteResult = {
         "RoomID": myroomid,
         "Account": myaccount,
         "Vote": `${voteResult}`,
         "voteResult": null
-    }];
+    };
     connection.invoke("Vote", backVoteResult);
     console.log(`i vote ${voteResult}`);
 }
@@ -1121,6 +1121,7 @@ async function game() {
         $('.circleImg').attr('className', 'circleImg off');
         $('.on').css('box-shadow', 'none');
         await voteBack();
+        await timeOn(1);
         await getVoteResult();
 
         //----------預言家---------
@@ -1269,7 +1270,9 @@ async function game() {
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
         await voteBack();
+        await timeOn(1);
         await getVoteResult();
+        await timeOn(1);
         await deadConfirm(prepareDead);
         await timeOn(1);
         Speak(`${prepareDead}號玩家最高票`);
