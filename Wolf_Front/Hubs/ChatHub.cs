@@ -312,38 +312,15 @@ namespace Wolf_Front.Hubs
             }
 
 
-
             //await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
             await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
             var newTarget = targetRoom;
-            newTarget.ForEach(o => { o.Voteticket = 0; o.Vote = ""; });
+            newTarget.ForEach(o => o.Voteticket = 0);
             _GameRoom.TryUpdate(roomId, newTarget, targetRoom);
             _svotePlayer.Clear();
             _votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomId, out _);
 
-            //newData.ForEach(i => _svotePlayer[Convert.ToInt32(i.Vote) - 1].VoteTickets++);
-
-            //var ran = new Random();
-            //var newVotePlayers = _svotePlayer.OrderByDescending(x => x.VoteTickets).ToList();
-
-            //if (newVotePlayers[0].VoteTickets == newVotePlayers[1].VoteTickets)
-            //{
-            //    for (var r = 0; r < newVotePlayers.Count; r++)
-            //    {
-            //        var index = ran.Next(0, newVotePlayers.Count - 1);
-            //        if (index == r) continue;
-            //        var temp = newVotePlayers[r];
-            //        newVotePlayers[r] = newVotePlayers[index];
-            //        newVotePlayers[index] = temp;
-            //    };
-            //}
-            //newVotePlayers.ForEach(x => { x.voteResult = x.Vote; x.Account = null; });
-            //_votePlayers.TryUpdate(newData[0].RoomID, newVotePlayers, data);
-            //await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
-            //await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
-
-            //_svotePlayer.Clear();
-            //_votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomID, out _);
+           
         }
         /// <summary>
         /// PeopleDie
