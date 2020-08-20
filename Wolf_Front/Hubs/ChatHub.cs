@@ -59,6 +59,7 @@ namespace Wolf_Front.Hubs
         public async Task SendMessage(string user, string message, int roomId)
         {
             await Clients.Group(roomId.ToString()).ReceiveMessage(user, message);
+            await Clients.Caller.ReceiveMessage(user, message);
         }
 
         /// <summary>
@@ -144,7 +145,6 @@ namespace Wolf_Front.Hubs
             //只在這個房間傳送訊息
             await Clients.Groups(roomId.ToString()).JoinRoom(account);
             await Clients.Caller.JoinRoom(account);
-            //await Clients.All.JoinRoom(account);
 
             //將房間資訊給大家
             await Clients.All.GetAll(_Rooms.Values.SelectMany(x => x).ToList());
@@ -192,9 +192,10 @@ namespace Wolf_Front.Hubs
 
             //將這個玩家從指定的room移除
             await Groups.RemoveFromGroupAsync(base.Context.ConnectionId, roomId.ToString());
-
+            
             //只在這個房間傳送訊息
             await Clients.Groups(roomId.ToString()).OutToRoom(Account);
+            await Clients.Caller.OutToRoom(Account);
 
             if (newRoomValue.Any(x => x.RoomId == roomId && x.Count == 0))
             {
@@ -224,6 +225,7 @@ namespace Wolf_Front.Hubs
                 else if (i == data.Count - 1) _temp = data.LastOrDefault().RoomId + 1;
             }
             await Clients.All.GetAllRoomInfo(data, _temp);
+
         }
 
         /// <summary>
@@ -306,7 +308,7 @@ namespace Wolf_Front.Hubs
 
 
             await Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
-            //await Clients.All.VoteResult(newVotePlayers.Take(1).ToList());
+            await Clients.Caller.VoteResult(newVotePlayers.Take(1).ToList());
 
             var newTarget = targetRoom;
             newTarget.ForEach(o => o.Voteticket = 0);
@@ -338,7 +340,7 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryUpdate(data.ToList()[0].RoomId, newResult, result);
 
             await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
-            //await Clients.All.PeopleDie(data.ToList()[0].Account);
+            await Clients.Caller.PeopleDie(data.ToList()[0].Account);
         }
 
         /// <summary>
@@ -362,7 +364,7 @@ namespace Wolf_Front.Hubs
             });
             _GameRoom.AddOrUpdate(rrr.ToList()[0].RoomId, new List<GameRoom>(), (k, v) => rrr);
             await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleResurrection(data.ToList()[0].Account);
-            //await Clients.All.PeopleResurrection(data.ToList()[0].Account);
+            await Clients.Caller.PeopleResurrection(data.ToList()[0].Account);
         }
 
         /// <summary>
@@ -375,8 +377,6 @@ namespace Wolf_Front.Hubs
             _GameRoom.TryGetValue(roomId, out var userList);
             var result = _service.GetRole(userList);
             _GameRoom.TryUpdate(roomId, result, userList);
-            //await Clients.Caller.GetRole(result);
-            //await Clients.Group(roomId.ToString()).GetRole(result);
             return result;
         }
     }
