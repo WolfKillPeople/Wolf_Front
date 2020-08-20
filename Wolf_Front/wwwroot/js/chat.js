@@ -1,8 +1,8 @@
 ﻿"use strict";
 
 //Disable send button until connection is established
-document.getElementById("PeoplesendButton").disabled = true;
-document.getElementById("WolfsendButton").disabled = true;
+document.getElementById("PeoplesendButton").disabled = false;
+document.getElementById("WolfsendButton").disabled = false;
 
 
 
@@ -25,7 +25,7 @@ connection.on("ReceiveMessage", function (user, message, roomId) {
 
 
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        var encodedMsg = user + " says " + msg;
+        var encodedMsg = msg;
         var li = document.createElement("li");
         li.textContent = encodedMsg;
         document.getElementById("PeoplemessagesList").appendChild(li);
@@ -35,7 +35,7 @@ connection.on("ReceiveMessage", function (user, message, roomId) {
         document.getElementById("PeoplemessagesList").hidden = false;
         //var UserName = document.getElementById("Name").textContent;
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        var encodedMsg = user + " says " + msg;
+        var encodedMsg = msg;
         var li = document.createElement("li");
         li.textContent = encodedMsg;
         document.getElementById("WolfmessagesList").appendChild(li);
@@ -52,7 +52,7 @@ document.getElementById("PeoplesendButton").addEventListener("click", function (
     var user;
     if (message != "") {
         user = "人類";
-        connection.invoke("SendMessage", user, message, roomId).catch(function (err) {
+        connection.invoke("SendMessage", user, message, myroomid).catch(function (err) {
             return console.error(err.toString());
         });
         document.getElementById('PeoplemessageInput').value = "";
@@ -64,7 +64,7 @@ document.getElementById("WolfsendButton").addEventListener("click", function (ev
     var message2 = document.getElementById("WolfmessageInput").value;
     if (message2 != "") {
         user = "狼人";
-        connection.invoke("SendMessage", user, message2, roomId).catch(function (err) {
+        connection.invoke("SendMessage", user, message2, myroomid).catch(function (err) {
             return console.error(err.toString());
         });
         document.getElementById('WolfmessageInput').value = "";
