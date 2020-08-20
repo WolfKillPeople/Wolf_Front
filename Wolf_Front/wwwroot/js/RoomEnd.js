@@ -302,7 +302,8 @@ connection.on("GetAll", function (data, i) {
                 if (waitPeople > 9) {
                     $('#waitappendId').hide();
                     $('.image').show();
-                    connection.invoke("GetRole", myroomid);
+                    if (myaccount == 'a1256963@gmail.com') {
+                    connection.invoke("GetRole", myroomid); }
                     game();
                 }
             }
