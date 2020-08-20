@@ -39,7 +39,7 @@ namespace Wolf_Front.Repository
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
-                const string sql = @"select top 10 * from Occupation";
+                const string sql = @"select * from Occupation order by About";
                 var col = conn.Query<Occupation>(sql).ToList();
                 var result = _mapper.Map<List<Occupation>, List<GameRoom>>(col);
 

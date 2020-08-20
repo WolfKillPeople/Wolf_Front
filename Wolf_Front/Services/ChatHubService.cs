@@ -19,17 +19,18 @@ namespace Wolf_Front.Services
             var _list = _repo.GetRoles();
             var GetPicList = _repo.GetPlayerPic(data);
 
-            var random = new Random();
-            for (var i = 0; i < _list.Count; i++)
-            {
-                var index = random.Next(0, _list.Count - 1);
-                if (index != i)
-                {
-                    var temp = _list[i];
-                    _list[i] = _list[index];
-                    _list[index] = temp;
-                }
-            };
+            //打亂
+            //var random = new Random();
+            //for (var i = 0; i < _list.Count; i++)
+            //{
+            //    var index = random.Next(0, _list.Count - 1);
+            //    if (index != i)
+            //    {
+            //        var temp = _list[i];
+            //        _list[i] = _list[index];
+            //        _list[index] = temp;
+            //    }
+            //};
 
             foreach (var d in GetPicList)
             {
@@ -40,6 +41,9 @@ namespace Wolf_Front.Services
                 d.Description = _list[_o].Description;
                 d.Vote = (_o+1).ToString();
                 _o++;
+                //測試用
+                d.IsAlive = true;
+                d.RoomId = d.RoomId;
             }
 
             return GetPicList;

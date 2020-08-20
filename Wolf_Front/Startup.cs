@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,9 +13,8 @@ using Wolf_Front.Interface;
 using Wolf_Front.Mapping;
 using Wolf_Front.Repository;
 using Wolf_Front.Services;
-using System.Configuration;
-using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Cors;
 
 namespace Wolf_Front
 {
@@ -25,9 +23,8 @@ namespace Wolf_Front
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
-        
+
 
         public IConfiguration Configuration { get; }
 
@@ -47,6 +44,7 @@ namespace Wolf_Front
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddMvc()/*.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);*/;
             services.AddSignalR()/*.AddAzureSignalR();*/;
+            services.AddCors();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -66,7 +64,6 @@ namespace Wolf_Front
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -85,16 +82,15 @@ namespace Wolf_Front
             defaultFilesOptions.DefaultFileNames.Add("Startpage.html");
             app.UseDefaultFiles(defaultFilesOptions);
             app.UseStaticFiles();
-           
 
 
-
+            
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseFileServer();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
