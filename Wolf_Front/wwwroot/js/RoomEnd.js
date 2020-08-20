@@ -304,7 +304,6 @@ connection.on("GetAll", function (data, i) {
                     $('.image').show();
 
                     connection.invoke("GetRole", myroomid).then((res) => {
-                        console.log('fuck')
                         players = res;
                         console.log(players);
                         players.forEach(element => {
@@ -656,6 +655,7 @@ function signalrListener() {
     });
 
     connection.on("VoteResult", function (message) {
+        console.log('in VoteResult');
         prepareDead = message[0].vote;
     });
 
@@ -985,6 +985,7 @@ function voteBack() {
         "voteResult": null
     }];
     connection.invoke("Vote", backVoteResult);
+    console.log(`i vote ${voteResult}`);
 }
 
 //取投票結果
