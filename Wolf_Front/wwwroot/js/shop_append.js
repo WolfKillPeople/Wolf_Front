@@ -13,7 +13,7 @@ $('body').append(`
                 <h2 class="mb-0 text-center">
                     <button class="btn collapsed show" type="button" data-toggle="collapse" data-target="#ScoresBtn"
                         aria-expanded="false" aria-controls="avatarChange">
-                        總計積分
+                        兌換券
                     </button>
                 </h2>
             </div>
@@ -29,17 +29,14 @@ $('body').append(`
                 <!-- bg -->
 
                 <div class="card-body CardmainPart" id="mainPart">
-                   
-                     <p class="header-score">積分:5</p>
-                    <div class="imgcontainer mx-auto d-flex justify-content-center">
-                        <div class="btn user_img_btn" id="user_img" title="選擇更換頭像">
-                            <img id="avatat" class="avatat" src="" alt="user">
-                        </div>                     
-                    </div>                   
-                </div>
-                 <div class="mr-2 mb-3 confirm_div">
-                     <p class="confirm">確認兌換</p>
-                </div>  
+                   <div class="wrapper">
+        <div>
+            <div id="block"></div>
+        </div>
+        <input class="color-picker" type="color" /> Choose Color
+    </div>
+                     <div id="qrcode">Loading...</div>
+                    <img id="image-buffer" src="https://i.imgur.com/eBNKz6R.jpg" width=200 height=200 style="display: none;">
             </div>
         </div>
 

@@ -58,4 +58,43 @@ body { /*margin:20px; background:hsl(70, 31%, 85%);*/ text-align:center; }
 .balloon:nth-child(6){ background:rgb(194, 94, 197); animation-duration:5s; }
 .balloon:nth-child(6):before { color:rgb(194, 94, 197);  }
 
+#qrcode {
+    border: 1px solid #faa;
+    margin: 0;
+    padding: 0;
+}
 
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700');
+:root {
+    --white: white;
+    --bg: #ff8000;
+    --boxWidth: 100%;
+    --ht: 100px;
+    --font: 'Raleway', sans-serif;
+}
+
+.wrapper {
+    padding: 10vh 20%;
+    max-width: 700px;
+    display: inline-block;
+}
+
+#block {
+    height: var(--ht);
+    text-align: center;
+    line-height: var(--ht);
+    color: var(--white);
+    display: inline-block;
+    width: var(--boxWidth);
+    border: 5px solid rgba(255, 255, 255, 0.4);
+    background: var(--bg);
+    margin-bottom: calc(var(--ht)/4);
+}
+
+.color-picker {
+    border: none;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}

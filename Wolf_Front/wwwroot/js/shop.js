@@ -72,6 +72,7 @@ const upload = new Vue({
 });
 
 var email = "a1256963@gmail.com";
+//var email = localStorage.getItem('myName');
 var getwin;
 var pic;
 $(document).ready(function () {
@@ -202,7 +203,30 @@ function lottery(e) {
 }
 
 
+//Choose color
+var color = document.querySelector('input');
+var block = document.getElementById('block');
 
-
-
+color.addEventListener('change', function () {
+    block.style.setProperty('--bg', color.value);
+});
+//Qrcode
+$('#image-buffer').on('load', function () {
+    $('#qrcode').empty().qrcode({
+        render: 'canvas',
+        ecLevel: 'H',
+        minVersion: 6,
+        mode: 4,
+        fill: '#0ebbae',
+        background: '#ffffff',
+        text: location.href,
+        quiet: 1,
+        radius: 0.2,
+        mPosX: 0.5,
+        mPosY: 0.5,
+        mSize: 0.20,
+        size: 250,
+        image: $('#image-buffer')[0]
+    });
+});
 
