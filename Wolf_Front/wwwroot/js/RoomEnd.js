@@ -299,7 +299,7 @@ connection.on("GetAll", function (data, i) {
             if (acc == myaccount) {
                 waitPeople = element.count;
                 document.querySelector('#app').innerHTML = `${waitPeople}/10`
-                if (waitPeople > 9) {
+                if (waitPeople == 10) {
                     $('#waitappendId').remove();
                     $('.image').show();
 
