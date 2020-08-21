@@ -60,7 +60,7 @@ namespace Wolf_Front.Hubs
         public async Task SendMessage(string user, string message, int roomId)
         {
             await Clients.Group(roomId.ToString()).ReceiveMessage(user, message);
-            await Clients.Caller.ReceiveMessage(user, message);
+            //await Clients.Caller.ReceiveMessage(user, message);
         }
 
         /// <summary>

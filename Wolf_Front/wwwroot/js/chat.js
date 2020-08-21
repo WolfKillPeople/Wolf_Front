@@ -19,7 +19,7 @@ function ChangeDay() {
 
 connection.on("ReceiveMessage", function (user, message, roomId) {
     var Day = document.getElementById("Day").value;
-    if (user == "人類" && Day == "白天") {
+    if (Day == "白天") {
         document.getElementById("PeoplemessagesList").hidden = false;
         document.getElementById("WolfmessagesList").hidden = true;
 
@@ -30,7 +30,7 @@ connection.on("ReceiveMessage", function (user, message, roomId) {
         li.textContent = encodedMsg;
         document.getElementById("PeoplemessagesList").appendChild(li);
     }
-    else if (user == "狼人" && Day == "黑夜") {
+    else if (Profrssion == "狼人" || Profrssion == "狼王" && Day=="黑夜") {
         document.getElementById("WolfmessagesList").hidden = false;
         document.getElementById("PeoplemessagesList").hidden = false;
         //var UserName = document.getElementById("Name").textContent;
@@ -49,10 +49,9 @@ connection.on("ReceiveMessage", function (user, message, roomId) {
 document.getElementById("PeoplesendButton").addEventListener("click", function (event) {
     //var user = document.getElementById('userInput').value;
     var message = document.getElementById('PeoplemessageInput').value;
-    var user;
     if (message != "") {
-        user = "人類";
-        connection.invoke("SendMessage", user, message, myroomid).catch(function (err) {
+        var Profrssion = document.getElementsByClassName(names).value();
+        connection.invoke("SendMessage", Profrssion, message, myroomid).catch(function (err) {
             return console.error(err.toString());
         });
         document.getElementById('PeoplemessageInput').value = "";
@@ -60,11 +59,10 @@ document.getElementById("PeoplesendButton").addEventListener("click", function (
 });
 
 document.getElementById("WolfsendButton").addEventListener("click", function (event) {
-    var user;
     var message2 = document.getElementById("WolfmessageInput").value;
     if (message2 != "") {
-        user = "狼人";
-        connection.invoke("SendMessage", user, message2, myroomid).catch(function (err) {
+        var Profrssion = document.getElementsByClassName(names).value();
+        connection.invoke("SendMessage", Profrssion, message2, myroomid).catch(function (err) {
             return console.error(err.toString());
         });
         document.getElementById('WolfmessageInput').value = "";
