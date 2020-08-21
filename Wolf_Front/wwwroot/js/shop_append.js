@@ -7,7 +7,43 @@ $('body').append(`
     </div>
      
     <div class="accordion" id="accordionExample">
-<div class="card">
+
+    <div class="card">
+            <div class="card-header" id="ScoresBtn">
+                <h2 class="mb-0 text-center">
+                    <button class="btn collapsed show" type="button" data-toggle="collapse" data-target="#ScoresBtn"
+                        aria-expanded="false" aria-controls="avatarChange">
+                        總計積分
+                    </button>
+                </h2>
+            </div>
+            <div id="ScoresBtn" class="collapse show" aria-labelledby="AvatarBtn" data-parent="#accordionExample">
+                 <!-- bg -->   
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                   
+                <!-- bg -->
+
+                <div class="card-body CardmainPart" id="mainPart">
+                   
+                     <p class="header-score">積分:5</p>
+                    <div class="imgcontainer mx-auto d-flex justify-content-center">
+                        <div class="btn user_img_btn" id="user_img" title="選擇更換頭像">
+                            <img id="avatat" class="avatat" src="" alt="user">
+                        </div>                     
+                    </div>                   
+                </div>
+                 <div class="mr-2 mb-3 confirm_div">
+                     <p class="confirm">確認兌換</p>
+                </div>  
+            </div>
+        </div>
+
+    <div class="card">
             <div class="card-header" id="AvatarBtn">
                 <h2 class="mb-0 text-center">
                     <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#avatarChange"
@@ -46,7 +82,7 @@ $('body').append(`
                 <h2 class="mb-0 text-center">
                     <button class="btn" type="button" data-toggle="collapse" data-target="#roleBtn" aria-expanded="true"
                         aria-controls="roleBtn">
-                       兌換商品
+                       商品抽獎
                     </button>
                 </h2>
             </div>
@@ -55,22 +91,116 @@ $('body').append(`
                 <div class="card-body CardmainPart">
                     <div class="container">
                         <div class="row">
+
+                            <div class="col-6">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <img src="https://i.imgur.com/us10lLd.png" class="card-img-top "
+                                                alt="witch">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">名稱:麥x勞禮卷</h5>
+                                                <p class="card-text">簡介:買份薯條邊玩狼人殺吧~!!</p>
+                                                <p class="card-text price"><small
+                                                        class="text-muted">積分:&emsp;390</small></p>
+                                                <div class="cartBtn" onclick="lottery(this)" data-order="0">
+                                                  <i class="fas fa-dice" aria-hidden="true"></i>
+                                                        <span class="cartText">點選直接抽獎</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <img src="https://i.imgur.com/8ibaOrW.png" class="card-img-top "
+                                                alt="witch">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">名稱:麥基肯禮卷</h5>
+                                                <p class="card-text">簡介:享受不同搭配的激情...我是指肯x基的炸雞加麥x勞的薯條啦~🤪</p>
+                                                <p class="card-text price"><small
+                                                        class="text-muted">積分:&emsp;8811</small></p>
+                                                <div class="cartBtn" onclick="lottery(this)" data-order="1">
+                                                  <i class="fas fa-dice" aria-hidden="true"></i>
+                                                        <span class="cartText">點選直接抽獎</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <img src="https://i.imgur.com/GklqdMB.png" class="card-img-top"
+                                                alt="wolf_king"
+                                                style="width:134px;height:134px; margin-left:15px;margin-top:20px;">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">名稱:BS貼紙</h5>
+                                                <p class="card-text">簡介:Dann哥直接送啦~!</p>
+                                                <p class="card-text price"><small
+                                                        class="text-muted">積分:&emsp;1</small></p>
+                                                <div class="cartBtn" onclick="lottery(this)" data-order="2">
+                                                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                                                        <span class="cartText">點選兌換</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <img src="https://i.imgur.com/C4e9OFP.png" class="card-img-top "
+                                                alt="witch">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">名稱:肯x基禮卷</h5>
+                                                <p class="card-text">簡介:看大肌肌，買炸ㄐㄧㄐㄧ</p>
+                                                <p class="card-text price"><small
+                                                        class="text-muted">積分:&emsp;1110</small></p>
+                                                <div class="cartBtn" onclick="lottery(this)" data-order="3">
+                                                  <i class="fas fa-dice" aria-hidden="true"></i>
+                                                        <span class="cartText">點選直接抽獎</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-6">
                                 <div class="card mb-3" style="max-width: 540px;">
                                     <div class="row no-gutters">
                                         <div class="col-md-4 ">
-                                            <img src="https://i.imgur.com/gC3x8Wf.png" class="card-img-top"
+                                            <img src="https://i.imgur.com/03Nt7Ru.png" class="card-img-top"
                                                 alt="civilian">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h5 class="card-title">名稱:超級xx歐</h5>
-                                                <p class="card-text">簡介:玩家可以操作的角色除了原本的瑪利歐、路易吉和奇諾比奧外，還新增以朋友身份加入的「偷天兔」和「奇諾比珂」兩名各具特色的新角色。</p>
+                                                <h5 class="card-title">名稱:乂怒氣星x克乂</h5>
+                                                <p class="card-text">簡介:去星x克玩狼人殺啦!!</p>
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;3000</small></p>
-                                                <div class="cartBtn">
-                                                   <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span>
+                                                <div class="cartBtn" onclick="lottery(this)" data-order="4">
+                                                   <i class="fas fa-dice" aria-hidden="true"></i>
+                                                        <span class="cartText">點選直接抽獎</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -82,18 +212,18 @@ $('body').append(`
                                 <div class="card mb-3" style="max-width:540px;">
                                     <div class="row no-gutters">
                                         <div class="col-md-4">
-                                            <img src="https://i.imgur.com/Bmh3iY8.png" class="card-img-top "
+                                            <img src="https://i.imgur.com/HNx1m3Q.png" class="card-img-top "
                                                 alt="hunter">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h5 class="card-title">名稱:swxxxh健身環</h5>
-                                                <p class="card-text">簡介:在死亡時可帶走一名玩家，在被毒死時不可以開槍。(也可以壓槍不帶人走)</p>
+                                                <h5 class="card-title">名稱:SeaOtterFood</h5>
+                                                <p class="card-text">簡介:今晚你想來點...Dann哥買單</p>
                                                 <p class="card-text price"><small
-                                                        class="text-muted">積分:&emsp;5000</small></p>
-                                                <div class="cartBtn">
-                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span>
+                                                        class="text-muted">積分:&emsp;390</small></p>
+                                                <div class="cartBtn" onclick="lottery(this)" data-order="5">
+                                                    <i class="fas fa-dice" aria-hidden="true"></i>
+                                                        <span class="cartText">點選直接抽獎</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,18 +235,18 @@ $('body').append(`
                                 <div class="card mb-3" style="max-width: 540px;">
                                     <div class="row no-gutters">
                                         <div class="col-md-4">
-                                            <img src="https://i.imgur.com/XP8TMDH.png" class="card-img-top "
+                                            <img src="https://i.imgur.com/vS2gsjI.png" class="card-img-top "
                                                 alt="prophet">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h5 class="card-title">名稱:swxxxh主機</h5>
-                                                <p class="card-text">簡介:每晚可以驗證一名玩家身分，只能得知其身分為好人或狼人，無法確切得知其身分。</p>
+                                                <h5 class="card-title">名稱:女友</h5>
+                                                <p class="card-text">簡介:忙著打程式沒時間交女朋友嗎~?抽到就送你啦!!</p>
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;10000</small></p>
-                                                <div class="cartBtn">
-                                                   <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span>
+                                                <div class="cartBtn"onclick="lottery(this)" data-order="6">
+                                                   <i class="fas fa-dice" aria-hidden="true"></i>
+                                                        <span class="cartText">點選直接抽獎</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,17 +258,17 @@ $('body').append(`
                                 <div class="card mb-3" style="max-width: 540px;">
                                     <div class="row no-gutters">
                                         <div class="col-md-4">
-                                            <img src="https://i.imgur.com/6cv5qtu.png" class="card-img-top " alt="wolf">
+                                            <img src="https://i.imgur.com/gBmvwZj.png" class="card-img-top " alt="wolf">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h5 class="card-title">名稱:動物xx會</h5>
-                                                <p class="card-text">簡介:夜間可以溝通，共同決定將殺害哪名玩家並商討戰術。</p>
+                                                <h5 class="card-title">名稱:信義區精華地段房子一間</h5>
+                                                <p class="card-text">簡介:位於臺北市信義區西村里8鄰信義路五段7號，共有101層</p>
                                                 <p class="card-text price"><small
-                                                        class="text-muted">積分:&emsp;8000</small></p>
-                                                <div class="cartBtn">
-                                                   <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span>
+                                                        class="text-muted">積分:&emsp;99999999</small></p>
+                                                <div class="cartBtn" onclick="lottery(this)" data-order="7">
+                                                   <i class="fas fa-dice" aria-hidden="true"></i>
+                                                        <span class="cartText">點選直接抽獎</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,58 +276,11 @@ $('body').append(`
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="card mb-3" style="max-width: 540px;">
-                                    <div class="row no-gutters">
-                                        <div class="col-md-4">
-                                            <img src="https://i.imgur.com/rg0TOUj.gif" class="card-img-top"
-                                                alt="wolf_king"
-                                                style="width:134px;height:134px; margin-left:15px;margin-top:20px;">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">名稱:BS禮卷</h5>
-                                                <p class="card-text">簡介:死亡後可以開槍殺死一名玩家，被毒則不可以開槍。</p>
-                                                <p class="card-text price"><small
-                                                        class="text-muted">積分:&emsp;500</small></p>
-                                                <div class="cartBtn">
-                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="card mb-3" style="max-width: 540px;">
-                                    <div class="row no-gutters">
-                                        <div class="col-md-4">
-                                            <img src="https://i.imgur.com/T9Mc7Rd.png" class="card-img-top "
-                                                alt="witch">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">名稱:麥x勞禮卷</h5>
-                                                <p class="card-text">簡介:有一瓶解藥與一瓶毒藥，一晚只能使用一瓶藥，可以自救。</p>
-                                                <p class="card-text price"><small
-                                                        class="text-muted">積分:&emsp;390</small></p>
-                                                <div class="cartBtn">
-                                                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">直接購買</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
 
         <!-- userImg Modal -->
         <div class="modal fade " id="user_pic" tabindex="-1" role="dialog" aria-labelledby="userImgModal"

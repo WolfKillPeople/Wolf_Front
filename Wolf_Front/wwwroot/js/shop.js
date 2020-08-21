@@ -57,11 +57,14 @@ const upload = new Vue({
             $.ajax(settings).done(function (res) {
                 img = JSON.parse(res).data.link;
                 document.querySelector('#avatat').setAttribute('src', img);
-                alert(img);
-                $('.confirm').on('click', confirmClick);
-                $('.confirm').css({ "background": "#cd5c5c" });
-                $('.confirm').css({ "color": "#fff" });
-                $('.confirm').css({ "cursor": "pointer" });
+                //alert(img);
+                if (getwin >= 5) {
+                    $('.confirm').on('click', confirmClick);
+                    $('.confirm').css({ "background": "#cd5c5c" });
+                    $('.confirm').css({ "color": "#fff" });
+                    $('.confirm').css({ "cursor": "pointer" });
+                }
+                
                 // $('#user_pic').modal('hide')
             });
         }
@@ -124,7 +127,13 @@ function confirmClick() {
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(ScoreData),
         success: function (msg) {
-            alert('兌換成功!!');
+            swal({
+                title: '兌換成功!!',
+                text: `目前總積分:${getwin}`,
+                icon: 'success',
+                button: "確認",
+            });
+            //alert('兌換成功!!');
             $('.confirm').off('click');
             $('.confirm').css({ "background": "#CCCC99" });
             $('.confirm').css({ "color": "#000000" });
@@ -132,6 +141,64 @@ function confirmClick() {
         }
     });
     
+}
+const prizes = {
+    0: "390",
+    1: "8811",
+    2: "1",
+    3: "1110",
+    4: "3000",
+    5: "390",
+    6: "10000",
+    7: "99999999"
+};
+function lottery(e) {
+    let i = $(e).attr('data-order');
+    if (getwin >= prizes[i]) {
+        getwin = getwin - prizes[i];
+    }
+    $('.ScoreTotal').empty();
+    $('.ScoreTotal').append(`目前總積分:${getwin}`);
+    let ScoreData =
+    {
+        "email": email,
+        "win": getwin,
+        "pic": pic
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: 'https://wolfpeoplekill.azurewebsites.net/api/Store',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        data: JSON.stringify(ScoreData),
+        success: function (msg) {
+            if (i == 2) {
+                swal({
+                    title: '兌換成功',
+                    text: `請來BS找Dann哥拿\n目前總積分:${getwin}`,
+                    icon: 'success',
+                    button: "確認",
+                });
+            }
+            else if (getwin < prizes[i]) {
+                swal({
+                    title: '不夠積分喔!',
+                    text: `目前總積分:${getwin}`,
+                    icon: 'error',
+                    button: "好的",
+                });
+            }
+            else {
+                swal({
+                    title: '沒中😭',
+                    text: `目前總積分:${getwin}`,
+                    icon: 'error',
+                    button: "確認",
+                });
+            } 
+        }
+    });  
 }
 
 
