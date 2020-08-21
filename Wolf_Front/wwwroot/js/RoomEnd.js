@@ -638,7 +638,7 @@ function signalrListener() {
             }
             if (players[i].account == message) {
                 allHead[i].setAttribute('style', 'display:flex');
-                deadLis = deadLis + `${i + 1}號`;
+                deadLis = /*deadLis + */`${i + 1}號`;
                 deadNum.push(i);
                 players[i].isAlive = false;
                 ////死掉特效
@@ -1184,7 +1184,7 @@ async function game() {
             await timeOn(1);
             for (let i = 0; i < deadNum.length; i++) {
                 if (players[deadNum[i]].name == '獵人') {
-                    deadLis = ''
+                    deadLis = '';
                     deadNum = [];
                     Speak('發動角色技能');
                     voteResult = null;
@@ -1251,7 +1251,7 @@ async function game() {
                     document.getElementById("PeoplesendButton").hidden = false;
                 }
                 Speak(`${i + 1}號玩家發言`);
-                await timeOn(30);
+                await timeOn(10);
                 document.getElementById("PeoplesendButton").hidden = true;
             }
         }
@@ -1259,7 +1259,7 @@ async function game() {
         //----------投票---------
         voteResult = null;
         prepareDead = null;
-        deadLis = ''
+        deadLis = '';
         deadNum = [];
         $('.circleImg').attr('className', 'circleImg off');
         $('.on').css('box-shadow', 'none');
@@ -1300,7 +1300,7 @@ async function game() {
         await timeOn(1);
         for (let i = 0; i < deadNum.length; i++) {
             if (players[deadNum[i]].name == '獵人') {
-                deadLis = ''
+                deadLis = '';
                 deadNum = [];
                 Speak('發動角色技能');
                 voteResult = null;
@@ -1318,7 +1318,7 @@ async function game() {
                 $('.image').show();
             }
             if (players[deadNum[i]].name == '狼王') {
-                deadLis = ''
+                deadLis = '';
                 deadNum = [];
                 Speak('發動角色技能');
                 voteResult = null;
