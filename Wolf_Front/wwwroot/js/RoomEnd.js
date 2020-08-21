@@ -639,7 +639,10 @@ function signalrListener() {
             if (players[i].account == message) {
                 allHead[i].setAttribute('style', 'display:flex');
                 deadLis = /*deadLis + */`${i + 1}號`;
-                deadNum=i;
+                deadNum.push(i);
+                deadNum = deadNum.filter(function (element, index, arr) {
+                    return arr.indexOf(element) === index;
+                });
                 players[i].isAlive = false;
                 ////死掉特效
                 //$('.image').hide();
