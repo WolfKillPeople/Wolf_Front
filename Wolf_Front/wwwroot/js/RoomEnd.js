@@ -938,11 +938,31 @@ function BindingThings() {
         }, 100);
     });
     $('#closebtn').click(function () {
-        $('.img-spin').css("animation-name", " spin")
-        $('.img-spin').css("animation-timing-function", " linear")
-        $('.img-spin').css("animation-duration", " 1s")
+        funBackOrFront();
+
         var tt = document.styleSheets[0];
-        tt.insertRule("@keyframes spin {0 % { transform: rotateY(0deg); } 25% {transform: rotateY(360deg); } 50% {transform: rotateY(0deg); } 75% {transform: rotateY(360deg); }}", 9);//寫入樣式      
+        tt.insertRule("@keyframes spin { 0% { transform: rotateY(0deg); } 25% { transform: rotateY(360deg); } 50% { transform: rotateY(0deg); } 75% { transform: rotateY(360deg); }}", 9);//寫入樣式      
+
+        $('.box').css("animation-name", " spin");
+        $('.box').css("animation-timing-function", " linear")
+        $('.box').css("animation-duration", " 1s")
+        $('.box').css("animation-fill-mode", "forwards")
+        //切换的顺序如下
+        // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
+        // 2. 结束后，之前显示在后面的元素逆向90度翻转显示在前 
+        // 3. 完成翻面效果
+
+        //eleFront.removeClass("out").addClass("in");
+        //eleBack.removeClass("in").addClass("out");
+        eleFront.removeClass("out").addClass("in");
+
+        setTimeout(function () {
+
+            eleBack.removeClass("in").addClass("out");
+
+            // 重新确定正反元素
+            //funBackOrFront();
+        }, 100); 
 
     });
 
@@ -1162,7 +1182,7 @@ async function game() {
         await timeOn(3);
         $('.diepage').remove();
         $('.image').show();
-
+       
 
         Speak('天亮請睜眼');
         $('.circleImg').attr('className', 'circleImg off');
@@ -1172,15 +1192,15 @@ async function game() {
         await winOrLose();
         if (gameResult == '好人獲勝') {
             /*這裡加好人獲勝MODEL;*/
-
-
+            $('.image').remove();
+            goodwin();
             Speak('遊戲結束，好人獲勝');
             return;
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
-
-
+            $('.image').remove();
+            wolfwin();
             Speak('遊戲結束，好人獲勝');
             return;
         }
@@ -1232,15 +1252,17 @@ async function game() {
         //判斷輸贏
         await winOrLose();
         if (gameResult == '好人獲勝') {
-            /*這裡加好人獲勝MODEL;*/
-
+        /*這裡加好人獲勝MODEL;*/
+            $('.image').remove();
+            goodwin();
 
             Speak('遊戲結束，好人獲勝');
             return;
         }
         else if (gameResult == '狼人獲勝') {
-            /*這裡加狼人獲勝MODEL;*/
-
+        /*這裡加狼人獲勝MODEL;*/
+            $('.image').remove();
+            wolfwin();
 
             Speak('遊戲結束，好人獲勝');
             return;
@@ -1289,16 +1311,17 @@ async function game() {
         //判斷輸贏
         await winOrLose();
         if (gameResult == '好人獲勝') {
-            /*這裡加好人獲勝MODEL;*/
-
+        /*這裡加好人獲勝MODEL;*/
+            $('.image').remove();
+            goodwin();
 
             Speak('遊戲結束，好人獲勝');
             return;
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
-
-
+            $('.image').remove();
+            wolfwin();
             Speak('遊戲結束，好人獲勝');
             return;
         }
@@ -1347,15 +1370,15 @@ async function game() {
         await winOrLose();
         if (gameResult == '好人獲勝') {
             /*這裡加好人獲勝MODEL;*/
-
-
+            $('.image').remove();
+            goodwin();
             Speak('遊戲結束，好人獲勝');
             return;
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
-
-
+            $('.image').remove();
+            wolfwin();
             Speak('遊戲結束，好人獲勝');
             return;
         }

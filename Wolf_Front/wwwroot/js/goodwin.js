@@ -1,250 +1,296 @@
-//煙火
-var screenWidth = window.innerWidth;
-var screenHeight = window.innerHeight;
+function goodwin() {
+    $('body').append(`
+                <canvas id="screen" style="width:100%;  overflow: hidden;"></canvas>
+                <div class="wrap">
+                    <div class="container">
+                        <div class="titlecontainer">
+                            <div class="boys">
+                                <span> 好 </span>
+                                <span>人</span>
+                                <span>獲</span>
+                                <span>勝</span>
+                            </div>
+                        </div>
+                        <div class="backgame">
+                            <a class="btn-reveal-goodwin back btn" href="https://werewolfkill.azurewebsites.net/shop/lottery.html">
+                                <div class="border-left-goodwin">
+                                    <span class="arrow-top-goodwin"></span>
+                                    <span class="arrow-bottom-goodwin"></span>
+                                </div>
+                                <div class="border-top-goodwin"></div>
+                                <div class="border-right-goodwin"></div>
+                                <div class="border-bottom-goodwin"></div>
+                                <div class="border-bottom-left-goodwin"></div>
+                                <div class="border-top-left-goodwin"></div>來~去抽獎!!
+                            </a>        
+                        </div>
+                    </div>
+                </div>
 
-var minVx = -10;
-var deltaVx = 20;
-var minVy = 25
-var deltaVy = 15;
-var minParticleV = 5;
-var deltaParticleV = 5;
+`)
+    //        < div class="modal fade bd-example-modal-xl show" id = "goodmodal" tabindex = "-1" role = "dialog" aria - labelledby="myExtraLargeModalLabel" aria - modal="true" >
+    //            <div class="modal-dialog modal-xl" role="document">
+    //                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    //                    <span aria-hidden="true" >&times;</span>
+    //                </button>
+    //                <div class="modal-content">
+    //            </div >
+    //    </div >
+    //</div >
+    //$('#goodmodal').modal('show');
 
-var gravity = 1;
+    //煙火
+    var screenWidth = window.innerWidth;
+    var screenHeight = window.innerHeight;
 
-var explosionRadius = 200;
-var bombRadius = 10;
-var explodingDuration = 100;
-var explosionDividerFactor = 10; // I couldn't find a better name. Got any?
+    var minVx = -10;
+    var deltaVx = 20;
+    var minVy = 25
+    var deltaVy = 15;
+    var minParticleV = 5;
+    var deltaParticleV = 5;
 
-var nBombs = 1; // initial
-var percentChanceNewBomb = 5;
+    var gravity = 1;
 
-// Color utils forked from http://andreasstorm.com/
-// (or someone who forked from there)
+    var explosionRadius = 200;
+    var bombRadius = 10;
+    var explodingDuration = 100;
+    var explosionDividerFactor = 10; // I couldn't find a better name. Got any?
 
-function Color(min) {
-    min = min || 0;
-    this.r = colorValue(min);
-    this.g = colorValue(min);
-    this.b = colorValue(min);
-    this.style = createColorStyle(this.r, this.g, this.b);
-};
+    var nBombs = 1; // initial
+    var percentChanceNewBomb = 5;
 
-function colorValue(min) {
-    return Math.floor(Math.random() * 800 + min);
-}
+    // Color utils forked from http://andreasstorm.com/
+    // (or someone who forked from there)
 
-function createColorStyle(r, g, b) {
-    return 'rgba(' + r + ',' + g + ',' + b + ', 0.8)';
-}
+    function Color(min) {
+        min = min || 0;
+        this.r = colorValue(min);
+        this.g = colorValue(min);
+        this.b = colorValue(min);
+        this.style = createColorStyle(this.r, this.g, this.b);
+    };
 
-// A Bomb. Or firework.
-function Bomb() {
-    var self = this;
+    function colorValue(min) {
+        return Math.floor(Math.random() * 800 + min);
+    }
 
-    self.radius = bombRadius;
-    self.previousRadius = bombRadius;
-    self.explodingDuration = explodingDuration;
-    self.hasExploded = false;
-    self.alive = true;
-    self.color = new Color();
+    function createColorStyle(r, g, b) {
+        return 'rgba(' + r + ',' + g + ',' + b + ', 0.8)';
+    }
 
-    self.px = (window.innerWidth / 4) + (Math.random() * window.innerWidth / 2);
-    self.py = window.innerHeight;
+    // A Bomb. Or firework.
+    function Bomb() {
+        var self = this;
 
-    self.vx = minVx + Math.random() * deltaVx;
-    self.vy = (minVy + Math.random() * deltaVy) * -1; // because y grows downwards
+        self.radius = bombRadius;
+        self.previousRadius = bombRadius;
+        self.explodingDuration = explodingDuration;
+        self.hasExploded = false;
+        self.alive = true;
+        self.color = new Color();
 
-    self.duration =
+        self.px = (window.innerWidth / 4) + (Math.random() * window.innerWidth / 2);
+        self.py = window.innerHeight;
 
-        self.update = function (particlesVector) {
-            if (self.hasExploded) {
-                var deltaRadius = explosionRadius - self.radius;
-                self.previousRadius = self.radius;
-                self.radius += deltaRadius / explosionDividerFactor;
-                self.explodingDuration--;
-                if (self.explodingDuration == 0) {
-                    self.alive = false;
+        self.vx = minVx + Math.random() * deltaVx;
+        self.vy = (minVy + Math.random() * deltaVy) * -1; // because y grows downwards
+
+        self.duration =
+
+            self.update = function (particlesVector) {
+                if (self.hasExploded) {
+                    var deltaRadius = explosionRadius - self.radius;
+                    self.previousRadius = self.radius;
+                    self.radius += deltaRadius / explosionDividerFactor;
+                    self.explodingDuration--;
+                    if (self.explodingDuration == 0) {
+                        self.alive = false;
+                    }
                 }
+                else {
+                    self.vx += 0;
+                    self.vy += gravity;
+                    if (self.vy >= 0) { // invertion point
+                        self.explode(particlesVector);
+                    }
+
+                    self.px += self.vx;
+                    self.py += self.vy;
+                }
+            };
+
+        self.draw = function (ctx) {
+            ctx.beginPath();
+            ctx.arc(self.px, self.py, self.previousRadius, 0, Math.PI * 2, false);
+            if (self.hasExploded) {
             }
             else {
-                self.vx += 0;
-                self.vy += gravity;
-                if (self.vy >= 0) { // invertion point
-                    self.explode(particlesVector);
-                }
+                ctx.fillStyle = self.color.style;
+                ctx.lineWidth = 1;
+                ctx.fill();
+            }
 
-                self.px += self.vx;
-                self.py += self.vy;
+        };
+
+
+        self.explode = function (particlesVector) {
+            self.hasExploded = true;
+            var e = 3 + Math.floor(Math.random() * 3);
+            for (var j = 0; j < e; j++) {
+                var n = 10 + Math.floor(Math.random() * 21); // 10 - 30
+                var speed = minParticleV + Math.random() * deltaParticleV;
+                var deltaAngle = 2 * Math.PI / n;
+                var initialAngle = Math.random() * deltaAngle;
+                for (var i = 0; i < n; i++) {
+                    particlesVector.push(new Particle(self, i * deltaAngle + initialAngle, speed));
+                }
             }
         };
 
-    self.draw = function (ctx) {
-        ctx.beginPath();
-        ctx.arc(self.px, self.py, self.previousRadius, 0, Math.PI * 2, false);
-        if (self.hasExploded) {
-        }
-        else {
+    }
+
+    function Particle(parent, angle, speed) {
+        var self = this;
+        self.px = parent.px;
+        self.py = parent.py;
+        self.vx = Math.cos(angle) * speed;
+        self.vy = Math.sin(angle) * speed;
+        self.color = parent.color;
+        self.duration = 40 + Math.floor(Math.random() * 20);
+        self.alive = true;
+
+        self.update = function () {
+            self.vx += 0;
+            self.vy += gravity / 10;
+
+            self.px += self.vx;
+            self.py += self.vy;
+            self.radius = 3;
+
+            self.duration--;
+            if (self.duration <= 0) {
+                self.alive = false;
+            }
+        };
+
+        self.draw = function (ctx) {
+            ctx.beginPath();
+            ctx.arc(self.px, self.py, self.radius, 0, Math.PI * 2, false);
             ctx.fillStyle = self.color.style;
             ctx.lineWidth = 1;
             ctx.fill();
-        }
+        };
 
-    };
+    }
 
-
-    self.explode = function (particlesVector) {
-        self.hasExploded = true;
-        var e = 3 + Math.floor(Math.random() * 3);
-        for (var j = 0; j < e; j++) {
-            var n = 10 + Math.floor(Math.random() * 21); // 10 - 30
-            var speed = minParticleV + Math.random() * deltaParticleV;
-            var deltaAngle = 2 * Math.PI / n;
-            var initialAngle = Math.random() * deltaAngle;
-            for (var i = 0; i < n; i++) {
-                particlesVector.push(new Particle(self, i * deltaAngle + initialAngle, speed));
-            }
-        }
-    };
-
-}
-
-function Particle(parent, angle, speed) {
-    var self = this;
-    self.px = parent.px;
-    self.py = parent.py;
-    self.vx = Math.cos(angle) * speed;
-    self.vy = Math.sin(angle) * speed;
-    self.color = parent.color;
-    self.duration = 40 + Math.floor(Math.random() * 20);
-    self.alive = true;
-
-    self.update = function () {
-        self.vx += 0;
-        self.vy += gravity / 10;
-
-        self.px += self.vx;
-        self.py += self.vy;
-        self.radius = 3;
-
-        self.duration--;
-        if (self.duration <= 0) {
-            self.alive = false;
-        }
-    };
-
-    self.draw = function (ctx) {
-        ctx.beginPath();
-        ctx.arc(self.px, self.py, self.radius, 0, Math.PI * 2, false);
-        ctx.fillStyle = self.color.style;
-        ctx.lineWidth = 1;
-        ctx.fill();
-    };
-
-}
-
-function Controller() {
-    var self = this;
-    self.canvas = document.getElementById("screen");
-    self.canvas.width = screenWidth;
-    self.canvas.height = screenHeight;
-    self.ctx = self.canvas.getContext('2d');
-    function setSpeedParams() {
-        var heightReached = 0;
-        var vy = 0;
-        while (heightReached < screenHeight && vy >= 0) {
-            vy += gravity;
-            heightReached += vy;
-        }
-        minVy = vy / 2;
-        deltaVy = vy - minVy;
-        vx = (1 / 4) * screenWidth / (vy / 2);
-        minVx = -vx;
-        deltaVx = 2 * vx;
-    };
-
-    self.resize = function () {
-        screenWidth = window.innerWidth;
-        screenHeight = window.innerHeight;
+    function Controller() {
+        var self = this;
+        self.canvas = document.getElementById("screen");
         self.canvas.width = screenWidth;
         self.canvas.height = screenHeight;
-        setSpeedParams();
-    };
-    self.resize();
+        self.ctx = self.canvas.getContext('2d');
+        function setSpeedParams() {
+            var heightReached = 0;
+            var vy = 0;
+            while (heightReached < screenHeight && vy >= 0) {
+                vy += gravity;
+                heightReached += vy;
+            }
+            minVy = vy / 2;
+            deltaVy = vy - minVy;
+            vx = (1 / 4) * screenWidth / (vy / 2);
+            minVx = -vx;
+            deltaVx = 2 * vx;
+        };
 
-    window.onresize = self.resize;
+        self.resize = function () {
+            screenWidth = window.innerWidth;
+            screenHeight = window.innerHeight;
+            self.canvas.width = screenWidth;
+            self.canvas.height = screenHeight;
+            setSpeedParams();
+        };
+        self.resize();
 
-    self.init = function () {
-        self.readyBombs = [];
-        self.explodedBombs = [];
-        self.particles = [];
+        window.onresize = self.resize;
 
-        for (var i = 0; i < nBombs; i++) {
-            self.readyBombs.push(new Bomb());
-        }
-    }
+        self.init = function () {
+            self.readyBombs = [];
+            self.explodedBombs = [];
+            self.particles = [];
 
-    self.update = function () {
-        var aliveBombs = [];
-        while (self.explodedBombs.length > 0) {
-            var bomb = self.explodedBombs.shift();
-            bomb.update();
-            if (bomb.alive) {
-                aliveBombs.push(bomb);
+            for (var i = 0; i < nBombs; i++) {
+                self.readyBombs.push(new Bomb());
             }
         }
-        self.explodedBombs = aliveBombs;
 
-        var notExplodedBombs = [];
-        while (self.readyBombs.length > 0) {
-            var bomb = self.readyBombs.shift();
-            bomb.update(self.particles);
-            if (bomb.hasExploded) {
-                self.explodedBombs.push(bomb);
+        self.update = function () {
+            var aliveBombs = [];
+            while (self.explodedBombs.length > 0) {
+                var bomb = self.explodedBombs.shift();
+                bomb.update();
+                if (bomb.alive) {
+                    aliveBombs.push(bomb);
+                }
             }
-            else {
-                notExplodedBombs.push(bomb);
-            }
-        }
-        self.readyBombs = notExplodedBombs;
+            self.explodedBombs = aliveBombs;
 
-        var aliveParticles = [];
-        while (self.particles.length > 0) {
-            var particle = self.particles.shift();
-            particle.update();
-            if (particle.alive) {
-                aliveParticles.push(particle);
+            var notExplodedBombs = [];
+            while (self.readyBombs.length > 0) {
+                var bomb = self.readyBombs.shift();
+                bomb.update(self.particles);
+                if (bomb.hasExploded) {
+                    self.explodedBombs.push(bomb);
+                }
+                else {
+                    notExplodedBombs.push(bomb);
+                }
+            }
+            self.readyBombs = notExplodedBombs;
+
+            var aliveParticles = [];
+            while (self.particles.length > 0) {
+                var particle = self.particles.shift();
+                particle.update();
+                if (particle.alive) {
+                    aliveParticles.push(particle);
+                }
+            }
+            self.particles = aliveParticles;
+        }
+
+        self.draw = function () {
+            self.ctx.beginPath();
+            self.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Ghostly effect
+            self.ctx.fillRect(0, 0, self.canvas.width, self.canvas.height);
+            for (var i = 0; i < self.readyBombs.length; i++) {
+                self.readyBombs[i].draw(self.ctx);
+            }
+            for (var i = 0; i < self.explodedBombs.length; i++) {
+                self.explodedBombs[i].draw(self.ctx);
+            }
+            for (var i = 0; i < self.particles.length; i++) {
+                self.particles[i].draw(self.ctx);
             }
         }
-        self.particles = aliveParticles;
-    }
-
-    self.draw = function () {
-        self.ctx.beginPath();
-        self.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Ghostly effect
-        self.ctx.fillRect(0, 0, self.canvas.width, self.canvas.height);
-        for (var i = 0; i < self.readyBombs.length; i++) {
-            self.readyBombs[i].draw(self.ctx);
-        }
-        for (var i = 0; i < self.explodedBombs.length; i++) {
-            self.explodedBombs[i].draw(self.ctx);
-        }
-        for (var i = 0; i < self.particles.length; i++) {
-            self.particles[i].draw(self.ctx);
+        self.animation = function () {
+            self.update();
+            self.draw();
+            if (Math.random() * 300 < percentChanceNewBomb) {
+                self.readyBombs.push(new Bomb());
+            }
+            requestAnimationFrame(self.animation);
         }
     }
-    self.animation = function () {
-        self.update();
-        self.draw();
-        if (Math.random() * 500 < percentChanceNewBomb) {
-            self.readyBombs.push(new Bomb());
-        }
-        requestAnimationFrame(self.animation);
-    }
+    var controller = new Controller();
+    controller.init();
+    requestAnimationFrame(controller.animation);
 }
-var controller = new Controller();
-controller.init();
-requestAnimationFrame(controller.animation);
+
+
+
+
 //煙火尾
 
 //如果接收到true跳這個Modal
