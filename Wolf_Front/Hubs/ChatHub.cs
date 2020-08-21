@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -300,7 +301,7 @@ namespace Wolf_Front.Hubs
         /// </summary>
         /// <param name="roomId"></param>
         /// <returns></returns>
-        public async Task VoteResult(int roomId)
+        public void  VoteResult(int roomId)
         {
             //_votePlayers.TryGetValue(roomId, out var data);
             lock (li)
@@ -309,30 +310,26 @@ namespace Wolf_Front.Hubs
                 _GameRoom.TryGetValue(roomId, out var targetRoom);
 
                 newData.ForEach(o => targetRoom[Convert.ToInt32(o.Vote) - 1].Voteticket++);
-                var ran = new Random();
+                //var ran = new Random();
                 var newVotePlayers = targetRoom.OrderByDescending(x => x.Voteticket).ToList();
-                if (newVotePlayers[0].Voteticket == newVotePlayers[1].Voteticket)
-                {
-                    for (var r = 0; r < newVotePlayers.Count; r++)
-                    {
-                        var index = ran.Next(0, newVotePlayers.Count - 1);
-                        if (index == r) continue;
-                        var temp = newVotePlayers[r];
-                        newVotePlayers[r] = newVotePlayers[index];
-                        newVotePlayers[index] = temp;
-                    };
-                }
+                //if (newVotePlayers[0].Voteticket == newVotePlayers[1].Voteticket)
+                //{
+                //    for (var r = 0; r < newVotePlayers.Count; r++)
+                //    {
+                //        var index = ran.Next(0, newVotePlayers.Count - 1);
+                //        if (index == r) continue;
+                //        var temp = newVotePlayers[r];
+                //        newVotePlayers[r] = newVotePlayers[index];
+                //        newVotePlayers[index] = temp;
+                //    };
+                //}
 
 
                 Clients.Groups(roomId.ToString()).VoteResult(newVotePlayers.Take(1).ToList());
                 Clients.Caller.VoteResult(newVotePlayers.Take(1).ToList());
 
-                var newTarget = targetRoom;
-                newTarget.ForEach(o => o.Voteticket = 0);
-                _GameRoom.TryUpdate(roomId, newTarget, targetRoom);
-                _svotePlayer.Clear();
-                _votePlayers.TryRemove(newVotePlayers.ToList()[0].RoomId, out _);
-                li.Clear();
+               
+               
             }
 
         }
@@ -361,6 +358,13 @@ namespace Wolf_Front.Hubs
 
             await Clients.Group(data.ToList()[0].RoomId.ToString()).PeopleDie(data.ToList()[0].Account);
             await Clients.Caller.PeopleDie(data.ToList()[0].Account);
+
+            var newTarget = result;
+            newTarget.ForEach(o => o.Voteticket = 0);
+            _GameRoom.TryUpdate(data.ToList()[0].RoomId, newTarget, result);
+            _svotePlayer.Clear();
+            _votePlayers.TryRemove(data.ToList()[0].RoomId, out _);
+            li.Clear();
         }
 
         /// <summary>

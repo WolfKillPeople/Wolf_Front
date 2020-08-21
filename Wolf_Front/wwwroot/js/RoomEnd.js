@@ -1120,7 +1120,7 @@ async function game() {
         $('#toggleDark').click();
         Speak('天黑請閉眼，狼人請殺人');
         wolf();
-        await timeOn(60);
+        await timeOn(30);
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
         $('.on').css('box-shadow', 'none');
@@ -1131,7 +1131,7 @@ async function game() {
         //----------預言家---------
         Speak('預言家請選擇玩家查身分');
         prophet();
-        await timeOn(30);
+        await timeOn(10);
         $('.findperson').remove();
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
@@ -1139,10 +1139,12 @@ async function game() {
         $('#rightgamerecordli li').remove();
 
         //----------女巫---------
+        console.log(voteResult);
+        console.log(prepareDead);
         voteResult = null;
         Speak('此玩家死亡，女巫是否救人');
         witch();
-        await timeOn(20);
+        await timeOn(10);
         $('#rightgamerecordli li').remove();
         Speak('女巫是否殺人');
         await timeOn(20);
@@ -1255,7 +1257,7 @@ async function game() {
                     document.getElementById("PeoplesendButton").hidden = false;
                 }
                 Speak(`${i + 1}號玩家發言`);
-                await timeOn(10);
+                await timeOn(5);
                 document.getElementById("PeoplesendButton").hidden = true;
             }
         }
