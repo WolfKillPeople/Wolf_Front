@@ -639,7 +639,7 @@ function signalrListener() {
             if (players[i].account == message) {
                 allHead[i].setAttribute('style', 'display:flex');
                 deadLis = /*deadLis + */`${i + 1}號`;
-                deadNum.push(i);
+                deadNum=i;
                 players[i].isAlive = false;
                 ////死掉特效
                 //$('.image').hide();
@@ -650,6 +650,7 @@ function signalrListener() {
             }
         }
     });
+
 
     connection.on("NewRoom", function (message, temp) {
     });
@@ -1355,6 +1356,7 @@ async function game() {
         }
 
         //----------遺言---------
+        console.log(deadNum);
         for (let i = 0; i < deadNum.length; i++) {
             Speak(`${deadNum[i] + 1}號玩家請發表遺言`);
             await timeOn(1);
