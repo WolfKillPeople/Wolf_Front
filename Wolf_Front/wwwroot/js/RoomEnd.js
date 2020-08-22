@@ -1154,6 +1154,7 @@ async function game() {
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
+            $('.waitcontainer').remove();
             $('.image').remove();
             wolfwin();
             Speak('遊戲結束，好人獲勝');
@@ -1216,6 +1217,7 @@ async function game() {
         }
         else if (gameResult == '狼人獲勝') {
         /*這裡加狼人獲勝MODEL;*/
+            $('.waitcontainer').remove();
             $('.image').remove();
             wolfwin();
 
@@ -1275,6 +1277,7 @@ async function game() {
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
+            $('.waitcontainer').remove();
             $('.image').remove();
             wolfwin();
             Speak('遊戲結束，好人獲勝');
@@ -1333,6 +1336,7 @@ async function game() {
         }
         else if (gameResult == '狼人獲勝') {
             /*這裡加狼人獲勝MODEL;*/
+            $('.waitcontainer').remove();
             $('.image').remove();
             wolfwin();
             Speak('遊戲結束，好人獲勝');
