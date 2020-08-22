@@ -17,7 +17,6 @@ var G_ID;
 //page
 $(document).ready(function () {
     var getOriPic = $('#avatat').attr('src');
-    console.log(getOriPic);
 
     // picData 需先Get兩個圖片資料
     let picData =
@@ -75,7 +74,6 @@ $(document).ready(function () {
                 $(".page-" + page).addClass("small");
             }
         }
-        console.log(diff)
         if (diff > 1) {
             for (var j = page + 1; j < oldPage; j++) {
                 $(".page-" + j + " .half").css("transition", "transform .7s ease-out");
@@ -305,7 +303,6 @@ connection.on("GetAll", function (data, i) {
 
                     connection.invoke("GetRole", myroomid).then((res) => {
                         players = res;
-                        console.log(players);
                         players.forEach(element => {
                             if (element.account == myaccount) {
                                 myAlive = element.isAlive;
@@ -648,7 +645,6 @@ function signalrListener() {
     });
 
     connection.on("VoteResult", function (message) {
-        console.log('in VoteResult');
         prepareDead = message[0].vote;
     });
 }
@@ -963,7 +959,6 @@ function voteBack() {
         "voteResult": null
     };
     connection.invoke("Vote", backVoteResult);
-    console.log(`i vote ${voteResult}`);
 }
 
 //取投票結果
@@ -1113,8 +1108,6 @@ async function game() {
         $('#rightgamerecordli li').remove();
 
         //----------女巫---------
-        console.log(voteResult);
-        console.log(prepareDead);
         voteResult = null;
         Speak('此玩家死亡，女巫是否救人');
         witch();
@@ -1344,7 +1337,6 @@ async function game() {
         }
 
         //----------遺言---------
-        console.log(deadNum);
         for (let i = 0; i < deadNum.length; i++) {
             Speak(`${deadNum[i] + 1}號玩家請發表遺言`);
             await timeOn(1);
@@ -1394,7 +1386,6 @@ function winOrLose() {
         },
         success: function (response) {
             gameResult = response[0].gameResult;
-            console.log(gameResult);
         }
     });
 }
