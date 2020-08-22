@@ -32,7 +32,7 @@ $('body').append(`
                      <div id="qrcode">Loading...</div>
                     <img id="image-buffer" src="" width=200 height=200 style="display: none;">
                     <input class="color-picker" type="color" /> 挑選Qrcode顏色
-                    <a href="https://localhost:12701/html/thanksplaying.html">跳至網頁</a>
+                    <a href="https://localhost:12701/html/voucher.html">跳至網頁</a>
             </div>
                     
         </div>
