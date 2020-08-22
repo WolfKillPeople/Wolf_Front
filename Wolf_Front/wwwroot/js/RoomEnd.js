@@ -1209,11 +1209,10 @@ async function game() {
             return;
         }
         else if (gameResult == '狼人獲勝') {
-        /*這裡加狼人獲勝MODEL;*/
+            /*這裡加狼人獲勝MODEL;*/
             $('.waitcontainer').remove();
             $('.image').remove();
             wolfwin();
-
             Speak('遊戲結束，好人獲勝');
             return;
         }
@@ -1353,16 +1352,6 @@ function prepare() {
     $('.all').remove();
     signalrListener();
     wait();
-    //document.querySelector('#again').addEventListener('click', function () {
-    //    waitPeople = waitPeople + 1;
-    //    document.querySelector('#app').innerHTML = `${waitPeople}/10`
-    //    if (waitPeople > 9) {
-    //        $('#waitappendId').hide();
-    //        $('.image').show();
-    //        connection.invoke("GetRole", myroomid);
-    //        game();
-    //    }
-    //})
 }
 
 function winOrLose() {
