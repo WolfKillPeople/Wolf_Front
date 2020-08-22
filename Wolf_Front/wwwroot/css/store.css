@@ -97,3 +97,7 @@ body { /*margin:20px; background:hsl(70, 31%, 85%);*/ text-align:center; }
     height: 30px;
     vertical-align: middle;
 }
+
+a {
+    text-decoration: none!important;
+}
