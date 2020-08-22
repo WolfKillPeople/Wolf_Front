@@ -1,11 +1,5 @@
 function goodwin() {
     $('body').append(`
-            < div class="modal fade bd-example-modal-xl show" id = "goodmodal" tabindex = "-1" role = "dialog" aria - labelledby="myExtraLargeModalLabel" aria - modal="true" >
-                <div class="modal-dialog modal-xl" role="document">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" >&times;</span>
-                    </button>
-                    <div class="modal-content">
                 <canvas id="screen" style="width:100%;  overflow: hidden;"></canvas>
                 <div class="wrap">
                     <div class="container">
@@ -32,11 +26,6 @@ function goodwin() {
                         </div>
                     </div>
                 </div>
-
-                </div >
-        </div >
-    </div >
-
 `)
 
     $('#goodmodal').modal('show');
