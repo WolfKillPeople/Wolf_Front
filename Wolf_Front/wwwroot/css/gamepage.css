@@ -4,7 +4,15 @@
     /*cursor: url('/Images/paw.jpg') 45 45, auto;*/
     -webkit-user-select: none; /* for Chrome */
 }
-
+html {
+    SCROLLBAR-FACE-COLOR: #333333;
+    SCROLLBAR-HIGHLIGHT-COLOR: #000000;
+    SCROLLBAR-3DLIGHT-COLOR: #333333;
+    SCROLLBAR-ARROW-COLOR: #000000;
+    SCROLLBAR-TRACK-COLOR: #000000;
+    SCROLLBAR-DARKSHADOW-COLOR: #333333;
+    SCROLLBAR-BASE-COLOR: #333333;
+}
 #WolfmessageInput {
     outline: none
 }
