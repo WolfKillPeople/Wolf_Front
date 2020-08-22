@@ -76,14 +76,9 @@ var email = "a1256963@gmail.com";
 var getwin;
 var pic;
 $(document).ready(function () {
-    // $('#upload_icon').click(function () {
-    //     $('#update').click();
-    // });
     $('#user_img').click(function () {
         $('#update').click();
     });
-
-    
 
     //Score
     let emailData =
@@ -103,6 +98,7 @@ $(document).ready(function () {
             pic = arry[0].pic;
             $('.ScoreTotal').append(`目前總積分:${getwin}`);
             $('.avatat').attr('src', `${pic}`);
+            $('#image-buffer').attr('src', `${pic}`);
         }
     });
     $('.confirm').css({ "background": "#CCCC99" });
@@ -137,8 +133,9 @@ function confirmClick() {
             //alert('兌換成功!!');
             $('.confirm').off('click');
             $('.confirm').css({ "background": "#CCCC99" });
-            $('.confirm').css({ "color": "#000000" });
+            $('.confirm').css({ "color": "#000" });
             $('.confirm').css({ "cursor": "not-allowed" });
+            $('#image-buffer').attr('src', `${pic}`);
         }
     });
     
@@ -204,22 +201,18 @@ function lottery(e) {
 
 
 //Choose color
-var color = document.querySelector('input');
-var block = document.getElementById('block');
+var color = document.querySelector('.color-picker');
 
 color.addEventListener('change', function () {
-    block.style.setProperty('--bg', color.value);
-});
-//Qrcode
-$('#image-buffer').on('load', function () {
+
     $('#qrcode').empty().qrcode({
         render: 'canvas',
         ecLevel: 'H',
         minVersion: 6,
         mode: 4,
-        fill: '#0ebbae',
-        background: '#ffffff',
-        text: location.href,
+        fill: `${color.value}`,
+        background: '#fff',
+        text: 'https://localhost:12701/html/thanksplaying.html',
         quiet: 1,
         radius: 0.2,
         mPosX: 0.5,
@@ -229,4 +222,25 @@ $('#image-buffer').on('load', function () {
         image: $('#image-buffer')[0]
     });
 });
+//Qrcode
+$('#image-buffer').on('load', function () {
+    $('#qrcode').empty().qrcode({
+        render: 'canvas',
+        ecLevel: 'H',
+        minVersion: 6,
+        mode: 4,
+        fill: '#000',
+        background: '#fff',
+        text: 'https://localhost:12701/html/thanksplaying.html',
+        quiet: 1,
+        radius: 0.2,
+        mPosX: 0.5,
+        mPosY: 0.5,
+        mSize: 0.20,
+        size: 250,
+        image: $('#image-buffer')[0]
+    });
+});
+
+
 

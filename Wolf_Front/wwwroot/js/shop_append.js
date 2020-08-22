@@ -11,13 +11,13 @@ $('body').append(`
     <div class="card">
             <div class="card-header" id="ScoresBtn">
                 <h2 class="mb-0 text-center">
-                    <button class="btn collapsed show" type="button" data-toggle="collapse" data-target="#ScoresBtn"
-                        aria-expanded="false" aria-controls="avatarChange">
+                    <button class="btn collapsed show" type="button" data-toggle="collapse" data-target="#ScoresChange"
+                        aria-expanded="false" aria-controls="ScoresChange">
                         兌換券
                     </button>
                 </h2>
             </div>
-            <div id="ScoresBtn" class="collapse show" aria-labelledby="AvatarBtn" data-parent="#accordionExample">
+            <div id="ScoresChange" class="collapse show" aria-labelledby="ScoresBtn" data-parent="#accordionExample">
                  <!-- bg -->   
                     <div class="balloon"></div>
                     <div class="balloon"></div>
@@ -29,15 +29,12 @@ $('body').append(`
                 <!-- bg -->
 
                 <div class="card-body CardmainPart" id="mainPart">
-                   <div class="wrapper">
-        <div>
-            <div id="block"></div>
-        </div>
-        <input class="color-picker" type="color" /> Choose Color
-    </div>
                      <div id="qrcode">Loading...</div>
-                    <img id="image-buffer" src="https://i.imgur.com/eBNKz6R.jpg" width=200 height=200 style="display: none;">
+                    <img id="image-buffer" src="" width=200 height=200 style="display: none;">
+                    <input class="color-picker" type="color" /> 挑選Qrcode顏色
+                    <a href="https://localhost:12701/html/thanksplaying.html">跳至網頁</a>
             </div>
+                    
         </div>
 
     <div class="card">
