@@ -188,7 +188,7 @@
                       
                         
   <!-- 人類 -->
-                        <div class=" " style=" background-color: #253641; margin:auto;width:90%;  height: 290px;">
+                        <div class="peoplechat " style=" background-color: #253641; margin:auto;width:90%;  height: 290px;">
                             <div class="container">
                                 <div class="row">&nbsp;</div>
                                 <div class="row">
@@ -265,7 +265,7 @@
 
                         <div class="col-1"></div>
     <!--郎 -->
-                        <div class="col-5" style="background-color: #253641; margin-bottom: 5%; padding:0;">
+                        <div class="col-5" style="background-color: #253641; margin-bottom: 5%; padding:0;" id="wolfchat">
                             <div class="gamewolfcontainer">
                                 <div class="gamewolfrow">&nbsp;</div>
                                 <div class="gamewolfrow">
