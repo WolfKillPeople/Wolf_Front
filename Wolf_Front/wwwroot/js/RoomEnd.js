@@ -300,7 +300,7 @@ connection.on("GetAll", function (data, i) {
                 waitPeople = element.count;
                 document.querySelector('#app').innerHTML = `${waitPeople}/10`
                 if (waitPeople == 10) {
-                    $('#waitappendId').remove();
+                    $('.waitcontainer').remove();
                     $('.image').show();
 
                     connection.invoke("GetRole", myroomid).then((res) => {
@@ -405,17 +405,6 @@ function drawing() {
 }
 drawing();
 
-//search
-//const input = document.getElementById("search-input");
-//const searchBtn = document.getElementById("search-btn");
-//const expand = () => {
-//    searchBtn.classList.toggle("close");
-//    input.classList.toggle("square");
-//};
-//searchBtn.addEventListener("click", expand);
-
-//modal
-// Create an immediately invoked functional expression to wrap our code
 (function () {
     // Define our constructor 
     window.Modal = function () {
@@ -662,29 +651,7 @@ function signalrListener() {
         console.log('in VoteResult');
         prepareDead = message[0].vote;
     });
-
-    //connection.on("GetRole",
-    //    function (response) {
-    //        console.log('fuck')
-    //        debugger
-    //        players = response;
-    //        console.log(players);
-    //        players.forEach(element => {
-    //            if (element.account == myaccount) {
-    //                myAlive = element.isAlive;
-    //                myJob = element.name;
-    //                myJobInfo = element;
-    //            }
-    //        });
-    //        Binding();
-    //        BindingPlayers();
-    //        BindingThings();
-    //        closeMessage();
-    //        //game();
-    //    });
 }
-
-
 
 var synth = window.speechSynthesis;
 var voices = [];
@@ -908,7 +875,6 @@ function BindingThings() {
         }
     });
 
-
     //< !--當我按下x時要去加入css動畫 -->
     $('#close').click(function () {
         funBackOrFront();
@@ -924,9 +890,6 @@ function BindingThings() {
         // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
         // 2. 结束后，之前显示在后面的元素逆向90度翻转显示在前 
         // 3. 完成翻面效果
-
-        //eleFront.removeClass("out").addClass("in");
-        //eleBack.removeClass("in").addClass("out");
         eleFront.removeClass("out").addClass("in");
 
         setTimeout(function () {
@@ -951,24 +914,15 @@ function BindingThings() {
         // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
         // 2. 结束后，之前显示在后面的元素逆向90度翻转显示在前 
         // 3. 完成翻面效果
-
-        //eleFront.removeClass("out").addClass("in");
-        //eleBack.removeClass("in").addClass("out");
         eleFront.removeClass("out").addClass("in");
-
         setTimeout(function () {
-
             eleBack.removeClass("in").addClass("out");
 
-            // 重新确定正反元素
-            //funBackOrFront();
         }, 100); 
 
     });
 
 }
-
-
 function Binding() {
     var profession = new Vue({
         el: "#describe",
@@ -1191,7 +1145,8 @@ async function game() {
         //判斷輸贏
         await winOrLose();
         if (gameResult == '好人獲勝') {
-            /*這裡加好人獲勝MODEL;*/
+        /*這裡加好人獲勝MODEL;*/
+            $('.waitcontainer').remove();
             $('.image').remove();
             goodwin();
             Speak('遊戲結束，好人獲勝');
@@ -1253,9 +1208,9 @@ async function game() {
         await winOrLose();
         if (gameResult == '好人獲勝') {
         /*這裡加好人獲勝MODEL;*/
+            $('.waitcontainer').remove();
             $('.image').remove();
             goodwin();
-
             Speak('遊戲結束，好人獲勝');
             return;
         }
@@ -1312,9 +1267,9 @@ async function game() {
         await winOrLose();
         if (gameResult == '好人獲勝') {
         /*這裡加好人獲勝MODEL;*/
+            $('.waitcontainer').remove();
             $('.image').remove();
             goodwin();
-
             Speak('遊戲結束，好人獲勝');
             return;
         }
@@ -1370,6 +1325,7 @@ async function game() {
         await winOrLose();
         if (gameResult == '好人獲勝') {
             /*這裡加好人獲勝MODEL;*/
+            $('.waitcontainer').remove();
             $('.image').remove();
             goodwin();
             Speak('遊戲結束，好人獲勝');
