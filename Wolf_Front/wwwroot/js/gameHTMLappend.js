@@ -188,7 +188,7 @@
                       
                         
   <!-- 人類 -->
-                        <div class="peoplechat " style=" background-color: #253641; margin:auto;width:90%;  height: 290px;">
+                        <div class=" " style=" background-color: #253641; margin:auto;width:90%;  height: 290px;">
                             <div class="container">
                                 <div class="row">&nbsp;</div>
                                 <div class="row">
@@ -199,7 +199,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12" style="height:150px;overflow:auto;overflow-x:hidden;">
+                                <div class="col-12" id="peoplechat" style="height:150px;overflow:auto;overflow-x:hidden;">
                                     <ul id="PeoplemessagesList"></ul>
                                 </div>
                             </div>

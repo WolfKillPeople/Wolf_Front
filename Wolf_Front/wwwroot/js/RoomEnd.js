@@ -665,7 +665,7 @@ function Speak(txtInput) {
     $('#leftgamerecordli li').animate({ "opacity": 1 }, 2000).siblings().animate({ opacity: 0 }, 2000);
     $('#leftgamerecordli li').animate({ "opacity": 0 }, 2000).siblings().animate({ opacity: 1 }, 2000);
     //保持滾動條一直在最底部
-    var peoplechat = document.getElementByClassName("peoplechat").parentNode;
+    var peoplechat = document.getElementById("peoplechat").parentNode;
     peoplechat.scrollTop = peoplechat.scrollHeight;
 
     var wolfchat = document.getElementById("wolfchat").parentNode;
