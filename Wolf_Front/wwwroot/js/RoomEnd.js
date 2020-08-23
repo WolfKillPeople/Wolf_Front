@@ -665,8 +665,11 @@ function Speak(txtInput) {
     $('#leftgamerecordli li').animate({ "opacity": 1 }, 2000).siblings().animate({ opacity: 0 }, 2000);
     $('#leftgamerecordli li').animate({ "opacity": 0 }, 2000).siblings().animate({ opacity: 1 }, 2000);
     //保持滾動條一直在最底部
-    var leftgamerecordli = document.getElementById("leftgamerecordli").parentNode;
-    leftgamerecordli.scrollTop = leftgamerecordli.scrollHeight;
+    var peoplechat = document.getElementByClassName("peoplechat").parentNode;
+    peoplechat.scrollTop = peoplechat.scrollHeight;
+
+    var wolfchat = document.getElementById("wolfchat").parentNode;
+    wolfchat.scrollTop = wolfchat.scrollHeight;
 }
 
 //時間倒數
@@ -856,14 +859,15 @@ function BindingThings() {
         $('#depict').tooltip('show')
     }
     //  對話框滾輪
-    $("#div1").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+    $(".peoplechat").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
         if (event.type == "mouseenter") {
             $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
         } else {
             $(this).css({ "overflow-y": "hidden" }); //滑鼠離開
         }
     });
-    $(".rightgamerecord").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
+
+    $("#wolfchat").on("mouseenter mouseleave", function (event) { //挷定滑鼠進入及離開事件
         if (event.type == "mouseenter") {
             $(this).css({ "overflow-y": "scroll" }); //滑鼠進入
         } else {
