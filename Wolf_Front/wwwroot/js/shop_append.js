@@ -301,10 +301,5 @@ $('body').append(`
                 </div>
             </div>
         </div>
-    </div>
-
-    <div id="shop_music"></div>
-   
-
-
+    </div>   
 `)

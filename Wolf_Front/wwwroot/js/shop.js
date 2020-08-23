@@ -77,12 +77,6 @@ var getwin;
 var pic;
 $(document).ready(function () {
 
-    $("#shop_music").append(`    
-        <audio autoplay="autoplay" loop="loop">
-            <source src="../music/shop.mp3" type="audio/ogg">
-        </audio>`
-    );
-  
     $('#user_img').click(function () {
         $('#update').click();
     });
