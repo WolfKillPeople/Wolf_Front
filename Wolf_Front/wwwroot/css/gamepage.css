@@ -25,7 +25,9 @@
     grid-template-rows: 72vh 1fr;
     background-color: var(--trees);
 }
-
+.Peoplemessages{
+    max-width:85%;
+}
 #leftgamerecordli {
     padding: 0px;
 }

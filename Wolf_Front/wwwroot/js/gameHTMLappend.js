@@ -199,7 +199,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12" id="peoplechat" style="height:150px;overflow:auto;overflow-x:hidden; margin:"0px 0 0 65px;">
+                                <div class="col-12 Peoplemessages" id="peoplechat" style="height:150px;overflow:auto;overflow-x:hidden; margin:0px 0 0 65px;">
                                     <ul id="PeoplemessagesList"></ul>
                                 </div>
                             </div>
