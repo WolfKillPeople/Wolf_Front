@@ -317,7 +317,10 @@ function wait() {
     </div>
 `)
 
-
+    $('#again').on('click', function () {
+        connection.invoke("OutToRoom", 1, myaccount);
+        window.location.replace("https://werewolfkill.azurewebsites.net/Html/Room.html");
+    })
 
 //字動畫
 // Wrap every letter in a span
