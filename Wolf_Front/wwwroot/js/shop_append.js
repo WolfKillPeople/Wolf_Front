@@ -1,10 +1,15 @@
 $('body').append(`
  <div class="ScoreTop mx-auto">
         <p class="ScoreTotal"></p>
-    </div>
+ </div>
+
+
+
         <div class="back_room sticky-top mx-auto">
         <a href="https://werewolfkill.azurewebsites.net/Html/Room.html">回到房間頁</a>
     </div>
+    
+ 
      
     <div class="accordion" id="accordionExample">
 
@@ -17,7 +22,7 @@ $('body').append(`
                     </button>
                 </h2>
             </div>
-            <div id="ScoresChange" class="collapse show" aria-labelledby="ScoresBtn" data-parent="#accordionExample">
+            <div id="ScoresChange" class="collapse " aria-labelledby="ScoresBtn" data-parent="#accordionExample">
                  <!-- bg -->   
                     <div class="balloon"></div>
                     <div class="balloon"></div>
@@ -147,8 +152,8 @@ $('body').append(`
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;1</small></p>
                                                 <div class="cartBtn" onclick="lottery(this)" data-order="2">
-                                                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                                                        <span class="cartText">點選兌換</span>
+                                                    <i class="fas fa-dice" aria-hidden="true"></i>
+                                                        <span class="cartText">點選直接抽獎</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -297,6 +302,9 @@ $('body').append(`
             </div>
         </div>
     </div>
+
+    <div id="shop_music"></div>
+   
 
 
 `)
