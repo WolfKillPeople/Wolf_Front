@@ -22,7 +22,7 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/lrsjng.jquery-qrcode/0.14.0/jquery-qrcode.min.js"></script>
 
-
+    <script src="../js/sound.js"></script>
     <link href="../css/clock.css" rel="stylesheet" />
     <link href="../css/sidebar.css" rel="stylesheet" />
     <link href="../css/UserImg.css" rel="stylesheet" />
@@ -31,6 +31,12 @@
 
 </head>
 <body>
+    <button id="music_btn" class="btn active" onclick="play()" value=1>
+        ▶
+    </button>
+    <audio autoplay="autoplay" loop="loop" id="Bgm_music">
+        <source src="./music/shop.mp3" type="audio/mp3" />
+    </audio>
     <script src="../js/shop_append.js"></script>
     <script src="../js/shop.js"></script>
 </body>
