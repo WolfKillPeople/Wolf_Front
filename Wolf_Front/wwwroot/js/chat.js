@@ -50,7 +50,7 @@ document.getElementById("PeoplesendButton").addEventListener("click", function (
     //var user = document.getElementById('userInput').value;
     var message = document.getElementById('PeoplemessageInput').value;
     if (message != "") {
-        var Profrssion = document.querySelector("#CharacterId").value();
+        var Profrssion = myJob;
         connection.invoke("SendMessage", Profrssion, message, myroomid).catch(function (err) {
             return console.error(err.toString());
         });
@@ -61,7 +61,7 @@ document.getElementById("PeoplesendButton").addEventListener("click", function (
 document.getElementById("WolfsendButton").addEventListener("click", function (event) {
     var message2 = document.getElementById("WolfmessageInput").value;
     if (message2 != "") {
-        var Profrssion = document.querySelector("#CharacterId").value();
+        var Profrssion = myJob;
         connection.invoke("SendMessage", Profrssion, message2, myroomid).catch(function (err) {
             return console.error(err.toString());
         });
