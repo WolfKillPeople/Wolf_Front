@@ -77,8 +77,8 @@ const upload = new Vue({
     }
 });
 
-var email = "a1256963@gmail.com";
-//var email = localStorage.getItem('myName');
+//var email = "a1256963@gmail.com";
+var email = localStorage.getItem('myName');
 var getwin;
 var pic;
 $(document).ready(function () {
