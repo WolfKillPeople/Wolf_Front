@@ -646,7 +646,7 @@ body {
 .avatat {
     border-radius: 50%;
     width: 60%;
-    margin-top: 100px;
+    margin-top: 50px;
     padding-top:10px;
 }
 
@@ -724,4 +724,7 @@ body {
 }
 .Shopping_btn:hover {
     background-color: #4e5f72;
+}
+.user_img_btn {
+
 }
