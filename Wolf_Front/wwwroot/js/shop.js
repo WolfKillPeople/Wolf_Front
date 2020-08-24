@@ -59,8 +59,8 @@ const upload = new Vue({
                 document.querySelector('#avatat').setAttribute('src', img);
                 //alert(img);
                 swal({
-                    title: '更換中...',
-                    text: `請耐心等候....`,
+                    title: '更圖成功',
+                    text: '點選確定兌換',
                     icon: 'success',
                     button: "確認",
                 });
@@ -183,10 +183,46 @@ function lottery(e) {
             if (i == 2) {
                 swal({
                     title: '兌換成功',
-                    text: `請來BS找Dann哥拿\n目前總積分:${getwin}`,
+                    text: `請至下方兌換券掃描QRcode找Dann哥兌換\n目前總積分:${getwin}`,
                     icon: 'success',
                     button: "確認",
                 });
+                $('.voucher-part').append('<a href = "https://localhost:12701/html/voucher.html"> 跳至網頁</a>');
+                $('#qrcode').empty().qrcode({
+                    render: 'canvas',
+                    ecLevel: 'H',
+                    minVersion: 6,
+                    mode: 4,
+                    fill: '#000',
+                    background: '#fff',
+                    text: 'https://localhost:12701/html/thanksplaying.html',
+                    quiet: 1,
+                    radius: 0.2,
+                    mPosX: 0.5,
+                    mPosY: 0.5,
+                    mSize: 0.20,
+                    size: 250,
+                    image: $('#image-buffer')[0]
+                });
+
+                //color.addEventListener('change', function () {
+                //    $('#qrcode').empty().qrcode({
+                //        render: 'canvas',
+                //        ecLevel: 'H',
+                //        minVersion: 6,
+                //        mode: 4,
+                //        fill: `${color.value}`,
+                //        background: '#fff',
+                //        text: 'https://localhost:12701/html/thanksplaying.html',
+                //        quiet: 1,
+                //        radius: 0.2,
+                //        mPosX: 0.5,
+                //        mPosY: 0.5,
+                //        mSize: 0.20,
+                //        size: 250,
+                //        image: $('#image-buffer')[0]
+                //    });
+                //});
             }
             else if (getwin < prizes[i]) {
                 swal({
@@ -212,44 +248,13 @@ function lottery(e) {
 //Choose color
 var color = document.querySelector('.color-picker');
 
-color.addEventListener('change', function () {
-
-    $('#qrcode').empty().qrcode({
-        render: 'canvas',
-        ecLevel: 'H',
-        minVersion: 6,
-        mode: 4,
-        fill: `${color.value}`,
-        background: '#fff',
-        text: 'https://localhost:12701/html/thanksplaying.html',
-        quiet: 1,
-        radius: 0.2,
-        mPosX: 0.5,
-        mPosY: 0.5,
-        mSize: 0.20,
-        size: 250,
-        image: $('#image-buffer')[0]
-    });
-});
 //Qrcode
 $('#image-buffer').on('load', function () {
-    $('#qrcode').empty().qrcode({
-        render: 'canvas',
-        ecLevel: 'H',
-        minVersion: 6,
-        mode: 4,
-        fill: '#000',
-        background: '#fff',
-        text: 'https://localhost:12701/html/thanksplaying.html',
-        quiet: 1,
-        radius: 0.2,
-        mPosX: 0.5,
-        mPosY: 0.5,
-        mSize: 0.20,
-        size: 250,
-        image: $('#image-buffer')[0]
-    });
+    $('#qrcode').append('暫無兌換券');
 });
+
+
+
 
 
 

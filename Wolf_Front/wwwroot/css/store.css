@@ -104,3 +104,7 @@ a {
 #music_btn {
     display: none;
 }
+
+.swal-text {
+    text-align:center;
+}

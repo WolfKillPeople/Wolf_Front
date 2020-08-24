@@ -273,16 +273,12 @@ $('body').append(`
                    
                 <!-- bg -->
 
-                <div class="card-body CardmainPart" id="mainPart">
-                     <div id="qrcode">Loading...</div>
+                <div class="card-body CardmainPart voucher-part" id="mainPart">
+                     <div id="qrcode"></div>
                     <img id="image-buffer" src="" width=200 height=200 style="display: none;">
-                    <input class="color-picker" type="color" /> 挑選Qrcode顏色
-                    <a href="https://localhost:12701/html/voucher.html">跳至網頁</a>
-            </div>
                     
+            </div>
         </div>
-
-   
         </div>
         
     
