@@ -740,11 +740,11 @@ function closeMessage() {
 function toggleScheme() {
     if (toggle.getAttribute("aria-checked") == "true") {
         toggle.setAttribute("aria-checked", "false");
+        document.getElementById("WolfmessagesList").innerHTML = "";
+        document.getElementById("WolfmessagesList").hidden = true;
         document.getElementById("PeoplemessagesList").hidden = false;
         document.getElementById("Day").value = "白天";
         morningAudio();
-        document.getElementById("WolfmessagesList").innerHTML = "";
-        document.getElementById("WolfmessagesList").hidden = true;
         document.getElementById("PeopleuserInput").hidden = false;
         document.getElementById("PeoplemessageInput").hidden = false;
         document.getElementById("WolfuserInput").hidden = true;
@@ -753,7 +753,7 @@ function toggleScheme() {
         document.getElementById("WolfsendButton").hidden = true;
         $("figure").removeClass("absolute-bg");
         $("div").removeClass("fog__img fog__img--first");
-    } else if (toggle.getAttribute("aria-checked") == "false") {
+    } else if (toggle.getAttribute("aria-checked") == "false" && (myJob == "狼人" || myJob == "狼王")) {
         toggle.setAttribute("aria-checked", "true");
         document.getElementById("PeoplemessagesList").hidden = false;
         document.getElementById("Day").value = "黑夜";
@@ -771,6 +771,18 @@ function toggleScheme() {
         clouddiv.setAttribute('class', 'fog__img fog__img--first')
         figure.appendChild(clouddiv);
         document.querySelector('body').appendChild(figure);
+    }
+    else if (toggle.getAttribute("aria-checked") == "false" && (myJob != "狼人" || myJob != "狼王")) {
+        document.getElementById("WolfmessagesList").hidden = false;
+        document.getElementById("PeoplemessagesList").hidden = false;
+        document.getElementById("Day").value = "白天";
+        morningAudio();
+        document.getElementById("PeopleuserInput").hidden = false;
+        document.getElementById("PeoplemessageInput").hidden = false;
+        document.getElementById("WolfuserInput").hidden = false;
+        document.getElementById("WolfmessageInput").hidden = true;
+        document.getElementById("PeoplesendButton").hidden = false;
+        document.getElementById("WolfsendButton").hidden = true;
     }
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')

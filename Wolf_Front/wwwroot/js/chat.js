@@ -17,7 +17,7 @@ function ChangeDay() {
     }
 }
 
-connection.on("ReceiveMessage", function (user, message, roomId) {
+connection.on("ReceiveMessage", function (Profrssion, message, roomId) {
     var Day = document.getElementById("Day").value;
     if (Day == "白天") {
         document.getElementById("PeoplemessagesList").hidden = false;
@@ -30,7 +30,7 @@ connection.on("ReceiveMessage", function (user, message, roomId) {
         li.textContent = encodedMsg;
         document.getElementById("PeoplemessagesList").appendChild(li);
     }
-    else if (Profrssion == "狼人" || Profrssion == "狼王" && Day == "黑夜") {
+    else if ((Profrssion == "狼人" || Profrssion == "狼王") && Day == "黑夜") {
         document.getElementById("WolfmessagesList").hidden = false;
         document.getElementById("PeoplemessagesList").hidden = false;
         //var UserName = document.getElementById("Name").textContent;
@@ -39,6 +39,17 @@ connection.on("ReceiveMessage", function (user, message, roomId) {
         var li = document.createElement("li");
         li.textContent = encodedMsg;
         document.getElementById("WolfmessagesList").appendChild(li);
+    }
+    else if (Day == "黑夜" && (Profrssion != "狼人" || Profrssion != "狼王")) {
+        document.getElementById("PeoplemessagesList").hidden = false;
+        document.getElementById("WolfmessagesList").hidden = true;
+
+
+        var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        var encodedMsg = msg;
+        var li = document.createElement("li");
+        li.textContent = " ";
+        document.getElementById("PeoplemessagesList").appendChild(li);
     }
 
 
