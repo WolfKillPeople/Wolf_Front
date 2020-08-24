@@ -1,5 +1,6 @@
 * {
     user-select: none;
+    font-family: Microsoft JhengHei;
 }
 .avatat {
     max-height: 100%;
@@ -86,7 +87,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: Microsoft JhengHei;
+   
 }
 .confirm {
     background: #cd5c5c;
@@ -95,7 +96,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: Microsoft JhengHei;
     width: 130px;
     height: 50px;
     font-size: 25px;
