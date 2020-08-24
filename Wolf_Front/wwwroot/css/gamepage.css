@@ -3,8 +3,12 @@
     overflow: hidden;
     /*cursor: url('/Images/paw.jpg') 45 45, auto;*/
     -webkit-user-select: none; /* for Chrome */
+    font-family: 微軟正黑體;
 }
-html {
+* {
+    font-family: Microsoft JhengHei !important;
+}
+/*html {
     SCROLLBAR-FACE-COLOR: #333333;
     SCROLLBAR-HIGHLIGHT-COLOR: #000000;
     SCROLLBAR-3DLIGHT-COLOR: #333333;
@@ -12,7 +16,7 @@ html {
     SCROLLBAR-TRACK-COLOR: #000000;
     SCROLLBAR-DARKSHADOW-COLOR: #333333;
     SCROLLBAR-BASE-COLOR: #333333;
-}
+}*/
 #WolfmessageInput {
     outline: none
 }
@@ -25,7 +29,9 @@ html {
     grid-template-rows: 72vh 1fr;
     background-color: var(--trees);
 }
-
+.Peoplemessages{
+    max-width:85%;
+}
 #leftgamerecordli {
     padding: 0px;
 }

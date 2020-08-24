@@ -1,25 +1,25 @@
 .pie {
-    width: 6em;
-    height: 6em;
-    display: block;
-    position: relative;
-    border-radius: 50%;
-    background-color: #1fbba6;
-    float: left;
-    margin: 1.5em;
-    margin-left: 60px;
+   width: 6em;
+   height: 6em;
+   display: block;
+   position: relative;
+   border-radius: 50%;
+   background-color: #1fbba6;
+   float: left;
+   margin: 1.5em;
+   margin-left: 60px;
 }
 
-    .pie .block {
-        position: absolute;
-        background: #fff;
-        width: 80%;
-        height: 80%;
-        display: block;
-        border-radius: 50%;
-        top: 9%;
-        left: 9%;
-    }
+.pie .block {
+    position: absolute;
+    background: #fff;
+    width: 80%;
+    height: 80%;
+    display: block;
+    border-radius: 50%;
+    top: 9%;
+    left: 9%;
+}
 
 #time {
     font-size: 3em;
@@ -27,7 +27,6 @@
     top: 5%;
     left: 20%;
     color: #999999;
-
 }
 
 .degree {

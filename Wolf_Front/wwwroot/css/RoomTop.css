@@ -1,4 +1,7 @@
-﻿a {
+﻿* {
+    font-family: Microsoft JhengHei !important;
+}
+a {
     color: #fff;
 }
 .container {

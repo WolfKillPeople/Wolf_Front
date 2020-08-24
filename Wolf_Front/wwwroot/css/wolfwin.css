@@ -1,8 +1,11 @@
-
+* {
+    font-family: Microsoft JhengHei !important;
+}
 body {
     margin: 0;
     overflow: hidden;
     background-color: #002142;
+    font-family: 微軟正黑體;
 }
 /* .all_wolf{
  width: 100%;

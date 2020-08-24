@@ -188,7 +188,7 @@
                       
                         
   <!-- 人類 -->
-                        <div class="peoplechat " style=" background-color: #253641; margin:auto;width:90%;  height: 290px;">
+                        <div class=" " style=" background-color: #253641; margin:auto;width:90%;  height: 290px;">
                             <div class="container">
                                 <div class="row">&nbsp;</div>
                                 <div class="row">
@@ -199,15 +199,15 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12" style="height:150px;overflow:auto;overflow-x:hidden;">
+                                <div class="col-12 Peoplemessages" id="peoplechat" style="height:150px;overflow:auto;overflow-x:hidden; margin:0px 0 0 65px;">
                                     <ul id="PeoplemessagesList"></ul>
                                 </div>
                             </div>
                             <div class="row" style="padding:0">
                                 <!--<div class="col-2">Message</div>-->
-                                <div class="col d-flex" style="padding-left:8%">
+                                <div class="col d-flex" style="padding-left:9%">
                                     <input type="text" placeholder="請輸入發言" id="PeoplemessageInput"
-                                        style="background-color: transparent; color:#ffffff;width:85%;border-color:#ffffff" />
+                                        style="background-color: transparent; color:#ffffff;width:75%;border-color:#ffffff" />
                                     <input class="btn btn-info" type="button" id="PeoplesendButton" value="發言"
                                         style="font-size:10px" />
                                 </div>
