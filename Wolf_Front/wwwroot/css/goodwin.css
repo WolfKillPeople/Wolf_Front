@@ -19,13 +19,14 @@
 
 .btn-reveal-goodwin {
     color: white;
+    font-size: 70px !important;
     background-color: rgba(104, 157, 186,0);
     /* text-decoration: none; */
     text-transform: uppercase;
     text-align: center;
     padding: 20px 90px;
     font-size: 18px;
-    width: 300px;
+    width: 100%;
     margin: auto;
     display: block;
     border-radius: 0;
@@ -34,36 +35,40 @@
     overflow: hidden;
 }
 
+    .btn-reveal-goodwin :hover {
+        color: white !important;
+    }
+
 /* .btn-reveal-goodwin .show-goodwin {
-        display: block;
-        transition: all .5s ease;
-        transform: translateY(0);
-        color: white;
-    }
-
-    .btn-reveal-goodwin :hover .show-goodwin {
-        transform: translateY(150px);
-    }
-
-    .btn-reveal-goodwin .reveal-goodwin {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: auto;
-        width: 100%;
-        color: white;
-        background-color: #253641;
-        padding: 20px 100px;
-        text-shadow: 2px 3px 5px rgba(0, 0, 0, .5);
-        transition: all .3s ease-in-out;
-        transform: translateY(-110px);
-    }
-
-    .btn-reveal-goodwin :hover .reveal-goodwin {
-        transform: translateY(0);
-    }
-*/
+                display: block;
+                transition: all .5s ease;
+                transform: translateY(0);
+                color: white;
+            }
+        
+            .btn-reveal-goodwin :hover .show-goodwin {
+                transform: translateY(150px);
+            }
+        
+            .btn-reveal-goodwin .reveal-goodwin {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: auto;
+                width: 100%;
+                color: white;
+                background-color: #253641;
+                padding: 20px 100px;
+                text-shadow: 2px 3px 5px rgba(0, 0, 0, .5);
+                transition: all .3s ease-in-out;
+                transform: translateY(-110px);
+            }
+        
+            .btn-reveal-goodwin :hover .reveal-goodwin {
+                transform: translateY(0);
+            }
+        */
 
 
 .titlecontainer {
@@ -96,6 +101,7 @@
 
 .boys {
     width: 500px;
+    height: 300px;
     display: flex;
     justify-content: space-between;
 }
@@ -180,12 +186,13 @@
     background-color: #385162;
     animation: var(--duration) ease-in-out infinite alternate;
     border-radius: 15%;
-    width: 50px;
-    height: 50px;
+    width: 150px;
+    height: 150px;
     padding: 0 10px;
     margin-left: 10px;
     color: antiquewhite;
     font-family: 微軟正黑體;
+    font-size: 95px;
 }
 
     .boys span:nth-child(1)::before {
