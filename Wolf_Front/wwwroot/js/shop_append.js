@@ -6,7 +6,7 @@ $('body').append(`
 
 
         <div class="back_room sticky-top mx-auto">
-        <a href="https://werewolfkill.azurewebsites.net/Html/Room.html">回到房間頁</a>
+        <a class="back_room sticky-top mx-auto" href="https://werewolfkill.azurewebsites.net/Html/Room.html"><img class="home_btn" src="https://i.imgur.com/PbATsJo.png"></img></a>
     </div>
     
  
