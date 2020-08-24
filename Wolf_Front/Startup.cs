@@ -45,8 +45,8 @@ namespace Wolf_Front
                 options.Password.RequiredLength = 6;
             });
             services.AddAutoMapper(typeof(MappingProfile));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSignalR().AddAzureSignalR();
+            services.AddMvc()/*.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)*/;
+            services.AddSignalR()/*.AddAzureSignalR()*/;
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(

@@ -30,9 +30,9 @@ connection.on("ReceiveMessage", function (Profrssion, message, roomId) {
         li.textContent = encodedMsg;
         document.getElementById("PeoplemessagesList").appendChild(li);
     }
-    else if ((Profrssion == "狼人" || Profrssion == "狼王") && Day == "黑夜") {
+    else if ((Profrssion == myJob || Profrssion == myJob) && Day == "黑夜") {
         document.getElementById("WolfmessagesList").hidden = false;
-        document.getElementById("PeoplemessagesList").hidden = false;
+        document.getElementById("PeoplemessagesList").hidden = true;
         //var UserName = document.getElementById("Name").textContent;
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         var encodedMsg = msg;
@@ -40,16 +40,16 @@ connection.on("ReceiveMessage", function (Profrssion, message, roomId) {
         li.textContent = encodedMsg;
         document.getElementById("WolfmessagesList").appendChild(li);
     }
-    else if (Day == "黑夜" && (Profrssion != "狼人" || Profrssion != "狼王")) {
-        document.getElementById("PeoplemessagesList").hidden = false;
+    else if (Day == "黑夜" && (Profrssion != myJob || Profrssion != myJob)) {
+        document.getElementById("PeoplemessagesList").hidden = true;
         document.getElementById("WolfmessagesList").hidden = true;
 
 
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         var encodedMsg = msg;
         var li = document.createElement("li");
-        li.textContent = " ";
-        document.getElementById("PeoplemessagesList").appendChild(li);
+        //li.textContent = encodedMsg;
+        //document.getElementById("WolfmessagesList").appendChild(li);
     }
 
 
