@@ -777,7 +777,7 @@ function toggleScheme() {
         document.getElementById("WolfmessagesList").hidden = true;
         document.getElementById("PeoplemessagesList").hidden = true;
         document.getElementById("Day").value = "黑夜";
-        morningAudio();
+        nightAudio();
         document.getElementById("PeopleuserInput").hidden = true;
         document.getElementById("PeoplemessageInput").hidden = true;
         document.getElementById("WolfuserInput").hidden = true;
@@ -1123,7 +1123,7 @@ async function game() {
         //----------預言家---------
         Speak('預言家請選擇玩家查身分');
         prophet();
-        await timeOn(10);
+        await timeOn(15);
         $('.findperson').remove();
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
@@ -1134,10 +1134,10 @@ async function game() {
         voteResult = null;
         Speak('此玩家死亡，女巫是否救人');
         witch();
-        await timeOn(10);
+        await timeOn(15);
         $('#rightgamerecordli li').remove();
         Speak('女巫是否殺人');
-        await timeOn(20);
+        await timeOn(15);
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
         $('.on').css('box-shadow', 'none');
@@ -1149,7 +1149,9 @@ async function game() {
         if (prepareDead != null && prepareDead != 'null') { await deadConfirm(prepareDead); }
         if (voteResult != null && witchKill == true && myJob == '女巫') { await deadConfirm(voteResult); witchKill = false; }
 
-        await timeOn(3);
+        await timeOn(1);
+        await timeOn(1);
+        await timeOn(1);
         $('.diepage').remove();
         $('.image').show();
        
@@ -1213,7 +1215,9 @@ async function game() {
                     $('.circleImg').attr('className', 'circleImg off');
                     if (voteResult != null) { await deadConfirm(voteResult); }
                     if (voteResult != null) { Speak(`${voteResult}號玩家死亡`); }
-                    await timeOn(3);
+                    await timeOn(1);
+                    await timeOn(1);
+                    await timeOn(1);
                     $('.diepage').remove();
                     $('.image').show();
                 }
@@ -1251,7 +1255,7 @@ async function game() {
                     document.getElementById("PeoplesendButton").hidden = false;
                 }
                 Speak(`${i + 1}號玩家發言`);
-                await timeOn(5);
+                await timeOn(15);
                 document.getElementById("PeoplesendButton").hidden = true;
             }
         }
@@ -1266,7 +1270,7 @@ async function game() {
         await timeOn(1);
         Speak('所有玩家投票，得票最高者將出局');
         $('.circleImg').css("pointer-events", "auto");
-        await timeOn(60);
+        await timeOn(30);
         $('.circleImg').css("pointer-events", "none");
         $('.circleImg').attr('className', 'circleImg off');
         await voteBack();
@@ -1276,7 +1280,9 @@ async function game() {
         await deadConfirm(prepareDead);
         await timeOn(1);
         Speak(`${prepareDead}號玩家最高票`);
-        await timeOn(3);
+        await timeOn(1);
+        await timeOn(1);
+        await timeOn(1);
         $('.diepage').remove();
         $('.image').show();
 
@@ -1365,7 +1371,7 @@ async function game() {
             if (players[deadNum[i]].account == myaccount) {
                 document.getElementById("PeoplesendButton").hidden = false;
             }
-            await timeOn(20);
+            await timeOn(15);
             document.getElementById("PeoplesendButton").hidden = true;
         }
     }
