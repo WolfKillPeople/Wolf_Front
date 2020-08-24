@@ -1,6 +1,6 @@
 ﻿@font-face {
     src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/decade.ttf");
-    font-family: Decade;
+    font-family: Microsoft JhengHei !important;
 }
 
 *, *:before, *:after {
@@ -8,6 +8,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: Microsoft JhengHei !important;
 }
 
 html, body {

@@ -1,11 +1,13 @@
 * {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: Microsoft JhengHei !important;
 }
 
 .html {
-  height: 100%;
+    height: 100%;
+    
 }
 
 .body {
@@ -143,13 +145,14 @@
 }
 
 .Start_Game_Btn {
-  color: #fff;
-  background: -webkit-gradient(linear, left top, left bottom, from(#5d8fab), to(#000));
-  background: linear-gradient(#5d8fab, #000);
-  width: 40%;
-  height: 10%;
-  font-size: 25px;
-  z-index: 1;
+    color: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#5d8fab), to(#000));
+    background: linear-gradient(#5d8fab, #000);
+    width: 40%;
+    height: 10%;
+    font-size: 25px;
+    z-index: 1;
+    font-family: ·L³n¥¿¶ÂÅé;
 }
 
 .Start_Game_Btn:hover {

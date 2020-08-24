@@ -3,6 +3,10 @@
     overflow: hidden;
     /*cursor: url('/Images/paw.jpg') 45 45, auto;*/
     -webkit-user-select: none; /* for Chrome */
+    font-family: 微軟正黑體;
+}
+* {
+    font-family: Microsoft JhengHei !important;
 }
 /*html {
     SCROLLBAR-FACE-COLOR: #333333;
