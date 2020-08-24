@@ -187,7 +187,7 @@ function lottery(e) {
                     icon: 'success',
                     button: "確認",
                 });
-                $('.voucher-part').append('<a href = "https://localhost:12701/html/voucher.html"> 跳至網頁</a>');
+                $('.voucher-part').append('<a href = "https://werewolfkill.azurewebsites.net/html/voucher.html"> 跳至網頁</a>');
                 $('#qrcode').empty().qrcode({
                     render: 'canvas',
                     ecLevel: 'H',
@@ -195,7 +195,7 @@ function lottery(e) {
                     mode: 4,
                     fill: '#000',
                     background: '#fff',
-                    text: 'https://localhost:12701/html/thanksplaying.html',
+                    text: 'https://werewolfkill.azurewebsites.net/html/thanksplaying.html',
                     quiet: 1,
                     radius: 0.2,
                     mPosX: 0.5,
@@ -213,7 +213,7 @@ function lottery(e) {
                 //        mode: 4,
                 //        fill: `${color.value}`,
                 //        background: '#fff',
-                //        text: 'https://localhost:12701/html/thanksplaying.html',
+                //        text: 'https://werewolfkill.azurewebsites.net/html/thanksplaying.html',
                 //        quiet: 1,
                 //        radius: 0.2,
                 //        mPosX: 0.5,
