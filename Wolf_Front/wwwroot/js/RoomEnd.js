@@ -755,7 +755,7 @@ function toggleScheme() {
         $("div").removeClass("fog__img fog__img--first");
     } else if (toggle.getAttribute("aria-checked") == "false" && (myJob == "狼人" || myJob == "狼王")) {
         toggle.setAttribute("aria-checked", "true");
-        document.getElementById("PeoplemessagesList").hidden = false;
+        document.getElementById("PeoplemessagesList").hidden = true;
         document.getElementById("Day").value = "黑夜";
         nightAudio();
         document.getElementById("WolfuserInput").hidden = false;
@@ -772,17 +772,24 @@ function toggleScheme() {
         figure.appendChild(clouddiv);
         document.querySelector('body').appendChild(figure);
     }
-    else if (toggle.getAttribute("aria-checked") == "false" && (myJob != "狼人" || myJob != "狼王")) {
-        document.getElementById("WolfmessagesList").hidden = false;
-        document.getElementById("PeoplemessagesList").hidden = false;
-        document.getElementById("Day").value = "白天";
+    else if (toggle.getAttribute("aria-checked") == "false" && (myJob != "狼人" && myJob != "狼王")) {
+        toggle.setAttribute("aria-checked", "true");
+        document.getElementById("WolfmessagesList").hidden = true;
+        document.getElementById("PeoplemessagesList").hidden = true;
+        document.getElementById("Day").value = "黑夜";
         morningAudio();
-        document.getElementById("PeopleuserInput").hidden = false;
-        document.getElementById("PeoplemessageInput").hidden = false;
-        document.getElementById("WolfuserInput").hidden = false;
+        document.getElementById("PeopleuserInput").hidden = true;
+        document.getElementById("PeoplemessageInput").hidden = true;
+        document.getElementById("WolfuserInput").hidden = true;
         document.getElementById("WolfmessageInput").hidden = true;
-        document.getElementById("PeoplesendButton").hidden = false;
+        document.getElementById("PeoplesendButton").hidden = true;
         document.getElementById("WolfsendButton").hidden = true;
+        let figure = document.createElement('figure');
+        let clouddiv = document.createElement('div');
+        figure.setAttribute('class', 'absolute-bg');
+        clouddiv.setAttribute('class', 'fog__img fog__img--first')
+        figure.appendChild(clouddiv);
+        document.querySelector('body').appendChild(figure);
     }
     image.classList.toggle('image-dark')
     image.classList.toggle('image-light')
