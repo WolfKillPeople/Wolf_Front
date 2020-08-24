@@ -4,7 +4,9 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-
+* {
+    font-family: Microsoft JhengHei;
+}
 
 .title {
     text-align: left;
@@ -43,7 +45,7 @@
     height: 200px;
     width: 200px;
     background: #FFFFCC;
-    font-family: Microsoft JhengHei;
+    
 }
 
     .square.square:not(:nth-child(3n)) {
