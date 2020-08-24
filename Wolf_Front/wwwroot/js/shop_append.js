@@ -12,46 +12,17 @@ $('body').append(`
  
      
     <div class="accordion" id="accordionExample">
-
-    <div class="card">
-            <div class="card-header" id="ScoresBtn">
-                <h2 class="mb-0 text-center">
-                    <button class="btn collapsed show" type="button" data-toggle="collapse" data-target="#ScoresChange"
-                        aria-expanded="false" aria-controls="ScoresChange">
-                        兌換券
-                    </button>
-                </h2>
-            </div>
-            <div id="ScoresChange" class="collapse " aria-labelledby="ScoresBtn" data-parent="#accordionExample">
-                 <!-- bg -->   
-                    <div class="balloon"></div>
-                    <div class="balloon"></div>
-                    <div class="balloon"></div>
-                    <div class="balloon"></div>
-                    <div class="balloon"></div>
-                    <div class="balloon"></div>
-                   
-                <!-- bg -->
-
-                <div class="card-body CardmainPart" id="mainPart">
-                     <div id="qrcode">Loading...</div>
-                    <img id="image-buffer" src="" width=200 height=200 style="display: none;">
-                    <input class="color-picker" type="color" /> 挑選Qrcode顏色
-                    <a href="https://localhost:12701/html/voucher.html">跳至網頁</a>
-            </div>
-                    
-        </div>
-
-    <div class="card">
+    
+     <div class="card">
             <div class="card-header" id="AvatarBtn">
                 <h2 class="mb-0 text-center">
-                    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#avatarChange"
+                    <button class="btn collapsed " type="button" data-toggle="collapse" data-target="#avatarChange"
                         aria-expanded="false" aria-controls="avatarChange">
                         頭像更換
                     </button>
                 </h2>
             </div>
-            <div id="avatarChange" class="collapse" aria-labelledby="AvatarBtn" data-parent="#accordionExample">
+            <div id="avatarChange" class="collapse show" aria-labelledby="AvatarBtn" data-parent="#accordionExample">
                  <!-- bg -->   
                     <div class="balloon"></div>
                     <div class="balloon"></div>
@@ -76,6 +47,8 @@ $('body').append(`
                 </div>  
             </div>
         </div>
+
+    
         <div class="card"> 
             <div class="card-header" id="roleCard">
                 <h2 class="mb-0 text-center">
@@ -152,8 +125,8 @@ $('body').append(`
                                                 <p class="card-text price"><small
                                                         class="text-muted">積分:&emsp;1</small></p>
                                                 <div class="cartBtn" onclick="lottery(this)" data-order="2">
-                                                    <i class="fas fa-dice" aria-hidden="true"></i>
-                                                        <span class="cartText">點選直接抽獎</span>
+                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                        <span class="cartText">直接兌換</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -279,7 +252,40 @@ $('body').append(`
                     </div>
                 </div>
             </div>
+
+            <div class="card">
+            <div class="card-header" id="ScoresBtn">
+                <h2 class="mb-0 text-center">
+                    <button class="btn collapsed show" type="button" data-toggle="collapse" data-target="#ScoresChange"
+                        aria-expanded="false" aria-controls="ScoresChange">
+                        兌換券
+                    </button>
+                </h2>
+            </div>
+            <div id="ScoresChange" class="collapse " aria-labelledby="ScoresBtn" data-parent="#accordionExample">
+                 <!-- bg -->   
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                    <div class="balloon"></div>
+                   
+                <!-- bg -->
+
+                <div class="card-body CardmainPart" id="mainPart">
+                     <div id="qrcode">Loading...</div>
+                    <img id="image-buffer" src="" width=200 height=200 style="display: none;">
+                    <input class="color-picker" type="color" /> 挑選Qrcode顏色
+                    <a href="https://localhost:12701/html/voucher.html">跳至網頁</a>
+            </div>
+                    
         </div>
+
+   
+        </div>
+        
+    
 
         <!-- userImg Modal -->
         <div class="modal fade " id="user_pic" tabindex="-1" role="dialog" aria-labelledby="userImgModal"

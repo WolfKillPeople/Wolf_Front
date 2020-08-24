@@ -58,6 +58,12 @@ const upload = new Vue({
                 img = JSON.parse(res).data.link;
                 document.querySelector('#avatat').setAttribute('src', img);
                 //alert(img);
+                swal({
+                    title: '更換中...',
+                    text: `請耐心等候....`,
+                    icon: 'success',
+                    button: "確認",
+                });
                 if (getwin >= 5) {
                     $('.confirm').on('click', confirmClick);
                     $('.confirm').css({ "background": "#cd5c5c" });
