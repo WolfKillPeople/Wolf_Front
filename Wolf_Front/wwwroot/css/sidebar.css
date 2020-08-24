@@ -1,0 +1,122 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #8b0000;
+}
+/* card */
+.container {
+    margin-top: 1%;
+}
+
+.card {
+    background-color: #ffdead;
+}
+
+.col-md-4 {
+    overflow: hidden;
+}
+
+.col-md-8 {
+    position: relative;
+}
+/*cartBtn */
+.cartBtn {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 40px;
+    background-color: #ff6347;
+    overflow: hidden;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -ms-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+}
+
+    .cartBtn i {
+        color: #000;
+    }
+
+    .cartBtn:hover {
+        width: 200px;
+        height: 40px;
+        border-radius: 40px;
+        background-color: #990033;
+        cursor:pointer;
+    }
+
+.cartText {
+    width: 70%;
+    padding-right: 10px;
+    float: right;
+    line-height: 25px;
+    color: #ffffff;
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.card-body {
+    background-color: #ffdead;
+    /* background-color:transparent; */
+}
+
+.card-body .card-body {
+    height: 215px;
+}
+.card-img-top{
+    margin-top:10%;
+}
+.btn:focus {
+    box-shadow: none;
+}
+
+.price {
+    position: absolute;
+    bottom: 0;
+    font-weight: bolder;
+    font-family: fantasy;
+    font-size: 25px;
+}
+
+.CardmainPart {
+    background-color: #FFECEC;
+}
+
+.card {
+    border: none;
+}
+
+.back_room {
+    float: right;
+    height: 150px;
+    width: 5%;
+    writing-mode: vertical-lr;
+    background-color: #eba928;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.back_room a {
+    margin-top: 10px;
+    font-size: 26px;
+    color: #fff;
+    text-decoration: none;
+}
+
+#accordionExample {
+    float: left;
+    left: 50%;
+    width: 80%;
+    z-index: 1000;
+}
+
+#roleBtn {
+    border: none;
+}

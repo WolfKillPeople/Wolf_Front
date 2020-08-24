@@ -1,0 +1,110 @@
+body { /*margin:20px; background:hsl(70, 31%, 85%);*/ text-align:center; } 
+
+.balloon {
+  display:inline-block;
+   width:120px;
+  height:145px;
+  background:hsl(1,59%,50%);
+  border-radius:80%;
+  position:relative;
+  box-shadow:inset -10px -10px 0 rgba(0,0,0,0.07);
+  margin:20px 30px;
+  transition:transform 0.5s ease;
+  z-index:10;
+  animation:balloons 4s ease-in-out infinite;
+  transform-origin:bottom center;
+}
+
+@keyframes balloons {
+  0%,100%{ transform:translateY(0) rotate(-4deg); }
+  50%{ transform:translateY(-25px) rotate(4deg); }
+}
+
+
+.balloon:before {
+  content:"▲";
+  font-size:20px;
+  color:hsl(1,59%,50%);
+  display:block;
+  text-align:center;
+  width:100%;
+  position:absolute;
+  bottom:-12px;
+  z-index:-100;
+}
+
+.balloon:after {
+ display:inline-block; top:153px;
+  position:absolute;
+  height:250px;
+  width:1px;
+  margin:0 auto;
+  content:"";
+  background:rgba(0,0,0,0.2); 
+}
+
+.balloon:nth-child(2){ background:rgb(235, 100, 33); animation-duration:3.5s; }
+.balloon:nth-child(2):before { color:rgb(235, 100, 33);  }
+
+.balloon:nth-child(3){ background:rgb(217, 219, 63); animation-duration:3s; }
+.balloon:nth-child(3):before { color:rgb(217, 219, 63);  }
+
+.balloon:nth-child(4){ background:rgb(103, 201, 73); animation-duration:4.5s; }
+.balloon:nth-child(4):before { color:rgb(103, 201, 73);  }
+
+.balloon:nth-child(5){ background:rgb(109, 134, 243); animation-duration:5s; }
+.balloon:nth-child(5):before { color:rgb(109, 134, 243);  }
+
+.balloon:nth-child(6){ background:rgb(194, 94, 197); animation-duration:5s; }
+.balloon:nth-child(6):before { color:rgb(194, 94, 197);  }
+
+#qrcode {
+    /*border: 1px solid #faa;*/
+    margin: 0;
+    padding: 0;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700');
+:root {
+    --white: white;
+    --bg: #ff8000;
+    --boxWidth: 100%;
+    --ht: 100px;
+    --font: 'Raleway', sans-serif;
+}
+
+.wrapper {
+    max-width: 700px;
+    display: inline-block;
+}
+
+#block {
+    height: var(--ht);
+    text-align: center;
+    line-height: var(--ht);
+    color: var(--white);
+    display: inline-block;
+    width: var(--boxWidth);
+    border: 5px solid rgba(255, 255, 255, 0.4);
+    background: var(--bg);
+    margin-bottom: calc(var(--ht)/4);
+}
+
+.color-picker {
+    border: none;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none!important;
+}
+#music_btn {
+    display: none;
+}
+
+.swal-text {
+    text-align:center;
+}
