@@ -27,7 +27,8 @@ let jumps = 0;
 let speed = 30;
 let timer = 0;
 let prize = -1;
-var email = "a1256963@gmail.com";
+//var email = "a1256963@gmail.com";
+var email = localStorage.getItem('myName');
 function runCircle() {
     $(`[data-order="${current_index}"]`).removeClass('is-active');
    
