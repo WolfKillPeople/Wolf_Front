@@ -20,7 +20,7 @@ namespace Wolf_Front.Services
         }
         public Task Execute(string sendGridKey, string subject, string htmlMessage, string email)
         {
-            var client = new SendGridClient("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");
+            var client = new SendGridClient("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");
             var msg = new SendGridMessage()
             {
                 From = new EmailAddress("aquariusjou@gmail.com", Options.SendGridUser),
