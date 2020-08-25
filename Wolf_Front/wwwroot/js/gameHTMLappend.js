@@ -276,7 +276,7 @@
                                 </div>
                             </div>
                             <div class="gamewolfrow">
-                                <div class="col-12" style="height:150px;overflow:auto;overflow-x:hidden;">
+                                <div class="col-12" style="height:194px;overflow:auto;overflow-x:hidden;">
                                     <ul id="WolfmessagesList"></ul>
                                 </div>
                             </div>
