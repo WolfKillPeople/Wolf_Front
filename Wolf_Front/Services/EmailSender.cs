@@ -23,7 +23,7 @@ namespace Wolf_Front.Services
             var client = new SendGridClient("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");
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("aquariusjou@gmail.com", Options.SendGridUser),
+                From = new EmailAddress("bswolfkill@gmail.com", Options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = htmlMessage,
                 HtmlContent = htmlMessage
