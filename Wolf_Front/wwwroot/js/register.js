@@ -91,7 +91,7 @@ $('.registered_Account').click(function () {
 
     //$.ajax({
     //    type: 'POST',
-    //    url: 'https://wolfpeoplekill.azurewebsites.net/api/Room/AddRoom',
+    //    url: 'https://wolfwerekill.azurewebsites.net/api/Room/AddRoom',
     //    dataType: 'json',
     //    contentType: 'application/json;charset=UTF-8',
     //    data: JSON.stringify(jsonData),

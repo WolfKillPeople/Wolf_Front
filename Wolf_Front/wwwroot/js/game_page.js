@@ -749,7 +749,7 @@ function winOrLose() {
     }
     $.ajax({
         type: "post",
-        url: "https://wolfpeoplekill.azurewebsites.net/api/Game/WinOrLose",
+        url: "https://wolfwerekill.azurewebsites.net/api/Game/WinOrLose",
         data: JSON.stringify(isWin),
         dataType: 'JSON',
         headers: {

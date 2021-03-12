@@ -30,7 +30,7 @@ $(document).ready(function () {
     //從註冊抓
     $.ajax({
         type: 'Post',
-        url: 'https://localhost:5001/api/UserRegister/LoingPostpic',//'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/LoingPostpic',
+        url: /*'https://localhost:5001/api/UserRegister/LoingPostpic',*/'https://wolfwerekill.azurewebsites.net/api/UserRegister/LoingPostpic',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(picData),
@@ -585,7 +585,7 @@ $('.confirmBtn').click(function () {
     //post回資料庫
     $.ajax({
         type: 'POST',
-        url: 'https://wolfpeoplekill.azurewebsites.net/api/UserRegister/postpic',
+        url: 'https://wolfwerekill.azurewebsites.net/api/UserRegister/postpic',
         dataType: 'json',
         contentType: 'application/json;charset=UTF-8',
         data: JSON.stringify(picData),

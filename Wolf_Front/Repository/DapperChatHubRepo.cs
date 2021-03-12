@@ -12,7 +12,7 @@ namespace Wolf_Front.Repository
     public class DapperChatHubRepo : IChatRepo
     {
         private readonly string connStr =
-            @"data source=werewolfkill.database.windows.net;initial catalog=Werewolfkill;persist security info=True;user id=Werewolfkill;password=Wolfpeoplekill_2020;MultipleActiveResultSets=True;";
+            @"Data Source=wolfkil.database.windows.net;Initial Catalog=WolfKill;Persist Security Info=True;User ID=dba;Password=Wolf8888";
         private readonly IMapper _mapper;
         public DapperChatHubRepo(IMapper mapper)
         {
